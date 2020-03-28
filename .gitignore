@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+/**/node_modules
 /.pnp
 .pnp.js
 
@@ -9,7 +9,8 @@
 /coverage
 
 # production
-/build
+/**/build
+/**/dist
 
 # misc
 .DS_Store
@@ -21,13 +22,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-dev-api/dist/dev-api-server.js
-dev-api/dist/db/create-mock-db.js
-dev-api/dist/db/db.json
-dev-api/dist/db/mock-data.js
-dev-api/dist/routes/login.route.js
-dev-api/dist/util/dates.js
-dev-api/dist/util/strings.js
-src/api/private/current.config.ts
-src/api/private/private.config.dev.ts
-src/api/private/private.config.prod.ts
+
+front-react/src/api/private/current.config.ts
+front-react/src/api/private/private.config.dev.ts
+front-react/src/api/private/private.config.prod.ts

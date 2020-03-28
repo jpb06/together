@@ -1,0 +1,20 @@
+{
+   "compilerOptions": {
+      "baseUrl": ".",
+      "module": "commonjs",
+      "target": "es6",
+      "moduleResolution": "node",
+      "outDir": "./dist",
+      "allowJs": true,
+      "strictNullChecks": true,
+      "forceConsistentCasingInFileNames": true,
+      "noImplicitAny": true,
+      "noEmitOnError": true,
+      "removeComments": true,
+      "isolatedModules": false,
+      "resolveJsonModule": true
+   },
+   "compileOnSave": false,
+   "buildOnSave": false,
+   "typeRoots": ["node_modules/@types"],
+}

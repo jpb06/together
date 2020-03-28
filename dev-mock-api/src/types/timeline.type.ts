@@ -2,7 +2,7 @@ import { BareTeam } from "./persisted.team.type";
 import { TeamInvite, InvitedUser } from "./invite.type";
 import { TeamJoinRequest } from "./join.request.type";
 import Daily from "./daily.type";
-import { UserJoinRequest, TeamMember } from "./persisted.user.type";
+import { UserJoinRequest, TeamMember, UserInvite } from "./persisted.user.type";
 import { Moment } from "moment";
 
 export enum TimeLineEntryType {
@@ -21,7 +21,7 @@ interface TimeLineEntry {
 }
 
 export interface TeamTimeLineEntry extends TimeLineEntry {
-  entry: Daily | UserJoinRequest | InvitedUser | TeamMember;
+  entry: Daily | UserJoinRequest | UserInvite | TeamMember;
 }
 
 export interface UserTimeLineEntry extends TimeLineEntry {

@@ -17,14 +17,14 @@ export interface TeamMember extends TerseUser {
 
 export interface UserInvite {
   id: string;
-  date: Date;
+  date: string;
   referrer: TerseUser;
   invitee: TerseUser;
 }
 
 export interface UserJoinRequest {
   id: string;
-  date: Date;
+  date: string;
   user: TerseUser;
 }
 

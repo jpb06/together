@@ -9,7 +9,10 @@ const AcceptToJoinTeam: React.FC<AcceptToJoinTeamProps> = ({ teamName }) => {
   return (
     <>
       You are about to join team{" "}
-      <Typography color="textSecondary">{teamName}</Typography>.<br />
+      <Typography component="span" variant="body2" color="textSecondary">
+        {teamName}
+      </Typography>
+      .<br />
       Are you sure, like really sure?
     </>
   );

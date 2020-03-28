@@ -37,8 +37,10 @@ const SwitchTeam: React.FC<SwitchTeamProps> = ({
     <div>
       <div className={classes.text}>
         Congratulations! You just joined team{" "}
-        <Typography color="textSecondary">{joinedTeamName}</Typography>. Would
-        you like to switch team?
+        <Typography component="span" variant="body2" color="textSecondary">
+          {joinedTeamName}
+        </Typography>
+        . Would you like to switch team?
       </div>
       <List disablePadding={true}>
         {teams.map((team: TeamWithLastActivity) => (

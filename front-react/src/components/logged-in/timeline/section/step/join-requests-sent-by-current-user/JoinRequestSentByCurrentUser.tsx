@@ -15,7 +15,10 @@ const JoinRequestSentByCurrentUser: React.FC<JoinRequestSentByCurrentUserProps> 
   return (
     <div className={classes.root}>
       You sent a request to join team{" "}
-      <Typography color="textSecondary">{request.team.name}</Typography>.
+      <Typography component="span" variant="body2" color="textSecondary">
+        {request.team.name}
+      </Typography>
+      .
     </div>
   );
 };

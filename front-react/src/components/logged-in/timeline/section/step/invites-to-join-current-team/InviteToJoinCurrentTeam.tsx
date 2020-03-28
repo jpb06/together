@@ -20,16 +20,28 @@ const InviteToJoinCurrentTeam: React.FC<InviteToJoinCurrentTeamProps> = ({
     return (
       <div className={classes.root}>
         You have invited{" "}
-        <Typography color="textSecondary">{`${invite.invitee.firstName} ${invite.invitee.lastName}`}</Typography>{" "}
+        <Typography
+          component="span"
+          variant="body2"
+          color="textSecondary"
+        >{`${invite.invitee.firstName} ${invite.invitee.lastName}`}</Typography>{" "}
         to join the team.
       </div>
     );
   } else {
     return (
       <div className={classes.root}>
-        <Typography color="textSecondary">{`${invite.referrer.firstName} ${invite.referrer.lastName}`}</Typography>{" "}
+        <Typography
+          component="span"
+          variant="body2"
+          color="textSecondary"
+        >{`${invite.referrer.firstName} ${invite.referrer.lastName}`}</Typography>{" "}
         has invited{" "}
-        <Typography color="textSecondary">{`${invite.invitee.firstName} ${invite.invitee.lastName}`}</Typography>{" "}
+        <Typography
+          component="span"
+          variant="body2"
+          color="textSecondary"
+        >{`${invite.invitee.firstName} ${invite.invitee.lastName}`}</Typography>{" "}
         to join the team.
       </div>
     );

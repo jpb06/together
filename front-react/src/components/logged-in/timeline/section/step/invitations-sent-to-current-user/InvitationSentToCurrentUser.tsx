@@ -48,8 +48,15 @@ const InvitationSentToCurrentUser: React.FC<InvitationSentToCurrentUserProps> = 
   return (
     <div className={classes.root}>
       You have been invited to join team{" "}
-      <Typography color="textSecondary">{invite.team.name}</Typography> by{" "}
-      <Typography color="textSecondary">{`${invite.referrer.firstName} ${invite.referrer.lastName}`}</Typography>
+      <Typography component="span" variant="body2" color="textSecondary">
+        {invite.team.name}
+      </Typography>{" "}
+      by{" "}
+      <Typography
+        component="span"
+        variant="body2"
+        color="textSecondary"
+      >{`${invite.referrer.firstName} ${invite.referrer.lastName}`}</Typography>
       .
       <div className={classes.actions}>
         <SimpleButton text="Join" onClick={openJoinModal} />

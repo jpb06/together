@@ -44,11 +44,19 @@ const SwitchTeamChoice: React.FC<SwitchTeamChoiceProps> = ({
         primary={`Team ${team.name}`}
         secondary={
           <span>
-            <Typography color="textSecondary">{`${team.members.length} member${
+            <Typography
+              component="span"
+              variant="body2"
+              color="textSecondary"
+            >{`${team.members.length} member${
               team.members.length > 1 ? "s" : ""
             }`}</Typography>
             <br />
-            <Typography color="textSecondary">{`Last activity - ${team.lastActivity}`}</Typography>
+            <Typography
+              component="span"
+              variant="body2"
+              color="textSecondary"
+            >{`Last activity - ${team.lastActivity}`}</Typography>
           </span>
         }
       />

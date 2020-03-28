@@ -8,7 +8,10 @@ const RefuseToJoinTeam: React.FC<RefuseToJoinTeamProps> = ({ teamName }) => {
   return (
     <>
       You are about to decline the invite to join team{" "}
-      <Typography color="textSecondary">{teamName}</Typography>.<br />
+      <Typography component="span" variant="body2" color="textPrimary">
+        {teamName}
+      </Typography>
+      .<br />
       Do you really want to?
     </>
   );

@@ -12,7 +12,6 @@ const errorReducer = (
   action: ActionWithPayload<string, string>
 ) => {
   if (isFailureActionType(action.type) || action.type === SET_ERROR) {
-    console.log("error payload:", action.payload);
     return action.payload;
   }
 

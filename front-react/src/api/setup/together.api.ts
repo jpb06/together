@@ -43,10 +43,8 @@ const asApiResponse = (response: AxiosResponse<any>): ApiResponse => ({
 const send = async (apiCall: Promise<any>) => {
   try {
     const result = await apiCall;
-    console.log("result", result);
     return asApiResponse(result);
   } catch (error) {
-    console.log("error", error);
     return error as ApiResponse;
   }
 };

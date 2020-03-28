@@ -27,7 +27,7 @@ const FeedbackSnackbar: React.FC = () => {
         vertical: "top",
         horizontal: "center"
       }}
-      open={feedback !== null}
+      open={feedback.message !== ""}
       autoHideDuration={5000}
       onClose={handleClose}
     >

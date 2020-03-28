@@ -31,10 +31,10 @@ const typeToIcon = (type: MessageType) => {
 };
 
 const typeToClassName = (type: MessageType, classes: any) =>
-  classes[type.toString().toLowerCase()];
+  classes[MessageType[type].toLowerCase()];
 
 interface FeedbackSnackbarContentProps {
-  data: SnackbarFeedback | null;
+  data: SnackbarFeedback;
   onClose: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
@@ -44,7 +44,6 @@ const FeedbackSnackbarContent: React.FC<FeedbackSnackbarContentProps> = ({
 }) => {
   const classes = styles();
 
-  if (!data) data = { type: MessageType.Info, message: "" };
   const Icon = typeToIcon(data.type);
 
   return (

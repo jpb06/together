@@ -13,7 +13,7 @@ import {
 import { MessageType } from "../../components/feedback/FeedbackSnackbarContent";
 
 const snackbarFeedbackReducer = (
-  state: SnackbarFeedback | null = initialState.snackbarFeedback,
+  state: SnackbarFeedback = initialState.snackbarFeedback,
   action: ActionWithPayload<string, string>
 ) => {
   if (isFailureActionType(action.type) || action.type === SHOW_ERROR_FEEDBACK) {
@@ -33,7 +33,7 @@ const snackbarFeedbackReducer = (
   }
 
   if (action.type === CLEAR_FEEDBACK || action.type === BEGIN_API_CALL) {
-    return null;
+    return { ...state, message: "" };
   }
 
   return state;

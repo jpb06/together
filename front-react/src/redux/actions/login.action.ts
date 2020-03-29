@@ -9,7 +9,7 @@ import * as TogetherApi from "../../api/anonymous/login.api";
 import { action } from "./util/generic.actions";
 import { Action } from "redux";
 import beginApiCallAction from "./begin.api.call.action";
-import { initializeLoggedUserContext } from "../../types/user.type";
+import { initializeLoggedUserContext } from "../../logic/user.util";
 
 const loginAction = (
   email: string,

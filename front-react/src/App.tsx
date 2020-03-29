@@ -7,6 +7,7 @@ import LoginContainer from "./components/login/LoginContainer";
 import LoggedInRootContainer from "./components/logged-in/LoggedInRootContainer";
 import FeedbackSnackbar from "./components/feedback/FeedbackSnackbar";
 import TimeLineContainer from "./components/logged-in/timeline/TimeLineContainer";
+import UserAccountContainer from "./components/logged-in/user-account/UserAccountContainer";
 
 const App = () => {
   return (
@@ -18,6 +19,15 @@ const App = () => {
           path="/main"
           render={props => (
             <LoggedInRootContainer {...props} Component={TimeLineContainer} />
+          )}
+        />
+        <Route
+          path="/account"
+          render={props => (
+            <LoggedInRootContainer
+              {...props}
+              Component={UserAccountContainer}
+            />
           )}
         />
       </BrowserRouter>

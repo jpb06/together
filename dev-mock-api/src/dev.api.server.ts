@@ -8,7 +8,7 @@ import mapLoginRoute from "./routes/login.route.js";
 import mapAcceptTeamInvite from "./routes/user/accept.invite.route.js";
 import mapDeclineTeamInvite from "./routes/user/decline.invite.route.js";
 import mapGetUserTimeline from "./routes/user/get.timeline.route.js";
-import mapGetUserTeams from "./routes/user/get.teams.route.js";
+import mapGetUserTeams from "./routes/user/get.user.teams.route.js";
 
 let app: Express = express();
 app.use(cors());

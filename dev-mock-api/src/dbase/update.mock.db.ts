@@ -21,7 +21,9 @@ const update = (
   });
   const filepath = path.join(__dirname, "data", "db.json");
 
-  fs.writeFile(filepath, data, err => console.log(err));
+  fs.writeFile(filepath, data, err => {
+    err ? console.log("err", err) : console.log("Mock DB updated.");
+  });
 };
 
 export function updateUser(user: PersistedUser) {

@@ -10,3 +10,7 @@ export interface PersistedTeam extends BareTeam {
   invitedUsers: Array<UserInvite>;
   joinRequests: Array<UserJoinRequest>;
 }
+
+export interface TeamWithLastActivity extends PersistedTeam {
+  lastActivity: string;
+}

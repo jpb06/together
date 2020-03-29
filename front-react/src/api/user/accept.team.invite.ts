@@ -11,7 +11,7 @@ const acceptTeamInvite = async (
 ): Promise<ApiTeamInviteResponse> =>
   await send(
     TogetherApi.Instance.post("user/acceptTeamInvite", {
-      acceptTeamInvite
+      inviteId
     })
   );
 

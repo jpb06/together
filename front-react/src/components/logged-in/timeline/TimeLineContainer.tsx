@@ -1,12 +1,9 @@
 import React from "react";
-import LoopIcon from "@material-ui/icons/Loop";
-import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
 import TimeLine from "./TimeLine";
-import TopLevelFeedback from "../../feedback/TopLevelFeedback";
-import WaitingIndicator from "../../feedback/WaitingIndicator";
 import { useReduxSelector } from "../../../hooks/redux.hooks";
 import TimeLineType from "../../../types/timeline.type";
 import useTimelineLoading from "../../../hooks/useTimelineLoading.hook";
+import WithLoading from "../WithLoading";
 
 const TimeLineContainer: React.FC = () => {
   const timeline = useReduxSelector(state => state.timeline);
@@ -14,23 +11,16 @@ const TimeLineContainer: React.FC = () => {
 
   useTimelineLoading();
 
-  if (isErrored)
-    return (
-      <TopLevelFeedback
-        Icon={SentimentDissatisfiedIcon}
-        title="Oh no!"
-        content="Turns out we couldn't fetch the user timeline"
-      />
-    );
+  const isReady = timeline ? true : false;
 
-  return !timeline ? (
-    <WaitingIndicator
-      hasTopPadding
-      IconComponent={LoopIcon}
-      text="Sinister Dexter Has a Broken Spirometer"
+  return (
+    <WithLoading
+      isErrored={isErrored}
+      isReady={isReady}
+      feedbackText="Turns out we couldn't fetch the user timeline"
+      Component={TimeLine}
+      ComponentProps={{ timeline: timeline as TimeLineType }}
     />
-  ) : (
-    <TimeLine timeline={timeline as TimeLineType} />
   );
 };
 

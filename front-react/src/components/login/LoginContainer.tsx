@@ -1,9 +1,9 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import Login from "./Login";
-import { validateEmail } from "../../types/user.type";
 import { loginAction } from "../../redux/actions/login.action";
 import { useReduxDispatch } from "../../hooks/redux.hooks";
+import { validateEmail } from "../../logic/user.util";
 
 export interface LoginState {
   isPending: boolean;

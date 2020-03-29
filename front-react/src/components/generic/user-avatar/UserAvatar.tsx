@@ -3,8 +3,8 @@ import { useTheme } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import clsx from "clsx";
 import { stringToColor } from "../../../logic/colors.util";
-import { getInitials } from "../../../types/user.type";
 import styles from "./UserAvatar.styles";
+import { getInitials } from "../../../logic/user.util";
 
 interface UserAvatarProps {
   user: any;

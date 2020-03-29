@@ -5,7 +5,7 @@ import { stringToColor } from "../../../logic/colors.util";
 import { useTheme } from "@material-ui/core";
 import styles from "./TeamAvatar.styles";
 import BareTeam from "../../../types/team.type";
-import { getInitials } from "../../../types/user.type";
+import { getInitials } from "../../../logic/user.util";
 
 interface TeamAvatarProps {
   team: BareTeam;

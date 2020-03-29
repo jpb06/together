@@ -12,7 +12,7 @@ import AcceptToJoinTeam from "./contents/AcceptToJoinTeam";
 import SwitchTeam from "./contents/SwitchTeam";
 import styles from "./AnswerTeamInviteModal.styles";
 import { ActionSteps } from "./AnswerTeamInviteModalContainer";
-import { TeamWithLastActivity } from "../../types/team.type";
+import BareTeam, { TeamWithLastActivity } from "../../types/team.type";
 
 interface AnswerTeamInviteModalProps {
   isOpened: boolean;
@@ -22,8 +22,9 @@ interface AnswerTeamInviteModalProps {
   teamName: string;
   currentTeamId: string;
   teams: Array<TeamWithLastActivity>;
-  onClose: () => void;
   onAcceptInvite: () => void;
+  onSwitchTeam: (team?: BareTeam) => void;
+  onClose: () => void;
 }
 
 const AnswerTeamInviteModal: React.FC<AnswerTeamInviteModalProps> = ({
@@ -34,10 +35,13 @@ const AnswerTeamInviteModal: React.FC<AnswerTeamInviteModalProps> = ({
   teamName,
   currentTeamId,
   teams,
-  onClose,
-  onAcceptInvite
+  onAcceptInvite,
+  onSwitchTeam,
+  onClose
 }) => {
   const classes = styles();
+
+  const handleDeclineToSwitchTeam = () => onSwitchTeam();
 
   return (
     <Dialog
@@ -77,7 +81,7 @@ const AnswerTeamInviteModal: React.FC<AnswerTeamInviteModalProps> = ({
                     teams={teams}
                     currentTeamId={currentTeamId}
                     joinedTeamName={teamName}
-                    onClose={onClose}
+                    onSwitchTeam={onSwitchTeam}
                   />
                 )
               }[step]
@@ -97,7 +101,7 @@ const AnswerTeamInviteModal: React.FC<AnswerTeamInviteModalProps> = ({
             <DialogActions>
               <SimpleButton
                 text="I don't want to switch team"
-                onClick={onClose}
+                onClick={handleDeclineToSwitchTeam}
               />
             </DialogActions>
           )

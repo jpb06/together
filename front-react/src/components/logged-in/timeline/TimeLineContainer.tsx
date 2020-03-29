@@ -10,7 +10,6 @@ import useTimelineLoading from "../../../hooks/useTimelineLoading.hook";
 
 const TimeLineContainer: React.FC = () => {
   const timeline = useReduxSelector(state => state.timeline);
-  const isLoading = useReduxSelector(state => state.apiCallsInProgress > 0);
   const isErrored = useReduxSelector(state => state.error !== null);
 
   useTimelineLoading();
@@ -24,7 +23,7 @@ const TimeLineContainer: React.FC = () => {
       />
     );
 
-  return isLoading || !timeline ? (
+  return !timeline ? (
     <WaitingIndicator
       hasTopPadding
       IconComponent={LoopIcon}

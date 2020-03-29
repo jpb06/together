@@ -11,6 +11,9 @@ import AnswerTeamInviteModalContainer from "../../../../../modals/AnswerTeamInvi
 import { useReduxDispatch } from "../../../../../../hooks/redux.hooks";
 import declineTeamInviteAction from "../../../../../../redux/actions/decline.team.invite.action";
 import getTimelineAction from "../../../../../../redux/actions/get.timeline.action";
+import * as localStorage from "local-storage";
+import LocalStorageKeys from "../../../../../../logic/local.storage.keys";
+import BareTeam from "../../../../../../types/team.type";
 
 interface InvitationSentToCurrentUserProps {
   invite: TeamInvite;
@@ -41,7 +44,10 @@ const InvitationSentToCurrentUser: React.FC<InvitationSentToCurrentUserProps> = 
     setDeclineInviteState(state => ({ ...state, isOpened: !state.isOpened }));
   const declineInvite = () => {
     dispatch(declineTeamInviteAction(invite.id));
-    dispatch(getTimelineAction(invite.team.id));
+    const currentTeam = localStorage.get<BareTeam>(
+      LocalStorageKeys.currentTeam
+    );
+    dispatch(getTimelineAction(currentTeam.id));
     toggleDeclineModal();
   };
 

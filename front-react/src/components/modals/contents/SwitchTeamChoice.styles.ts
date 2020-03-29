@@ -4,7 +4,8 @@ import { amber } from "@material-ui/core/colors";
 const styles = makeStyles(theme => ({
   teamItem: {
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
+    cursor: "pointer"
   },
   title: {
     color: amber[300]

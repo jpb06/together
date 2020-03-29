@@ -8,6 +8,8 @@ import { useReduxDispatch, useReduxSelector } from "../../hooks/redux.hooks";
 import getUserTeamsAction from "../../redux/actions/get.user.teams.action";
 import acceptTeamInviteAction from "../../redux/actions/accept.team.invite.action";
 import AnswerTeamInviteModal from "./AnswerTeamInviteModal";
+import getTimelineAction from "../../redux/actions/get.timeline.action";
+import BareTeam from "../../types/team.type";
 
 export enum ActionSteps {
   Question = "Question",
@@ -43,25 +45,34 @@ const AnswerTeamInviteModalContainer: React.FC<AnswerTeamInviteModalContainerPro
     const currentUser = localStorage.get<User>(LocalStorageKeys.user);
     const result = await dispatch(getUserTeamsAction(currentUser.id));
 
-    if (!isMounted.current) return;
     if (!result.success || !result.userHasSeveralTeams) {
       onClose();
       return;
     }
 
-    setStep(ActionSteps.SwitchTeam);
+    if (isMounted.current) setStep(ActionSteps.SwitchTeam);
   };
 
   const handleAcceptInvite = async () => {
     const result = await dispatch(acceptTeamInviteAction(requestId));
-
-    if (!isMounted.current) return;
 
     if (result.success) {
       await fetchUserTeams();
     } else {
       onClose();
     }
+  };
+
+  const handleSwitchTeam = (team?: BareTeam) => {
+    const currentTeam =
+      team || localStorage.get<BareTeam>(LocalStorageKeys.currentTeam);
+
+    if (team) {
+      localStorage.set(LocalStorageKeys.currentTeam, team);
+    }
+
+    dispatch(getTimelineAction(currentTeam.id));
+    onClose();
   };
 
   return (
@@ -74,6 +85,7 @@ const AnswerTeamInviteModalContainer: React.FC<AnswerTeamInviteModalContainerPro
       currentTeamId={currentTeam.id}
       teams={teams}
       onClose={onClose}
+      onSwitchTeam={handleSwitchTeam}
       onAcceptInvite={handleAcceptInvite}
     />
   );

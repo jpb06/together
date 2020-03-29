@@ -2,7 +2,8 @@ import {
   GET_USER_TEAMS_SUCCESS,
   GET_USER_TEAMS_FAILURE,
   ThunkResult,
-  ActionResult
+  ActionResult,
+  UPDATE_USER
 } from "./util/action.types";
 import { Dispatch } from "react";
 import * as TogetherApi from "../../api/user/get.user.teams";
@@ -14,6 +15,7 @@ import { TeamWithLastActivity } from "../../types/team.type";
 import * as localStorage from "local-storage";
 import LocalStorageKeys from "../../logic/local.storage.keys";
 import User from "../../types/user.type";
+import { teamsDoMatch } from "../../logic/team.util";
 
 interface UserTeamsActionResult extends ActionResult {
   message?: string;
@@ -21,13 +23,14 @@ interface UserTeamsActionResult extends ActionResult {
 }
 
 const getUserTeamsAction = (
-  userId: string
+  userId: string,
+  fetchLastActivity: boolean
 ): ThunkResult<Promise<UserTeamsActionResult>> => async (
   dispatch: Dispatch<Action>
 ) => {
   dispatch(beginApiCallAction());
 
-  const result = await TogetherApi.getUserTeams(userId, true);
+  const result = await TogetherApi.getUserTeams(userId, fetchLastActivity);
   if (result.apiStatus !== ApiStatus.Ok) {
     dispatch(action(GET_USER_TEAMS_FAILURE, result.error));
     return { success: false, message: result.error };
@@ -39,6 +42,7 @@ const getUserTeamsAction = (
   user.teams = teams.map(team => ({ id: team.id, name: team.name }));
   localStorage.set(LocalStorageKeys.user, user);
 
+  if (!teamsDoMatch(user.teams, teams)) dispatch(action(UPDATE_USER, user));
   dispatch(action(GET_USER_TEAMS_SUCCESS, teams));
   return { success: true, userHasSeveralTeams: teams.length > 1 };
 };

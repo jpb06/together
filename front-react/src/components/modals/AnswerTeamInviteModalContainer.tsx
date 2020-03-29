@@ -32,6 +32,7 @@ const AnswerTeamInviteModalContainer: React.FC<AnswerTeamInviteModalContainerPro
   onClose
 }) => {
   const dispatch = useReduxDispatch();
+  const user = useReduxSelector(state => state.user) as User;
   const teams = useReduxSelector(state => state.userTeams);
   const isLoading = useReduxSelector(state => state.apiCallsInProgress > 0);
   const isMounted = useLifecycleStatus();
@@ -42,8 +43,7 @@ const AnswerTeamInviteModalContainer: React.FC<AnswerTeamInviteModalContainerPro
   );
 
   const fetchUserTeams = async () => {
-    const currentUser = localStorage.get<User>(LocalStorageKeys.user);
-    const result = await dispatch(getUserTeamsAction(currentUser.id));
+    const result = await dispatch(getUserTeamsAction(user.id, true));
 
     if (!result.success || !result.userHasSeveralTeams) {
       onClose();

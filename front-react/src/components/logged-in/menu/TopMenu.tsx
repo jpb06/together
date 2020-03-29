@@ -6,16 +6,15 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Logo, { LogoColor } from "../../generic/logo/Logo";
 import { Link } from "react-router-dom";
 import styles from "./TopMenu.styles";
-import * as localStorage from "local-storage";
-import LocalStorageKeys from "./../../../logic/local.storage.keys";
 import UserAvatar from "../../generic/user-avatar/UserAvatar";
 import SideMenu from "./SideMenu";
+import { useReduxSelector } from "../../../hooks/redux.hooks";
 
 const TopMenu = () => {
   const classes = styles();
 
+  const user = useReduxSelector(state => state.user);
   const [isSiderOpen, setIsSiderOpen] = React.useState(false);
-  const [user] = React.useState(localStorage.get(LocalStorageKeys.user));
 
   const toggleDrawer = (isOpen: boolean) => (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | any

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import * as localStorage from "local-storage";
+import React from "react";
 import styles from "./InviteToJoinCurrentTeam.styles";
-import User, { UserInvite } from "../../../../../../types/user.type";
-import LocalStorageKeys from "../../../../../../logic/local.storage.keys";
+import { UserInvite } from "../../../../../../types/user.type";
 import { Typography } from "@material-ui/core";
+import { useReduxSelector } from "../../../../../../hooks/redux.hooks";
 
 interface InviteToJoinCurrentTeamProps {
   invite: UserInvite;
@@ -14,9 +13,9 @@ const InviteToJoinCurrentTeam: React.FC<InviteToJoinCurrentTeamProps> = ({
 }) => {
   const classes = styles();
 
-  const [currentUser] = useState<User>(localStorage.get(LocalStorageKeys.user));
+  const user = useReduxSelector(state => state.user);
 
-  if (invite.referrer.id === currentUser.id) {
+  if (invite.referrer.id === user?.id) {
     return (
       <div className={classes.root}>
         You have invited{" "}

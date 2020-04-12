@@ -5,11 +5,11 @@ import { PersistedTeam } from "../types/persisted.team.type";
 import { getUsers, getTeams, getDailies } from "./fetch.mock.db";
 import Daily from "../types/daily.type";
 
-const update = (
+export function update(
   users?: Array<PersistedUser>,
   teams?: Array<PersistedTeam>,
   dailies?: Array<Daily>
-) => {
+) {
   const persistedUsers = users || getUsers();
   const persistedTeams = teams || getTeams();
   const persistedDailies = dailies || getDailies();
@@ -24,7 +24,7 @@ const update = (
   fs.writeFile(filepath, data, err => {
     err ? console.log("err", err) : console.log("Mock DB updated.");
   });
-};
+}
 
 export function updateUser(user: PersistedUser) {
   let alteredUsers: Array<PersistedUser> = getUsers();

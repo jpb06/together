@@ -19,8 +19,8 @@ const users: Array<PersistedUser> = [
     teams: [
       {
         id: "5d8b9a604ddbc1362cc540c8",
-        name: "Whoog"
-      }
+        name: "Whoog",
+      },
     ],
     teamInvites: [
       {
@@ -32,17 +32,17 @@ const users: Array<PersistedUser> = [
           email: "yolo@bro.com",
           avatarName: "6Tbz0.gif",
           firstName: "Christophe",
-          lastName: "Ultraman"
-        }
-      }
+          lastName: "Ultraman",
+        },
+      },
     ],
     teamJoinRequests: [
       {
         id: "ee8b9a604ddbc1362cc540c9",
         date: "2020-03-02T04:59:00.000+00:00",
-        team: { id: "5d8b9a604ddbc1362cc54023", name: "The great team" }
-      }
-    ]
+        team: { id: "5d8b9a604ddbc1362cc54023", name: "The great team" },
+      },
+    ],
   },
   {
     id: "5d99bdfc41d6a138089092b5",
@@ -54,17 +54,17 @@ const users: Array<PersistedUser> = [
     teams: [
       {
         id: "5d8b9a604ddbc1362cc540c8",
-        name: "Whoog"
-      }
+        name: "Whoog",
+      },
     ],
     teamInvites: [],
     teamJoinRequests: [
       {
         id: "aa8b9a604ddbc1362cc540c9",
         date: "2020-02-25T08:59:00.000+00:00",
-        team: { id: "5d8b9a604ddbc1362cc540c8", name: "Whoog" }
-      }
-    ]
+        team: { id: "5d8b9a604ddbc1362cc540c8", name: "Whoog" },
+      },
+    ],
   },
   {
     id: "5d99bdfc41d6a138089092c7",
@@ -76,11 +76,11 @@ const users: Array<PersistedUser> = [
     teams: [
       {
         id: "5d8b9a604ddbc1362cc540c9",
-        name: "Super cool team"
-      }
+        name: "Super cool team",
+      },
     ],
     teamInvites: [],
-    teamJoinRequests: []
+    teamJoinRequests: [],
   },
   {
     id: "5d99bdfc41d6a138089092d1",
@@ -92,12 +92,12 @@ const users: Array<PersistedUser> = [
     teams: [
       {
         id: "5d8b9a604ddbc1362cc540c9",
-        name: "Super cool team"
-      }
+        name: "Super cool team",
+      },
     ],
     teamInvites: [],
-    teamJoinRequests: []
-  }
+    teamJoinRequests: [],
+  },
 ];
 
 /* **********************************************************************************************
@@ -116,7 +116,7 @@ const teams: Array<PersistedTeam> = [
         firstName: "Charles-Edouard",
         lastName: "Superman",
         status: "creator",
-        joinDate: "2018-12-31T23:00:00.000+00:00"
+        joinDate: "2018-12-31T23:00:00.000+00:00",
       },
       {
         id: "5d99bdfc41d6a138089092b5",
@@ -125,8 +125,8 @@ const teams: Array<PersistedTeam> = [
         firstName: "Sarah",
         lastName: "BigDaddy",
         status: "member",
-        joinDate: "2019-02-01T00:00:00.000+00:00"
-      }
+        joinDate: "2019-02-01T00:00:00.000+00:00",
+      },
     ],
     invitedUsers: [],
     joinRequests: [
@@ -138,10 +138,10 @@ const teams: Array<PersistedTeam> = [
           email: "yolo@bro.com",
           avatarName: "6Tbz0.gif",
           firstName: "Christophe",
-          lastName: "Ultraman"
-        }
-      }
-    ]
+          lastName: "Ultraman",
+        },
+      },
+    ],
   },
   {
     id: "5d8b9a604ddbc1362cc540c9",
@@ -154,8 +154,8 @@ const teams: Array<PersistedTeam> = [
         firstName: "Christophe",
         lastName: "Ultraman",
         status: "creator",
-        joinDate: "2018-12-31T23:00:00.000+00:00"
-      }
+        joinDate: "2018-12-31T23:00:00.000+00:00",
+      },
     ],
     invitedUsers: [
       {
@@ -166,18 +166,18 @@ const teams: Array<PersistedTeam> = [
           email: "yolo@bro.com",
           avatarName: "6Tbz0.gif",
           firstName: "Christophe",
-          lastName: "Ultraman"
+          lastName: "Ultraman",
         },
         invitee: {
           id: "5d8b9a68f9aa620de70f6ff9",
           email: "jpb.06@outlook.fr",
           avatarName: "6SLWt.gif",
           firstName: "Charles-Edouard",
-          lastName: "Superman"
-        }
-      }
+          lastName: "Superman",
+        },
+      },
     ],
-    joinRequests: []
+    joinRequests: [],
   },
   {
     id: "5d8b9a604ddbc1362cc54023",
@@ -190,8 +190,8 @@ const teams: Array<PersistedTeam> = [
         firstName: "Ben",
         lastName: "McCool",
         status: "creator",
-        joinDate: "2018-12-31T23:00:00.000+00:00"
-      }
+        joinDate: "2018-12-31T23:00:00.000+00:00",
+      },
     ],
     invitedUsers: [],
     joinRequests: [
@@ -203,11 +203,11 @@ const teams: Array<PersistedTeam> = [
           email: "jpb.06@outlook.fr",
           avatarName: "6SLWt.gif",
           firstName: "Charles-Edouard",
-          lastName: "Superman"
-        }
-      }
-    ]
-  }
+          lastName: "Superman",
+        },
+      },
+    ],
+  },
 ];
 
 /* **********************************************************************************************
@@ -225,7 +225,7 @@ const dailies: Array<Daily> = [
     unforeseenTickets: [],
     doneTickets: [],
     subjects: [],
-    feelings: []
+    feelings: [],
   },
   {
     id: "5dfd262818ee042de8a91231",
@@ -236,68 +236,72 @@ const dailies: Array<Daily> = [
     durationIndicator: "20+",
     unforeseenTickets: [
       {
+        id: "5e8e2995f942618b9574ffce",
         creator: {
           id: "5d8b9a68f9aa620de70f6ff9",
           lastName: "Superman",
           firstName: "Charles-Edouard",
           avatarName: "6SLWt.gif",
-          email: "jpb.06@outlook.fr"
+          email: "jpb.06@outlook.fr",
         },
-        name: "WEB-521"
-      }
+        name: "WEB-521",
+      },
     ],
     doneTickets: [
       {
+        id: "5e8e29a54bcfbd9d45bbf818",
         creator: {
           id: "5d8b9a68f9aa620de70f6ff9",
           lastName: "Superman",
           firstName: "Charles-Edouard",
           avatarName: "6SLWt.gif",
-          email: "jpb.06@outlook.fr"
+          email: "jpb.06@outlook.fr",
         },
         assignee: {
           id: "5d99bdfc41d6a138089092b5",
           lastName: "BigDaddy",
           firstName: "Sarah",
           avatarName: "afrogeisha.jpg",
-          email: "s.t@a.fr"
+          email: "s.t@a.fr",
         },
-        name: "WEB-21"
+        name: "WEB-21",
       },
       {
+        id: "5e8e29adb04a40623277dc94",
         creator: {
           id: "5d8b9a68f9aa620de70f6ff9",
           lastName: "Superman",
           firstName: "Charles-Edouard",
           avatarName: "6SLWt.gif",
-          email: "jpb.06@outlook.fr"
+          email: "jpb.06@outlook.fr",
         },
         assignee: {
           id: "5d8b9a68f9aa620de70f6ff9",
           lastName: "Superman",
           firstName: "Charles-Edouard",
           avatarName: "6SLWt.gif",
-          email: "jpb.06@outlook.fr"
+          email: "jpb.06@outlook.fr",
         },
-        name: "WHOOG-13"
+        name: "WHOOG-13",
       },
       {
+        id: "5e8e29b67ba2adea09760382",
         creator: {
           id: "5d8b9a68f9aa620de70f6ff9",
           lastName: "Superman",
           firstName: "Charles-Edouard",
           avatarName: "6SLWt.gif",
-          email: "jpb.06@outlook.fr"
+          email: "jpb.06@outlook.fr",
         },
         assignee: {
           id: "5d99bdfc41d6a138089092b5",
           lastName: "BigDaddy",
           firstName: "Sarah",
           avatarName: "afrogeisha.jpg",
-          email: "s.t@a.fr"
+          email: "s.t@a.fr",
         },
-        name: "WRS-45"
-      }
+        name: "WRS-45",
+      },
     ],
     subjects: [
       {
@@ -306,12 +310,12 @@ const dailies: Array<Daily> = [
           lastName: "Superman",
           firstName: "Charles-Edouard",
           avatarName: "6SLWt.gif",
-          email: "jpb.06@outlook.fr"
+          email: "jpb.06@outlook.fr",
         },
         id: "5dfd264a18ee042de8a91232",
         type: SubjectType.Restraint,
-        description: "yolo lolo jejejej"
-      }
+        description: "yolo lolo jejejej",
+      },
     ],
     feelings: [
       {
@@ -320,14 +324,14 @@ const dailies: Array<Daily> = [
           lastName: "Superman",
           firstName: "Charles-Edouard",
           avatarName: "6SLWt.gif",
-          email: "jpb.06@outlook.fr"
+          email: "jpb.06@outlook.fr",
         },
         id: "5dfd265018ee042de8a91233",
         type: FeelingType.ThumbDown,
-        comment: "kappa"
-      }
-    ]
-  }
+        comment: "kappa",
+      },
+    ],
+  },
 ];
 
 export { users, teams, dailies };

@@ -11,23 +11,19 @@ import {
   invitedUserToTeamTimeLineEntry,
   userJoinRequestToTeamTimeLineEntry,
   dailyToTeamTimeLineEntry,
-  teamMemberToTeamTimeLineEntry
+  teamMemberToTeamTimeLineEntry,
 } from "../../util/types.conversion.helpers";
 
 const mapGetUserTimeline = (server: Application) => {
   server.post(
     "/api/user/timeline",
     isAuthenticated,
-    [
-      body("teamId")
-        .isHexadecimal()
-        .isLength({ min: 24, max: 24 })
-    ],
+    [body("teamId").isMongoId()],
     (req: Request, res: Response) => {
       const users = getUsers();
       const teams = getTeams();
 
-      const user = users.find(el => el.email === res.locals.email) as
+      const user = users.find((el) => el.email === res.locals.email) as
         | PersistedUser
         | undefined;
       if (!user) {
@@ -35,15 +31,15 @@ const mapGetUserTimeline = (server: Application) => {
       }
 
       let timeline: TimeLine = {
-        userEvents: []
+        userEvents: [],
       };
 
       // Invitations sent to the caller
-      const userTeamInvites = user.teamInvites.map(invite =>
+      const userTeamInvites = user.teamInvites.map((invite) =>
         teamInviteToUserTimeLineEntry(invite)
       );
       // Requests to join a team sent by the caller
-      const userJoinRequests = user.teamJoinRequests.map(request =>
+      const userJoinRequests = user.teamJoinRequests.map((request) =>
         teamJoinRequestToUserTimeLineEntry(request)
       );
 
@@ -52,31 +48,33 @@ const mapGetUserTimeline = (server: Application) => {
         .concat(userJoinRequests)
         .sort((a, b) => b.date.unix() - a.date.unix());
 
-      const team = teams.find(el => el.id === req.body.teamId);
+      const team = teams.find((el) => el.id === req.body.teamId);
       if (team) {
         const teamTimeLine: TeamTimeLine = {
           id: team.id,
           name: team.name,
-          events: []
+          events: [],
         };
 
         // invitations sent by team members to outsiders
-        const teamInvites = team.invitedUsers.map(invite =>
+        const teamInvites = team.invitedUsers.map((invite) =>
           invitedUserToTeamTimeLineEntry(invite)
         );
         // Requests by outsiders to join the team
-        const teamJoinRequests = team.joinRequests.map(request =>
+        const teamJoinRequests = team.joinRequests.map((request) =>
           userJoinRequestToTeamTimeLineEntry(request)
         );
 
-        const teamDailies = getDailies().filter(el => el.teamId === team.id);
+        const teamDailies = getDailies().filter((el) => el.teamId === team.id);
 
         teamTimeLine.events = teamTimeLine.events
           .concat(teamInvites)
           .concat(teamJoinRequests)
           // daily entries
-          .concat(teamDailies.map(daily => dailyToTeamTimeLineEntry(daily)))
-          .concat(team.members.map(user => teamMemberToTeamTimeLineEntry(user)))
+          .concat(teamDailies.map((daily) => dailyToTeamTimeLineEntry(daily)))
+          .concat(
+            team.members.map((user) => teamMemberToTeamTimeLineEntry(user))
+          )
           .sort((a, b) => b.date.unix() - a.date.unix());
 
         timeline.currentTeam = teamTimeLine;

@@ -4,18 +4,18 @@ import {
   ThunkResult,
   ActionResult,
   UPDATE_USER
-} from "./util/action.types";
+} from "../util/action.types";
 import { Dispatch } from "react";
-import * as TogetherApi from "../../api/user/get.user.teams";
+import * as TogetherApi from "../../../api/user/get.user.teams";
 import { Action } from "redux";
-import beginApiCallAction from "./begin.api.call.action";
-import { action } from "./util/generic.actions";
-import { ApiStatus } from "../../api/setup/together.api";
-import { TeamWithLastActivity } from "../../types/team.type";
+import beginApiCallAction from "../begin.api.call.action";
+import { action } from "../util/generic.actions";
+import { ApiStatus } from "../../../api/setup/together.api";
+import { TeamWithLastActivity } from "../../../types/team.type";
 import * as localStorage from "local-storage";
-import LocalStorageKeys from "../../logic/local.storage.keys";
-import User from "../../types/user.type";
-import { teamsDoMatch } from "../../logic/team.util";
+import LocalStorageKeys from "../../../logic/local.storage.keys";
+import User from "../../../types/user.type";
+import { teamsDoMatch } from "../../../logic/team.util";
 
 interface UserTeamsActionResult extends ActionResult {
   message?: string;

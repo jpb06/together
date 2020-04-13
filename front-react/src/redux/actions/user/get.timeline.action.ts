@@ -3,14 +3,14 @@ import {
   ActionResult,
   GET_TIMELINE_FAILURE,
   GET_TIMELINE_SUCCESS
-} from "./util/action.types";
+} from "../util/action.types";
 import { Dispatch } from "react";
 import { Action } from "redux";
-import beginApiCallAction from "./begin.api.call.action";
-import * as TogetherApi from "../../api/user/get.timeline";
-import { ApiStatus } from "../../api/setup/together.api";
-import { action } from "./util/generic.actions";
-import TimeLine from "../../types/timeline.type";
+import beginApiCallAction from "../begin.api.call.action";
+import * as TogetherApi from "../../../api/user/get.timeline";
+import { ApiStatus } from "../../../api/setup/together.api";
+import { action } from "../util/generic.actions";
+import TimeLine from "../../../types/timeline.type";
 
 const getTimelineAction = (
   teamId: string

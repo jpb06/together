@@ -3,13 +3,13 @@ import {
   ACCEPT_TEAM_INVITE_FAILURE,
   ThunkResult,
   ActionResult
-} from "./util/action.types";
+} from "../util/action.types";
 import { Dispatch } from "react";
-import * as TogetherApi from "../../api/user/accept.team.invite";
+import * as TogetherApi from "../../../api/user/accept.team.invite";
 import { Action } from "redux";
-import beginApiCallAction from "./begin.api.call.action";
-import { action } from "./util/generic.actions";
-import { ApiStatus } from "../../api/setup/together.api";
+import beginApiCallAction from "../begin.api.call.action";
+import { action } from "../util/generic.actions";
+import { ApiStatus } from "../../../api/setup/together.api";
 
 const acceptTeamInviteAction = (
   inviteId: string

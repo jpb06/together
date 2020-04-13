@@ -3,11 +3,12 @@ import LocalStorageKeys from "./../logic/local.storage.keys";
 import { useReduxSelector, useReduxDispatch } from "./../hooks/redux.hooks";
 import BareTeam from "../types/team.type";
 import React from "react";
-import getTimelineAction from "../redux/actions/get.timeline.action";
+import getTimelineAction from "../redux/actions/user/get.timeline.action";
+import TimeLine from "../types/timeline.type";
 
-const useTimelineLoading = () => {
+const useTimelineLoading = (): TimeLine | null => {
   const dispatch = useReduxDispatch();
-  const timeline = useReduxSelector(state => state.timeline);
+  const timeline = useReduxSelector((state) => state.timeline);
 
   React.useEffect(() => {
     if (!timeline) {
@@ -17,6 +18,8 @@ const useTimelineLoading = () => {
       dispatch(getTimelineAction(currentTeam.id));
     }
   }, [dispatch, timeline]);
+
+  return timeline;
 };
 
 export default useTimelineLoading;

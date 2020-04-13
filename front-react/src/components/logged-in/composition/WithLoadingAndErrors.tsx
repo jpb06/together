@@ -1,24 +1,25 @@
 import React from "react";
-import WaitingIndicator from "../feedback/WaitingIndicator";
-import TopLevelFeedback from "../feedback/TopLevelFeedback";
+import WaitingIndicator from "../../feedback/WaitingIndicator";
+import TopLevelFeedback from "../../feedback/TopLevelFeedback";
 import LoopIcon from "@material-ui/icons/Loop";
 import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
+import { useReduxSelector } from "../../../hooks/redux.hooks";
 
-interface WithLoadingProps {
-  isErrored: boolean;
+interface WithLoadingAndErrorsProps {
   isReady: boolean;
   feedbackText: string;
   Component: React.ElementType;
   ComponentProps?: any;
 }
 
-const WithLoading: React.FC<WithLoadingProps> = ({
-  isErrored,
+const WithLoadingAndErrors: React.FC<WithLoadingAndErrorsProps> = ({
   isReady,
   feedbackText,
   Component,
-  ComponentProps
+  ComponentProps,
 }) => {
+  const isErrored = useReduxSelector((state) => state.error !== null);
+
   if (isErrored)
     return (
       <TopLevelFeedback
@@ -39,4 +40,4 @@ const WithLoading: React.FC<WithLoadingProps> = ({
   );
 };
 
-export default WithLoading;
+export default WithLoadingAndErrors;

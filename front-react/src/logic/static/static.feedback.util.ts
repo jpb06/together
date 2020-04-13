@@ -9,10 +9,17 @@ export interface StaticFeedback {
 }
 
 const getStaticFeedback = (list: Array<StaticFeedback>, value: number) => {
-  const feeling = list.find(el => el.value === value);
-  if (!feeling) throw Error(`Invalid static feedback (${value})`);
+  const item = list.find((el) => el.value === value);
+  if (!item) throw Error(`Invalid static feedback (${value})`);
 
-  return feeling;
+  return item;
 };
 
-export default getStaticFeedback;
+const getStaticFeedbackIcon = (list: Array<StaticFeedback>, value: number) => {
+  const item = list.find((el) => el.value === value);
+  if (!item) throw Error(`Invalid static feedback (${value})`);
+
+  return item.icon;
+};
+
+export { getStaticFeedback, getStaticFeedbackIcon };

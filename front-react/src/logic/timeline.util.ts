@@ -8,7 +8,7 @@ import EmojiPeopleIcon from "@material-ui/icons/EmojiPeople";
 import NotListedLocationIcon from "@material-ui/icons/NotListedLocation";
 import TimeLine, {
   TimeLineEntryType,
-  TimeLineEntryData
+  TimeLineEntryData,
 } from "../types/timeline.type";
 import { TeamMember } from "../types/user.type";
 

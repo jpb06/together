@@ -8,6 +8,7 @@ import LoggedInRootContainer from "./components/logged-in/LoggedInRootContainer"
 import FeedbackSnackbar from "./components/feedback/FeedbackSnackbar";
 import TimeLineContainer from "./components/logged-in/timeline/TimeLineContainer";
 import UserAccountContainer from "./components/logged-in/user-account/UserAccountContainer";
+import DailyContainer from "./components/logged-in/daily/DailyContainer";
 
 const App = () => {
   return (
@@ -19,6 +20,12 @@ const App = () => {
           path="/main"
           render={props => (
             <LoggedInRootContainer {...props} Component={TimeLineContainer} />
+          )}
+        />
+        <Route
+          path="/daily"
+          render={props => (
+            <LoggedInRootContainer {...props} Component={DailyContainer} />
           )}
         />
         <Route

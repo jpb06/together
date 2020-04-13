@@ -5,15 +5,16 @@ import clsx from "clsx";
 import { stringToColor } from "../../../logic/colors.util";
 import styles from "./UserAvatar.styles";
 import { getInitials } from "../../../logic/user.util";
+import { TerseUser } from "../../../types/user.type";
 
 interface UserAvatarProps {
-  user: any;
+  user: TerseUser;
   isBigAvatar?: boolean;
 }
 
 const UserAvatar: React.FC<UserAvatarProps> = ({
   user,
-  isBigAvatar = false
+  isBigAvatar = false,
 }) => {
   const classes = styles();
   const theme = useTheme();
@@ -35,7 +36,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
         src={`/static/images/avatars/${user.avatarName}`}
         className={clsx({
           [classes.big]: isBigAvatar,
-          [classes.small]: !isBigAvatar
+          [classes.small]: !isBigAvatar,
         })}
       />
     );
@@ -45,7 +46,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
         style={{ backgroundColor: avatarColor, color: avatarTextColor }}
         className={clsx(classes.smallFont, {
           [classes.big]: isBigAvatar,
-          [classes.small]: !isBigAvatar
+          [classes.small]: !isBigAvatar,
         })}
       >
         {initials}

@@ -1,17 +1,17 @@
-import { initialState } from "../store/root.state";
-import { ActionWithPayload } from "../actions/util/generic.actions";
+import { initialState } from "../../store/root.state";
+import { ActionWithPayload } from "../../actions/util/generic.actions";
 import {
-  isFailureActionType,
+  isGlobalFailureActionType,
   CLEAR_ERROR,
   SET_ERROR,
-  BEGIN_API_CALL
-} from "../actions/util/action.types";
+  BEGIN_API_CALL,
+} from "../../actions/util/action.types";
 
 const errorReducer = (
   state: any = initialState.error,
   action: ActionWithPayload<string, string>
 ) => {
-  if (isFailureActionType(action.type) || action.type === SET_ERROR) {
+  if (isGlobalFailureActionType(action.type) || action.type === SET_ERROR) {
     return action.payload;
   }
 

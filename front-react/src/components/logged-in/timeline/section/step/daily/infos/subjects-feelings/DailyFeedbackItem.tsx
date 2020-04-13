@@ -11,8 +11,9 @@ import UserAvatar from "../../../../../../../generic/user-avatar/UserAvatar";
 import Feeling from "../../../../../../../../types/feeling.type";
 import staticSubjects from "../../../../../../../../logic/static/static.subjects";
 import staticFeelings from "../../../../../../../../logic/static/static.feelings";
-import getStaticFeedback, {
-  StaticFeedback
+import {
+  getStaticFeedback,
+  StaticFeedback,
 } from "../../../../../../../../logic/static/static.feedback.util";
 import { DailyFeedbackType } from "./DailyFeedback";
 
@@ -23,7 +24,7 @@ interface DailyFeedbackItemProps {
 
 const DailyFeedbackItem: React.FC<DailyFeedbackItemProps> = ({
   type,
-  data
+  data,
 }) => {
   const classes = styles();
 
@@ -47,7 +48,7 @@ const DailyFeedbackItem: React.FC<DailyFeedbackItemProps> = ({
           overlap="circle"
           anchorOrigin={{
             vertical: "top",
-            horizontal: "left"
+            horizontal: "left",
           }}
           badgeContent={
             <Avatar className={classes.badge}>

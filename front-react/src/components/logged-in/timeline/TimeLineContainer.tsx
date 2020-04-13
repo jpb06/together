@@ -1,21 +1,16 @@
 import React from "react";
 import TimeLine from "./TimeLine";
-import { useReduxSelector } from "../../../hooks/redux.hooks";
 import TimeLineType from "../../../types/timeline.type";
 import useTimelineLoading from "../../../hooks/useTimelineLoading.hook";
-import WithLoading from "../WithLoading";
+import WithLoadingAndErrors from "../composition/WithLoadingAndErrors";
 
 const TimeLineContainer: React.FC = () => {
-  const timeline = useReduxSelector(state => state.timeline);
-  const isErrored = useReduxSelector(state => state.error !== null);
-
-  useTimelineLoading();
+  const timeline = useTimelineLoading();
 
   const isReady = timeline ? true : false;
 
   return (
-    <WithLoading
-      isErrored={isErrored}
+    <WithLoadingAndErrors
       isReady={isReady}
       feedbackText="Turns out we couldn't fetch the user timeline"
       Component={TimeLine}

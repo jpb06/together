@@ -9,8 +9,8 @@ import BasicChoiceModal, {
 import RefuseToJoinTeam from "../../../../../modals/contents/RefuseToJoinTeam";
 import AnswerTeamInviteModalContainer from "../../../../../modals/AnswerTeamInviteModalContainer";
 import { useReduxDispatch } from "../../../../../../hooks/redux.hooks";
-import declineTeamInviteAction from "../../../../../../redux/actions/decline.team.invite.action";
-import getTimelineAction from "../../../../../../redux/actions/get.timeline.action";
+import declineTeamInviteAction from "../../../../../../redux/actions/user/decline.team.invite.action";
+import getTimelineAction from "../../../../../../redux/actions/user/get.timeline.action";
 import * as localStorage from "local-storage";
 import LocalStorageKeys from "../../../../../../logic/local.storage.keys";
 import BareTeam from "../../../../../../types/team.type";

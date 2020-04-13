@@ -23,6 +23,9 @@ export interface TerseUser {
   firstName: string;
   avatarName: string;
   email: string;
+  // computed client side
+  fullName?: string;
+  initials?: string;
 }
 
 export interface TeamMember extends TerseUser {

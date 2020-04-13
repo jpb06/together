@@ -2,18 +2,17 @@ import React, { useState } from "react";
 import useLifecycleStatus from "../../hooks/useLifecycleStatus.hook";
 import * as localStorage from "local-storage";
 import LocalStorageKeys from "../../logic/local.storage.keys";
-import Team from "../../types/team.type";
 import User from "../../types/user.type";
 import { useReduxDispatch, useReduxSelector } from "../../hooks/redux.hooks";
-import getUserTeamsAction from "../../redux/actions/get.user.teams.action";
-import acceptTeamInviteAction from "../../redux/actions/accept.team.invite.action";
+import getUserTeamsAction from "../../redux/actions/user/get.user.teams.action";
+import acceptTeamInviteAction from "../../redux/actions/user/accept.team.invite.action";
 import AnswerTeamInviteModal from "./AnswerTeamInviteModal";
-import getTimelineAction from "../../redux/actions/get.timeline.action";
+import getTimelineAction from "../../redux/actions/user/get.timeline.action";
 import BareTeam from "../../types/team.type";
 
 export enum ActionSteps {
   Question = "Question",
-  SwitchTeam = "SwitchTeam"
+  SwitchTeam = "SwitchTeam",
 }
 
 interface AnswerTeamInviteModalContainerProps {
@@ -29,17 +28,17 @@ const AnswerTeamInviteModalContainer: React.FC<AnswerTeamInviteModalContainerPro
   title,
   requestId,
   teamName,
-  onClose
+  onClose,
 }) => {
   const dispatch = useReduxDispatch();
-  const user = useReduxSelector(state => state.user) as User;
-  const teams = useReduxSelector(state => state.userTeams);
-  const isLoading = useReduxSelector(state => state.apiCallsInProgress > 0);
+  const user = useReduxSelector((state) => state.user) as User;
+  const teams = useReduxSelector((state) => state.userTeams);
+  const isLoading = useReduxSelector((state) => state.apiCallsInProgress > 0);
   const isMounted = useLifecycleStatus();
 
   const [step, setStep] = useState(ActionSteps.Question);
   const [currentTeam] = useState(
-    localStorage.get<Team>(LocalStorageKeys.currentTeam)
+    localStorage.get<BareTeam>(LocalStorageKeys.currentTeam)
   );
 
   const fetchUserTeams = async () => {

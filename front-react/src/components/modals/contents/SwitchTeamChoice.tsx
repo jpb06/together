@@ -16,7 +16,7 @@ interface SwitchTeamChoiceProps {
 const SwitchTeamChoice: React.FC<SwitchTeamChoiceProps> = ({
   currentTeamId,
   team,
-  onTeamSelected
+  onTeamSelected,
 }) => {
   const classes = styles();
 
@@ -27,8 +27,8 @@ const SwitchTeamChoice: React.FC<SwitchTeamChoiceProps> = ({
   return (
     <ListItem
       key={team.id}
-      disableGutters={true}
-      divider={true}
+      disableGutters
+      divider
       selected={team.id === currentTeamId}
       className={classes.teamItem}
       onClick={handleClick}
@@ -39,7 +39,7 @@ const SwitchTeamChoice: React.FC<SwitchTeamChoiceProps> = ({
       <ListItemText
         classes={{
           primary:
-            team.id === currentTeamId ? classes.title : classes.titlePrimary
+            team.id === currentTeamId ? classes.title : classes.titlePrimary,
         }}
         primary={`Team ${team.name}`}
         secondary={

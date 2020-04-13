@@ -16,7 +16,7 @@ const SwitchTeam: React.FC<SwitchTeamProps> = ({
   teams,
   currentTeamId,
   joinedTeamName,
-  onSwitchTeam
+  onSwitchTeam,
 }) => {
   const classes = styles();
 
@@ -29,7 +29,7 @@ const SwitchTeam: React.FC<SwitchTeamProps> = ({
         </Typography>
         . Would you like to switch team?
       </div>
-      <List disablePadding={true}>
+      <List disablePadding>
         {teams.map((team: TeamWithLastActivity) => (
           <SwitchTeamChoice
             key={team.id}

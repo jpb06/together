@@ -2,23 +2,22 @@ import React, { useState } from "react";
 import LocalStorageKeys from "../../../logic/local.storage.keys";
 import * as localStorage from "local-storage";
 import UserAccount from "./UserAccount";
-import WithLoading from "../WithLoading";
+import WithLoadingAndErrors from "../composition/WithLoadingAndErrors";
 import { useReduxSelector, useReduxDispatch } from "../../../hooks/redux.hooks";
 import BareTeam, { TeamWithLastActivity } from "../../../types/team.type";
-import getUserTeamsAction from "../../../redux/actions/get.user.teams.action";
+import getUserTeamsAction from "../../../redux/actions/user/get.user.teams.action";
 
 interface UserAccountContainerProps {
   history: any;
 }
 
 const UserAccountContainer: React.FC<UserAccountContainerProps> = ({
-  history
+  history,
 }) => {
   const dispatch = useReduxDispatch();
-  const user = useReduxSelector(state => state.user);
-  const userTeams = useReduxSelector(state => state.userTeams);
-  const isLoading = useReduxSelector(state => state.apiCallsInProgress > 0);
-  const isErrored = useReduxSelector(state => state.error !== null);
+  const user = useReduxSelector((state) => state.user);
+  const userTeams = useReduxSelector((state) => state.userTeams);
+  const isLoading = useReduxSelector((state) => state.apiCallsInProgress > 0);
 
   const [userCurrentTeam, setUserCurrentTeam] = useState<
     TeamWithLastActivity
@@ -36,7 +35,7 @@ const UserAccountContainer: React.FC<UserAccountContainerProps> = ({
         LocalStorageKeys.currentTeam
       );
       const currentTeam = userTeams.find(
-        team => team.id === storedCurrentTeam.id
+        (team) => team.id === storedCurrentTeam.id
       );
       setUserCurrentTeam(currentTeam);
     }
@@ -47,13 +46,12 @@ const UserAccountContainer: React.FC<UserAccountContainerProps> = ({
   const handleLogoff = () => {
     localStorage.clear();
     history.push({
-      pathname: "/"
+      pathname: "/",
     });
   };
 
   return (
-    <WithLoading
-      isErrored={isErrored}
+    <WithLoadingAndErrors
       isReady={isReady}
       feedbackText="Turns out we couldn't fetch your profile"
       Component={UserAccount}
@@ -61,7 +59,7 @@ const UserAccountContainer: React.FC<UserAccountContainerProps> = ({
         user,
         userTeams,
         userCurrentTeam,
-        onLogoff: handleLogoff
+        onLogoff: handleLogoff,
       }}
     />
   );

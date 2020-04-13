@@ -21,7 +21,7 @@ const UserAccount: React.FC<UserAccountProps> = ({
   user,
   userTeams,
   userCurrentTeam,
-  onLogoff
+  onLogoff,
 }) => {
   const classes = styles();
 
@@ -38,7 +38,7 @@ const UserAccount: React.FC<UserAccountProps> = ({
             justify="center"
             alignItems="center"
           >
-            <UserAvatar user={user} isBigAvatar={true} />
+            <UserAvatar user={user} isBigAvatar />
             <Grid className={classes.centered}>
               <div
                 className={classes.userName}

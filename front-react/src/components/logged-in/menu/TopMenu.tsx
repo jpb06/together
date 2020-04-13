@@ -9,11 +9,12 @@ import styles from "./TopMenu.styles";
 import UserAvatar from "../../generic/user-avatar/UserAvatar";
 import SideMenu from "./SideMenu";
 import { useReduxSelector } from "../../../hooks/redux.hooks";
+import { TerseUser } from "../../../types/user.type";
 
 const TopMenu = () => {
   const classes = styles();
 
-  const user = useReduxSelector(state => state.user);
+  const user = useReduxSelector((state) => state.user) as TerseUser;
   const [isSiderOpen, setIsSiderOpen] = React.useState(false);
 
   const toggleDrawer = (isOpen: boolean) => (

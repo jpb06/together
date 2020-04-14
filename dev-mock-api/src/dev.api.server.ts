@@ -1,15 +1,10 @@
 import * as express from "express";
-import {
-  Express,
-  Request,
-  Response,
-  NextFunction,
-} from "express-serve-static-core";
+import { Express } from "express-serve-static-core";
 import * as bodyParser from "body-parser"; // pull information from HTML POST (express4)
 import * as cors from "cors";
 
 import extendsImplementation from "./middleware/extends.implementation.middleware.js";
-import mapLoginRoute from "./routes/login.route.js";
+import mapLoginRoute from "./routes/anonymous/login.route.js";
 import mapAcceptTeamInvite from "./routes/user/accept.invite.route.js";
 import mapDeclineTeamInvite from "./routes/user/decline.invite.route.js";
 import mapGetUserTimeline from "./routes/user/get.timeline.route.js";
@@ -27,6 +22,7 @@ import mapAddSubject from "./routes/daily/add.subject.js";
 import mapRemoveSubject from "./routes/daily/remove.subject.js";
 import ErrorHandler from "./middleware/errors.handler.js";
 import NoRouteErrorHandler from "./middleware/no.route.error.handler.js";
+import mapCreateUserRoute from "./routes/anonymous/create.user.route.js";
 
 let app: Express = express();
 app.use(cors());
@@ -37,7 +33,11 @@ app.use(extendsImplementation);
 // simulate delay
 app.use((req, res, next) => setTimeout(next, 500));
 
+// anonymous
 mapLoginRoute(app);
+mapCreateUserRoute(app);
+
+// logged
 mapAcceptTeamInvite(app);
 mapDeclineTeamInvite(app);
 mapGetUserTimeline(app);

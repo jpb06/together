@@ -1,18 +1,13 @@
 import { Request, Response } from "express-serve-static-core";
 import { Application } from "express";
-import { nowPlusMinutes } from "../util/dates";
+import { nowPlusMinutes } from "../../util/dates";
 import { validationResult, body } from "express-validator";
-import { getUsers } from "../dbase/fetch.mock.db";
+import { getUsers } from "../../dbase/fetch.mock.db";
 
 const mapLoginRoute = (server: Application) => {
   server.post(
     "/api/login",
-    [
-      body("login").isEmail(),
-      body("password")
-        .isString()
-        .notEmpty()
-    ],
+    [body("login").isEmail(), body("password").isString().notEmpty()],
     (req: Request, res: Response) => {
       const errors = validationResult(req);
       if (!errors.isEmpty())
@@ -20,7 +15,7 @@ const mapLoginRoute = (server: Application) => {
 
       const users = getUsers();
 
-      const user = users.find(el => el.email === req.body.login);
+      const user = users.find((el) => el.email === req.body.login);
       if (!user || user.password !== req.body.password)
         return res.status(401).json({ status: 401, error: "Not authorized" });
 
@@ -38,9 +33,9 @@ const mapLoginRoute = (server: Application) => {
           avatarName: user.avatarName,
           teams: user.teams,
           teamInvites: user.teamInvites,
-          teamJoinRequests: user.teamJoinRequests
+          teamJoinRequests: user.teamJoinRequests,
         },
-        expirationDate: sessionExpirationDate.toISOString()
+        expirationDate: sessionExpirationDate.toISOString(),
       });
     }
   );

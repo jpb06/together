@@ -23,6 +23,7 @@ import mapRemoveSubject from "./routes/daily/remove.subject.js";
 import ErrorHandler from "./middleware/errors.handler.js";
 import NoRouteErrorHandler from "./middleware/no.route.error.handler.js";
 import mapCreateUserRoute from "./routes/anonymous/create.user.route.js";
+import mapCreateTeam from "./routes/team/create.team.js";
 
 let app: Express = express();
 app.use(cors());
@@ -54,6 +55,7 @@ mapAddFeeling(app);
 mapRemoveFeeling(app);
 mapAddSubject(app);
 mapRemoveSubject(app);
+mapCreateTeam(app);
 
 app.use(ErrorHandler);
 app.use(NoRouteErrorHandler);

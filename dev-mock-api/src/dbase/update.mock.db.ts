@@ -5,7 +5,7 @@ import { PersistedTeam } from "../types/persisted.team.type";
 import { getUsers, getTeams, getDailies } from "./fetch.mock.db";
 import Daily from "../types/daily.type";
 
-export function update(
+export function persist(
   users?: Array<PersistedUser>,
   teams?: Array<PersistedTeam>,
   dailies?: Array<Daily>
@@ -17,52 +17,52 @@ export function update(
   const data = JSON.stringify({
     persistedUsers,
     persistedTeams,
-    persistedDailies
+    persistedDailies,
   });
   const filepath = path.join(__dirname, "data", "db.json");
 
-  fs.writeFile(filepath, data, err => {
+  fs.writeFile(filepath, data, (err) => {
     err ? console.log("err", err) : console.log("Mock DB updated.");
   });
 }
 
-export function updateUser(user: PersistedUser) {
+export function persistUser(user: PersistedUser) {
   let alteredUsers: Array<PersistedUser> = getUsers();
 
-  const persistedUser = alteredUsers.find(el => el.id);
+  const persistedUser = alteredUsers.find((el) => el.id);
   if (persistedUser) {
-    alteredUsers = alteredUsers.map(el => (el.id === user.id ? user : el));
+    alteredUsers = alteredUsers.map((el) => (el.id === user.id ? user : el));
   } else {
     alteredUsers.push(user);
   }
 
-  update(alteredUsers);
+  persist(alteredUsers);
 }
 
-export function updateTeam(team: PersistedTeam) {
+export function persistTeam(team: PersistedTeam) {
   let alteredTeams: Array<PersistedTeam> = getTeams();
 
-  const persistedTeam = alteredTeams.find(el => el.id);
+  const persistedTeam = alteredTeams.find((el) => el.id);
   if (persistedTeam) {
-    alteredTeams = alteredTeams.map(el => (el.id === team.id ? team : el));
+    alteredTeams = alteredTeams.map((el) => (el.id === team.id ? team : el));
   } else {
     alteredTeams.push(team);
   }
 
-  update(undefined, alteredTeams);
+  persist(undefined, alteredTeams);
 }
 
-export function updateDaily(daily: Daily) {
+export function persistDaily(daily: Daily) {
   let alteredDailies: Array<Daily> = getDailies();
 
-  const persistedDaily = alteredDailies.find(el => el.id);
+  const persistedDaily = alteredDailies.find((el) => el.id);
   if (persistedDaily) {
-    alteredDailies = alteredDailies.map(el =>
+    alteredDailies = alteredDailies.map((el) =>
       el.id === daily.id ? daily : el
     );
   } else {
     alteredDailies.push(daily);
   }
 
-  update(undefined, undefined, alteredDailies);
+  persist(undefined, undefined, alteredDailies);
 }

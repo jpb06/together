@@ -3,7 +3,7 @@ import { Request, Response } from "express-serve-static-core";
 import isAuthenticated from "../../middleware/is.authenticated";
 import { body } from "express-validator";
 import { getOrCreateDaily } from "../../util/daily";
-import { updateDaily } from "../../dbase/update.mock.db";
+import { persistDaily } from "../../dbase/update.mock.db";
 
 const mapRemoveDoneTicket = (server: Application) => {
   server.post(
@@ -19,7 +19,7 @@ const mapRemoveDoneTicket = (server: Application) => {
       daily.doneTickets = daily.doneTickets.filter(
         (el) => el.name !== req.body.ticket
       );
-      updateDaily(daily);
+      persistDaily(daily);
 
       return res.answer(200, `${req.body.ticket} deleted`);
     }

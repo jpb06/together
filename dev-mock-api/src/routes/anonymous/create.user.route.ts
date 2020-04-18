@@ -3,7 +3,7 @@ import { Application } from "express";
 import { validationResult, body } from "express-validator";
 import { getUsers } from "../../dbase/fetch.mock.db";
 import { mongoObjectId } from "../../util/objectid";
-import { update } from "../../dbase/update.mock.db";
+import { persist } from "../../dbase/update.mock.db";
 
 const mapCreateUserRoute = (server: Application) => {
   server.post(
@@ -40,7 +40,7 @@ const mapCreateUserRoute = (server: Application) => {
       };
 
       users.push(newUser);
-      update(users);
+      persist(users);
 
       return res.populate({
         id: newUser.id,

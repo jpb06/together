@@ -2,7 +2,7 @@ import { Application } from "express";
 import { Request, Response } from "express-serve-static-core";
 import isAuthenticated from "../../middleware/is.authenticated";
 import { body } from "express-validator";
-import { getUsers, getTeams } from "../../dbase/fetch.mock.db";
+import { getTeams } from "../../dbase/fetch.mock.db";
 
 const mapGetTeamMembers = (server: Application) => {
   server.post(

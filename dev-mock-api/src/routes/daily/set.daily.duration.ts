@@ -3,7 +3,7 @@ import { Request, Response } from "express-serve-static-core";
 import isAuthenticated from "../../middleware/is.authenticated";
 import { body } from "express-validator";
 import { getOrCreateDaily } from "../../util/daily";
-import { updateDaily } from "../../dbase/update.mock.db";
+import { persistDaily } from "../../dbase/update.mock.db";
 
 const mapSetDailyDuration = (server: Application) => {
   server.post(
@@ -18,7 +18,7 @@ const mapSetDailyDuration = (server: Application) => {
       let daily = getOrCreateDaily(req.body.teamId, req.body.date);
       daily.durationIndicator = req.body.duration;
 
-      updateDaily(daily);
+      persistDaily(daily);
 
       return res.answer(200, `Duration set for ${req.body.date}`);
     }

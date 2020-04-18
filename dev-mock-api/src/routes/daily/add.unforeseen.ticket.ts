@@ -6,7 +6,7 @@ import { getUsers } from "../../dbase/fetch.mock.db";
 import { PersistedUser } from "../../types/persisted.user.type";
 import { getOrCreateDaily } from "../../util/daily";
 import { userToTerseUser } from "../../util/types.conversion.helpers";
-import { updateDaily } from "../../dbase/update.mock.db";
+import { persistDaily } from "../../dbase/update.mock.db";
 import { mongoObjectId } from "../../util/objectid";
 
 const mapAddUnforeseenTicket = (server: Application) => {
@@ -36,7 +36,7 @@ const mapAddUnforeseenTicket = (server: Application) => {
         creator: userToTerseUser(creator),
       };
       daily.unforeseenTickets.push(newTicket);
-      updateDaily(daily);
+      persistDaily(daily);
 
       return res.populate(newTicket);
     }

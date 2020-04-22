@@ -24,6 +24,8 @@ import ErrorHandler from "./middleware/errors.handler.js";
 import NoRouteErrorHandler from "./middleware/no.route.error.handler.js";
 import mapCreateUserRoute from "./routes/anonymous/create.user.route.js";
 import mapCreateTeam from "./routes/team/create.team.js";
+import mapInviteUserToJoinTeam from "./routes/user/invite.user.to.join.team.route.js";
+import mapRequestToJoinTeam from "./routes/user/request.to.join.team.route.js";
 
 let app: Express = express();
 app.use(cors());
@@ -56,6 +58,8 @@ mapRemoveFeeling(app);
 mapAddSubject(app);
 mapRemoveSubject(app);
 mapCreateTeam(app);
+mapInviteUserToJoinTeam(app);
+mapRequestToJoinTeam(app);
 
 app.use(ErrorHandler);
 app.use(NoRouteErrorHandler);

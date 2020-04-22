@@ -2,7 +2,6 @@ import { Application } from "express";
 import { Request, Response } from "express-serve-static-core";
 import isAuthenticated from "../../middleware/is.authenticated";
 import { body } from "express-validator";
-import getTeamFromInvite from "../../middleware/get.team.from.invite";
 import { persistUser, persistTeam } from "../../dbase/update.mock.db";
 import {
   teamToBareTeam,

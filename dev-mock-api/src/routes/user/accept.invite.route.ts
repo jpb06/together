@@ -17,7 +17,7 @@ const mapAcceptTeamInvite = (server: Application) => {
   server.post(
     "/api/user/acceptTeamInvite",
     isAuthenticated,
-    [body("inviteId").isHexadecimal().isLength({ min: 24, max: 24 })],
+    [body("inviteId").isMongoId()],
     getTeamFromInvite,
     (req: Request, res: Response) => {
       const user: PersistedUser = res.locals.user;

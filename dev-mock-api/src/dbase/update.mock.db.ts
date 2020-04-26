@@ -21,8 +21,15 @@ export function persist(
   });
   const filepath = path.join(__dirname, "data", "db.json");
 
+  const updatedData: Array<string> = [];
+  if (users) updatedData.push("Users");
+  if (teams) updatedData.push("Teams");
+  if (dailies) updatedData.push("Dailies");
+
   fs.writeFile(filepath, data, (err) => {
-    err ? console.log("err", err) : console.log("Mock DB updated.");
+    err
+      ? console.log("err", err)
+      : console.log(`Mock DB updated : (${updatedData.join(", ")}).`);
   });
 }
 

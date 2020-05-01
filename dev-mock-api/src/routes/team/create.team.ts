@@ -18,7 +18,7 @@ const mapCreateTeam = (server: Application) => {
       const teams = getTeams();
       const users = getUsers();
 
-      const team = teams.find((el) => el.id === req.body.teamName);
+      const team = teams.find((el) => el.name === req.body.teamName);
       if (team) {
         return res.answer(400, "Team already exists");
       }

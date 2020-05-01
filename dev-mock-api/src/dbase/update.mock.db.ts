@@ -36,7 +36,7 @@ export function persist(
 export function persistUser(user: PersistedUser) {
   let alteredUsers: Array<PersistedUser> = getUsers();
 
-  const persistedUser = alteredUsers.find((el) => el.id);
+  const persistedUser = alteredUsers.find((el) => el.id === user.id);
   if (persistedUser) {
     alteredUsers = alteredUsers.map((el) => (el.id === user.id ? user : el));
   } else {
@@ -49,7 +49,7 @@ export function persistUser(user: PersistedUser) {
 export function persistTeam(team: PersistedTeam) {
   let alteredTeams: Array<PersistedTeam> = getTeams();
 
-  const persistedTeam = alteredTeams.find((el) => el.id);
+  const persistedTeam = alteredTeams.find((el) => el.id === team.id);
   if (persistedTeam) {
     alteredTeams = alteredTeams.map((el) => (el.id === team.id ? team : el));
   } else {
@@ -62,7 +62,7 @@ export function persistTeam(team: PersistedTeam) {
 export function persistDaily(daily: Daily) {
   let alteredDailies: Array<Daily> = getDailies();
 
-  const persistedDaily = alteredDailies.find((el) => el.id);
+  const persistedDaily = alteredDailies.find((el) => el.id === daily.id);
   if (persistedDaily) {
     alteredDailies = alteredDailies.map((el) =>
       el.id === daily.id ? daily : el

@@ -25,7 +25,7 @@ const mapCreateUserRoute = (server: Application) => {
       if (user)
         return res
           .status(401)
-          .json({ status: 400, error: "Mail already used" });
+          .json({ status: 401, error: "Mail already used" });
 
       const newUser = {
         id: mongoObjectId(),

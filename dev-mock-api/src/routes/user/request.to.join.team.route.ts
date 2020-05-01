@@ -23,12 +23,13 @@ const mapRequestToJoinTeam = (server: Application) => {
       const user = users.find((el) => el.email === res.locals.email);
       if (!user) return res.answer(520, "Unable to get the source user");
 
-      const team = teams.find((el) => el.id === req.body.teamId);
+      const team = teams.find((el) => el.name === req.body.teamName);
       if (!team) return res.answer(520, "Unable to locate the selected team");
 
       const userIsAlreadyInTeam =
         team.joinRequests.find((el) => el.user.id === user.id) ||
         team.members.find((el) => el.id === user.id);
+
       if (userIsAlreadyInTeam)
         return res.answer(
           520,

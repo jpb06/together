@@ -24,8 +24,6 @@ const mapGetUserTeams = (server: Application) => {
       const userTeams = teams.filter((team) =>
         team.members.some((member) => member.id === userId)
       ) as Array<TeamWithLastActivity>;
-      if (userTeams.length === 0)
-        return res.answer(500, "Unable to get user teams");
 
       if (fetchLastActivity) {
         const userTeamsDailies = dailies.filter((daily) =>

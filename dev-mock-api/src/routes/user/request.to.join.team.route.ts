@@ -38,11 +38,13 @@ const mapRequestToJoinTeam = (server: Application) => {
 
       const requestId = mongoObjectId();
       const requestDate = moment().toISOString();
-      user.teamJoinRequests.push({
+
+      const joinRequest = {
         id: requestId,
         date: requestDate,
         team: teamToBareTeam(team),
-      });
+      };
+      user.teamJoinRequests.push(joinRequest);
       team.joinRequests.push({
         id: requestId,
         date: requestDate,
@@ -52,7 +54,7 @@ const mapRequestToJoinTeam = (server: Application) => {
       persistUser(user);
       persistTeam(team);
 
-      return res.answer(200, "Join request sent");
+      return res.populate(joinRequest);
     }
   );
 };

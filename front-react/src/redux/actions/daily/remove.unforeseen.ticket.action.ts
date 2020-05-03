@@ -37,7 +37,7 @@ const removeUnforeseenTicketAction = (
         result.error
       )
     );
-    return { success: false, message: result.error };
+    return { success: false, message: result.error?.message };
   }
 
   dispatch(

@@ -29,7 +29,7 @@ const removeFeelingAction = (
     dispatch(
       dailyAlterationFailure(DailyFeedbackType.RemoveFeeling, result.error)
     );
-    return { success: false, message: result.error };
+    return { success: false, message: result.error?.message };
   }
 
   dispatch(dailyAlterationSuccess(DailyFeedbackType.RemoveFeeling, id));

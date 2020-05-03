@@ -22,7 +22,7 @@ const getDailyAction = (
 
   if (result.apiStatus !== ApiStatus.Ok) {
     dispatch(action(GET_DAILY_FAILURE, result.error));
-    return { success: false, message: result.error };
+    return { success: false, message: result.error?.message };
   }
 
   const daily = result.data as Daily;

@@ -34,7 +34,7 @@ const removeDoneTicketAction = (
     dispatch(
       dailyAlterationFailure(DailyFeedbackType.RemoveDoneTicket, result.error)
     );
-    return { success: false, message: result.error };
+    return { success: false, message: result.error?.message };
   }
 
   dispatch(dailyAlterationSuccess(DailyFeedbackType.RemoveDoneTicket, key));

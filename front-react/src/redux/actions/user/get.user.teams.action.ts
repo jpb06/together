@@ -3,7 +3,7 @@ import {
   GET_USER_TEAMS_FAILURE,
   ThunkResult,
   ActionResult,
-  UPDATE_USER
+  UPDATE_USER,
 } from "../util/action.types";
 import { Dispatch } from "react";
 import * as TogetherApi from "../../../api/user/get.user.teams";
@@ -33,13 +33,13 @@ const getUserTeamsAction = (
   const result = await TogetherApi.getUserTeams(userId, fetchLastActivity);
   if (result.apiStatus !== ApiStatus.Ok) {
     dispatch(action(GET_USER_TEAMS_FAILURE, result.error));
-    return { success: false, message: result.error };
+    return { success: false, message: result.error?.message };
   }
 
   const teams = result.data as Array<TeamWithLastActivity>;
 
   const user = localStorage.get<User>(LocalStorageKeys.user);
-  user.teams = teams.map(team => ({ id: team.id, name: team.name }));
+  user.teams = teams.map((team) => ({ id: team.id, name: team.name }));
   localStorage.set(LocalStorageKeys.user, user);
 
   if (!teamsDoMatch(user.teams, teams)) dispatch(action(UPDATE_USER, user));

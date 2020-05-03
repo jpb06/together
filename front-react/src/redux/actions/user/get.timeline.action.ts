@@ -2,7 +2,7 @@ import {
   ThunkResult,
   ActionResult,
   GET_TIMELINE_FAILURE,
-  GET_TIMELINE_SUCCESS
+  GET_TIMELINE_SUCCESS,
 } from "../util/action.types";
 import { Dispatch } from "react";
 import { Action } from "redux";
@@ -20,7 +20,7 @@ const getTimelineAction = (
   const result = await TogetherApi.getTimeline(teamId);
   if (result.apiStatus !== ApiStatus.Ok) {
     dispatch(action(GET_TIMELINE_FAILURE, result.error));
-    return { success: false, message: result.error };
+    return { success: false, message: result.error?.message };
   }
 
   const timeline = result.data as TimeLine;

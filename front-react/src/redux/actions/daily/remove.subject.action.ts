@@ -29,7 +29,7 @@ const removeSubjectAction = (
     dispatch(
       dailyAlterationFailure(DailyFeedbackType.RemoveSubject, result.error)
     );
-    return { success: false, message: result.error };
+    return { success: false, message: result.error?.message };
   }
 
   dispatch(dailyAlterationSuccess(DailyFeedbackType.RemoveSubject, id));

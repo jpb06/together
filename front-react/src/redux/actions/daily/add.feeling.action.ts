@@ -25,7 +25,7 @@ const addFeelingAction = (
     dispatch(
       dailyAlterationFailure(DailyFeedbackType.AddFeeling, result.error)
     );
-    return { success: false, message: result.error };
+    return { success: false, message: result.error?.message };
   }
 
   dispatch(dailyAlterationSuccess(DailyFeedbackType.AddFeeling, result.data));

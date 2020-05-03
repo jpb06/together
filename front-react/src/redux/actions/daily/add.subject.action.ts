@@ -25,7 +25,7 @@ const addSubjectAction = (
     dispatch(
       dailyAlterationFailure(DailyFeedbackType.AddSubject, result.error)
     );
-    return { success: false, message: result.error };
+    return { success: false, message: result.error?.message };
   }
 
   dispatch(dailyAlterationSuccess(DailyFeedbackType.AddSubject, result.data));

@@ -22,7 +22,7 @@ const setDailyDurationAction = (
   const result = await TogetherApi.setDailyDuration(teamId, date, duration);
   if (result.apiStatus !== ApiStatus.Ok) {
     dispatch(dailyAlterationFailure(DailyFeedbackType.Duration, result.error));
-    return { success: false, message: result.error };
+    return { success: false, message: result.error?.message };
   }
 
   dispatch(dailyAlterationSuccess(DailyFeedbackType.Duration, duration));

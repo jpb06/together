@@ -19,7 +19,6 @@ const addDoneTicketAction = (
   key: string
 ): ThunkResult<Promise<ActionResult>> => async (dispatch: Dispatch<Action>) => {
   dispatch(beginDailyApiCallAction({ type: DailyFeedbackType.AddDoneTicket }));
-
   const result = await TogetherApi.addDoneTicket(
     teamId,
     assigneeEmail,
@@ -30,9 +29,8 @@ const addDoneTicketAction = (
     dispatch(
       dailyAlterationFailure(DailyFeedbackType.AddDoneTicket, result.error)
     );
-    return { success: false, message: result.error };
+    return { success: false, message: result.error?.message };
   }
-
   dispatch(
     dailyAlterationSuccess(DailyFeedbackType.AddDoneTicket, result.data)
   );

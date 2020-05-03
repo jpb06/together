@@ -20,7 +20,7 @@ const getTeamMembersAction = (
   const result = await TogetherApi.getTeamMembers(teamId);
   if (result.apiStatus !== ApiStatus.Ok) {
     dispatch(action(GET_TEAM_MEMBERS_FAILURE, result.error));
-    return { success: false, message: result.error };
+    return { success: false, message: result.error?.message };
   }
 
   const teamMembers = result.data as Array<TeamMember>;

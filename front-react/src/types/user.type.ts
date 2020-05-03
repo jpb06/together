@@ -45,3 +45,11 @@ export interface UserJoinRequest {
   date: Date;
   user: TerseUser;
 }
+
+export interface NewUser {
+  lastName: string;
+  firstName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}

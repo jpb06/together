@@ -1,13 +1,18 @@
-import { initialState } from "../store/root.state";
-import { ActionWithPayload } from "../actions/util/generic.actions";
-import { GET_USER_TEAMS_SUCCESS } from "../actions/util/action.types";
-import { TeamWithLastActivity } from "../../types/team.type";
+import { initialState } from "../../store/root.state";
+import { ActionWithPayload } from "../../actions/util/generic.actions";
+import {
+  GET_USER_TEAMS_SUCCESS,
+  LOGIN_SUCCESS,
+} from "../../actions/util/action.types";
+import { TeamWithLastActivity } from "../../../types/team.type";
 
 const userTeamsReducer = (
   state: Array<TeamWithLastActivity> = initialState.userTeams,
   action: ActionWithPayload<string, Array<TeamWithLastActivity>>
 ) => {
   switch (action.type) {
+    case LOGIN_SUCCESS:
+      return [];
     /* --------------------------------------------------- */
     case GET_USER_TEAMS_SUCCESS:
       return action.payload;
@@ -17,4 +22,4 @@ const userTeamsReducer = (
   }
 };
 
-export { userTeamsReducer };
+export default userTeamsReducer;

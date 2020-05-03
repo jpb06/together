@@ -1,19 +1,24 @@
-import { initialState } from "../store/root.state";
+import { initialState } from "../../store/root.state";
 import {
   ActionWithPayload,
   DailyIsolatedPayload,
-} from "../actions/util/generic.actions";
+} from "../../actions/util/generic.actions";
 import {
   GET_DAILY_SUCCESS,
   DAILY_SUCCESS_ISOLATED,
-} from "../actions/util/action.types";
-import Daily from "../../types/daily.type";
-import { DailyFeedbackType } from "../actions/begin.api.call.action";
+  LOGIN_SUCCESS,
+} from "../../actions/util/action.types";
+import Daily from "../../../types/daily.type";
+import { DailyFeedbackType } from "../../actions/begin.api.call.action";
 
 const dailyReducer = (
   state: Daily | null = initialState.daily,
   action: ActionWithPayload<string, Daily | DailyIsolatedPayload>
 ) => {
+  if (action.type === LOGIN_SUCCESS) {
+    return null;
+  }
+
   if (action.type === GET_DAILY_SUCCESS) {
     return action.payload as Daily;
   }
@@ -76,4 +81,4 @@ const dailyReducer = (
   return state;
 };
 
-export { dailyReducer };
+export default dailyReducer;

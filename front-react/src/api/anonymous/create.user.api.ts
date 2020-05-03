@@ -2,12 +2,13 @@ import axios from "axios";
 import { apiUrl, ApiStatus } from "../setup/together.api";
 import {
   validateCreateUserResult,
-  isEmailAlreadyInUse
+  isEmailAlreadyInUse,
+  ApiCreateUserResponse,
 } from "../validation/create.user.result.validation";
-import { TerseUser } from "../../types/user.type";
+import { TerseUser, NewUser } from "../../types/user.type";
 
 export enum CreateNewUserExtendedStatus {
-  EmailAlreadyInUse
+  EmailAlreadyInUse = 2,
 }
 
 export type CreateNewUserStatus = ApiStatus | CreateNewUserExtendedStatus;
@@ -17,19 +18,17 @@ export interface CreateNewUserResult {
   user?: TerseUser;
 }
 
-const createNewUser = async (
-  firstName: string,
-  lastName: string,
-  email: string,
-  password: string
-): Promise<CreateNewUserResult> => {
+const createNewUser = async (user: NewUser): Promise<CreateNewUserResult> => {
   try {
-    const result = await axios.post(`${apiUrl}/user/create`, {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password
-    });
+    const result = await axios.post<ApiCreateUserResponse>(
+      `${apiUrl}/user/create`,
+      {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        password: user.password,
+      }
+    );
 
     if (!validateCreateUserResult(result)) {
       console.log("Invalid response for CreateUser");

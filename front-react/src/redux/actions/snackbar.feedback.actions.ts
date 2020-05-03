@@ -5,10 +5,11 @@ import {
   SHOW_WARNING_FEEDBACK,
   ThunkResult,
 } from "../actions/util/action.types";
-import { MessageType } from "../../components/feedback/FeedbackSnackbarContent";
+import { MessageType } from "../../components/generic/feedback/FeedbackSnackbarContent";
 import { Dispatch } from "react";
 import { Action } from "redux";
 import { action } from "./util/generic.actions";
+import { ApiError } from "../../api/setup/together.api";
 
 const sendSnackbarFeedbackAction = (
   type: MessageType,
@@ -34,4 +35,12 @@ const sendSnackbarFeedbackAction = (
   dispatch(action(actionType, message));
 };
 
-export default sendSnackbarFeedbackAction;
+const sendSnackbarFeedbackFromApiErrorAction = (
+  error?: ApiError
+): ThunkResult<void> => (dispatch: Dispatch<Action>) => {
+  if (!error) return;
+
+  dispatch(action(SHOW_ERROR_FEEDBACK, error.message));
+};
+
+export { sendSnackbarFeedbackAction, sendSnackbarFeedbackFromApiErrorAction };

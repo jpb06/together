@@ -6,21 +6,30 @@ import React from "react";
 import getTeamMembersAction from "../redux/actions/team/get.team.members.action";
 import { TeamMember } from "../types/user.type";
 
-const useCurrentTeamMembersLoading = (): Array<TeamMember> => {
+const useCurrentTeamMembersLoading = (): [Array<TeamMember>, boolean] => {
   const dispatch = useReduxDispatch();
+
+  const [initPerformed, setInitPerformed] = React.useState(false);
   const teamMembers = useReduxSelector((state) => state.teamMembers);
+  const isReady = useReduxSelector(
+    (state) => state.apiCallsInProgress === 0 && initPerformed
+  );
 
   React.useEffect(() => {
-    console.log("useCurrentTeamMembersLoading use effect");
-    if (teamMembers.length === 0) {
-      const currentTeam = localStorage.get<BareTeam>(
+    if (teamMembers.length === 0 || !initPerformed) {
+      const currentTeam = localStorage.get<BareTeam | undefined>(
         LocalStorageKeys.currentTeam
       );
-      dispatch(getTeamMembersAction(currentTeam.id));
-    }
-  }, [dispatch, teamMembers]);
 
-  return teamMembers;
+      if (currentTeam) {
+        dispatch(getTeamMembersAction((currentTeam as BareTeam).id));
+      }
+    }
+
+    setInitPerformed(true);
+  }, [dispatch, teamMembers, initPerformed]);
+
+  return [teamMembers, isReady];
 };
 
 export default useCurrentTeamMembersLoading;

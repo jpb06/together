@@ -6,20 +6,29 @@ import React from "react";
 import getTimelineAction from "../redux/actions/user/get.timeline.action";
 import TimeLine from "../types/timeline.type";
 
-const useTimelineLoading = (): TimeLine | null => {
+const useTimelineLoading = (): [TimeLine | null, boolean] => {
   const dispatch = useReduxDispatch();
+
+  const [initPerformed, setInitPerformed] = React.useState(false);
   const timeline = useReduxSelector((state) => state.timeline);
+  const isReady = useReduxSelector(
+    (state) => state.apiCallsInProgress === 0 && initPerformed
+  );
 
   React.useEffect(() => {
-    if (!timeline) {
-      const currentTeam = localStorage.get<BareTeam>(
+    if (!timeline || !initPerformed) {
+      const currentTeam = localStorage.get<BareTeam | undefined>(
         LocalStorageKeys.currentTeam
       );
-      dispatch(getTimelineAction(currentTeam.id));
-    }
-  }, [dispatch, timeline]);
 
-  return timeline;
+      let id = currentTeam ? currentTeam.id : "";
+      dispatch(getTimelineAction(id));
+    }
+
+    setInitPerformed(true);
+  }, [dispatch, timeline, initPerformed]);
+
+  return [timeline, isReady];
 };
 
 export default useTimelineLoading;

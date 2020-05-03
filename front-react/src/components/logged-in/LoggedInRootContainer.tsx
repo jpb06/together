@@ -16,7 +16,7 @@ const LoggedInRootContainer: React.FC<LoggedInRootContainerProps> = ({
   Component,
   ...rest
 }) => {
-  const isLoading = useReduxSelector(state => state.apiCallsInProgress > 0);
+  const isLoading = useReduxSelector((state) => state.apiCallsInProgress > 0);
   const history = useHistory();
   const classes = styles();
 
@@ -24,49 +24,47 @@ const LoggedInRootContainer: React.FC<LoggedInRootContainerProps> = ({
 
   // This will trigger everytime a navigation occurs
   useEffect(() => {
-    document.body.style.backgroundImage =
-      "url('/static/images/patterns/hex.jpg')";
-    document.body.style.backgroundRepeat = "repeat";
-
     TogetherApi.setup(history);
 
     const token = localStorage.get(LocalStorageKeys.token);
-    let expirationDate = localStorage.get<string>(LocalStorageKeys.expiration);
+    const expirationDate = localStorage.get<string>(
+      LocalStorageKeys.expiration
+    );
     if (!token || !expirationDate || Date.parse(expirationDate) < Date.now()) {
       localStorage.clear();
       history.push({
-        pathname: "/"
+        pathname: "/",
       });
     }
 
     setIsReady(true);
   }, [history]);
 
+  if (!isReady) return null;
+
   return (
-    <div>
+    <>
       <TopMenu />
       {isLoading && <LinearProgress />}
       <section className={classes.root}>
-        {isReady && (
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="flex-start"
+        >
           <Grid
             container
-            direction="row"
-            justify="center"
-            alignItems="flex-start"
+            direction="column"
+            justify="flex-start"
+            alignItems="center"
+            className={classes.fixedWidth}
           >
-            <Grid
-              container
-              direction="column"
-              justify="flex-start"
-              alignItems="center"
-              className={classes.fixedWidth}
-            >
-              <Component {...rest} />
-            </Grid>
+            <Component {...rest} />
           </Grid>
-        )}
+        </Grid>
       </section>
-    </div>
+    </>
   );
 };
 

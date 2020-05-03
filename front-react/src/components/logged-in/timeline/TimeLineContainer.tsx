@@ -5,9 +5,7 @@ import useTimelineLoading from "../../../hooks/useTimelineLoading.hook";
 import WithLoadingAndErrors from "../composition/WithLoadingAndErrors";
 
 const TimeLineContainer: React.FC = () => {
-  const timeline = useTimelineLoading();
-
-  const isReady = timeline ? true : false;
+  const [timeline, isReady] = useTimelineLoading();
 
   return (
     <WithLoadingAndErrors

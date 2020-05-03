@@ -5,10 +5,10 @@ import useCurrentTeamMembersLoading from "../../../hooks/useCurrentTeamMembersLo
 import Daily from "./Daily";
 
 const DailyContainer: React.FC = () => {
-  const daily = useDailyLoading(new Date().toUTCString());
-  const teamMembers = useCurrentTeamMembersLoading();
+  const [daily, isDailyReady] = useDailyLoading(new Date().toUTCString());
+  const [teamMembers, isTeamMembersReady] = useCurrentTeamMembersLoading();
 
-  const isReady = daily && teamMembers ? true : false;
+  const isReady = isDailyReady && isTeamMembersReady;
 
   return (
     <WithLoadingAndErrors

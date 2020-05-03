@@ -1,4 +1,4 @@
-import User from "../types/user.type";
+import User, { NewUser } from "../types/user.type";
 import { ApiLoginResult } from "../api/anonymous/login.api";
 import LocalStorageKeys from "./local.storage.keys";
 import * as localStorage from "local-storage";
@@ -17,7 +17,7 @@ export function addComputedPropertiesToUser(user: User) {
   return {
     ...user,
     fullName,
-    initials
+    initials,
   };
 }
 
@@ -27,7 +27,9 @@ const initializeLoggedUserContext = (authResult: ApiLoginResult): User => {
   localStorage.set(LocalStorageKeys.token, authResult.token);
   localStorage.set(LocalStorageKeys.expiration, authResult.expirationDate);
   localStorage.set(LocalStorageKeys.user, user);
-  localStorage.set(LocalStorageKeys.currentTeam, authResult.user.teams[0]);
+  if (authResult.user.teams.length > 0) {
+    localStorage.set(LocalStorageKeys.currentTeam, authResult.user.teams[0]);
+  }
 
   return user;
 };
@@ -35,4 +37,28 @@ const initializeLoggedUserContext = (authResult: ApiLoginResult): User => {
 const validateEmail = (input: string) =>
   input.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
 
-export { getInitials, initializeLoggedUserContext, validateEmail };
+const isPasswordValid = (
+  isFormSubmitted: boolean,
+  password: string,
+  confirmPassword: string
+) => {
+  if (!isFormSubmitted) return true;
+
+  return (
+    password !== "" && confirmPassword !== "" && password === confirmPassword
+  );
+};
+
+const isNewUserDataValid = (user: NewUser) =>
+  user.firstName.length > 0 &&
+  user.lastName.length > 0 &&
+  validateEmail(user.email) &&
+  isPasswordValid(true, user.password, user.confirmPassword);
+
+export {
+  getInitials,
+  initializeLoggedUserContext,
+  validateEmail,
+  isPasswordValid,
+  isNewUserDataValid,
+};

@@ -2,14 +2,14 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
   ThunkResult,
-  ActionResult
-} from "./util/action.types";
+  ActionResult,
+} from "../util/action.types";
 import { Dispatch } from "react";
-import * as TogetherApi from "../../api/anonymous/login.api";
-import { action } from "./util/generic.actions";
+import * as TogetherApi from "../../../api/anonymous/login.api";
+import { action } from "../util/generic.actions";
 import { Action } from "redux";
-import beginApiCallAction from "./begin.api.call.action";
-import { initializeLoggedUserContext } from "../../logic/user.util";
+import beginApiCallAction from "../begin.api.call.action";
+import { initializeLoggedUserContext } from "../../../logic/user.util";
 
 const loginAction = (
   email: string,
@@ -24,9 +24,9 @@ const loginAction = (
       return { success: false };
     }
 
-    initializeLoggedUserContext(authResult);
+    const user = initializeLoggedUserContext(authResult);
 
-    dispatch(action(LOGIN_SUCCESS, authResult.user));
+    dispatch(action(LOGIN_SUCCESS, user));
 
     return { success: true };
   } catch (error) {

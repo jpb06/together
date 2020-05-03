@@ -1,4 +1,3 @@
-import { DailyStepFeedback } from "../store/root.state";
 import {
   DailyFeedbackType,
   DailyAlterationBeginPayload,
@@ -14,6 +13,7 @@ import {
   isDailyIsolatedFeedback,
 } from "../actions/util/action.types";
 import Daily from "../../types/daily.type";
+import { DailyStepFeedback } from "../types/daily.feedback.type";
 
 export function initDailyDurationStep(
   isValidated: boolean = false,

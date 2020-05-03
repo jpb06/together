@@ -22,4 +22,4 @@ const apiStatusReducer = (
   return state;
 };
 
-export { apiStatusReducer };
+export default apiStatusReducer;

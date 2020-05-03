@@ -1,4 +1,4 @@
-import { DailyStepFeedback, initialState } from "../../store/root.state";
+import { initialState } from "../../store/root.state";
 import { ActionWithPayload } from "../../actions/util/generic.actions";
 import Daily from "../../../types/daily.type";
 import { GET_DAILY_SUCCESS } from "../../actions/util/action.types";
@@ -12,6 +12,7 @@ import {
   getActionType,
   asFeedbackAction,
 } from "../../logic/daily.feedback.logic";
+import { DailyStepFeedback } from "../../types/daily.feedback.type";
 
 const dailyUnforeseenFeedbackReducer = (
   state: DailyStepFeedback = initialState.dailyUnforeseenTicketsFeedback,
@@ -35,4 +36,4 @@ const dailyUnforeseenFeedbackReducer = (
   return setDailyStep(feedbackAction);
 };
 
-export { dailyUnforeseenFeedbackReducer };
+export default dailyUnforeseenFeedbackReducer;

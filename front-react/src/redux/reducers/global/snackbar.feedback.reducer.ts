@@ -1,4 +1,4 @@
-import SnackbarFeedback from "../../../types/snackbar.feedback.type";
+import SnackbarFeedback from "../../types/snackbar.feedback.type";
 import { initialState } from "../../store/root.state";
 import {
   ActionWithPayload,
@@ -13,8 +13,9 @@ import {
   SHOW_WARNING_FEEDBACK,
   BEGIN_API_CALL,
   DAILY_FAILURE_ISOLATED,
+  BEGIN_API_CALL_ACCOUNT_CREATION,
 } from "../../actions/util/action.types";
-import { MessageType } from "../../../components/feedback/FeedbackSnackbarContent";
+import { MessageType } from "../../../components/generic/feedback/FeedbackSnackbarContent";
 
 const snackbarFeedbackReducer = (
   state: SnackbarFeedback = initialState.snackbarFeedback,
@@ -44,11 +45,15 @@ const snackbarFeedbackReducer = (
     return { type: MessageType.Warning, message: action.payload };
   }
 
-  if (action.type === CLEAR_FEEDBACK || action.type === BEGIN_API_CALL) {
+  if (
+    action.type === CLEAR_FEEDBACK ||
+    action.type === BEGIN_API_CALL ||
+    action.type === BEGIN_API_CALL_ACCOUNT_CREATION
+  ) {
     return { ...state, message: "" };
   }
 
   return state;
 };
 
-export { snackbarFeedbackReducer };
+export default snackbarFeedbackReducer;

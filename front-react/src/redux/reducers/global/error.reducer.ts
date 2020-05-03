@@ -22,4 +22,4 @@ const errorReducer = (
   return state;
 };
 
-export { errorReducer };
+export default errorReducer;

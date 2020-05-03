@@ -1,4 +1,4 @@
-import { DailyStepFeedback, initialState } from "../../store/root.state";
+import { initialState } from "../../store/root.state";
 import { ActionWithPayload } from "../../actions/util/generic.actions";
 import Daily from "../../../types/daily.type";
 import {
@@ -13,6 +13,7 @@ import {
   DailyFeedbackType,
 } from "../../actions/begin.api.call.action";
 import { initDailyDurationStep } from "../../logic/daily.feedback.logic";
+import { DailyStepFeedback } from "../../types/daily.feedback.type";
 
 const isActionValid = (action: ActionWithPayload<string, any>): boolean => {
   if (
@@ -54,4 +55,4 @@ const dailyDurationFeedbackReducer = (
   }
 };
 
-export { dailyDurationFeedbackReducer };
+export default dailyDurationFeedbackReducer;

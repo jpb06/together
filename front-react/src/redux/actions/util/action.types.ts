@@ -1,6 +1,6 @@
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../../store/root.state";
-import ApplicationError from "../../../types/application.error.type";
+import ApplicationError from "../../types/application.error.type";
 
 /* **************************************************************************************************
    Generic
@@ -8,6 +8,8 @@ import ApplicationError from "../../../types/application.error.type";
 
 export const BEGIN_API_CALL = "BEGIN_API_CALL";
 export const BEGIN_API_CALL_DAILY = "BEGIN_API_CALL_DAILY";
+export const BEGIN_API_CALL_ACCOUNT_CREATION =
+  "BEGIN_API_CALL_ACCOUNT_CREATION";
 
 /* **************************************************************************************************
    Errors
@@ -63,6 +65,22 @@ export const GET_DAILY_FAILURE = "GET_DAILY_FAILURE";
 
 export const DAILY_SUCCESS_ISOLATED = "DAILY_SUCCESS_ISOLATED";
 export const DAILY_FAILURE_ISOLATED = "DAILY_FAILURE_ISOLATED";
+
+/* **************************************************************************************************
+   Account creation
+   ************************************************************************************************** */
+
+export const CREATE_USER_DATA_SUBMITTED = "CREATE_USER_DATA_SUBMITTED";
+export const CREATE_USER_FAILURE_ISOLATED = "CREATE_USER_FAILURE_ISOLATED";
+export const AVATAR_CHOSEN = "AVATAR_CHOSEN";
+export const CREATE_TEAM_FAILURE_ISOLATED = "CREATE_TEAM_FAILURE_ISOLATED";
+export const CREATE_TEAM_SUCCESS_ISOLATED = "CREATE_TEAM_SUCCESS_ISOLATED";
+export const INVITE_USER_FAILURE_ISOLATED = "INVITE_USER_FAILURE_ISOLATED";
+export const INVITE_USER_SUCCESS_ISOLATED = "INVITE_USER_SUCCESS_ISOLATED";
+export const REQUEST_TO_JOIN_TEAM_FAILURE_ISOLATED =
+  "REQUEST_TO_JOIN_TEAM_FAILURE_ISOLATED";
+export const REQUEST_TO_JOIN_TEAM_SUCCESS_ISOLATED =
+  "REQUEST_TO_JOIN_TEAM_SUCCESS_ISOLATED";
 
 /* **************************************************************************************************
    Action types discriminators

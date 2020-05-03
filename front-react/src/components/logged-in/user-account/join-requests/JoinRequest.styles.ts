@@ -6,7 +6,7 @@ const styles = makeStyles((theme) => ({
     padding: "10px",
     textAlign: "center",
   },
-  userName: {
+  yellowText: {
     color: amber[500],
     marginTop: theme.spacing(1),
   },

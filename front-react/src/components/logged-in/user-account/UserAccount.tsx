@@ -9,6 +9,7 @@ import UserAvatar from "../../generic/user-avatar/UserAvatar";
 import User from "../../../types/user.type";
 import { TeamWithLastActivity } from "../../../types/team.type";
 import TeamsList from "./team-list/TeamsList";
+import JoinRequestList from "./join-requests/JoinRequestList";
 
 interface UserAccountProps {
   user: User;
@@ -74,14 +75,30 @@ const UserAccount: React.FC<UserAccountProps> = ({
           </Fab>
         </Paper>
       </Grid>
-      <Grid item md={12} xs={12}>
-        <h1>My teams</h1>
-      </Grid>
-      <Grid item md={12} xs={12}>
-        <Paper className={classes.paper}>
-          <TeamsList teams={userTeams} currentTeam={userCurrentTeam} />
-        </Paper>
-      </Grid>
+      {userTeams.length > 0 && userCurrentTeam && (
+        <>
+          <Grid item md={12} xs={12}>
+            <h1>My teams</h1>
+          </Grid>
+          <Grid item md={12} xs={12}>
+            <Paper className={classes.paper}>
+              <TeamsList teams={userTeams} currentTeam={userCurrentTeam} />
+            </Paper>
+          </Grid>
+        </>
+      )}
+      {user.teamJoinRequests.length > 0 && (
+        <>
+          <Grid item md={12} xs={12}>
+            <h1>Pending team join requests</h1>
+          </Grid>
+          <Grid item md={12} xs={12}>
+            <Paper className={classes.paper}>
+              <JoinRequestList joinRequests={user.teamJoinRequests} />
+            </Paper>
+          </Grid>
+        </>
+      )}
     </Grid>
   );
 };

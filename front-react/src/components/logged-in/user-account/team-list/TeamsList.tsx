@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { Paper } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import styles from "./TeamsList.styles";
+import styles from "../List.styles";
 import { Team as TeamType } from "../../../../types/team.type";
 import TeamMember from "./team-member/TeamMember";
 import InviteUser from "./invite-user/InviteUser";
@@ -22,17 +22,14 @@ const TeamsList: React.FC<TeamsListProps> = ({ teams, currentTeam }) => {
     false
   );
 
-  const handlePanelChange = (panelName: string) => (
-    event: React.ChangeEvent<{}>,
-    isExpanded: boolean
-  ) => {
+  const handlePanelChange = (panelName: string) => () => {
     setActiveTeamPanel(activeTeamPanel ? panelName : false);
   };
 
   const handleUserInvite = () => setIsInviteModalOpened(true);
 
   return (
-    <div>
+    <>
       <Grid container direction="column" justify="flex-start">
         <h2>Current team</h2>
         <Paper className={classes.paper}>
@@ -44,7 +41,7 @@ const TeamsList: React.FC<TeamsListProps> = ({ teams, currentTeam }) => {
             alignItems="flex-start"
           >
             {currentTeam.members &&
-              currentTeam.members.map(user => (
+              currentTeam.members.map((user) => (
                 <TeamMember key={user.id} user={user} />
               ))}
             <InviteUser onUserInvite={handleUserInvite} />
@@ -52,8 +49,8 @@ const TeamsList: React.FC<TeamsListProps> = ({ teams, currentTeam }) => {
         </Paper>
         {teams.length > 1 && <h2>Your others teams</h2>}
         {teams
-          .filter(team => team.id !== currentTeam.id)
-          .map(team => (
+          .filter((team) => team.id !== currentTeam.id)
+          .map((team) => (
             <Team
               key={team.id}
               activePanel={activeTeamPanel}
@@ -64,7 +61,7 @@ const TeamsList: React.FC<TeamsListProps> = ({ teams, currentTeam }) => {
           ))}
       </Grid>
       <InviteUserToTeamModal isOpened={isInviteModalOpened} />
-    </div>
+    </>
   );
 };
 

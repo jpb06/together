@@ -12,7 +12,7 @@ const TeamMember: React.FC<TeamMemberProps> = ({ user }) => {
   const classes = styles();
 
   return (
-    <Grid item md={3} xs={6} className={classes.padding}>
+    <Grid item md={3} xs={6} className={classes.root}>
       <Grid container justify="center">
         <UserAvatar user={user} isBigAvatar={false} />
       </Grid>

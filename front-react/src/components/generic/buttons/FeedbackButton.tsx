@@ -12,9 +12,7 @@ interface FeedbackButtonProps {
   isPending: boolean;
   isErrored: boolean;
   actionText: string;
-  handleSubmit?: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
+  onSubmit?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const FeedbackButton: React.FC<FeedbackButtonProps> = ({
@@ -22,7 +20,7 @@ const FeedbackButton: React.FC<FeedbackButtonProps> = ({
   isPending,
   isErrored,
   actionText,
-  handleSubmit
+  onSubmit,
 }) => {
   const classes = styles();
 
@@ -34,7 +32,7 @@ const FeedbackButton: React.FC<FeedbackButtonProps> = ({
       aria-label="add"
       className={classes.fabButton}
       type="submit"
-      onClick={handleSubmit}
+      onClick={onSubmit}
     >
       <div className={classes.buttonIcon}>
         {isPending ? (

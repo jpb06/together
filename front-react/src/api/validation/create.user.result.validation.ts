@@ -8,9 +8,9 @@ export interface ApiCreateUserResponse extends ApiResponse {
 
 const validateCreateUserResult = (
   result: AxiosResponse<ApiCreateUserResponse>
-) => validateResponse(result) && result.data.user;
+) => validateResponse(result) && result.data;
 
 const isEmailAlreadyInUse = (error: any) =>
-  error.response && error.response.status && error.response.status === 400;
+  error.response && error.response.status && error.response.status === 401;
 
 export { validateCreateUserResult, isEmailAlreadyInUse };

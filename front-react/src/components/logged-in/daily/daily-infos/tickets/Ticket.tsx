@@ -12,7 +12,7 @@ import UserAvatar from "../../../../generic/user-avatar/UserAvatar";
 import PendingDeleteButton from "../../../../generic/buttons/PendingDeleteButton";
 import { TerseUser } from "../../../../../types/user.type";
 import { TicketUserType } from "./TicketList";
-import { DailyDeleteActionFeedback } from "../../../../../redux/store/root.state";
+import { DailyDeleteActionFeedback } from "../../../../../redux/types/daily.feedback.type";
 
 interface TicketProps {
   name: string;

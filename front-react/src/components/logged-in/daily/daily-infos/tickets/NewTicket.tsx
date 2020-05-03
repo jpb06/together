@@ -5,9 +5,9 @@ import Grid from "@material-ui/core/Grid";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { TerseUser } from "../../../../../types/user.type";
 import { CandidateTicket } from "../../../../../types/ticket.type";
-import { DailyAddActionFeedback } from "../../../../../redux/store/root.state";
 import staticTickets from "../../../../../logic/static/static.tickets.keys";
 import FeedbackButton from "../../../../generic/buttons/FeedbackButton";
+import { DailyAddActionFeedback } from "../../../../../redux/types/daily.feedback.type";
 
 interface NewTicketProps {
   users?: Array<TerseUser>;
@@ -115,7 +115,7 @@ const NewTicket: React.FC<NewTicketProps> = ({
             isPending={feedback.isPending}
             isErrored={feedback.isErrored}
             IconComponent={AddCircleIcon}
-            handleSubmit={handleSubmit}
+            onSubmit={handleSubmit}
           />
         </Grid>
       </Grid>

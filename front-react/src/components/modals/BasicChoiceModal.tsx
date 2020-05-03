@@ -8,7 +8,7 @@ import React from "react";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import DownTransition from "../generic/transitions/DownTransition";
 import styles from "./BasicChoiceModal.styles";
-import WaitingIndicator from "../feedback/WaitingIndicator";
+import WaitingIndicator from "../generic/feedback/WaitingIndicator";
 
 export interface BasicChoiceModalState {
   isOpened: boolean;
@@ -28,7 +28,7 @@ interface BasicChoiceModalProps {
 const BasicChoiceModal: React.FC<BasicChoiceModalProps> = ({
   state,
   onClose,
-  onConfirm
+  onConfirm,
 }) => {
   const classes = styles();
 

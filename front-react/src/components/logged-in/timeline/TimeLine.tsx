@@ -2,7 +2,7 @@ import { Grid } from "@material-ui/core";
 import React from "react";
 import styles from "./TimeLine.styles";
 import TimerIcon from "@material-ui/icons/Timer";
-import TopLevelFeedback from "../../feedback/TopLevelFeedback";
+import TopLevelFeedback from "../../generic/feedback/TopLevelFeedback";
 import TimelineSection from "./section/TimeLineSection";
 import TimeLineType from "./../../../types/timeline.type";
 import { isTimelineEmpty } from "../../../logic/timeline.util";

@@ -6,7 +6,7 @@ import clsx from "clsx";
 import CardHeader from "@material-ui/core/CardHeader";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import styles from "./DailyReportContentBox.styles";
-import { DailyGlobalFeedback } from "../../../../redux/store/root.state";
+import { DailyGlobalFeedback } from "../../../../redux/types/daily.feedback.type";
 
 interface DailyReportContentBoxProps {
   title: string;

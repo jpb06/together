@@ -7,7 +7,7 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import DialogActions from "@material-ui/core/DialogActions";
 import SimpleButton from "../generic/buttons/SimpleButton";
 import clsx from "clsx";
-import WaitingIndicator from "../feedback/WaitingIndicator";
+import WaitingIndicator from "../generic/feedback/WaitingIndicator";
 import AcceptToJoinTeam from "./contents/AcceptToJoinTeam";
 import SwitchTeam from "./contents/SwitchTeam";
 import styles from "./AnswerTeamInviteModal.styles";
@@ -37,7 +37,7 @@ const AnswerTeamInviteModal: React.FC<AnswerTeamInviteModalProps> = ({
   teams,
   onAcceptInvite,
   onSwitchTeam,
-  onClose
+  onClose,
 }) => {
   const classes = styles();
 
@@ -58,7 +58,7 @@ const AnswerTeamInviteModal: React.FC<AnswerTeamInviteModalProps> = ({
       </DialogTitle>
       <DialogContent
         className={clsx({
-          [classes.dialogContent]: step === ActionSteps.SwitchTeam || isLoading
+          [classes.dialogContent]: step === ActionSteps.SwitchTeam || isLoading,
         })}
       >
         {isLoading && (
@@ -83,7 +83,7 @@ const AnswerTeamInviteModal: React.FC<AnswerTeamInviteModalProps> = ({
                     joinedTeamName={teamName}
                     onSwitchTeam={onSwitchTeam}
                   />
-                )
+                ),
               }[step]
             }
           </div>
@@ -104,7 +104,7 @@ const AnswerTeamInviteModal: React.FC<AnswerTeamInviteModalProps> = ({
                 onClick={handleDeclineToSwitchTeam}
               />
             </DialogActions>
-          )
+          ),
         }[step]}
     </Dialog>
   );

@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import EmojiEmotionsOutlinedIcon from "@material-ui/icons/EmojiEmotionsOutlined";
 import Grid from "@material-ui/core/Grid";
 import Daily from "../../../../types/daily.type";
-import {
-  DailyAddActionFeedback,
-  DailyDeleteActionFeedback,
-} from "../../../../redux/store/root.state";
 import { useReduxDispatch } from "../../../../hooks/redux.hooks";
 import BareTeam from "../../../../types/team.type";
 import LocalStorageKeys from "../../../../logic/local.storage.keys";
@@ -18,6 +14,10 @@ import NewDailyComment, {
 } from "./feelings-subjects/new-item/NewDailyComment";
 import { FeelingType } from "../../../../logic/static/static.feelings";
 import DailyCommentsList from "./feelings-subjects/list/DailyCommentsList";
+import {
+  DailyAddActionFeedback,
+  DailyDeleteActionFeedback,
+} from "../../../../redux/types/daily.feedback.type";
 
 interface DailyFeelingsProps {
   daily: Daily;

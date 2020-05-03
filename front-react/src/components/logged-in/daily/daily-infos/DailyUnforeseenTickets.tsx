@@ -5,18 +5,18 @@ import Daily from "../../../../types/daily.type";
 import TicketList, { TicketUserType } from "./tickets/TicketList";
 import { CandidateTicket } from "../../../../types/ticket.type";
 import { useReduxDispatch } from "../../../../hooks/redux.hooks";
-import { MessageType } from "../../../feedback/FeedbackSnackbarContent";
-import sendSnackbarFeedbackAction from "../../../../redux/actions/snackbar.feedback.actions";
+import { MessageType } from "../../../generic/feedback/FeedbackSnackbarContent";
 import addUnforeseenTicketAction from "../../../../redux/actions/daily/add.unforeseen.ticket.action";
 import * as localStorage from "local-storage";
 import LocalStorageKeys from "../../../../logic/local.storage.keys";
 import BareTeam from "../../../../types/team.type";
 import removeUnforeseenTicketAction from "../../../../redux/actions/daily/remove.unforeseen.ticket.action";
-import {
-  DailyDeleteActionFeedback,
-  DailyAddActionFeedback,
-} from "../../../../redux/store/root.state";
 import NewTicket from "./tickets/NewTicket";
+import {
+  DailyAddActionFeedback,
+  DailyDeleteActionFeedback,
+} from "../../../../redux/types/daily.feedback.type";
+import { sendSnackbarFeedbackAction } from "../../../../redux/actions/snackbar.feedback.actions";
 
 interface DailyUnforeseenTicketsProps {
   daily: Daily;

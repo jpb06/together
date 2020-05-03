@@ -4,7 +4,7 @@ import styles from "./InvitationSentToCurrentUser.styles";
 import { TeamInvite } from "../../../../../../types/invites.type";
 import SimpleButton from "../../../../../generic/buttons/SimpleButton";
 import BasicChoiceModal, {
-  BasicChoiceModalState
+  BasicChoiceModalState,
 } from "../../../../../modals/BasicChoiceModal";
 import RefuseToJoinTeam from "../../../../../modals/contents/RefuseToJoinTeam";
 import AnswerTeamInviteModalContainer from "../../../../../modals/AnswerTeamInviteModalContainer";
@@ -20,7 +20,7 @@ interface InvitationSentToCurrentUserProps {
 }
 
 const InvitationSentToCurrentUser: React.FC<InvitationSentToCurrentUserProps> = ({
-  invite
+  invite,
 }) => {
   const classes = styles();
   const dispatch = useReduxDispatch();
@@ -34,14 +34,14 @@ const InvitationSentToCurrentUser: React.FC<InvitationSentToCurrentUserProps> = 
     title: "Decline invite",
     question: <RefuseToJoinTeam teamName={invite.team.name} />,
     accept: "Decline",
-    refuse: "Nevermind"
+    refuse: "Nevermind",
   });
 
   const openJoinModal = () => setIsModalOpen(true);
   const closeJoinModal = () => setIsModalOpen(false);
 
   const toggleDeclineModal = () =>
-    setDeclineInviteState(state => ({ ...state, isOpened: !state.isOpened }));
+    setDeclineInviteState((state) => ({ ...state, isOpened: !state.isOpened }));
   const declineInvite = () => {
     dispatch(declineTeamInviteAction(invite.id));
     const currentTeam = localStorage.get<BareTeam>(

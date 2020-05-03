@@ -1,11 +1,11 @@
 import React from "react";
 import List from "@material-ui/core/List";
 import styles from "./DailyCommentsList.styles";
-import { DailyDeleteActionFeedback } from "../../../../../../redux/store/root.state";
 import FeelingType from "../../../../../../types/feeling.type";
 import SubjectType from "../../../../../../types/subject.type";
 import DailyComment from "./DailyCommentItem";
 import { NewDailyCommentKind } from "../new-item/NewDailyComment";
+import { DailyDeleteActionFeedback } from "../../../../../../redux/types/daily.feedback.type";
 
 interface DailyCommentsListProps {
   type: NewDailyCommentKind;

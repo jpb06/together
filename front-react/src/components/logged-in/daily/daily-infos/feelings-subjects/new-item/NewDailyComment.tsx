@@ -2,7 +2,6 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import { DailyAddActionFeedback } from "../../../../../../redux/store/root.state";
 import FeedbackButton from "../../../../../generic/buttons/FeedbackButton";
 import DailyComment from "../DailyComment";
 import staticFeelings, {
@@ -12,6 +11,7 @@ import staticSubjects, {
   SubjectType,
 } from "../../../../../../logic/static/static.subjects";
 import { MenuItem } from "@material-ui/core";
+import { DailyAddActionFeedback } from "../../../../../../redux/types/daily.feedback.type";
 
 export enum NewDailyCommentKind {
   Subject,
@@ -109,7 +109,7 @@ const NewDailyComment: React.FC<NewDailyCommentProps> = ({
             isPending={feedback.isPending}
             isErrored={feedback.isErrored}
             IconComponent={AddCircleIcon}
-            handleSubmit={handleSubmit}
+            onSubmit={handleSubmit}
           />
         </Grid>
       </Grid>

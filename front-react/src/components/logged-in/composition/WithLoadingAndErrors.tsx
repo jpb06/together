@@ -1,6 +1,6 @@
 import React from "react";
-import WaitingIndicator from "../../feedback/WaitingIndicator";
-import TopLevelFeedback from "../../feedback/TopLevelFeedback";
+import WaitingIndicator from "../../generic/feedback/WaitingIndicator";
+import TopLevelFeedback from "../../generic/feedback/TopLevelFeedback";
 import LoopIcon from "@material-ui/icons/Loop";
 import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
 import { useReduxSelector } from "../../../hooks/redux.hooks";

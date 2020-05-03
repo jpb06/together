@@ -9,7 +9,7 @@ interface InviteUserToTeamModalProps {
 }
 
 const InviteUserToTeamModal: React.FC<InviteUserToTeamModalProps> = ({
-  isOpened
+  isOpened,
 }) => {
   return (
     <Dialog

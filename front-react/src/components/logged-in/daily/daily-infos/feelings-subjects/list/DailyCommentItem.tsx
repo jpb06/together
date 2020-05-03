@@ -9,12 +9,12 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import Typography from "@material-ui/core/Typography";
 import UserAvatar from "../../../../../generic/user-avatar/UserAvatar";
 import PendingDeleteButton from "../../../../../generic/buttons/PendingDeleteButton";
-import { DailyDeleteActionFeedback } from "../../../../../../redux/store/root.state";
 import FeelingType from "../../../../../../types/feeling.type";
 import SubjectType from "../../../../../../types/subject.type";
 import styles from "./DailyCommentItem.styles";
 import DailyComment from "../DailyComment";
 import { NewDailyCommentKind } from "../new-item/NewDailyComment";
+import { DailyDeleteActionFeedback } from "../../../../../../redux/types/daily.feedback.type";
 
 interface DailyCommentItemProps {
   type: NewDailyCommentKind;

@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import ForumIcon from "@material-ui/icons/Forum";
 import Grid from "@material-ui/core/Grid";
 import Daily from "../../../../types/daily.type";
-import {
-  DailyAddActionFeedback,
-  DailyDeleteActionFeedback,
-} from "../../../../redux/store/root.state";
 import BareTeam from "../../../../types/team.type";
 import LocalStorageKeys from "../../../../logic/local.storage.keys";
 import * as localStorage from "local-storage";
@@ -18,6 +14,10 @@ import NewDailyComment, {
 } from "./feelings-subjects/new-item/NewDailyComment";
 import { SubjectType } from "../../../../logic/static/static.subjects";
 import DailyCommentsList from "./feelings-subjects/list/DailyCommentsList";
+import {
+  DailyAddActionFeedback,
+  DailyDeleteActionFeedback,
+} from "../../../../redux/types/daily.feedback.type";
 
 interface DailySubjectsProps {
   daily: Daily;

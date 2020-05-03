@@ -4,7 +4,7 @@ import styles from "./TicketList.styles";
 import TicketType from "../../../../../types/ticket.type";
 import Ticket from "./Ticket";
 import { TerseUser } from "../../../../../types/user.type";
-import { DailyDeleteActionFeedback } from "../../../../../redux/store/root.state";
+import { DailyDeleteActionFeedback } from "../../../../../redux/types/daily.feedback.type";
 
 export enum TicketUserType {
   Assignee,

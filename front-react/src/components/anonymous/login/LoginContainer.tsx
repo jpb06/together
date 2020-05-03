@@ -1,9 +1,9 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import Login from "./Login";
-import { loginAction } from "../../redux/actions/login.action";
-import { useReduxDispatch } from "../../hooks/redux.hooks";
-import { validateEmail } from "../../logic/user.util";
+import { loginAction } from "../../../redux/actions/user/login.action";
+import { useReduxDispatch } from "../../../hooks/redux.hooks";
+import { validateEmail } from "../../../logic/user.util";
 
 export interface LoginState {
   isPending: boolean;
@@ -24,41 +24,41 @@ const LoginContainer: React.FC = () => {
     isSubmitted: false,
     actionText: "Login",
     email: "",
-    password: ""
+    password: "",
   });
 
   const resetState = () => {
-    setLoginState(prevState => ({
+    setLoginState((prevState) => ({
       ...prevState,
       actionText: "Login",
       isSubmitted: true,
-      isErrored: false
+      isErrored: false,
     }));
   };
 
   const setStateToPending = () => {
-    setLoginState(prevState => ({
+    setLoginState((prevState) => ({
       ...prevState,
       actionText: "Logging in ...",
-      isPending: true
+      isPending: true,
     }));
   };
 
   const setStateToInvalidEmail = () => {
-    setLoginState(prevState => ({
+    setLoginState((prevState) => ({
       ...prevState,
       actionText: "Not a valid email",
       isPending: false,
-      isErrored: true
+      isErrored: true,
     }));
   };
 
   const setStateToLoginFailure = () => {
-    setLoginState(prevState => ({
+    setLoginState((prevState) => ({
       ...prevState,
       actionText: "Failure && Try again ?",
       isPending: false,
-      isErrored: true
+      isErrored: true,
     }));
   };
 
@@ -67,7 +67,7 @@ const LoginContainer: React.FC = () => {
 
     setLoginState({
       ...loginState,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -95,7 +95,7 @@ const LoginContainer: React.FC = () => {
     }
 
     history.push({
-      pathname: "/main"
+      pathname: "/main",
     });
   };
 

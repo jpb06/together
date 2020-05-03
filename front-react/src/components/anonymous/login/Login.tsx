@@ -12,8 +12,8 @@ import TextField from "@material-ui/core/TextField";
 import styles from "./Login.styles";
 import { Link as RouterLink } from "react-router-dom";
 
-import Logo, { LogoColor } from "../generic/logo/Logo";
-import FeedbackButton from "../generic/buttons/FeedbackButton";
+import Logo, { LogoColor } from "../../generic/logo/Logo";
+import FeedbackButton from "../../generic/buttons/FeedbackButton";
 import { LoginState } from "./LoginContainer";
 
 interface LoginProps {
@@ -81,11 +81,7 @@ const Login: React.FC<LoginProps> = ({ onChange, onSubmit, state }) => {
             />
           </CardContent>
           <CardActions className={classes.actions}>
-            <FeedbackButton
-              IconComponent={AddCircleIcon}
-              handleSubmit={undefined}
-              {...state}
-            />
+            <FeedbackButton IconComponent={AddCircleIcon} {...state} />
           </CardActions>
           <div className={classes.newAccount}>
             <Link component={RouterLink} to="/newaccount" color="primary">

@@ -1,9 +1,7 @@
-import TogetherApi, { ApiStatus, send } from "../setup/together.api";
+import TogetherApi, { send, ApiResponse } from "../setup/together.api";
 
-interface ApiDailyDurationResponse {
-  apiStatus: ApiStatus;
+interface ApiDailyDurationResponse extends ApiResponse {
   data?: string;
-  error?: any;
 }
 
 const setDailyDuration = async (
@@ -15,7 +13,7 @@ const setDailyDuration = async (
     TogetherApi.Instance.post("daily/setDuration", {
       teamId,
       date,
-      duration
+      duration,
     })
   );
 

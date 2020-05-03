@@ -1,9 +1,7 @@
-import TogetherApi, { ApiStatus, send } from "../setup/together.api";
+import TogetherApi, { send, ApiResponse } from "../setup/together.api";
 
-interface ApiRemoveSubjectResponse {
-  apiStatus: ApiStatus;
+interface ApiRemoveSubjectResponse extends ApiResponse {
   data?: string;
-  error?: any;
 }
 
 const removeSubject = async (

@@ -1,9 +1,7 @@
-import TogetherApi, { ApiStatus, send } from "../setup/together.api";
+import TogetherApi, { send, ApiResponse } from "../setup/together.api";
 
-export interface ApiTeamInviteResponse {
-  apiStatus: ApiStatus;
+export interface ApiTeamInviteResponse extends ApiResponse {
   data?: string;
-  error?: any;
 }
 
 const acceptTeamInvite = async (
@@ -11,7 +9,7 @@ const acceptTeamInvite = async (
 ): Promise<ApiTeamInviteResponse> =>
   await send(
     TogetherApi.Instance.post("user/acceptTeamInvite", {
-      inviteId
+      inviteId,
     })
   );
 

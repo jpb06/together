@@ -1,10 +1,8 @@
-import TogetherApi, { ApiStatus, send } from "../setup/together.api";
+import TogetherApi, { send, ApiResponse } from "../setup/together.api";
 import { CreatedTicket } from "../../types/ticket.type";
 
-interface ApiAddDoneTicketResponse {
-  apiStatus: ApiStatus;
+interface ApiAddDoneTicketResponse extends ApiResponse {
   data?: CreatedTicket;
-  error?: any;
 }
 
 const addDoneTicket = async (

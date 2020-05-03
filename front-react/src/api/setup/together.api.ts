@@ -5,13 +5,18 @@ import { History, LocationState } from "history";
 
 export enum ApiStatus {
   Ok,
-  Error
+  Error,
 }
 
 export interface ApiResponse {
   apiStatus: ApiStatus;
-  error?: any;
+  error?: ApiError;
   data?: any;
+}
+
+export interface ApiError {
+  status: number;
+  message: string;
 }
 
 export default class TogetherApi {
@@ -22,8 +27,8 @@ export default class TogetherApi {
     // `validateStatus` defines whether to resolve or reject the promise for a given HTTP response status code.
     // If `validateStatus` returns `true` (or is set to `null` or `undefined`),
     // the promise will be resolved; otherwise, the promise will be rejected.
-    validateStatus: status => status >= 200 && status < 300, // default
-    params: {} // do not remove this, its added to add params later in the config
+    validateStatus: (status) => status >= 200 && status < 300, // default
+    params: {}, // do not remove this, its added to add params later in the config
   });
 
   static setup = (history: History<LocationState>) => {
@@ -37,7 +42,7 @@ export default class TogetherApi {
 
 const asApiResponse = (response: AxiosResponse<any>): ApiResponse => ({
   apiStatus: ApiStatus.Ok,
-  data: response.data.data
+  data: response.data.data,
 });
 
 const send = async (apiCall: Promise<any>) => {

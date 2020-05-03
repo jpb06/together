@@ -1,10 +1,8 @@
-import TogetherApi, { ApiStatus, send } from "../setup/together.api";
+import TogetherApi, { send, ApiResponse } from "../setup/together.api";
 import Daily from "../../types/daily.type";
 
-interface ApiDailyResponse {
-  apiStatus: ApiStatus;
+interface ApiDailyResponse extends ApiResponse {
   data?: Daily;
-  error?: any;
 }
 
 const getDaily = async (
@@ -14,7 +12,7 @@ const getDaily = async (
   await send(
     TogetherApi.Instance.post("daily", {
       teamId,
-      date
+      date,
     })
   );
 

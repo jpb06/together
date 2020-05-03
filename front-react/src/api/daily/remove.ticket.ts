@@ -1,14 +1,12 @@
-import TogetherApi, { ApiStatus, send } from "../setup/together.api";
+import TogetherApi, { send, ApiResponse } from "../setup/together.api";
 
 export enum TicketRemovalType {
   Unforeseen,
   Done,
 }
 
-interface ApiRemoveTicketResponse {
-  apiStatus: ApiStatus;
+interface ApiRemoveTicketResponse extends ApiResponse {
   data?: string;
-  error?: any;
 }
 
 const removeTicket = async (

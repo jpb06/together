@@ -1,10 +1,8 @@
-import TogetherApi, { ApiStatus, send } from "../setup/together.api";
+import TogetherApi, { send, ApiResponse } from "../setup/together.api";
 import { TeamWithLastActivity } from "../../types/team.type";
 
-interface ApiUserTeamsResponse {
-  apiStatus: ApiStatus;
+interface ApiUserTeamsResponse extends ApiResponse {
   data?: Array<TeamWithLastActivity>;
-  error?: any;
 }
 
 const getUserTeams = async (
@@ -14,7 +12,7 @@ const getUserTeams = async (
   await send(
     TogetherApi.Instance.post("user/teams", {
       userId,
-      fetchLastActivity
+      fetchLastActivity,
     })
   );
 

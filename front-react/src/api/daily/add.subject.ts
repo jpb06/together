@@ -1,10 +1,8 @@
-import TogetherApi, { ApiStatus, send } from "../setup/together.api";
+import TogetherApi, { send, ApiResponse } from "../setup/together.api";
 import Subject, { NewSubject } from "../../types/subject.type";
 
-interface ApiAddFeelingResponse {
-  apiStatus: ApiStatus;
+interface ApiAddFeelingResponse extends ApiResponse {
   data?: Subject;
-  error?: any;
 }
 
 const addSubject = async (

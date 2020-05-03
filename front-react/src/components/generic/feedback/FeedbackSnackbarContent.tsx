@@ -8,13 +8,13 @@ import SnackbarContent from "@material-ui/core/SnackbarContent";
 import IconButton from "@material-ui/core/IconButton";
 import clsx from "clsx";
 import styles from "./FeedbackSnackbarContent.styles";
-import SnackbarFeedback from "../../types/snackbar.feedback.type";
+import SnackbarFeedback from "../../../redux/types/snackbar.feedback.type";
 
 export enum MessageType {
   Success,
   Warning,
   Error,
-  Info
+  Info,
 }
 
 const typeToIcon = (type: MessageType) => {
@@ -40,7 +40,7 @@ interface FeedbackSnackbarContentProps {
 
 const FeedbackSnackbarContent: React.FC<FeedbackSnackbarContentProps> = ({
   data,
-  onClose
+  onClose,
 }) => {
   const classes = styles();
 
@@ -64,7 +64,7 @@ const FeedbackSnackbarContent: React.FC<FeedbackSnackbarContentProps> = ({
           onClick={onClose}
         >
           <CloseIcon className={classes.icon} />
-        </IconButton>
+        </IconButton>,
       ]}
     />
   );

@@ -1,16 +1,15 @@
 import Snackbar, { SnackbarCloseReason } from "@material-ui/core/Snackbar";
 import React from "react";
-import { useReduxDispatch, useReduxSelector } from "../../hooks/redux.hooks";
-import { clearFeedbackAction } from "../../redux/actions/feedback.actions";
+import { useReduxDispatch, useReduxSelector } from "../../../hooks/redux.hooks";
+import { clearFeedbackAction } from "../../../redux/actions/feedback.actions";
 import FeedbackSnackbarContent from "./FeedbackSnackbarContent";
 
 const FeedbackSnackbar: React.FC = () => {
   const dispatch = useReduxDispatch();
-  const feedback = useReduxSelector(state => state.snackbarFeedback);
+  const feedback = useReduxSelector((state) => state.snackbarFeedback);
 
   const closeSnackbar = () => dispatch(clearFeedbackAction());
 
-  // Manually closing the errors
   const handleClose = (
     event: React.SyntheticEvent<any, Event>,
     reason?: SnackbarCloseReason
@@ -25,7 +24,7 @@ const FeedbackSnackbar: React.FC = () => {
     <Snackbar
       anchorOrigin={{
         vertical: "top",
-        horizontal: "center"
+        horizontal: "center",
       }}
       open={feedback.message !== ""}
       autoHideDuration={5000}

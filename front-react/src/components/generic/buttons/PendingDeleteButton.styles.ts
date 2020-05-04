@@ -4,8 +4,8 @@ import { fade } from "@material-ui/core/styles";
 
 const styles = makeStyles((theme) => ({
   root: {
-    marginRight: "-12px",
-    marginBottom: "-5px",
+    marginRight: -12,
+    marginBottom: -5,
   },
   actionInProgress: {
     position: "absolute",

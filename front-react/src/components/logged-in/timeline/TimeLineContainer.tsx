@@ -11,8 +11,7 @@ const TimeLineContainer: React.FC = () => {
     <WithLoadingAndErrors
       isReady={isReady}
       feedbackText="Turns out we couldn't fetch the user timeline"
-      Component={TimeLine}
-      ComponentProps={{ timeline: timeline as TimeLineType }}
+      jsx={<TimeLine timeline={timeline as TimeLineType} />}
     />
   );
 };

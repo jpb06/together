@@ -6,6 +6,7 @@ import WithLoadingAndErrors from "../composition/WithLoadingAndErrors";
 import { useReduxSelector } from "../../../hooks/redux.hooks";
 import BareTeam, { TeamWithLastActivity } from "../../../types/team.type";
 import useUserTeamsLoading from "../../../hooks/useUserTeamsLoading.hook";
+import User from "../../../types/user.type";
 
 interface UserAccountContainerProps {
   history: any;
@@ -42,15 +43,16 @@ const UserAccountContainer: React.FC<UserAccountContainerProps> = ({
 
   return (
     <WithLoadingAndErrors
-      isReady={isReady}
+      isReady={isReady && user !== null && userCurrentTeam !== undefined}
       feedbackText="Turns out we couldn't fetch your profile"
-      Component={UserAccount}
-      ComponentProps={{
-        user,
-        userTeams,
-        userCurrentTeam,
-        onLogoff: handleLogoff,
-      }}
+      jsx={
+        <UserAccount
+          user={user as User}
+          userTeams={userTeams}
+          userCurrentTeam={userCurrentTeam as TeamWithLastActivity}
+          onLogoff={handleLogoff}
+        />
+      }
     />
   );
 };

@@ -8,15 +8,13 @@ import { useReduxSelector } from "../../../hooks/redux.hooks";
 interface WithLoadingAndErrorsProps {
   isReady: boolean;
   feedbackText: string;
-  Component: React.ElementType;
-  ComponentProps?: any;
+  jsx: JSX.Element;
 }
 
 const WithLoadingAndErrors: React.FC<WithLoadingAndErrorsProps> = ({
   isReady,
   feedbackText,
-  Component,
-  ComponentProps,
+  jsx,
 }) => {
   const isErrored = useReduxSelector((state) => state.error !== null);
 
@@ -30,7 +28,7 @@ const WithLoadingAndErrors: React.FC<WithLoadingAndErrorsProps> = ({
     );
 
   return isReady ? (
-    <Component {...ComponentProps} />
+    jsx
   ) : (
     <WaitingIndicator
       hasTopPadding

@@ -14,7 +14,7 @@ import JoinRequestList from "./join-requests/JoinRequestList";
 interface UserAccountProps {
   user: User;
   userTeams: Array<TeamWithLastActivity>;
-  userCurrentTeam: TeamWithLastActivity;
+  userCurrentTeam: TeamWithLastActivity | undefined;
   onLogoff: () => void;
 }
 
@@ -75,7 +75,7 @@ const UserAccount: React.FC<UserAccountProps> = ({
           </Fab>
         </Paper>
       </Grid>
-      {userTeams.length > 0 && userCurrentTeam && (
+      {userTeams.length > 0 && userCurrentTeam !== undefined && (
         <>
           <Grid item md={12} xs={12}>
             <h1>My teams</h1>

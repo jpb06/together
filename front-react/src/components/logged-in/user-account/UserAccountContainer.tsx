@@ -43,13 +43,13 @@ const UserAccountContainer: React.FC<UserAccountContainerProps> = ({
 
   return (
     <WithLoadingAndErrors
-      isReady={isReady && user !== null && userCurrentTeam !== undefined}
+      isReady={isReady && user !== null}
       feedbackText="Turns out we couldn't fetch your profile"
       jsx={
         <UserAccount
           user={user as User}
           userTeams={userTeams}
-          userCurrentTeam={userCurrentTeam as TeamWithLastActivity}
+          userCurrentTeam={userCurrentTeam}
           onLogoff={handleLogoff}
         />
       }

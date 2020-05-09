@@ -1,21 +1,29 @@
 import { initialState } from "../../store/root.state";
-import { ActionWithPayload } from "../../actions/util/generic.actions";
 import {
-  isGlobalFailureActionType,
   CLEAR_ERROR,
   SET_ERROR,
-  BEGIN_API_CALL,
-} from "../../actions/util/action.types";
+  Context,
+  Result,
+  Type,
+} from "../../types/action.types";
+import { ActionWithPayload } from "../../types/action.payloads";
+import { check } from "../../logic/action-types/redux.action.type.validation";
 
 const errorReducer = (
   state: any = initialState.error,
   action: ActionWithPayload<string, string>
 ) => {
-  if (isGlobalFailureActionType(action.type) || action.type === SET_ERROR) {
+  if (
+    check(action.type).for(Context.Global).as(Result.Failure).truthy() ||
+    action.type === SET_ERROR
+  ) {
     return action.payload;
   }
 
-  if (action.type === CLEAR_ERROR || action.type === BEGIN_API_CALL) {
+  if (
+    action.type === CLEAR_ERROR ||
+    check(action.type).is(Type.beginApiCall).for(Context.Global).truthy()
+  ) {
     return null;
   }
 

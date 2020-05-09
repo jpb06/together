@@ -1,20 +1,17 @@
 import { initialState } from "../../store/root.state";
 import { Action } from "redux";
-import {
-  BEGIN_API_CALL,
-  isGlobalSuccessActionType,
-  isGlobalFailureActionType,
-} from "../../actions/util/action.types";
+import { Context, Type, Result } from "../../types/action.types";
+import { check } from "../../logic/action-types/redux.action.type.validation";
 
 const apiStatusReducer = (
   state: number = initialState.apiCallsInProgress,
   action: Action
 ) => {
-  if (action.type === BEGIN_API_CALL) {
+  if (check(action.type).is(Type.beginApiCall).for(Context.Global).truthy()) {
     return state + 1;
   } else if (
-    isGlobalSuccessActionType(action.type) ||
-    isGlobalFailureActionType(action.type)
+    check(action.type).for(Context.Global).as(Result.Failure).truthy() ||
+    check(action.type).for(Context.Global).as(Result.Success).truthy()
   ) {
     return state - 1;
   }

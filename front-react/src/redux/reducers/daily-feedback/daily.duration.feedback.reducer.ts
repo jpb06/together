@@ -1,26 +1,31 @@
 import { initialState } from "../../store/root.state";
-import { ActionWithPayload } from "../../actions/util/generic.actions";
 import Daily from "../../../types/daily.type";
-import {
-  GET_DAILY_SUCCESS,
-  BEGIN_API_CALL_DAILY,
-  DAILY_SUCCESS_ISOLATED,
-  DAILY_FAILURE_ISOLATED,
-  isDailyIsolatedFeedback,
-} from "../../actions/util/action.types";
 import {
   DailyAlterationBeginPayload,
   DailyFeedbackType,
-} from "../../actions/begin.api.call.action";
+} from "../../actions/global/begin.api.call.action";
 import { initDailyDurationStep } from "../../logic/daily.feedback.logic";
 import { DailyStepFeedback } from "../../types/daily.feedback.type";
+import { ActionWithPayload } from "../../types/action.payloads";
+import { Context, Type, Result } from "../../types/action.types";
+import { check } from "../../logic/action-types/redux.action.type.validation";
+import {
+  typeFor,
+  beginApiCallFor,
+} from "../../logic/action-types/redux.action.type.generation";
 
 const isActionValid = (action: ActionWithPayload<string, any>): boolean => {
+  const dailyContextCheck = check(action.type).for(Context.Daily);
+
   if (
-    action.type !== BEGIN_API_CALL_DAILY &&
-    !isDailyIsolatedFeedback(action.type)
-  )
+    !dailyContextCheck.is(Type.beginApiCall).truthy() &&
+    !(
+      dailyContextCheck.is(Type.daily).as(Result.Failure).truthy() ||
+      dailyContextCheck.is(Type.daily).as(Result.Success).truthy()
+    )
+  ) {
     return false;
+  }
 
   const payload = action.payload as DailyAlterationBeginPayload;
   if (payload.type !== DailyFeedbackType.Duration) return false;
@@ -35,7 +40,13 @@ const dailyDurationFeedbackReducer = (
     Daily | DailyFeedbackType | DailyAlterationBeginPayload
   >
 ) => {
-  if (action.type === GET_DAILY_SUCCESS) {
+  if (
+    check(action.type)
+      .is(Type.getDaily)
+      .for(Context.Global)
+      .as(Result.Success)
+      .truthy()
+  ) {
     const daily = action.payload as Daily;
     return initDailyDurationStep(daily.durationIndicator.length > 0, false);
   }
@@ -44,11 +55,11 @@ const dailyDurationFeedbackReducer = (
   if (!isValid) return state;
 
   switch (action.type) {
-    case BEGIN_API_CALL_DAILY:
+    case beginApiCallFor(Context.Daily):
       return initDailyDurationStep(false, true);
-    case DAILY_SUCCESS_ISOLATED:
+    case typeFor(Type.daily, Context.Daily, Result.Success):
       return initDailyDurationStep(true, false);
-    case DAILY_FAILURE_ISOLATED:
+    case typeFor(Type.daily, Context.Daily, Result.Failure):
       return initDailyDurationStep(false, false);
     default:
       return state;

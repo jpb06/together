@@ -1,15 +1,15 @@
 import { makeStyles } from "@material-ui/core";
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles((theme) => ({
   root: {
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   media: {
-    height: "15px"
+    height: 15,
   },
   fixedWidth: {
-    maxWidth: "1000px"
-  }
+    maxWidth: 1000,
+  },
 }));
 
 export default styles;

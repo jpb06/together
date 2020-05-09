@@ -1,29 +1,44 @@
 import { initialState } from "../../store/root.state";
+import Daily from "../../../types/daily.type";
+import { DailyFeedbackType } from "../../actions/global/begin.api.call.action";
 import {
   ActionWithPayload,
   DailyIsolatedPayload,
-} from "../../actions/util/generic.actions";
-import {
-  GET_DAILY_SUCCESS,
-  DAILY_SUCCESS_ISOLATED,
-  LOGIN_SUCCESS,
-} from "../../actions/util/action.types";
-import Daily from "../../../types/daily.type";
-import { DailyFeedbackType } from "../../actions/begin.api.call.action";
+} from "../../types/action.payloads";
+import { Type, Context, Result } from "../../types/action.types";
+import { check } from "../../logic/action-types/redux.action.type.validation";
 
 const dailyReducer = (
   state: Daily | null = initialState.daily,
   action: ActionWithPayload<string, Daily | DailyIsolatedPayload>
 ) => {
-  if (action.type === LOGIN_SUCCESS) {
+  if (
+    check(action.type)
+      .is(Type.login)
+      .for(Context.Global)
+      .as(Result.Success)
+      .truthy()
+  ) {
     return null;
   }
 
-  if (action.type === GET_DAILY_SUCCESS) {
+  if (
+    check(action.type)
+      .is(Type.getDaily)
+      .for(Context.Global)
+      .as(Result.Success)
+      .truthy()
+  ) {
     return action.payload as Daily;
   }
 
-  if (action.type === DAILY_SUCCESS_ISOLATED) {
+  if (
+    check(action.type)
+      .is(Type.daily)
+      .for(Context.Daily)
+      .as(Result.Success)
+      .truthy()
+  ) {
     const payload = action.payload as DailyIsolatedPayload;
 
     const daily = state as Daily;

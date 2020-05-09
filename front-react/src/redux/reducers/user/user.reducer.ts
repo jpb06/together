@@ -1,14 +1,10 @@
 import { initialState } from "../../store/root.state";
-import { ActionWithPayload } from "../../actions/util/generic.actions";
-import {
-  LOGIN_SUCCESS,
-  UPDATE_USER,
-  CREATE_TEAM_SUCCESS_ISOLATED,
-  REQUEST_TO_JOIN_TEAM_SUCCESS_ISOLATED,
-} from "../../actions/util/action.types";
 import User from "../../../types/user.type";
 import BareTeam from "../../../types/team.type";
 import { TeamJoinRequest } from "../../../types/invites.type";
+import { ActionWithPayload } from "../../types/action.payloads";
+import { Type, Context, Result, UPDATE_USER } from "../../types/action.types";
+import { typeFor } from "../../logic/action-types/redux.action.type.generation";
 
 const userReducer = (
   state: User | null = initialState.user,
@@ -19,11 +15,11 @@ const userReducer = (
 ): User | null => {
   switch (action.type) {
     /* --------------------------------------------------- */
-    case LOGIN_SUCCESS:
+    case typeFor(Type.login, Context.Global, Result.Success):
     case UPDATE_USER:
       return action.payload as User;
     /* --------------------------------------------------- */
-    case CREATE_TEAM_SUCCESS_ISOLATED:
+    case typeFor(Type.createTeam, Context.AccountCreation, Result.Success):
       if (!state) return null;
 
       return {
@@ -31,7 +27,11 @@ const userReducer = (
         teams: state.teams.concat(action.payload as BareTeam),
       };
     /* --------------------------------------------------- */
-    case REQUEST_TO_JOIN_TEAM_SUCCESS_ISOLATED:
+    case typeFor(
+      Type.requestToJoinTeam,
+      Context.AccountCreation,
+      Result.Success
+    ):
       if (!state) return null;
 
       return {

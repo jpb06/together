@@ -1,17 +1,18 @@
-import { ThunkResult, ActionResult } from "../util/action.types";
 import { Dispatch } from "react";
 import { Action } from "redux";
 import {
   beginDailyApiCallAction,
   DailyFeedbackType,
-} from "../begin.api.call.action";
+} from "../global/begin.api.call.action";
 import * as TogetherApi from "../../../api/daily/add.feeling";
 import { ApiStatus } from "../../../api/setup/together.api";
+import { NewFeeling } from "../../../types/feeling.type";
+import { ThunkResult } from "../../types/thunk.result";
+import { ActionResult } from "../../types/action.result";
 import {
   dailyAlterationFailure,
   dailyAlterationSuccess,
-} from "../util/generic.actions";
-import { NewFeeling } from "../../../types/feeling.type";
+} from "./daily.generic.actions";
 
 const addFeelingAction = (
   teamId: string,

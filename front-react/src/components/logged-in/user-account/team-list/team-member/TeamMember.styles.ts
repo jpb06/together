@@ -3,7 +3,7 @@ import { amber } from "@material-ui/core/colors";
 
 const styles = makeStyles((theme) => ({
   root: {
-    padding: "10px",
+    padding: 10,
     textAlign: "center",
   },
   userName: {

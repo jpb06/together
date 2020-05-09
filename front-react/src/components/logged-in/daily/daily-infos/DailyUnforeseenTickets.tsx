@@ -16,7 +16,7 @@ import {
   DailyAddActionFeedback,
   DailyDeleteActionFeedback,
 } from "../../../../redux/types/daily.feedback.type";
-import { sendSnackbarFeedbackAction } from "../../../../redux/actions/snackbar.feedback.actions";
+import { sendSnackbarFeedbackAction } from "../../../../redux/actions/global/snackbar.feedback.actions";
 
 interface DailyUnforeseenTicketsProps {
   daily: Daily;

@@ -1,11 +1,11 @@
-import { action, notice } from "./util/generic.actions";
+import { action, notice } from "./generic.actions";
 import {
   SHOW_INFO_FEEDBACK,
   SHOW_ERROR_FEEDBACK,
   SHOW_SUCCESS_FEEDBACK,
   SHOW_WARNING_FEEDBACK,
-  CLEAR_FEEDBACK
-} from "./util/action.types";
+  CLEAR_FEEDBACK,
+} from "../../types/action.types";
 import { Action } from "redux";
 
 const showInfoFeedbackAction = (message: string): Action =>
@@ -24,5 +24,5 @@ export {
   showErrorFeedbackAction,
   showSuccessFeedbackAction,
   showWarningFeedbackAction,
-  clearFeedbackAction
+  clearFeedbackAction,
 };

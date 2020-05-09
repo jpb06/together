@@ -3,6 +3,7 @@ import React from "react";
 import getUserTeamsAction from "../redux/actions/user/get.user.teams.action";
 import User from "../types/user.type";
 import { TeamWithLastActivity } from "../types/team.type";
+import { Context } from "../redux/types/action.types";
 
 const useUserTeamsLoading = (
   user: User | null
@@ -17,7 +18,7 @@ const useUserTeamsLoading = (
 
   React.useEffect(() => {
     if (user) {
-      dispatch(getUserTeamsAction(user.id, false));
+      dispatch(getUserTeamsAction(user.id, false, Context.Global));
     }
 
     setInitPerformed(true);

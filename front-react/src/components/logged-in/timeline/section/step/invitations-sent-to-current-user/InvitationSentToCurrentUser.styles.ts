@@ -1,13 +1,13 @@
 import { makeStyles } from "@material-ui/core";
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles((theme) => ({
   root: {
-    marginLeft: "25px",
-    color: theme.palette.primary.main
+    marginLeft: 25,
+    color: theme.palette.primary.main,
   },
   actions: {
-    marginTop: "5px"
-  }
+    marginTop: 5,
+  },
 }));
 
 export default styles;

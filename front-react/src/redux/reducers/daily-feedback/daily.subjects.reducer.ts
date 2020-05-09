@@ -1,11 +1,9 @@
 import { initialState } from "../../store/root.state";
-import { ActionWithPayload } from "../../actions/util/generic.actions";
 import Daily from "../../../types/daily.type";
-import { GET_DAILY_SUCCESS } from "../../actions/util/action.types";
 import {
   DailyFeedbackType,
   DailyAlterationBeginPayload,
-} from "../../actions/begin.api.call.action";
+} from "../../actions/global/begin.api.call.action";
 import {
   initDailyStep,
   setDailyStep,
@@ -13,6 +11,9 @@ import {
   asFeedbackAction,
 } from "../../logic/daily.feedback.logic";
 import { DailyStepFeedback } from "../../types/daily.feedback.type";
+import { ActionWithPayload } from "../../types/action.payloads";
+import { Type, Context, Result } from "../../types/action.types";
+import { check } from "../../logic/action-types/redux.action.type.validation";
 
 const dailySubjectsFeedbackReducer = (
   state: DailyStepFeedback = initialState.dailySubjectsFeedback,
@@ -21,7 +22,13 @@ const dailySubjectsFeedbackReducer = (
     Daily | DailyFeedbackType | DailyAlterationBeginPayload
   >
 ) => {
-  if (action.type === GET_DAILY_SUCCESS) {
+  if (
+    check(action.type)
+      .is(Type.getDaily)
+      .for(Context.Global)
+      .as(Result.Success)
+      .truthy()
+  ) {
     const daily = action.payload as Daily;
     return initDailyStep(daily.subjects.length > 0, false);
   }

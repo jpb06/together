@@ -1,17 +1,16 @@
-import {
-  ThunkResult,
-  ActionResult,
-  BEGIN_API_CALL_ACCOUNT_CREATION,
-  CREATE_USER_FAILURE_ISOLATED,
-} from "../util/action.types";
 import * as TogetherApi from "../../../api/anonymous/create.user.api";
-import { notice } from "../util/generic.actions";
+import { notice } from "../global/generic.actions";
 import { loginAction } from "../user/login.action";
 import { ReduxDispatch } from "../../../hooks/redux.hooks";
 import { NewUser } from "../../../types/user.type";
 import { MessageType } from "../../../components/generic/feedback/FeedbackSnackbarContent";
 import { ApiStatus } from "../../../api/setup/together.api";
-import { sendSnackbarFeedbackAction } from "../snackbar.feedback.actions";
+import { sendSnackbarFeedbackAction } from "../global/snackbar.feedback.actions";
+import { ThunkResult } from "../../types/thunk.result";
+import { ActionResult } from "../../types/action.result";
+import { Context, Result, Type } from "../../types/action.types";
+import beginApiCallAction from "../global/begin.api.call.action";
+import { typeFor } from "../../logic/action-types/redux.action.type.generation";
 
 const getMessageActionFromStatus = (
   status: TogetherApi.CreateNewUserStatus
@@ -27,16 +26,18 @@ const getMessageActionFromStatus = (
   return sendSnackbarFeedbackAction(messageType, message);
 };
 
+const context = Context.AccountCreation;
+
 const CreateUserAction = (
   user: NewUser
 ): ThunkResult<Promise<ActionResult>> => async (dispatch: ReduxDispatch) => {
-  dispatch(notice(BEGIN_API_CALL_ACCOUNT_CREATION));
+  dispatch(beginApiCallAction(context));
 
   const result = await TogetherApi.createNewUser(user);
-
   if (result.status !== ApiStatus.Ok) {
     dispatch(getMessageActionFromStatus(result.status));
-    dispatch(notice(CREATE_USER_FAILURE_ISOLATED));
+    dispatch(notice(typeFor(Type.createUser, context, Result.Failure)));
+
     return { success: false };
   }
 

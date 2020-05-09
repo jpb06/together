@@ -4,24 +4,21 @@ import {
   AccountCreationStep,
 } from "../../types/account.creation.state.type";
 import {
-  BEGIN_API_CALL_ACCOUNT_CREATION,
-  LOGIN_SUCCESS,
-  CREATE_USER_FAILURE_ISOLATED,
   CREATE_USER_DATA_SUBMITTED,
-  LOGIN_FAILURE,
-  CREATE_TEAM_SUCCESS_ISOLATED,
-  CREATE_TEAM_FAILURE_ISOLATED,
   AVATAR_CHOSEN,
-  REQUEST_TO_JOIN_TEAM_SUCCESS_ISOLATED,
-  INVITE_USER_FAILURE_ISOLATED,
-  INVITE_USER_SUCCESS_ISOLATED,
-  REQUEST_TO_JOIN_TEAM_FAILURE_ISOLATED,
-} from "../../actions/util/action.types";
+  Context,
+  Type,
+  Result,
+} from "../../types/action.types";
 import { Action } from "redux";
 import * as localStorage from "local-storage";
 import LocalStorageKeys from "../../../logic/local.storage.keys";
-import { ActionWithPayload } from "../../actions/util/generic.actions";
 import BareTeam from "../../../types/team.type";
+import { ActionWithPayload } from "../../types/action.payloads";
+import {
+  beginApiCallFor,
+  typeFor,
+} from "../../logic/action-types/redux.action.type.generation";
 
 const accountCreationStateReducer = (
   state: AccountCreationState = initialState.accountCreationState,
@@ -30,9 +27,9 @@ const accountCreationStateReducer = (
   switch (action.type) {
     case CREATE_USER_DATA_SUBMITTED:
       return { ...state, isSubmitted: true };
-    case BEGIN_API_CALL_ACCOUNT_CREATION:
+    case beginApiCallFor(Context.AccountCreation):
       return { ...state, isLoading: true, isErrored: false };
-    case LOGIN_SUCCESS:
+    case typeFor(Type.login, Context.Global, Result.Success):
       return {
         ...state,
         step: AccountCreationStep.Avatar,
@@ -45,7 +42,7 @@ const accountCreationStateReducer = (
         ...state,
         step: AccountCreationStep.TeamChoice,
       };
-    case CREATE_TEAM_SUCCESS_ISOLATED:
+    case typeFor(Type.createTeam, Context.AccountCreation, Result.Success):
       const team = (action as ActionWithPayload<string, BareTeam>).payload;
       localStorage.set(LocalStorageKeys.currentTeam, team);
 
@@ -55,24 +52,32 @@ const accountCreationStateReducer = (
         isLoading: false,
         isErrored: false,
       };
-    case REQUEST_TO_JOIN_TEAM_SUCCESS_ISOLATED:
+    case typeFor(
+      Type.requestToJoinTeam,
+      Context.AccountCreation,
+      Result.Success
+    ):
       return {
         ...state,
         step: AccountCreationStep.Completed,
         isLoading: false,
         isErrored: false,
       };
-    case INVITE_USER_SUCCESS_ISOLATED:
+    case typeFor(Type.inviteUser, Context.AccountCreation, Result.Success):
       return {
         ...state,
         isLoading: false,
         isErrored: false,
       };
-    case CREATE_USER_FAILURE_ISOLATED:
-    case CREATE_TEAM_FAILURE_ISOLATED:
-    case INVITE_USER_FAILURE_ISOLATED:
-    case REQUEST_TO_JOIN_TEAM_FAILURE_ISOLATED:
-    case LOGIN_FAILURE:
+    case typeFor(Type.createUser, Context.AccountCreation, Result.Failure):
+    case typeFor(Type.createTeam, Context.AccountCreation, Result.Failure):
+    case typeFor(Type.inviteUser, Context.AccountCreation, Result.Failure):
+    case typeFor(
+      Type.requestToJoinTeam,
+      Context.AccountCreation,
+      Result.Failure
+    ):
+    case typeFor(Type.login, Context.Global, Result.Failure):
       return {
         ...state,
         isLoading: false,

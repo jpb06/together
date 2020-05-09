@@ -1,16 +1,17 @@
-import { ThunkResult, ActionResult } from "../util/action.types";
 import { Dispatch } from "react";
 import { Action } from "redux";
 import {
   beginDailyApiCallAction,
   DailyFeedbackType,
-} from "../begin.api.call.action";
+} from "../global/begin.api.call.action";
 import * as TogetherApi from "../../../api/daily/add.unforeseen.ticket";
 import { ApiStatus } from "../../../api/setup/together.api";
+import { ThunkResult } from "../../types/thunk.result";
+import { ActionResult } from "../../types/action.result";
 import {
   dailyAlterationFailure,
   dailyAlterationSuccess,
-} from "../util/generic.actions";
+} from "./daily.generic.actions";
 
 const addUnforeseenTicketAction = (
   teamId: string,

@@ -1,16 +1,17 @@
-import { ThunkResult, ActionResult } from "../util/action.types";
 import { Dispatch } from "react";
 import { Action } from "redux";
 import * as TogetherApi from "../../../api/daily/remove.subject";
 import { ApiStatus } from "../../../api/setup/together.api";
 import {
-  dailyAlterationFailure,
-  dailyAlterationSuccess,
-} from "../util/generic.actions";
-import {
   beginDailyApiCallAction,
   DailyFeedbackType,
-} from "../begin.api.call.action";
+} from "../global/begin.api.call.action";
+import { ThunkResult } from "../../types/thunk.result";
+import { ActionResult } from "../../types/action.result";
+import {
+  dailyAlterationFailure,
+  dailyAlterationSuccess,
+} from "./daily.generic.actions";
 
 const removeSubjectAction = (
   teamId: string,

@@ -1,18 +1,18 @@
 import { makeStyles } from "@material-ui/core";
 
-const styles = makeStyles(theme => ({
+const styles = makeStyles((theme) => ({
   dailyItem: {
-    marginLeft: "-20px",
-    width: "auto"
+    marginLeft: -20,
+    width: "auto",
   },
   dailyItemIcon: {
-    minWidth: 48
+    minWidth: 48,
   },
   secondaryColor: {
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   fullWidth: {
-    width: "100%"
+    width: "100%",
   },
   title: {
     fontSize: "1rem",
@@ -22,8 +22,8 @@ const styles = makeStyles(theme => ({
     letterSpacing: "0.00938em",
     color: theme.palette.primary.main,
     marginBottom: 5,
-    display: "inline-block"
-  }
+    display: "inline-block",
+  },
 }));
 
 export default styles;

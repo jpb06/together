@@ -1,19 +1,15 @@
 import {
   DailyFeedbackType,
   DailyAlterationBeginPayload,
-} from "../actions/begin.api.call.action";
+} from "../actions/global/begin.api.call.action";
+import Daily from "../../types/daily.type";
+import { DailyStepFeedback } from "../types/daily.feedback.type";
 import {
   ActionWithPayload,
   DailyIsolatedPayload,
-} from "../actions/util/generic.actions";
-import {
-  BEGIN_API_CALL_DAILY,
-  DAILY_FAILURE_ISOLATED,
-  DAILY_SUCCESS_ISOLATED,
-  isDailyIsolatedFeedback,
-} from "../actions/util/action.types";
-import Daily from "../../types/daily.type";
-import { DailyStepFeedback } from "../types/daily.feedback.type";
+} from "../types/action.payloads";
+import { Context, Type, Result } from "../types/action.types";
+import { check } from "./action-types/redux.action.type.validation";
 
 export function initDailyDurationStep(
   isValidated: boolean = false,
@@ -54,9 +50,13 @@ export function setDailyStep(
     DailyFeedbackType | DailyAlterationBeginPayload
   >
 ): DailyStepFeedback {
-  const isPending = action.type === BEGIN_API_CALL_DAILY;
-  const isFailure = action.type === DAILY_FAILURE_ISOLATED;
-  const isValidated = action.type === DAILY_SUCCESS_ISOLATED;
+  const isPending = check(action.type)
+    .is(Type.beginApiCall)
+    .for(Context.Daily)
+    .truthy();
+  const dailyCheck = check(action.type).is(Type.daily).for(Context.Daily);
+  const isFailure = dailyCheck.as(Result.Failure).truthy();
+  const isValidated = dailyCheck.as(Result.Success).truthy();
 
   let feedbackType = DailyFeedbackType.Unknown;
   let ticketKey = "";
@@ -116,14 +116,23 @@ export function getActionType(
   >,
   allowedFeedbackTypes: Array<DailyFeedbackType>
 ): DailyFeedbackType | undefined {
+  const isBeginApiCall = check(action.type)
+    .is(Type.beginApiCall)
+    .for(Context.Daily)
+    .truthy();
+  const dailyCheck = check(action.type).is(Type.daily).for(Context.Daily);
+
   if (
-    action.type !== BEGIN_API_CALL_DAILY &&
-    !isDailyIsolatedFeedback(action.type)
+    !isBeginApiCall &&
+    !(
+      dailyCheck.as(Result.Failure).truthy() ||
+      dailyCheck.as(Result.Success).truthy()
+    )
   )
     return undefined;
 
   let type: DailyFeedbackType = DailyFeedbackType.Unknown;
-  if (action.type === BEGIN_API_CALL_DAILY) {
+  if (isBeginApiCall) {
     const payload = action.payload as DailyAlterationBeginPayload;
     type = payload.type;
   } else {

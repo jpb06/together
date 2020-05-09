@@ -8,11 +8,11 @@ import { useHistory } from "react-router";
 import TogetherApi from "../../../api/setup/together.api";
 import createTeamAction from "../../../redux/actions/account-creation/create.team.action";
 import requestTojoinTeamAction from "../../../redux/actions/account-creation/request.to.join.team.action";
-import { notice } from "../../../redux/actions/util/generic.actions";
+import { notice } from "../../../redux/actions/global/generic.actions";
 import {
   CREATE_USER_DATA_SUBMITTED,
   AVATAR_CHOSEN,
-} from "../../../redux/actions/util/action.types";
+} from "../../../redux/types/action.types";
 
 export enum TeamActionType {
   Create,

@@ -10,8 +10,8 @@ const styles = makeStyles((theme) => ({
   },
   buttonIcon: {
     justifyContent: "left",
-    lineHeight: 8,
-    marginLeft: -12,
+    lineHeight: "8px",
+    marginLeft: "-12px",
   },
   buttonText: {
     justifyContent: "center",

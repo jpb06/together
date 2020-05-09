@@ -9,6 +9,7 @@ import acceptTeamInviteAction from "../../redux/actions/user/accept.team.invite.
 import AnswerTeamInviteModal from "./AnswerTeamInviteModal";
 import getTimelineAction from "../../redux/actions/user/get.timeline.action";
 import BareTeam from "../../types/team.type";
+import { Context } from "../../redux/types/action.types";
 
 export enum ActionSteps {
   Question = "Question",
@@ -42,18 +43,24 @@ const AnswerTeamInviteModalContainer: React.FC<AnswerTeamInviteModalContainerPro
   );
 
   const fetchUserTeams = async () => {
-    const result = await dispatch(getUserTeamsAction(user.id, true));
+    const result = await dispatch(
+      getUserTeamsAction(user.id, true, Context.Modal)
+    );
 
     if (!result.success || !result.userHasSeveralTeams) {
       onClose();
       return;
     }
 
-    if (isMounted.current) setStep(ActionSteps.SwitchTeam);
+    if (isMounted.current) {
+      setStep(ActionSteps.SwitchTeam);
+    }
   };
 
   const handleAcceptInvite = async () => {
-    const result = await dispatch(acceptTeamInviteAction(requestId));
+    const result = await dispatch(
+      acceptTeamInviteAction(requestId, Context.Modal)
+    );
 
     if (result.success) {
       await fetchUserTeams();

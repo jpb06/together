@@ -1,7 +1,7 @@
 import Snackbar, { SnackbarCloseReason } from "@material-ui/core/Snackbar";
 import React from "react";
 import { useReduxDispatch, useReduxSelector } from "../../../hooks/redux.hooks";
-import { clearFeedbackAction } from "../../../redux/actions/feedback.actions";
+import { clearFeedbackAction } from "../../../redux/actions/global/feedback.actions";
 import FeedbackSnackbarContent from "./FeedbackSnackbarContent";
 
 const FeedbackSnackbar: React.FC = () => {

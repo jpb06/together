@@ -1,16 +1,17 @@
-import {
-  ThunkResult,
-  ActionResult,
-  BEGIN_API_CALL_ACCOUNT_CREATION,
-  INVITE_USER_FAILURE_ISOLATED,
-  INVITE_USER_SUCCESS_ISOLATED,
-} from "../util/action.types";
 import * as TogetherApi from "../../../api/user/invite.user.to.join.team";
-import { notice, action } from "../util/generic.actions";
+import { notice, action } from "../global/generic.actions";
 import { ReduxDispatch } from "../../../hooks/redux.hooks";
 import { ApiStatus } from "../../../api/setup/together.api";
-import { sendSnackbarFeedbackFromApiErrorAction } from "../snackbar.feedback.actions";
+import { sendSnackbarFeedbackFromApiErrorAction } from "../global/snackbar.feedback.actions";
 import { TerseUser } from "../../../types/user.type";
+import { ActionResult } from "../../types/action.result";
+import { ThunkResult } from "../../types/thunk.result";
+import { Context, Result, Type } from "../../types/action.types";
+import beginApiCallAction from "../global/begin.api.call.action";
+import { typeFor } from "../../logic/action-types/redux.action.type.generation";
+
+const type = Type.inviteUser;
+const context = Context.AccountCreation;
 
 interface InviteUserResult extends ActionResult {
   user?: TerseUser;
@@ -22,17 +23,18 @@ const inviteUserToTeamAction = (
 ): ThunkResult<Promise<InviteUserResult>> => async (
   dispatch: ReduxDispatch
 ) => {
-  dispatch(notice(BEGIN_API_CALL_ACCOUNT_CREATION));
+  dispatch(beginApiCallAction(context));
 
   const result = await TogetherApi.inviteUser(teamId, email);
-
   if (result.apiStatus !== ApiStatus.Ok) {
     dispatch(sendSnackbarFeedbackFromApiErrorAction(result.error));
-    dispatch(notice(INVITE_USER_FAILURE_ISOLATED));
+    dispatch(notice(typeFor(type, context, Result.Failure)));
+
     return { success: false };
   }
 
-  dispatch(action(INVITE_USER_SUCCESS_ISOLATED, result.data));
+  dispatch(action(typeFor(type, context, Result.Success), result.data));
+
   return { success: true, user: result.data };
 };
 

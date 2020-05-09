@@ -1,31 +1,33 @@
-import {
-  ThunkResult,
-  ActionResult,
-  GET_TIMELINE_FAILURE,
-  GET_TIMELINE_SUCCESS,
-} from "../util/action.types";
 import { Dispatch } from "react";
 import { Action } from "redux";
-import beginApiCallAction from "../begin.api.call.action";
 import * as TogetherApi from "../../../api/user/get.timeline";
 import { ApiStatus } from "../../../api/setup/together.api";
-import { action } from "../util/generic.actions";
+import { action } from "../global/generic.actions";
 import TimeLine from "../../../types/timeline.type";
+import { ThunkResult } from "../../types/thunk.result";
+import { ActionResult } from "../../types/action.result";
+import { Context, Type, Result } from "../../types/action.types";
+import beginApiCallAction from "../global/begin.api.call.action";
+import { typeFor } from "../../logic/action-types/redux.action.type.generation";
+
+const type = Type.getTimeline;
 
 const getTimelineAction = (
   teamId: string
 ): ThunkResult<Promise<ActionResult>> => async (dispatch: Dispatch<Action>) => {
-  dispatch(beginApiCallAction());
+  dispatch(beginApiCallAction(Context.Global));
 
   const result = await TogetherApi.getTimeline(teamId);
   if (result.apiStatus !== ApiStatus.Ok) {
-    dispatch(action(GET_TIMELINE_FAILURE, result.error));
+    dispatch(
+      action(typeFor(type, Context.Global, Result.Failure), result.error)
+    );
     return { success: false, message: result.error?.message };
   }
 
   const timeline = result.data as TimeLine;
 
-  dispatch(action(GET_TIMELINE_SUCCESS, timeline));
+  dispatch(action(typeFor(type, Context.Global, Result.Success), timeline));
   return { success: true };
 };
 

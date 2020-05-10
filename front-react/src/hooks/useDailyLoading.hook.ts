@@ -10,24 +10,26 @@ const useDailyLoading = (date: string): [Daily | null, boolean] => {
   const dispatch = useReduxDispatch();
 
   const [initPerformed, setInitPerformed] = React.useState(false);
+  const [callMade, setCallMade] = React.useState(false);
   const daily = useReduxSelector((state) => state.daily);
   const isReady = useReduxSelector(
     (state) => state.apiCallsInProgress === 0 && initPerformed
   );
 
   React.useEffect(() => {
-    if (!daily || !initPerformed) {
+    if (!callMade && (!daily || !initPerformed)) {
       const currentTeam = localStorage.get<BareTeam | undefined>(
         LocalStorageKeys.currentTeam
       );
 
       if (currentTeam) {
         dispatch(getDailyAction((currentTeam as BareTeam).id, date));
+        setCallMade(true);
       }
     }
 
     setInitPerformed(true);
-  }, [dispatch, daily, date, initPerformed]);
+  }, [dispatch, daily, date, initPerformed, callMade]);
 
   return [daily, isReady];
 };

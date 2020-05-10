@@ -10,24 +10,26 @@ const useCurrentTeamMembersLoading = (): [Array<TeamMember>, boolean] => {
   const dispatch = useReduxDispatch();
 
   const [initPerformed, setInitPerformed] = React.useState(false);
+  const [callMade, setCallMade] = React.useState(false);
   const teamMembers = useReduxSelector((state) => state.teamMembers);
   const isReady = useReduxSelector(
     (state) => state.apiCallsInProgress === 0 && initPerformed
   );
 
   React.useEffect(() => {
-    if (teamMembers.length === 0 || !initPerformed) {
+    if (!callMade && (teamMembers.length === 0 || !initPerformed)) {
       const currentTeam = localStorage.get<BareTeam | undefined>(
         LocalStorageKeys.currentTeam
       );
 
       if (currentTeam) {
         dispatch(getTeamMembersAction((currentTeam as BareTeam).id));
+        setCallMade(true);
       }
     }
 
     setInitPerformed(true);
-  }, [dispatch, teamMembers, initPerformed]);
+  }, [dispatch, teamMembers, initPerformed, callMade]);
 
   return [teamMembers, isReady];
 };

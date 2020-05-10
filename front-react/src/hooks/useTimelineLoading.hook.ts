@@ -10,23 +10,25 @@ const useTimelineLoading = (): [TimeLine | null, boolean] => {
   const dispatch = useReduxDispatch();
 
   const [initPerformed, setInitPerformed] = React.useState(false);
+  const [callMade, setCallMade] = React.useState(false);
   const timeline = useReduxSelector((state) => state.timeline);
   const isReady = useReduxSelector(
     (state) => state.apiCallsInProgress === 0 && initPerformed
   );
 
   React.useEffect(() => {
-    if (!timeline || !initPerformed) {
+    if (!callMade && (!timeline || !initPerformed)) {
       const currentTeam = localStorage.get<BareTeam | undefined>(
         LocalStorageKeys.currentTeam
       );
 
       let id = currentTeam ? currentTeam.id : "";
       dispatch(getTimelineAction(id));
+      setCallMade(true);
     }
 
     setInitPerformed(true);
-  }, [dispatch, timeline, initPerformed]);
+  }, [dispatch, timeline, initPerformed, callMade]);
 
   return [timeline, isReady];
 };

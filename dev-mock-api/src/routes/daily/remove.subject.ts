@@ -11,7 +11,7 @@ const mapRemoveSubject = (server: Application) => {
     isAuthenticated,
     [
       body("teamId").isMongoId(),
-      body("date").isString().toDate(),
+      body("date").isISO8601().toDate(),
       body("id").isMongoId(),
     ],
     (req: Request, res: Response) => {

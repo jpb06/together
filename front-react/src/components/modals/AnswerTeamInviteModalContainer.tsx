@@ -37,6 +37,7 @@ const AnswerTeamInviteModalContainer: React.FC<AnswerTeamInviteModalContainerPro
   const isLoading = useReduxSelector((state) => state.apiCallsInProgress > 0);
   const isMounted = useLifecycleStatus();
 
+  const [isActionPending, setIsActionPending] = useState(false);
   const [step, setStep] = useState(ActionSteps.Question);
   const [currentTeam] = useState(
     localStorage.get<BareTeam>(LocalStorageKeys.currentTeam)
@@ -48,16 +49,19 @@ const AnswerTeamInviteModalContainer: React.FC<AnswerTeamInviteModalContainerPro
     );
 
     if (!result.success || !result.userHasSeveralTeams) {
+      setIsActionPending(false);
       onClose();
       return;
     }
 
     if (isMounted.current) {
+      setIsActionPending(false);
       setStep(ActionSteps.SwitchTeam);
     }
   };
 
   const handleAcceptInvite = async () => {
+    setIsActionPending(true);
     const result = await dispatch(
       acceptTeamInviteAction(requestId, Context.Modal)
     );
@@ -65,6 +69,7 @@ const AnswerTeamInviteModalContainer: React.FC<AnswerTeamInviteModalContainerPro
     if (result.success) {
       await fetchUserTeams();
     } else {
+      setIsActionPending(false);
       onClose();
     }
   };
@@ -84,7 +89,7 @@ const AnswerTeamInviteModalContainer: React.FC<AnswerTeamInviteModalContainerPro
   return (
     <AnswerTeamInviteModal
       isOpened={isOpened}
-      isLoading={isLoading}
+      isLoading={isLoading || isActionPending}
       step={step}
       title={title}
       teamName={teamName}

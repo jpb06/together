@@ -13,6 +13,7 @@ const userTeamsReducer = (
       return [];
     /* --------------------------------------------------- */
     case typeFor(Type.getUserTeams, Context.Global, Result.Success):
+    case typeFor(Type.getUserTeams, Context.Modal, Result.Success):
       return action.payload;
     /* --------------------------------------------------- */
     default:

@@ -8,7 +8,7 @@ const mapGetDaily = (server: Application) => {
   server.post(
     "/api/daily",
     isAuthenticated,
-    [body("teamId").isMongoId(), body("date").isString().toDate()],
+    [body("teamId").isMongoId(), body("date").isISO8601().toDate()],
     (req: Request, res: Response) => {
       const daily = getOrCreateDaily(req.body.teamId, req.body.date);
 

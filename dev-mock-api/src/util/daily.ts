@@ -11,8 +11,12 @@ export function getOrCreateDaily(teamId: string, date: Date): Daily {
 
   let daily = dailies.find(
     (el) =>
-      el.teamId === teamId && day === day && month === month && year === year
+      el.teamId === teamId &&
+      el.day === day &&
+      el.month === month &&
+      el.year === year
   );
+
   if (!daily) {
     daily = {
       id: mongoObjectId(),

@@ -11,7 +11,7 @@ const mapRemoveDoneTicket = (server: Application) => {
     isAuthenticated,
     [
       body("teamId").isMongoId(),
-      body("date").isString().toDate(),
+      body("date").isISO8601().toDate(),
       body("ticket").isString().not().isEmpty(),
     ],
     (req: Request, res: Response) => {

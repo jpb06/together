@@ -11,7 +11,7 @@ const mapSetDailyDuration = (server: Application) => {
     isAuthenticated,
     [
       body("teamId").isMongoId(),
-      body("date").isString().toDate(),
+      body("date").isISO8601().toDate(),
       body("duration").isString().isIn(["0-15", "15-20", "20-30", "20+"]),
     ],
     (req: Request, res: Response) => {

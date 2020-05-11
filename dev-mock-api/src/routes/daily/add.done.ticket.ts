@@ -16,7 +16,7 @@ const mapAddDoneTicket = (server: Application) => {
     [
       body("teamId").isMongoId(),
       body("assigneeEmail").isEmail(),
-      body("date").isString().toDate(),
+      body("date").isISO8601().toDate(),
       body("ticket").isString().not().isEmpty(),
     ],
     (req: Request, res: Response) => {

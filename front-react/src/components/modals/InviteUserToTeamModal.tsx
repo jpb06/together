@@ -8,7 +8,7 @@ import SimpleButton from "../generic/buttons/SimpleButton";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import clsx from "clsx";
 import styles from "./InviteUserToTeamModal.styles";
-import { useReduxDispatch, useReduxSelector } from "../../hooks/redux.hooks";
+import { useReduxDispatch } from "../../hooks/redux.hooks";
 import inviteUserToTeamAction from "../../redux/actions/account-creation/invite.user.to.team.action";
 import { Context } from "../../redux/types/action.types";
 import { validateEmail } from "../../logic/user.util";

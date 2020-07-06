@@ -6,6 +6,7 @@ import { useHistory } from "react-router";
 import inviteUserToTeamAction from "../../../../../redux/actions/account-creation/invite.user.to.team.action";
 import { useReduxDispatch } from "../../../../../hooks/redux.hooks";
 import { AccountCreationState } from "../../../../../redux/types/account.creation.state.type";
+import { Context } from "../../../../../redux/types/action.types";
 
 interface AddTeamMembersStepContainerProps {
   state: AccountCreationState;
@@ -48,7 +49,7 @@ const AddTeamMembersStepContainer: React.FC<AddTeamMembersStepContainerProps> = 
     if (!validateEmail(email)) return;
 
     const result = await dispatch(
-      inviteUserToTeamAction(user.teams[0].id, email)
+      inviteUserToTeamAction(user.teams[0].id, email, Context.AccountCreation)
     );
 
     if (result.success) {

@@ -11,7 +11,6 @@ import beginApiCallAction from "../global/begin.api.call.action";
 import { typeFor } from "../../logic/action-types/redux.action.type.generation";
 
 const type = Type.inviteUser;
-const context = Context.AccountCreation;
 
 interface InviteUserResult extends ActionResult {
   user?: TerseUser;
@@ -19,7 +18,8 @@ interface InviteUserResult extends ActionResult {
 
 const inviteUserToTeamAction = (
   teamId: string,
-  email: string
+  email: string,
+  context: Context
 ): ThunkResult<Promise<InviteUserResult>> => async (
   dispatch: ReduxDispatch
 ) => {
@@ -27,8 +27,9 @@ const inviteUserToTeamAction = (
 
   const result = await TogetherApi.inviteUser(teamId, email);
   if (result.apiStatus !== ApiStatus.Ok) {
-    dispatch(sendSnackbarFeedbackFromApiErrorAction(result.error));
-    dispatch(notice(typeFor(type, context, Result.Failure)));
+    dispatch(
+      action(typeFor(type, context, Result.Failure), result.error?.message)
+    );
 
     return { success: false };
   }

@@ -14,7 +14,7 @@ const SimpleButton: React.FC<SimpleButtonProps> = ({
   text,
   isFullWidth = false,
   hasTopMargin = false,
-  onClick
+  onClick,
 }) => {
   const classes = styles();
 
@@ -24,7 +24,7 @@ const SimpleButton: React.FC<SimpleButtonProps> = ({
       variant="outlined"
       color="primary"
       className={clsx(classes.root, {
-        [classes.topMargin]: hasTopMargin
+        [classes.topMargin]: hasTopMargin,
       })}
       onClick={onClick}
     >

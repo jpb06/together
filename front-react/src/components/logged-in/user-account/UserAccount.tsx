@@ -82,7 +82,11 @@ const UserAccount: React.FC<UserAccountProps> = ({
           </Grid>
           <Grid item md={12} xs={12}>
             <Paper className={classes.paper}>
-              <TeamsList teams={userTeams} currentTeam={userCurrentTeam} />
+              <TeamsList
+                user={user}
+                teams={userTeams}
+                currentTeam={userCurrentTeam}
+              />
             </Paper>
           </Grid>
         </>

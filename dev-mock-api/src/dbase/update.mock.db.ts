@@ -5,11 +5,11 @@ import { PersistedTeam } from "../types/persisted.team.type";
 import { getUsers, getTeams, getDailies } from "./fetch.mock.db";
 import Daily from "../types/daily.type";
 
-export function persist(
+export const persist = (
   users?: Array<PersistedUser>,
   teams?: Array<PersistedTeam>,
   dailies?: Array<Daily>
-) {
+) => {
   const persistedUsers = users || getUsers();
   const persistedTeams = teams || getTeams();
   const persistedDailies = dailies || getDailies();
@@ -31,9 +31,9 @@ export function persist(
       ? console.log("err", err)
       : console.log(`Mock DB updated : (${updatedData.join(", ")}).`);
   });
-}
+};
 
-export function persistUser(user: PersistedUser) {
+export const persistUser = (user: PersistedUser) => {
   let alteredUsers: Array<PersistedUser> = getUsers();
 
   const persistedUser = alteredUsers.find((el) => el.id === user.id);
@@ -44,9 +44,9 @@ export function persistUser(user: PersistedUser) {
   }
 
   persist(alteredUsers);
-}
+};
 
-export function persistTeam(team: PersistedTeam) {
+export const persistTeam = (team: PersistedTeam) => {
   let alteredTeams: Array<PersistedTeam> = getTeams();
 
   const persistedTeam = alteredTeams.find((el) => el.id === team.id);
@@ -57,9 +57,9 @@ export function persistTeam(team: PersistedTeam) {
   }
 
   persist(undefined, alteredTeams);
-}
+};
 
-export function persistDaily(daily: Daily) {
+export const persistDaily = (daily: Daily) => {
   let alteredDailies: Array<Daily> = getDailies();
 
   const persistedDaily = alteredDailies.find((el) => el.id === daily.id);
@@ -72,4 +72,4 @@ export function persistDaily(daily: Daily) {
   }
 
   persist(undefined, undefined, alteredDailies);
-}
+};

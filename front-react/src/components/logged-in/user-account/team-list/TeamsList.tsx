@@ -8,13 +8,15 @@ import TeamMember from "./team-member/TeamMember";
 import InviteUser from "./invite-user/InviteUser";
 import Team from "./Team";
 import InviteUserToTeamModal from "../../../modals/InviteUserToTeamModal";
+import User from "../../../../types/user.type";
 
 interface TeamsListProps {
+  user: User;
   teams: Array<TeamType>;
   currentTeam: TeamType;
 }
 
-const TeamsList: React.FC<TeamsListProps> = ({ teams, currentTeam }) => {
+const TeamsList: React.FC<TeamsListProps> = ({ user, teams, currentTeam }) => {
   const classes = styles();
 
   const [isInviteModalOpened, setIsInviteModalOpened] = useState(false);
@@ -26,7 +28,8 @@ const TeamsList: React.FC<TeamsListProps> = ({ teams, currentTeam }) => {
     setActiveTeamPanel(activeTeamPanel ? panelName : false);
   };
 
-  const handleUserInvite = () => setIsInviteModalOpened(true);
+  const handleOpenModal = () => setIsInviteModalOpened(true);
+  const handleCloseModal = () => setIsInviteModalOpened(false);
 
   return (
     <>
@@ -44,7 +47,29 @@ const TeamsList: React.FC<TeamsListProps> = ({ teams, currentTeam }) => {
               currentTeam.members.map((user) => (
                 <TeamMember key={user.id} user={user} />
               ))}
-            <InviteUser onUserInvite={handleUserInvite} />
+            {currentTeam.joinRequests &&
+              currentTeam.joinRequests.map((request) => (
+                <TeamMember
+                  key={request.id}
+                  user={{
+                    ...request.user,
+                    joinDate: request.date,
+                    status: "candidate",
+                  }}
+                />
+              ))}
+            {currentTeam.invitedUsers &&
+              currentTeam.invitedUsers.map((invite) => (
+                <TeamMember
+                  key={invite.id}
+                  user={{
+                    ...invite.invitee,
+                    joinDate: invite.date,
+                    status: "candidate",
+                  }}
+                />
+              ))}
+            <InviteUser onUserInvite={handleOpenModal} />
           </Grid>
         </Paper>
         {teams.length > 1 && <h2>Your others teams</h2>}
@@ -60,7 +85,12 @@ const TeamsList: React.FC<TeamsListProps> = ({ teams, currentTeam }) => {
             />
           ))}
       </Grid>
-      <InviteUserToTeamModal isOpened={isInviteModalOpened} />
+      <InviteUserToTeamModal
+        isOpened={isInviteModalOpened}
+        userId={user.id}
+        teamId={currentTeam.id}
+        onClose={handleCloseModal}
+      />
     </>
   );
 };

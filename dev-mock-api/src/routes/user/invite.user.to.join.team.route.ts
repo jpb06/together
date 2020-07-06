@@ -34,6 +34,15 @@ const mapInviteUserToJoinTeam = (server: Application) => {
       const team = teams.find((el) => el.id === req.body.teamId);
       if (!team) return res.answer(520, "Unable to locate the selected team");
 
+      const userHasRequestedToJoinTeam = team.joinRequests.find(
+        (el) => el.user.id === invitee.id
+      );
+      if (userHasRequestedToJoinTeam)
+        return res.answer(
+          520,
+          "This user has already requested to join the team"
+        );
+
       const isInviteeAlreadyInTeam =
         team.invitedUsers.find((el) => el.invitee.id === invitee.id) ||
         team.members.find((el) => el.id === invitee.id);

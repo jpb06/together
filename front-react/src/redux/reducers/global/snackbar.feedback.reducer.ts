@@ -33,7 +33,7 @@ const snackbarFeedbackReducer = (
   }
 
   if (
-    check(action.type).for(Context.Global).as(Result.Failure).truthy() ||
+    check(action.type).as(Result.Failure).truthy() ||
     action.type === SHOW_ERROR_FEEDBACK
   ) {
     return { type: MessageType.Error, message: action.payload };

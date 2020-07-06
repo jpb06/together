@@ -1,0 +1,3 @@
+- https://github.com/reduxjs/reselect : redux performance through selectors memoizing
+- https://github.com/redux-saga/redux-saga : side effects management within redux
+- https://github.com/supasate/connected-react-router : synchronize router state with redux store

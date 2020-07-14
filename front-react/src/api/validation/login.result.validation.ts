@@ -1,17 +1,14 @@
-import { validateResponse, ApiResponse } from "./response.validation";
-import User from "../../types/user.type";
 import { AxiosResponse } from "axios";
+import { ApiResponse } from "../../types/api/api.response.interface";
+import { isResponseValid } from "./response.validation";
+import { ApiLoginResult } from "../calls/anonymous/login.api";
 
-export interface ApiLoginResponse extends ApiResponse {
-  token: string;
-  user: User;
-  expirationDate: string;
-}
+export const isResultValid = (
+  result: AxiosResponse<ApiResponse<ApiLoginResult>>
+) => {
+  const isValid = isResponseValid(result);
+  if (!isValid) return false;
 
-const validateLoginResult = (result: AxiosResponse<ApiLoginResponse>) =>
-  validateResponse(result) &&
-  result.data.token &&
-  result.data.user &&
-  result.data.expirationDate;
-
-export { validateLoginResult };
+  const { token, user, expirationDate } = result.data.payload as ApiLoginResult;
+  return token && user && expirationDate;
+};

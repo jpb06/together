@@ -2,20 +2,19 @@ import { AxiosInstance } from "axios";
 import { History, LocationState } from "history";
 import * as localStorage from "local-storage";
 import LocalStorageKeys from "../../logic/local.storage.keys";
-import { ApiStatus } from "./together.api";
 
 const setInterceptors = (
   instance: AxiosInstance,
   history: History<LocationState>
 ) => {
   instance.interceptors.request.use(
-    function(config) {
+    (config) => {
       const token = localStorage.get(LocalStorageKeys.token);
       const expiration = localStorage.get(LocalStorageKeys.expiration);
       if (!token || !expiration) {
         localStorage.clear();
         history.push({
-          pathname: "/"
+          pathname: "/",
         });
         return Promise.reject("not logged");
       } else {
@@ -24,7 +23,7 @@ const setInterceptors = (
 
       return config;
     },
-    function(error) {
+    (error) => {
       // Do something with request error
 
       return Promise.reject(error);
@@ -32,7 +31,7 @@ const setInterceptors = (
   );
 
   instance.interceptors.response.use(
-    response => {
+    (response) => {
       // Any status code that lie within the range of 2xx cause this function to trigger
       return response;
     },
@@ -46,26 +45,26 @@ const setInterceptors = (
         if (error.response.status === 401) {
           localStorage.clear();
           history.push({
-            pathname: "/"
+            pathname: "/",
           });
         }
 
         return Promise.reject({
-          apiStatus: ApiStatus.Error,
-          error: error.response.data
+          success: false,
+          error: error.response.data,
         });
       } else if (error.request) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js
         return Promise.reject({
-          apiStatus: ApiStatus.Error,
-          error: "The request was made but no response was received"
+          success: false,
+          error: "The request was made but no response was received",
         });
       } else {
         // Something happened in setting up the request that triggered an Error
         return Promise.reject({
-          apiStatus: ApiStatus.Error,
-          error: error
+          success: false,
+          error,
         });
       }
     }

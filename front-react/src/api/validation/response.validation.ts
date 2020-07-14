@@ -1,11 +1,11 @@
 import { AxiosResponse } from "axios";
+import { ApiResponse } from "../../types/api/api.response.interface";
 
-export interface ApiResponse {
-  status: number;
-  error?: string;
-}
-
-const validateResponse = (result: AxiosResponse<ApiResponse>) =>
-  result && result.data && result.data.status === 200;
-
-export { validateResponse };
+export const isResponseValid = <TData>(
+  result: AxiosResponse<ApiResponse<TData>>,
+  expectedStatus: number = 200
+) =>
+  result &&
+  result.status === expectedStatus &&
+  result.data &&
+  result.data.payload;

@@ -1,20 +1,21 @@
-import TogetherApi, { send, ApiResponse } from "../setup/together.api";
+import TogetherApi, { send } from "../../setup/together.api";
+import { ApiResponse } from "../../../types/api/api.response.interface";
+
+interface ApiRemoveTicketResponse {
+  data?: string;
+}
 
 export enum TicketRemovalType {
   Unforeseen,
   Done,
 }
 
-interface ApiRemoveTicketResponse extends ApiResponse {
-  data?: string;
-}
-
-const removeTicket = async (
+export const removeTicket = async (
   ticketType: TicketRemovalType,
   teamId: string,
   date: string,
   ticket: string
-): Promise<ApiRemoveTicketResponse> => {
+): Promise<ApiResponse<ApiRemoveTicketResponse>> => {
   const route = ticketType === TicketRemovalType.Done ? "done" : "unforeseen";
 
   return await send(
@@ -25,5 +26,3 @@ const removeTicket = async (
     })
   );
 };
-
-export { removeTicket };

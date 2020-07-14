@@ -1,28 +1,12 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import setInterceptors from "./axios.interceptors";
-import apiUrl from "./../private/current.config";
 import { History, LocationState } from "history";
-
-export enum ApiStatus {
-  Ok,
-  Error,
-}
-
-export interface ApiResponse {
-  apiStatus: ApiStatus;
-  error?: ApiError;
-  data?: any;
-}
-
-export interface ApiError {
-  status: number;
-  message: string;
-}
+import { ApiResponse } from "../../types/api/api.response.interface";
 
 export default class TogetherApi {
-  static requiresSetup = true;
+  static SetupRequired = true;
   static Instance: AxiosInstance = axios.create({
-    baseURL: apiUrl,
+    baseURL: process.env.REACT_APP_API_URI,
     timeout: 15000,
     // `validateStatus` defines whether to resolve or reject the promise for a given HTTP response status code.
     // If `validateStatus` returns `true` (or is set to `null` or `undefined`),
@@ -32,26 +16,24 @@ export default class TogetherApi {
   });
 
   static setup = (history: History<LocationState>) => {
-    if (TogetherApi.requiresSetup) {
+    if (TogetherApi.SetupRequired) {
       console.log("Configuring API ...");
       setInterceptors(TogetherApi.Instance, history);
-      TogetherApi.requiresSetup = false;
+      TogetherApi.SetupRequired = false;
     }
   };
 }
 
-const asApiResponse = (response: AxiosResponse<any>): ApiResponse => ({
-  apiStatus: ApiStatus.Ok,
-  data: response.data.data,
-});
-
-const send = async (apiCall: Promise<any>) => {
+export const send = async <TData>(
+  apiCall: Promise<AxiosResponse<TData>>
+): Promise<ApiResponse<TData>> => {
   try {
     const result = await apiCall;
-    return asApiResponse(result);
+    return {
+      success: true,
+      payload: result.data,
+    };
   } catch (error) {
-    return error as ApiResponse;
+    return error as ApiResponse<never>;
   }
 };
-
-export { apiUrl, send };

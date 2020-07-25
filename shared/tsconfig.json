@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "moduleResolution": "node",
+        "allowJs": false,
+        "strictNullChecks": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": true,
+        "noEmitOnError": true,
+        "isolatedModules": false,
+        "resolveJsonModule": true
+    },
+    "compileOnSave": false,
+    "buildOnSave": false,
+    "typeRoots": ["../dev-mock-api/node_modules/@types"]
+}

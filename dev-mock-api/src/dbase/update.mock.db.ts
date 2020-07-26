@@ -1,13 +1,13 @@
 import * as path from "path";
 import * as fs from "fs";
-import { PersistedUser } from "../types/persisted.user.type";
-import { PersistedTeam } from "../types/persisted.team.type";
+import { PersistedUser as User } from "../../../shared/types/interfaces/user.interfaces";
+import { Team } from "../../../shared/types/interfaces/team.interfaces";
 import { getUsers, getTeams, getDailies } from "./fetch.mock.db";
-import Daily from "../types/daily.type";
+import Daily from "../../../shared/types/interfaces/daily.interfaces";
 
 export const persist = (
-  users?: Array<PersistedUser>,
-  teams?: Array<PersistedTeam>,
+  users?: Array<User>,
+  teams?: Array<Team>,
   dailies?: Array<Daily>
 ) => {
   const persistedUsers = users || getUsers();
@@ -33,8 +33,8 @@ export const persist = (
   });
 };
 
-export const persistUser = (user: PersistedUser) => {
-  let alteredUsers: Array<PersistedUser> = getUsers();
+export const persistUser = (user: User) => {
+  let alteredUsers: Array<User> = getUsers();
 
   const persistedUser = alteredUsers.find((el) => el.id === user.id);
   if (persistedUser) {
@@ -46,8 +46,8 @@ export const persistUser = (user: PersistedUser) => {
   persist(alteredUsers);
 };
 
-export const persistTeam = (team: PersistedTeam) => {
-  let alteredTeams: Array<PersistedTeam> = getTeams();
+export const persistTeam = (team: Team) => {
+  let alteredTeams: Array<Team> = getTeams();
 
   const persistedTeam = alteredTeams.find((el) => el.id === team.id);
   if (persistedTeam) {

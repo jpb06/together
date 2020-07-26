@@ -4,9 +4,9 @@ import isAuthenticated from "../../middleware/is.authenticated";
 import { body } from "express-validator";
 import getTeamFromInvite from "../../middleware/get.team.from.invite";
 import { persistUser, persistTeam } from "../../dbase/update.mock.db";
-import { PersistedUser } from "../../types/persisted.user.type";
-import { PersistedTeam } from "../../types/persisted.team.type";
-import { TeamInvite } from "../../types/invite.type";
+import { PersistedUser as User } from "../../../../shared/types/interfaces/user.interfaces";
+import { Team } from "../../../../shared/types/interfaces/team.interfaces";
+import { TeamInvite } from "../../../../shared/types/interfaces/team.onboarding.interfaces";
 
 const mapDeclineTeamInvite = (server: Application) => {
   server.post(
@@ -15,8 +15,8 @@ const mapDeclineTeamInvite = (server: Application) => {
     [body("inviteId").isMongoId()],
     getTeamFromInvite,
     (req: Request, res: Response) => {
-      const user: PersistedUser = res.locals.user;
-      const team: PersistedTeam = res.locals.team;
+      const user: User = res.locals.user;
+      const team: Team = res.locals.team;
       const invite: TeamInvite = res.locals.invite;
 
       // removing the invite from both targeted user and team

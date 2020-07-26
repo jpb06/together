@@ -1,110 +1,95 @@
-import { PersistedTeam, BareTeam } from "../types/persisted.team.type";
+import * as moment from "moment";
+import {
+  Team,
+  BareTeam,
+} from "../../../shared/types/interfaces/team.interfaces";
 import {
   PersistedUser,
   TerseUser,
+} from "../../../shared/types/interfaces/user.interfaces";
+import { TeamMember } from "../../../shared/types/interfaces/team.member.interface";
+import {
   UserJoinRequest,
-  UserInvite,
-  TeamMember
-} from "../types/persisted.user.type";
-import { TeamInvite } from "../types/invite.type";
+  InvitedUser,
+  TeamInvite,
+  TeamJoinRequest,
+} from "../../../shared/types/interfaces/team.onboarding.interfaces";
 import {
   UserTimeLineEntry,
-  TimeLineEntryType,
-  TeamTimeLineEntry
-} from "../types/timeline.type";
-import * as moment from "moment";
-import { TeamJoinRequest } from "../types/join.request.type";
-import Daily from "../types/daily.type";
+  TeamTimeLineEntry,
+} from "../../../shared/types/interfaces/timeline.interfaces";
+import { TimeLineEntryKind } from "../../../shared/types/enums/timeline.entry.kind.enum";
+import Daily from "../../../shared/types/interfaces/daily.interfaces";
 import { splittedDateToString, splittedDateToMoment } from "./dates";
 
-export function teamToBareTeam(team: PersistedTeam): BareTeam {
-  return {
-    id: team.id,
-    name: team.name
-  };
-}
+export const teamToBareTeam = (team: Team): BareTeam => ({
+  id: team.id,
+  name: team.name,
+});
 
-export function userToTerseUser(user: PersistedUser): TerseUser {
-  return {
-    id: user.id,
-    lastName: user.lastName,
-    firstName: user.firstName,
-    avatarName: user.avatarName,
-    email: user.email
-  };
-}
+export const userToTerseUser = (user: PersistedUser): TerseUser => ({
+  id: user.id,
+  lastName: user.lastName,
+  firstName: user.firstName,
+  avatarName: user.avatarName,
+  email: user.email,
+});
 
-export function teamInviteToUserTimeLineEntry(
+export const teamInviteToUserTimeLineEntry = (
   invite: TeamInvite
-): UserTimeLineEntry {
-  return {
-    type: TimeLineEntryType.InvitationSentToCurrentUser,
-    entry: invite,
-    shortTitle: `Invitation - ${moment(invite.date).format("DD/MM/YYYY")}`,
-    date: moment(invite.date)
-  };
-}
+): UserTimeLineEntry => ({
+  type: TimeLineEntryKind.InvitationSentToCurrentUser,
+  entry: invite,
+  shortTitle: `Invitation - ${moment(invite.date).format("DD/MM/YYYY")}`,
+  date: invite.date,
+});
 
-export function teamJoinRequestToUserTimeLineEntry(
+export const teamJoinRequestToUserTimeLineEntry = (
   joinRequest: TeamJoinRequest
-): UserTimeLineEntry {
-  return {
-    type: TimeLineEntryType.JoinRequestSentByCurrentUser,
-    entry: joinRequest,
-    shortTitle: `Join request - ${moment(joinRequest.date).format(
-      "DD/MM/YYYY"
-    )}`,
-    date: moment(joinRequest.date)
-  };
-}
+): UserTimeLineEntry => ({
+  type: TimeLineEntryKind.JoinRequestSentByCurrentUser,
+  entry: joinRequest,
+  shortTitle: `Join request - ${moment(joinRequest.date).format("DD/MM/YYYY")}`,
+  date: joinRequest.date,
+});
 
-export function invitedUserToTeamTimeLineEntry(
-  invitedUser: UserInvite
-): TeamTimeLineEntry {
-  return {
-    type: TimeLineEntryType.InviteToJoinCurrentTeam,
-    entry: invitedUser,
-    shortTitle: `Invite - ${moment(invitedUser.date).format("DD/MM/YYYY")}`,
-    date: moment(invitedUser.date)
-  };
-}
+export const invitedUserToTeamTimeLineEntry = (
+  invitedUser: InvitedUser
+): TeamTimeLineEntry => ({
+  type: TimeLineEntryKind.InviteToJoinCurrentTeam,
+  entry: invitedUser,
+  shortTitle: `Invite - ${moment(invitedUser.date).format("DD/MM/YYYY")}`,
+  date: invitedUser.date,
+});
 
-export function userJoinRequestToTeamTimeLineEntry(
+export const userJoinRequestToTeamTimeLineEntry = (
   joinRequest: UserJoinRequest
-): TeamTimeLineEntry {
-  return {
-    type: TimeLineEntryType.JoinRequestToCurrentTeam,
-    entry: joinRequest,
-    shortTitle: `Join request - ${moment(joinRequest.date).format(
-      "DD/MM/YYYY"
-    )}`,
-    date: moment(joinRequest.date)
-  };
-}
+): TeamTimeLineEntry => ({
+  type: TimeLineEntryKind.JoinRequestToCurrentTeam,
+  entry: joinRequest,
+  shortTitle: `Join request - ${moment(joinRequest.date).format("DD/MM/YYYY")}`,
+  date: joinRequest.date,
+});
 
-export function dailyToTeamTimeLineEntry(daily: Daily): TeamTimeLineEntry {
-  return {
-    type: TimeLineEntryType.Daily,
-    entry: daily,
-    shortTitle: `Daily - ${splittedDateToString(
-      daily.year,
-      daily.month,
-      daily.day
-    )}`,
-    date: splittedDateToMoment(daily.year, daily.month, daily.day)
-  };
-}
+export const dailyToTeamTimeLineEntry = (daily: Daily): TeamTimeLineEntry => ({
+  type: TimeLineEntryKind.Daily,
+  entry: daily,
+  shortTitle: `Daily - ${splittedDateToString(
+    daily.year,
+    daily.month,
+    daily.day
+  )}`,
+  date: splittedDateToString(daily.year, daily.month, daily.day),
+});
 
-export function teamMemberToTeamTimeLineEntry(
+export const teamMemberToTeamTimeLineEntry = (
   user: TeamMember
-): TeamTimeLineEntry {
-  return {
-    type: TimeLineEntryType.NewTeamMemberNotice,
-    shortTitle:
-      user.status === "creator"
-        ? `The adventure begins - ${moment(user.joinDate).format("DD/MM/YYYY")}`
-        : `New member - ${moment(user.joinDate).format("DD/MM/YYYY")}`,
-    date: moment(user.joinDate),
-    entry: user
-  };
-}
+): TeamTimeLineEntry => ({
+  type: TimeLineEntryKind.NewTeamMemberNotice,
+  shortTitle:
+    user.status === "creator"
+      ? `The adventure begins - ${moment(user.joinDate).format("DD/MM/YYYY")}`
+      : `New member - ${moment(user.joinDate).format("DD/MM/YYYY")}`,
+  date: user.joinDate,
+  entry: user,
+});

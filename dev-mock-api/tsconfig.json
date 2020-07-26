@@ -15,5 +15,8 @@
   },
   "compileOnSave": false,
   "buildOnSave": false,
-  "typeRoots": ["node_modules/@types"]
+  "typeRoots": ["node_modules/@types"],
+  "include": [
+    "src", "../shared/**/*"
+  ]
 }

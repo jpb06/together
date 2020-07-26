@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { PersistedUser } from "../types/persisted.user.type";
+import { PersistedUser as User } from "../../../shared/types/interfaces/user.interfaces";
 import { getUsers, getTeams } from "../dbase/fetch.mock.db";
 
 export default function getTeamFromInvite(
@@ -10,21 +10,19 @@ export default function getTeamFromInvite(
   const users = getUsers();
   const teams = getTeams();
 
-  const user = users.find(el => el.email === res.locals.email) as
-    | PersistedUser
-    | undefined;
+  const user = users.find((el) => el.email === res.locals.email);
   if (!user) {
     return res.answer(520, "Unable to get the current user");
   }
 
   const matchingInvite = user.teamInvites.find(
-    el => el.id === req.body.inviteId
+    (el) => el.id === req.body.inviteId
   );
   if (!matchingInvite) {
     return res.answer(520, "Unable to find the team join invite");
   }
 
-  const team = teams.find(el => el.id === matchingInvite.team.id);
+  const team = teams.find((el) => el.id === matchingInvite.team.id);
   if (!team) {
     return res.answer(520, "Unable to find the targeted team");
   }

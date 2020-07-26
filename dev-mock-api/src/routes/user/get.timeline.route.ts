@@ -3,8 +3,9 @@ import { Request, Response } from "express-serve-static-core";
 import isAuthenticated from "../../middleware/is.authenticated";
 import { body } from "express-validator";
 import { getUsers, getTeams, getDailies } from "../../dbase/fetch.mock.db";
-import { PersistedUser } from "../../types/persisted.user.type";
-import TimeLine, { TeamTimeLine } from "../../types/timeline.type";
+import TimeLine, {
+  TeamTimeLine,
+} from "../../../../shared/types/interfaces/timeline.interfaces";
 import {
   teamInviteToUserTimeLineEntry,
   teamJoinRequestToUserTimeLineEntry,
@@ -13,6 +14,7 @@ import {
   dailyToTeamTimeLineEntry,
   teamMemberToTeamTimeLineEntry,
 } from "../../util/types.conversion.helpers";
+import moment = require("moment");
 
 const mapGetUserTimeline = (server: Application) => {
   server.post(
@@ -23,16 +25,10 @@ const mapGetUserTimeline = (server: Application) => {
       const users = getUsers();
       const teams = getTeams();
 
-      const user = users.find((el) => el.email === res.locals.email) as
-        | PersistedUser
-        | undefined;
+      const user = users.find((el) => el.email === res.locals.email);
       if (!user) {
         return res.answer(520, "Unable to get the current user");
       }
-
-      let timeline: TimeLine = {
-        userEvents: [],
-      };
 
       // Invitations sent to the caller
       const userTeamInvites = user.teamInvites.map((invite) =>
@@ -43,10 +39,11 @@ const mapGetUserTimeline = (server: Application) => {
         teamJoinRequestToUserTimeLineEntry(request)
       );
 
-      timeline.userEvents = timeline.userEvents
-        .concat(userTeamInvites)
-        .concat(userJoinRequests)
-        .sort((a, b) => b.date.unix() - a.date.unix());
+      const timeline: TimeLine = {
+        userEvents: userTeamInvites
+          .concat(userJoinRequests)
+          .sort((a, b) => moment(b.date).unix() - moment(a.date).unix()),
+      };
 
       const team = teams.find((el) => el.id === req.body.teamId);
       if (team) {
@@ -75,7 +72,7 @@ const mapGetUserTimeline = (server: Application) => {
           .concat(
             team.members.map((user) => teamMemberToTeamTimeLineEntry(user))
           )
-          .sort((a, b) => b.date.unix() - a.date.unix());
+          .sort((a, b) => moment(b.date).unix() - moment(a.date).unix());
 
         timeline.currentTeam = teamTimeLine;
       }

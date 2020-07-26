@@ -3,7 +3,6 @@ import { Request, Response } from "express-serve-static-core";
 import isAuthenticated from "../../middleware/is.authenticated";
 import { body } from "express-validator";
 import { getUsers } from "../../dbase/fetch.mock.db";
-import { PersistedUser } from "../../types/persisted.user.type";
 import { getOrCreateDaily } from "../../util/daily";
 import { userToTerseUser } from "../../util/types.conversion.helpers";
 import { persistDaily } from "../../dbase/update.mock.db";
@@ -20,12 +19,9 @@ const mapAddFeeling = (server: Application) => {
       body("comment").isString(),
     ],
     (req: Request, res: Response) => {
-      let users = getUsers();
+      const users = getUsers();
 
-      const creator = users.find((el) => el.email === res.locals.email) as
-        | PersistedUser
-        | undefined;
-
+      const creator = users.find((el) => el.email === res.locals.email);
       if (!creator) {
         return res.answer(500, "Unable to retrieve feeling creator");
       }

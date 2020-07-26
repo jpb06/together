@@ -10,6 +10,11 @@ import {
 import * as moment from "moment";
 import { getUsers, getTeams } from "../../dbase/fetch.mock.db";
 import { mongoObjectId } from "../../util/objectid";
+import { Team } from "../../../../shared/types/interfaces/team.interfaces";
+
+const isUserAlreadyInTeam = (team: Team, userId: string) =>
+  team.joinRequests.find((el) => el.user.id === userId) !== undefined ||
+  team.members.find((el) => el.id === userId) !== undefined;
 
 const mapRequestToJoinTeam = (server: Application) => {
   server.post(
@@ -26,11 +31,7 @@ const mapRequestToJoinTeam = (server: Application) => {
       const team = teams.find((el) => el.name === req.body.teamName);
       if (!team) return res.answer(520, "Unable to locate the selected team");
 
-      const userIsAlreadyInTeam =
-        team.joinRequests.find((el) => el.user.id === user.id) ||
-        team.members.find((el) => el.id === user.id);
-
-      if (userIsAlreadyInTeam)
+      if (isUserAlreadyInTeam(team, user.id))
         return res.answer(
           520,
           "This user has already either been added to the team or requested to join the team"

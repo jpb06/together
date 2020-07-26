@@ -1,6 +1,6 @@
-import { SubjectType } from "../../types/subject.type";
-import { FeelingType } from "../../types/feeling.type";
-import Daily from "../../types/daily.type";
+import { SubjectKind } from "../../../../shared/types/enums/subject.kind.enum";
+import { FeelingKind } from "../../../../shared/types/enums/feeling.kind.enum";
+import Daily from "../../../../shared/types/interfaces/daily.interfaces";
 
 export const dailies: Array<Daily> = [
   {
@@ -101,7 +101,7 @@ export const dailies: Array<Daily> = [
           email: "jpb.06@outlook.fr",
         },
         id: "5dfd264a18ee042de8a91232",
-        type: SubjectType.Restraint,
+        type: SubjectKind.Restraint,
         description: "yolo lolo jejejej",
       },
     ],
@@ -115,7 +115,7 @@ export const dailies: Array<Daily> = [
           email: "jpb.06@outlook.fr",
         },
         id: "5dfd265018ee042de8a91233",
-        type: FeelingType.ThumbDown,
+        type: FeelingKind.ThumbDown,
         comment: "kappa",
       },
     ],

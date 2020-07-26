@@ -15,7 +15,7 @@ const mapSetDailyDuration = (server: Application) => {
       body("duration").isString().isIn(["0-15", "15-20", "20-30", "20+"]),
     ],
     (req: Request, res: Response) => {
-      let daily = getOrCreateDaily(req.body.teamId, req.body.date);
+      const daily = getOrCreateDaily(req.body.teamId, req.body.date);
       daily.durationIndicator = req.body.duration;
 
       persistDaily(daily);

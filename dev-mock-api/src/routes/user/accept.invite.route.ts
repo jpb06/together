@@ -1,17 +1,13 @@
 import { Application } from "express";
 import { Request, Response } from "express-serve-static-core";
-import isAuthenticated from "../../middleware/is.authenticated";
 import { body } from "express-validator";
-import getTeamFromInvite from "../../middleware/get.team.from.invite";
-import { persistUser, persistTeam } from "../../dbase/update.mock.db";
-import { PersistedUser as User } from "../../../../shared/types/interfaces/user.interfaces";
-import { Team } from "../../../../shared/types/interfaces/team.interfaces";
-import {
-  teamToBareTeam,
-  userToTerseUser,
-} from "../../util/types.conversion.helpers";
 import * as moment from "moment";
-import { TeamInvite } from "../../../../shared/types/interfaces/team.onboarding.interfaces";
+
+import { PersistedUser as User, Team, TeamInvite } from "../../../../shared/types";
+import { persistTeam, persistUser } from "../../dbase/update.mock.db";
+import getTeamFromInvite from "../../middleware/get.team.from.invite";
+import isAuthenticated from "../../middleware/is.authenticated";
+import { teamToBareTeam, userToTerseUser } from "../../util/types.conversion.helpers";
 
 const mapAcceptTeamInvite = (server: Application) => {
   server.post(

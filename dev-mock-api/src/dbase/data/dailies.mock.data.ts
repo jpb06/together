@@ -1,6 +1,4 @@
-import { SubjectKind } from "../../../../shared/types/enums/subject.kind.enum";
-import { FeelingKind } from "../../../../shared/types/enums/feeling.kind.enum";
-import Daily from "../../../../shared/types/interfaces/daily.interfaces";
+import { Daily, FeelingKind, SubjectKind } from "../../../../shared/types";
 
 export const dailies: Array<Daily> = [
   {

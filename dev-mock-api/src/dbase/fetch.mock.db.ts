@@ -1,8 +1,6 @@
-import * as db from "./data/db.json";
+import { Daily, PersistedUser as User, Team } from "../../../shared/types";
 import Database from "../types/database.type";
-import { Team } from "../../../shared/types/interfaces/team.interfaces";
-import { PersistedUser as User } from "../../../shared/types/interfaces/user.interfaces";
-import Daily from "../../../shared/types/interfaces/daily.interfaces";
+import * as db from "./data/db.json";
 
 export const getUsers = () => (<Database>db).users as Array<User>;
 export const getTeams = () => (<Database>db).teams as Array<Team>;

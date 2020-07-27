@@ -1,4 +1,4 @@
-import { PersistedUser } from "../../../../shared/types/interfaces/user.interfaces";
+import { PersistedUser } from "../../../../shared/types";
 
 export const users: Array<PersistedUser> = [
   {

@@ -1,9 +1,8 @@
-import * as path from "path";
 import * as fs from "fs";
-import { PersistedUser as User } from "../../../shared/types/interfaces/user.interfaces";
-import { Team } from "../../../shared/types/interfaces/team.interfaces";
-import { getUsers, getTeams, getDailies } from "./fetch.mock.db";
-import Daily from "../../../shared/types/interfaces/daily.interfaces";
+import * as path from "path";
+
+import { Daily, PersistedUser as User, Team } from "../../../shared/types";
+import { getDailies, getTeams, getUsers } from "./fetch.mock.db";
 
 export const persist = (
   users?: Array<User>,

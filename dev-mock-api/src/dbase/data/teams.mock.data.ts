@@ -1,4 +1,4 @@
-import { Team } from "../../../../shared/types/interfaces/team.interfaces";
+import { Team } from "../../../../shared/types";
 
 export const teams: Array<Team> = [
   {

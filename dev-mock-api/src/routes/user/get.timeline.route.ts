@@ -1,19 +1,16 @@
 import { Application } from "express";
 import { Request, Response } from "express-serve-static-core";
-import isAuthenticated from "../../middleware/is.authenticated";
 import { body } from "express-validator";
-import { getUsers, getTeams, getDailies } from "../../dbase/fetch.mock.db";
-import TimeLine, {
-  TeamTimeLine,
-} from "../../../../shared/types/interfaces/timeline.interfaces";
+
+import { TeamTimeLine, TimeLine } from "../../../../shared/types";
+import { getDailies, getTeams, getUsers } from "../../dbase/fetch.mock.db";
+import isAuthenticated from "../../middleware/is.authenticated";
 import {
-  teamInviteToUserTimeLineEntry,
-  teamJoinRequestToUserTimeLineEntry,
-  invitedUserToTeamTimeLineEntry,
-  userJoinRequestToTeamTimeLineEntry,
-  dailyToTeamTimeLineEntry,
-  teamMemberToTeamTimeLineEntry,
+    dailyToTeamTimeLineEntry, invitedUserToTeamTimeLineEntry, teamInviteToUserTimeLineEntry,
+    teamJoinRequestToUserTimeLineEntry, teamMemberToTeamTimeLineEntry,
+    userJoinRequestToTeamTimeLineEntry
 } from "../../util/types.conversion.helpers";
+
 import moment = require("moment");
 
 const mapGetUserTimeline = (server: Application) => {

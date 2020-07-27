@@ -1,6 +1,7 @@
-import { Request, Response, NextFunction } from "express";
-import { PersistedUser as User } from "../../../shared/types/interfaces/user.interfaces";
-import { getUsers, getTeams } from "../dbase/fetch.mock.db";
+import { NextFunction, Request, Response } from "express";
+
+import { PersistedUser as User } from "../../../shared/types";
+import { getTeams, getUsers } from "../dbase/fetch.mock.db";
 
 export default function getTeamFromInvite(
   req: Request,

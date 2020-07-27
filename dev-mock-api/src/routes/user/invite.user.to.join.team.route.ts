@@ -1,16 +1,14 @@
 import { Application } from "express";
 import { Request, Response } from "express-serve-static-core";
-import isAuthenticated from "../../middleware/is.authenticated";
 import { body } from "express-validator";
-import { persistUser, persistTeam } from "../../dbase/update.mock.db";
-import {
-  teamToBareTeam,
-  userToTerseUser,
-} from "../../util/types.conversion.helpers";
 import * as moment from "moment";
-import { getUsers, getTeams } from "../../dbase/fetch.mock.db";
+
+import { Team } from "../../../../shared/types";
+import { getTeams, getUsers } from "../../dbase/fetch.mock.db";
+import { persistTeam, persistUser } from "../../dbase/update.mock.db";
+import isAuthenticated from "../../middleware/is.authenticated";
 import { mongoObjectId } from "../../util/objectid";
-import { Team } from "../../../../shared/types/interfaces/team.interfaces";
+import { teamToBareTeam, userToTerseUser } from "../../util/types.conversion.helpers";
 
 const hasUserRequestedToJoinTeam = (team: Team, inviteeId: string) =>
   team.joinRequests.find((el) => el.user.id === inviteeId) !== undefined;

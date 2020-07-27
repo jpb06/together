@@ -1,26 +1,10 @@
 import * as moment from "moment";
+
 import {
-  Team,
-  BareTeam,
-} from "../../../shared/types/interfaces/team.interfaces";
-import {
-  PersistedUser,
-  TerseUser,
-} from "../../../shared/types/interfaces/user.interfaces";
-import { TeamMember } from "../../../shared/types/interfaces/team.member.interface";
-import {
-  UserJoinRequest,
-  InvitedUser,
-  TeamInvite,
-  TeamJoinRequest,
-} from "../../../shared/types/interfaces/team.onboarding.interfaces";
-import {
-  UserTimeLineEntry,
-  TeamTimeLineEntry,
-} from "../../../shared/types/interfaces/timeline.interfaces";
-import { TimeLineEntryKind } from "../../../shared/types/enums/timeline.entry.kind.enum";
-import Daily from "../../../shared/types/interfaces/daily.interfaces";
-import { splittedDateToString, splittedDateToMoment } from "./dates";
+    BareTeam, Daily, InvitedUser, PersistedUser, Team, TeamInvite, TeamJoinRequest, TeamMember,
+    TeamTimeLineEntry, TerseUser, TimeLineEntryKind, UserJoinRequest, UserTimeLineEntry
+} from "../../../shared/types";
+import { splittedDateToString } from "./dates";
 
 export const teamToBareTeam = (team: Team): BareTeam => ({
   id: team.id,

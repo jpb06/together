@@ -1,6 +1,6 @@
+import { Daily } from "../../../shared/types";
 import { getDailies } from "../dbase/fetch.mock.db";
 import { mongoObjectId } from "./objectid";
-import Daily from "../../../shared/types/interfaces/daily.interfaces";
 
 export const getOrCreateDaily = (teamId: string, date: Date): Daily => {
   const dailies = getDailies();

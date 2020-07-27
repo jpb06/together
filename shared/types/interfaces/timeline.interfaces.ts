@@ -1,13 +1,10 @@
-import {
-  TeamInvite,
-  TeamJoinRequest,
-  UserJoinRequest,
-  InvitedUser,
-} from "./team.onboarding.interfaces";
-import Daily from "./daily.interfaces";
-import { BareTeam } from "./team.interfaces";
 import { TimeLineEntryKind } from "../enums/timeline.entry.kind.enum";
+import { Daily } from "./daily.interfaces";
+import { BareTeam } from "./team.interfaces";
 import { TeamMember } from "./team.member.interface";
+import {
+    InvitedUser, TeamInvite, TeamJoinRequest, UserJoinRequest
+} from "./team.onboarding.interfaces";
 
 export type TimeLineEntryData =
   | Daily
@@ -35,7 +32,7 @@ export interface TeamTimeLine extends BareTeam {
   events: Array<TeamTimeLineEntry>;
 }
 
-export default interface TimeLine {
+export interface TimeLine {
   currentTeam?: TeamTimeLine;
   userEvents: Array<UserTimeLineEntry>;
 }

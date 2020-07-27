@@ -1,5 +1,5 @@
 import { BareTeam } from "./team.interfaces";
-import { TeamJoinRequest, TeamInvite } from "./team.onboarding.interfaces";
+import { TeamInvite, TeamJoinRequest } from "./team.onboarding.interfaces";
 
 export interface NewUser {
   lastName: string;
@@ -27,7 +27,7 @@ export interface PersistedUser extends TerseUser {
   teamJoinRequests: Array<TeamJoinRequest>;
 }
 
-export default interface User extends TerseUser {
+export interface User extends TerseUser {
   token: string;
   expirationDate: string;
   teams: Array<BareTeam>;

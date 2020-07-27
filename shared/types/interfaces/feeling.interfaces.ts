@@ -1,12 +1,12 @@
-import { TerseUser } from "./user.interfaces";
 import { FeelingKind } from "../enums/feeling.kind.enum";
+import { TerseUser } from "./user.interfaces";
 
 export interface NewFeeling {
   type: FeelingKind;
   comment: string;
 }
 
-export default interface Feeling extends NewFeeling {
+export interface Feeling extends NewFeeling {
   creator: TerseUser;
 
   id: string;

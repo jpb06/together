@@ -1,8 +1,8 @@
+import { Feeling } from "./feeling.interfaces";
+import { Subject } from "./subject.interfaces";
 import { Ticket } from "./ticket.interfaces";
-import Subject from "./subject.interfaces";
-import Feeling from "./feeling.interfaces";
 
-export default interface Daily {
+export interface Daily {
   id: string;
   teamId: string;
 

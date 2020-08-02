@@ -1,16 +1,12 @@
-import User, { TeamMember } from "../../types/user.type";
-import SnackbarFeedback from "../types/snackbar.feedback.type";
-import { TeamWithLastActivity } from "../../types/team.type";
-import TimeLine from "../../types/timeline.type";
-import { MessageType } from "../../components/generic/feedback/FeedbackSnackbarContent";
-import Daily from "../../types/daily.type";
-import { initDailyStep } from "../logic/daily.feedback.logic";
-import { DailyStepFeedback } from "../types/daily.feedback.type";
-import initUser from "../logic/user.logic";
+import { Daily, TimeLine, User } from "../../../../shared/types";
+import { TeamMember, TeamWithLastActivity } from "../../../../shared/types";
+import { initializeUserFromLocalStorage } from "../../logic/user.util";
 import {
-  AccountCreationState,
-  AccountCreationStep,
-} from "../types/account.creation.state.type";
+    AccountCreationState, AccountCreationStep, ApplicationStatus, DailyStepFeedback, SnackbarData,
+    SnackbarType
+} from "../../types/redux";
+import { RecentAction } from "../../types/redux/recent.action.interface";
+import { initDailyStep } from "../reducers/daily-feedback/daily.feedback.logic";
 
 export interface RootState {
   // User
@@ -31,14 +27,14 @@ export interface RootState {
   readonly accountCreationState: AccountCreationState;
 
   // Global
-  readonly error: any;
-  readonly snackbarFeedback: SnackbarFeedback;
-  readonly apiCallsInProgress: number;
+  readonly status: ApplicationStatus;
+  readonly snackbar: SnackbarData;
+  readonly recentActions: Array<RecentAction>;
 }
 
 const initialState: RootState = {
   // user
-  user: initUser(),
+  user: initializeUserFromLocalStorage(),
   userTeams: [],
   timeline: null,
   teamMembers: [],
@@ -58,11 +54,17 @@ const initialState: RootState = {
     isErrored: false,
     isSubmitted: false,
     actionButtonText: "Choose my avatar",
+    exitActionText: "No thanks, bring me to my timeline!",
+    newTeamMembers: [],
   },
   // global
-  error: null,
-  snackbarFeedback: { type: MessageType.Success, message: "" },
-  apiCallsInProgress: 0,
+  status: ApplicationStatus.Available,
+  snackbar: {
+    isOpen: false,
+    type: SnackbarType.Error,
+    text: "",
+  },
+  recentActions: [],
 };
 
 export { initialState, initDailyStep };

@@ -1,24 +1,22 @@
+import { TeamWithLastActivity } from "../../../../../shared/types";
+import {
+    ActionWithPayload, ReduxActionModifiers as Modifier, ReduxActionType as Type
+} from "../../../types/redux";
+import { isSuccess } from "../../actions/generic/action.checks";
 import { initialState } from "../../store/root.state";
-import { TeamWithLastActivity } from "../../../types/team.type";
-import { ActionWithPayload } from "../../types/action.payloads";
-import { Type, Context, Result } from "../../types/action.types";
-import { typeFor } from "../../logic/action-types/redux.action.type.generation";
 
 const userTeamsReducer = (
   state: Array<TeamWithLastActivity> = initialState.userTeams,
-  action: ActionWithPayload<string, Array<TeamWithLastActivity>>
+  action: ActionWithPayload<Array<TeamWithLastActivity>>
 ) => {
-  switch (action.type) {
-    case typeFor(Type.login, Context.Global, Result.Success):
-      return [];
-    /* --------------------------------------------------- */
-    case typeFor(Type.getUserTeams, Context.Global, Result.Success):
-    case typeFor(Type.getUserTeams, Context.Modal, Result.Success):
-      return action.payload;
-    /* --------------------------------------------------- */
-    default:
-      return state;
+  if (isSuccess(action.type, Type.Login)) {
+    return [];
   }
+  if (isSuccess(action.type, Type.GetUserTeams)) {
+    return action.payload;
+  }
+
+  return state;
 };
 
 export default userTeamsReducer;

@@ -1,28 +1,21 @@
+import { Daily } from "../../../../../shared/types";
+import {
+    ActionWithPayload, DailyAlterationBeginPayload, DailyFeedbackType, DailyStepFeedback,
+    ReduxActionType as Type
+} from "../../../types/redux";
+import { isSuccess } from "../../actions/generic/action.checks";
+import {
+    isFailedDailyAction, isPendingDailyAction, isSucceededDailyAction
+} from "../../identifiers/daily.action.identifier";
 import { initialState } from "../../store/root.state";
-import Daily from "../../../types/daily.type";
-import {
-  DailyAlterationBeginPayload,
-  DailyFeedbackType,
-} from "../../actions/global/begin.api.call.action";
-import { initDailyDurationStep } from "../../logic/daily.feedback.logic";
-import { DailyStepFeedback } from "../../types/daily.feedback.type";
-import { ActionWithPayload } from "../../types/action.payloads";
-import { Context, Type, Result } from "../../types/action.types";
-import { check } from "../../logic/action-types/redux.action.type.validation";
-import {
-  typeFor,
-  beginApiCallFor,
-} from "../../logic/action-types/redux.action.type.generation";
+import { initDailyDurationStep } from "./daily.feedback.logic";
 
-const isActionValid = (action: ActionWithPayload<string, any>): boolean => {
-  const dailyContextCheck = check(action.type).for(Context.Daily);
+const isActionValid = (action: ActionWithPayload<any>): boolean => {
+  const isPending = isPendingDailyAction(action);
 
   if (
-    !dailyContextCheck.is(Type.beginApiCall).truthy() &&
-    !(
-      dailyContextCheck.is(Type.daily).as(Result.Failure).truthy() ||
-      dailyContextCheck.is(Type.daily).as(Result.Success).truthy()
-    )
+    !isPending &&
+    !(isSucceededDailyAction(action) || isFailedDailyAction(action))
   ) {
     return false;
   }
@@ -36,17 +29,10 @@ const isActionValid = (action: ActionWithPayload<string, any>): boolean => {
 const dailyDurationFeedbackReducer = (
   state: DailyStepFeedback = initialState.dailyDurationFeedback,
   action: ActionWithPayload<
-    string,
     Daily | DailyFeedbackType | DailyAlterationBeginPayload
   >
 ) => {
-  if (
-    check(action.type)
-      .is(Type.getDaily)
-      .for(Context.Global)
-      .as(Result.Success)
-      .truthy()
-  ) {
+  if (isSuccess(action.type, Type.GetDaily)) {
     const daily = action.payload as Daily;
     return initDailyDurationStep(daily.durationIndicator.length > 0, false);
   }
@@ -54,16 +40,11 @@ const dailyDurationFeedbackReducer = (
   const isValid = isActionValid(action);
   if (!isValid) return state;
 
-  switch (action.type) {
-    case beginApiCallFor(Context.Daily):
-      return initDailyDurationStep(false, true);
-    case typeFor(Type.daily, Context.Daily, Result.Success):
-      return initDailyDurationStep(true, false);
-    case typeFor(Type.daily, Context.Daily, Result.Failure):
-      return initDailyDurationStep(false, false);
-    default:
-      return state;
-  }
+  if (isPendingDailyAction(action)) return initDailyDurationStep(false, true);
+  if (isSucceededDailyAction(action)) return initDailyDurationStep(true, false);
+  if (isFailedDailyAction(action)) return initDailyDurationStep(false, false);
+
+  return state;
 };
 
 export default dailyDurationFeedbackReducer;

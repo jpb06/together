@@ -1,95 +1,85 @@
+import { Daily } from "../../../../../shared/types";
+import { ActionWithPayload, ReduxActionType as Type } from "../../../types/redux";
+import { isSuccess } from "../../actions/generic/action.checks";
+import { isSucceededDailyAction } from "../../identifiers/daily.action.identifier";
 import { initialState } from "../../store/root.state";
-import Daily from "../../../types/daily.type";
-import { DailyFeedbackType } from "../../actions/global/begin.api.call.action";
-import {
-  ActionWithPayload,
-  DailyIsolatedPayload,
-} from "../../types/action.payloads";
-import { Type, Context, Result } from "../../types/action.types";
-import { check } from "../../logic/action-types/redux.action.type.validation";
+
+interface DailyAlterationPayload {
+  data: any;
+}
 
 const dailyReducer = (
   state: Daily | null = initialState.daily,
-  action: ActionWithPayload<string, Daily | DailyIsolatedPayload>
+  action: ActionWithPayload<Daily | DailyAlterationPayload>
 ) => {
-  if (
-    check(action.type)
-      .is(Type.login)
-      .for(Context.Global)
-      .as(Result.Success)
-      .truthy()
-  ) {
-    return null;
-  }
-
-  if (
-    check(action.type)
-      .is(Type.getDaily)
-      .for(Context.Global)
-      .as(Result.Success)
-      .truthy()
-  ) {
+  if (isSuccess(action.type, Type.GetDaily)) {
     return action.payload as Daily;
   }
 
-  if (
-    check(action.type)
-      .is(Type.daily)
-      .for(Context.Daily)
-      .as(Result.Success)
-      .truthy()
-  ) {
-    const payload = action.payload as DailyIsolatedPayload;
-
+  if (isSucceededDailyAction(action)) {
     const daily = state as Daily;
+    const payload = action.payload as DailyAlterationPayload;
 
-    switch (payload.type) {
-      case DailyFeedbackType.Duration:
-        return { ...daily, durationIndicator: payload.data };
-      case DailyFeedbackType.AddDoneTicket:
-        return {
-          ...daily,
-          doneTickets: [...daily.doneTickets, payload.data],
-        };
-      case DailyFeedbackType.RemoveDoneTicket:
-        return {
-          ...daily,
-          doneTickets: daily.doneTickets.filter(
-            (el) => el.name !== payload.data
-          ),
-        };
-      case DailyFeedbackType.AddUnforeseenTicket:
-        return {
-          ...daily,
-          unforeseenTickets: [...daily.unforeseenTickets, payload.data],
-        };
-      case DailyFeedbackType.RemoveUnforeseenTicket:
-        return {
-          ...daily,
-          unforeseenTickets: daily.unforeseenTickets.filter(
-            (el) => el.name !== payload.data
-          ),
-        };
-      case DailyFeedbackType.AddFeeling:
-        return {
-          ...daily,
-          feelings: [...daily.feelings, payload.data],
-        };
-      case DailyFeedbackType.RemoveFeeling:
-        return {
-          ...daily,
-          feelings: daily.feelings.filter((el) => el.id !== payload.data),
-        };
-      case DailyFeedbackType.AddSubject:
-        return {
-          ...daily,
-          subjects: [...daily.subjects, payload.data],
-        };
-      case DailyFeedbackType.RemoveSubject:
-        return {
-          ...daily,
-          subjects: daily.subjects.filter((el) => el.id !== payload.data),
-        };
+    if (isSuccess(action.type, Type.DailyDuration)) {
+      return { ...daily, durationIndicator: payload.data };
+    }
+
+    if (isSuccess(action.type, Type.AddDoneTicket)) {
+      return {
+        ...daily,
+        doneTickets: [...daily.doneTickets, payload.data],
+      };
+    }
+
+    if (isSuccess(action.type, Type.RemoveDoneTicket)) {
+      return {
+        ...daily,
+        doneTickets: daily.doneTickets.filter((el) => el.name !== payload.data),
+      };
+    }
+
+    if (isSuccess(action.type, Type.AddUnforeseenTicket)) {
+      return {
+        ...daily,
+        unforeseenTickets: [...daily.unforeseenTickets, payload.data],
+      };
+    }
+
+    if (isSuccess(action.type, Type.RemoveUnforeseenTicket)) {
+      return {
+        ...daily,
+        unforeseenTickets: daily.unforeseenTickets.filter(
+          (el) => el.name !== payload.data
+        ),
+      };
+    }
+
+    if (isSuccess(action.type, Type.AddFeeling)) {
+      return {
+        ...daily,
+        feelings: [...daily.feelings, payload.data],
+      };
+    }
+
+    if (isSuccess(action.type, Type.RemoveFeeling)) {
+      return {
+        ...daily,
+        feelings: daily.feelings.filter((el) => el.id !== payload.data),
+      };
+    }
+
+    if (isSuccess(action.type, Type.AddSubject)) {
+      return {
+        ...daily,
+        subjects: [...daily.subjects, payload.data],
+      };
+    }
+
+    if (isSuccess(action.type, Type.RemoveSubject)) {
+      return {
+        ...daily,
+        subjects: daily.subjects.filter((el) => el.id !== payload.data),
+      };
     }
   }
 

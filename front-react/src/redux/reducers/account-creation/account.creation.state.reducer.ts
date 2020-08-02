@@ -1,87 +1,97 @@
-import { initialState } from "../../store/root.state";
-import {
-  AccountCreationState,
-  AccountCreationStep,
-} from "../../types/account.creation.state.type";
-import {
-  CREATE_USER_DATA_SUBMITTED,
-  AVATAR_CHOSEN,
-  Context,
-  Type,
-  Result,
-} from "../../types/action.types";
+import * as localStore from "local-storage";
 import { Action } from "redux";
-import * as localStorage from "local-storage";
+
+import { BareTeam, TerseUser, User } from "../../../../../shared/types";
 import LocalStorageKeys from "../../../logic/local.storage.keys";
-import BareTeam from "../../../types/team.type";
-import { ActionWithPayload } from "../../types/action.payloads";
 import {
-  beginApiCallFor,
-  typeFor,
-} from "../../logic/action-types/redux.action.type.generation";
+    AccountCreationState, AccountCreationStep, ActionWithPayload, ReduxActionModifiers as Modifier,
+    ReduxActionType as Type
+} from "../../../types/redux";
+import { isSuccess } from "../../actions/generic/action.checks";
+import { isAccountCreationAction } from "../../identifiers/account.creation.identifier";
+import { initialState } from "../../store/root.state";
 
 const accountCreationStateReducer = (
   state: AccountCreationState = initialState.accountCreationState,
-  action: Action | ActionWithPayload<string, BareTeam>
+  action: Action | ActionWithPayload<BareTeam>
 ) => {
+  if (isSuccess(action.type, Type.Login)) {
+    return {
+      ...state,
+      step: AccountCreationStep.Avatar,
+      actionButtonText: "My teams",
+      isLoading: false,
+      isErrored: false,
+    };
+  }
+
+  if (isSuccess(action.type, Type.CreateTeam)) {
+    const team = (action as ActionWithPayload<BareTeam>).payload;
+    localStore.set(LocalStorageKeys.currentTeam, team);
+    const user = localStore.get<User | null>(LocalStorageKeys.user);
+
+    return {
+      ...state,
+      step: AccountCreationStep.InviteUsersToTeam,
+      isLoading: false,
+      isErrored: false,
+      newTeamMembers: user
+        ? [
+            {
+              id: user.id,
+              lastName: user.lastName,
+              firstName: user.firstName,
+              avatarName: user.avatarName,
+              email: user.email,
+              status: "Creator",
+              joinDate: new Date().toISOString(),
+            },
+          ]
+        : [],
+    };
+  }
+
+  if (isSuccess(action.type, Type.RequestToJoinTeam)) {
+    return {
+      ...state,
+      step: AccountCreationStep.Completed,
+      isLoading: false,
+      isErrored: false,
+    };
+  }
+
+  if (isSuccess(action.type, Type.InviteUserToTeam)) {
+    const user = (action as ActionWithPayload<TerseUser>).payload;
+
+    return {
+      ...state,
+      isLoading: false,
+      isErrored: false,
+      exitActionText: "I'm done! Bring me to my timeline!",
+      newTeamMembers: [
+        ...state.newTeamMembers,
+        { ...user, status: "Invite sent", joinDate: new Date().toISOString() },
+      ],
+    };
+  }
+
+  if ((action.type as string).startsWith(`${Type.Snackbar}-${Modifier.Saga}`)) {
+    return {
+      ...state,
+      isLoading: false,
+      isErrored: true,
+    };
+  }
+
   switch (action.type) {
-    case CREATE_USER_DATA_SUBMITTED:
+    case Type.CreateUserDataSubmitted:
       return { ...state, isSubmitted: true };
-    case beginApiCallFor(Context.AccountCreation):
+    case isAccountCreationAction(action):
       return { ...state, isLoading: true, isErrored: false };
-    case typeFor(Type.login, Context.Global, Result.Success):
-      return {
-        ...state,
-        step: AccountCreationStep.Avatar,
-        actionButtonText: "My teams",
-        isLoading: false,
-        isErrored: false,
-      };
-    case AVATAR_CHOSEN:
+    case Type.AvatarChosen:
       return {
         ...state,
         step: AccountCreationStep.TeamChoice,
-      };
-    case typeFor(Type.createTeam, Context.AccountCreation, Result.Success):
-      const team = (action as ActionWithPayload<string, BareTeam>).payload;
-      localStorage.set(LocalStorageKeys.currentTeam, team);
-
-      return {
-        ...state,
-        step: AccountCreationStep.InviteUsersToTeam,
-        isLoading: false,
-        isErrored: false,
-      };
-    case typeFor(
-      Type.requestToJoinTeam,
-      Context.AccountCreation,
-      Result.Success
-    ):
-      return {
-        ...state,
-        step: AccountCreationStep.Completed,
-        isLoading: false,
-        isErrored: false,
-      };
-    case typeFor(Type.inviteUser, Context.AccountCreation, Result.Success):
-      return {
-        ...state,
-        isLoading: false,
-        isErrored: false,
-      };
-    case typeFor(Type.createUser, Context.AccountCreation, Result.Failure):
-    case typeFor(Type.createTeam, Context.AccountCreation, Result.Failure):
-    case typeFor(Type.inviteUser, Context.AccountCreation, Result.Failure):
-    case typeFor(
-      Type.requestToJoinTeam,
-      Context.AccountCreation,
-      Result.Failure
-    ):
-    case typeFor(Type.login, Context.Global, Result.Failure):
-      return {
-        ...state,
-        isLoading: false,
-        isErrored: true,
       };
   }
 

@@ -1,18 +1,19 @@
 import { combineReducers } from "redux";
-import userReducer from "./user/user.reducer";
-import userTeamsReducer from "./user/user.teams.reducer";
-import snackbarFeedbackReducer from "./global/snackbar.feedback.reducer";
-import apiStatusReducer from "./global/api.status.reducer";
-import errorReducer from "./global/error.reducer";
-import timelineReducer from "./user/timeline.reducer";
+
+import accountCreationStateReducer from "./account-creation/account.creation.state.reducer";
+import dailyDoneFeedbackReducer from "./daily-feedback/daily.done.feedback.reducer";
+import dailyDurationFeedbackReducer from "./daily-feedback/daily.duration.feedback.reducer";
+import dailyFeelingsFeedbackReducer from "./daily-feedback/daily.feelings.reducer";
+import dailySubjectsFeedbackReducer from "./daily-feedback/daily.subjects.reducer";
+import dailyUnforeseenFeedbackReducer from "./daily-feedback/daily.unforeseen.feedback.reducer";
+import applicationStatusReducer from "./global/application.status.reducer";
+import recentActionsReducer from "./global/recent.actions.reducer";
+import snackbarReducer from "./global/snackbar.reducer";
 import dailyReducer from "./user/daily.reducer";
 import teamMembersReducer from "./user/team.members.reducer";
-import dailyDurationFeedbackReducer from "./daily-feedback/daily.duration.feedback.reducer";
-import dailyUnforeseenFeedbackReducer from "./daily-feedback/daily.unforeseen.feedback.reducer";
-import dailyDoneFeedbackReducer from "./daily-feedback/daily.done.feedback.reducer";
-import dailySubjectsFeedbackReducer from "./daily-feedback/daily.subjects.reducer";
-import dailyFeelingsFeedbackReducer from "./daily-feedback/daily.feelings.reducer";
-import accountCreationStateReducer from "./account-creation/account.creation.state.reducer";
+import timelineReducer from "./user/timeline.reducer";
+import userReducer from "./user/user.reducer";
+import userTeamsReducer from "./user/user.teams.reducer";
 
 const rootReducer = combineReducers({
   user: userReducer,
@@ -29,9 +30,9 @@ const rootReducer = combineReducers({
 
   accountCreationState: accountCreationStateReducer,
 
-  error: errorReducer,
-  snackbarFeedback: snackbarFeedbackReducer,
-  apiCallsInProgress: apiStatusReducer,
+  snackbar: snackbarReducer,
+  status: applicationStatusReducer,
+  recentActions: recentActionsReducer,
 });
 
 export default rootReducer;

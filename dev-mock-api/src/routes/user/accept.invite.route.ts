@@ -3,7 +3,7 @@ import { Request, Response } from "express-serve-static-core";
 import { body } from "express-validator";
 import * as moment from "moment";
 
-import { PersistedUser as User, Team, TeamInvite } from "../../../../shared/types";
+import { PersistedUser as User, Team, TeamInvite } from "../../../../front-react/src/types/shared";
 import { persistTeam, persistUser } from "../../dbase/update.mock.db";
 import getTeamFromInvite from "../../middleware/get.team.from.invite";
 import isAuthenticated from "../../middleware/is.authenticated";

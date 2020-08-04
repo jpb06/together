@@ -1,4 +1,4 @@
-import { Team } from "../../../../shared/types";
+import { Team } from "../../../../front-react/src/types/shared";
 
 export const teams: Array<Team> = [
   {

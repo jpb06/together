@@ -2,7 +2,7 @@ import { Application } from "express";
 import { Request, Response } from "express-serve-static-core";
 import { body } from "express-validator";
 
-import { TeamWithLastActivity } from "../../../../shared/types";
+import { TeamWithLastActivity } from "../../../../front-react/src/types/shared";
 import { getDailies, getTeams } from "../../dbase/fetch.mock.db";
 import isAuthenticated from "../../middleware/is.authenticated";
 import { splittedDateToMoment, splittedDateToString } from "../../util/dates";

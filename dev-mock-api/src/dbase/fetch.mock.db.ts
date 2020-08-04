@@ -1,4 +1,4 @@
-import { Daily, PersistedUser as User, Team } from "../../../shared/types";
+import { Daily, PersistedUser as User, Team } from "../../../front-react/src/types/shared";
 import Database from "../types/database.type";
 import * as db from "./data/db.json";
 

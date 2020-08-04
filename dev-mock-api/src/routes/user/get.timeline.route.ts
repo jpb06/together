@@ -2,7 +2,7 @@ import { Application } from "express";
 import { Request, Response } from "express-serve-static-core";
 import { body } from "express-validator";
 
-import { TeamTimeLine, TimeLine } from "../../../../shared/types";
+import { TeamTimeLine, TimeLine } from "../../../../front-react/src/types/shared";
 import { getDailies, getTeams, getUsers } from "../../dbase/fetch.mock.db";
 import isAuthenticated from "../../middleware/is.authenticated";
 import {

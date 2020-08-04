@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-import { PersistedUser as User } from "../../../shared/types";
+import { PersistedUser as User } from "../../../front-react/src/types/shared";
 import { getTeams, getUsers } from "../dbase/fetch.mock.db";
 
 export default function getTeamFromInvite(

@@ -1,4 +1,4 @@
-import { PersistedUser } from "../../../../shared/types";
+import { PersistedUser } from "../../../../front-react/src/types/shared";
 
 export const users: Array<PersistedUser> = [
   {

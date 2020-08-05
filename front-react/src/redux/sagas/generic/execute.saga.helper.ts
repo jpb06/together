@@ -6,14 +6,20 @@ import {
 } from "../../../types/redux";
 import { showErrorAction, showSnackbarAction } from "../../actions";
 
+const capitalize = (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+
 const getContextFrom = (action: ActionWithPayload<any>): Context => {
   try {
     const actionContext = action.type.split("_").pop();
-    const context = Context[(actionContext as string) as keyof typeof Context];
+    if (!actionContext) throw new Error();
+
+    const context =
+      Context[capitalize(actionContext as string) as keyof typeof Context];
 
     return context;
   } catch (error) {
-    throw new Error("Unable to get action context");
+    throw new Error(`Unable to get action context for ${action.type}`);
   }
 };
 
@@ -35,7 +41,7 @@ export function* executeSaga<TParam>(
   }
 
   try {
-    task(action.payload, context);
+    yield task(action.payload, context);
   } catch (error) {
     yield put(showSnackbarAction(action.type, context, error.message));
   }

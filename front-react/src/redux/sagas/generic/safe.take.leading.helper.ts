@@ -1,17 +1,22 @@
+import { Action } from "redux";
 import { takeLeading } from "redux-saga/effects";
 
 import {
-    ActionWithPayload, ReduxActionContext as Context, ReduxActionModifiers as Modifier
+    ActionWithPayload, ReduxActionContext as Context, ReduxActionType
 } from "../../../types/redux";
+import { isSaga } from "../../identifiers/generic.actions.identifiers";
 import { executeSaga, getPatternsToTake } from "./execute.saga.helper";
 
+const match = (triggers: ReduxActionType | Array<ReduxActionType>) => (
+  action: Action
+) => (triggers as Array<ReduxActionType>).some((el) => isSaga(action.type, el));
+
 export function* safeTakeLeading<TParam>(
-  actionTypes: string | Array<string>,
+  triggers: Array<ReduxActionType>,
   task: (params: TParam, context: Context) => void
 ) {
-  yield takeLeading(
-    getPatternsToTake(actionTypes),
-    (action: ActionWithPayload<TParam>) => executeSaga(task, action)
+  yield takeLeading(match(triggers), (action: ActionWithPayload<TParam>) =>
+    executeSaga(task, action)
   );
 }
 

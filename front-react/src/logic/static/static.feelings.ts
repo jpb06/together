@@ -1,41 +1,36 @@
 import SentimentSatisfiedIcon from "@material-ui/icons/SentimentSatisfied";
 import SentimentVeryDissatisfiedOutlinedIcon from "@material-ui/icons/SentimentVeryDissatisfiedOutlined";
-import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
-import { StaticFeedback } from "./static.feedback.util";
+import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 
-export enum FeelingType {
-  ThumbsUp = 1,
-  ThumbDown = 2,
-  Satisfaction = 3,
-  DyingInside = 4
-}
+import { FeelingKind } from "../../types/shared";
+import { StaticFeedback } from "../daily.details.util";
 
 const staticFeelings: Array<StaticFeedback> = [
   {
-    value: FeelingType.ThumbsUp,
+    value: FeelingKind.ThumbsUp,
     label: "Thumbs up",
     showDivider: false,
-    icon: ThumbUpIcon
+    icon: ThumbUpIcon,
   },
   {
-    value: FeelingType.ThumbDown,
+    value: FeelingKind.ThumbDown,
     label: "Thumb down",
     showDivider: true,
-    icon: ThumbDownIcon
+    icon: ThumbDownIcon,
   },
   {
-    value: FeelingType.Satisfaction,
+    value: FeelingKind.Satisfaction,
     label: "Satisfaction",
     showDivider: false,
-    icon: SentimentSatisfiedIcon
+    icon: SentimentSatisfiedIcon,
   },
   {
-    value: FeelingType.DyingInside,
+    value: FeelingKind.DyingInside,
     label: "Dying inside",
     showDivider: false,
-    icon: SentimentVeryDissatisfiedOutlinedIcon
-  }
+    icon: SentimentVeryDissatisfiedOutlinedIcon,
+  },
 ];
 
 export default staticFeelings;

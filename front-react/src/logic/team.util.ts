@@ -1,14 +1,14 @@
-import BareTeam, { TeamWithLastActivity } from "../types/team.type";
+import { BareTeam, TeamWithLastActivity } from "../types/shared";
 
-export function teamsDoMatch(
+export const teamsDoMatch = (
   initialteams: Array<BareTeam>,
   updatedTeams: Array<TeamWithLastActivity>
-): boolean {
+): boolean => {
   if (initialteams.length !== updatedTeams.length) return false;
 
-  initialteams.forEach(team => {
-    if (!updatedTeams.some(updated => updated.id === team.id)) return false;
+  initialteams.forEach((team) => {
+    if (!updatedTeams.some((updated) => updated.id === team.id)) return false;
   });
 
   return true;
-}
+};

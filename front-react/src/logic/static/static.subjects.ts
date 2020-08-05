@@ -1,49 +1,43 @@
-import GroupIcon from "@material-ui/icons/Group";
-import ForwardIcon from "@material-ui/icons/Forward";
 import CheckIcon from "@material-ui/icons/Check";
-import RowingIcon from "@material-ui/icons/Rowing";
 import ErrorIcon from "@material-ui/icons/Error";
-import { StaticFeedback } from "./static.feedback.util";
+import ForwardIcon from "@material-ui/icons/Forward";
+import GroupIcon from "@material-ui/icons/Group";
+import RowingIcon from "@material-ui/icons/Rowing";
 
-export enum SubjectType {
-  Drive = 1,
-  Restraint = 2,
-  Risk = 3,
-  Team = 4,
-  Goal = 5
-}
+import { SubjectKind } from "../../types/shared";
+import { StaticFeedback } from "../daily.details.util";
 
 const staticSubjects: Array<StaticFeedback> = [
   {
-    value: SubjectType.Drive,
+    value: SubjectKind.Drive,
     label: "Drive",
     showDivider: false,
-    icon: ForwardIcon
+    icon: ForwardIcon,
   },
   {
-    value: SubjectType.Restraint,
+    value: SubjectKind.Restraint,
     label: "Restraint",
     showDivider: false,
-    icon: RowingIcon
+    icon: RowingIcon,
   },
   {
-    value: SubjectType.Risk,
+    value: SubjectKind.Risk,
     label: "Risk",
     showDivider: true,
-    icon: ErrorIcon
+    icon: ErrorIcon,
   },
   {
-    value: SubjectType.Team,
+    value: SubjectKind.Team,
     label: "Team",
     showDivider: false,
-    icon: GroupIcon
+    icon: GroupIcon,
   },
   {
-    value: SubjectType.Goal,
+    value: SubjectKind.Goal,
     label: "Goal",
     showDivider: false,
-    icon: CheckIcon
-  }
+    icon: CheckIcon,
+  },
 ];
 
 export default staticSubjects;

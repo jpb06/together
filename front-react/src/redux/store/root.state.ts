@@ -1,14 +1,23 @@
-import { Daily, TimeLine, User } from "../../../../shared/types";
-import { TeamMember, TeamWithLastActivity } from "../../../../shared/types";
 import { initializeUserFromLocalStorage } from "../../logic/user.util";
 import {
     AccountCreationState, AccountCreationStep, ApplicationStatus, DailyStepFeedback, SnackbarData,
     SnackbarType
 } from "../../types/redux";
 import { RecentAction } from "../../types/redux/recent.action.interface";
+import {
+    AnswerTeamInviteModalState, AnswerTeamInviteModalSteps
+} from "../../types/redux/workflows/answer.team.invite.modal.state.interface";
+import { LoginState } from "../../types/redux/workflows/login.state.interface";
+import { Daily, TimeLine, User } from "../../types/shared";
+import { TeamMember, TeamWithLastActivity } from "../../types/shared";
 import { initDailyStep } from "../reducers/daily-feedback/daily.feedback.logic";
 
 export interface RootState {
+  // Global
+  readonly status: ApplicationStatus;
+  readonly snackbar: SnackbarData;
+  readonly recentActions: Array<RecentAction>;
+
   // User
   readonly user: User | null;
   readonly userTeams: Array<TeamWithLastActivity>;
@@ -23,16 +32,21 @@ export interface RootState {
   readonly dailySubjectsFeedback: DailyStepFeedback;
   readonly dailyFeelingsFeedback: DailyStepFeedback;
 
-  // Account creation
+  // workflows
+  readonly loginState: LoginState;
   readonly accountCreationState: AccountCreationState;
-
-  // Global
-  readonly status: ApplicationStatus;
-  readonly snackbar: SnackbarData;
-  readonly recentActions: Array<RecentAction>;
+  readonly answerTeamInviteModalState: AnswerTeamInviteModalState;
 }
 
 const initialState: RootState = {
+  // global
+  status: ApplicationStatus.Available,
+  snackbar: {
+    isOpen: false,
+    type: SnackbarType.Error,
+    text: "",
+  },
+  recentActions: [],
   // user
   user: initializeUserFromLocalStorage(),
   userTeams: [],
@@ -47,6 +61,13 @@ const initialState: RootState = {
   dailyDoneTicketsFeedback: initDailyStep(),
   dailySubjectsFeedback: initDailyStep(),
   dailyFeelingsFeedback: initDailyStep(),
+  // login
+  loginState: {
+    isPending: false,
+    isErrored: false,
+    isSubmitted: false,
+    actionText: "Login",
+  },
   // account creation
   accountCreationState: {
     step: AccountCreationStep.User,
@@ -57,14 +78,11 @@ const initialState: RootState = {
     exitActionText: "No thanks, bring me to my timeline!",
     newTeamMembers: [],
   },
-  // global
-  status: ApplicationStatus.Available,
-  snackbar: {
-    isOpen: false,
-    type: SnackbarType.Error,
-    text: "",
+  // Answer team invite modal
+  answerTeamInviteModalState: {
+    step: AnswerTeamInviteModalSteps.Question,
+    isModalOpen: false,
   },
-  recentActions: [],
 };
 
 export { initialState, initDailyStep };

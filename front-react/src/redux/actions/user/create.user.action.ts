@@ -2,16 +2,15 @@ import { History, LocationState } from "history";
 
 import { sagaPayloadAction } from "../";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
-import { LoginParams } from "../../tasks";
+import { NewUser } from "../../../types/shared";
+import { CreateUserParams } from "../../tasks";
 
-export const loginAction = (
-  login: string,
-  password: string,
+export const createUserAction = (
+  user: NewUser,
   history: History<LocationState>,
   context: Context = Context.Global
 ) =>
-  sagaPayloadAction<LoginParams>(Type.Login, context, {
-    login,
-    password,
+  sagaPayloadAction<CreateUserParams>(Type.GetUserTeams, context, {
+    ...user,
     history,
   });

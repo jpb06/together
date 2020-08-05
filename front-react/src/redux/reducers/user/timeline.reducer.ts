@@ -1,6 +1,6 @@
-import { TimeLine } from "../../../../../shared/types";
 import { ActionWithPayload, ReduxActionType as Type } from "../../../types/redux";
-import { isSuccess } from "../../actions/generic/action.checks";
+import { TimeLine } from "../../../types/shared";
+import { isSuccess } from "../../identifiers/generic.actions.identifiers";
 import { initialState } from "../../store/root.state";
 
 const timelineReducer = (

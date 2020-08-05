@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 
-import accountCreationStateReducer from "./account-creation/account.creation.state.reducer";
 import dailyDoneFeedbackReducer from "./daily-feedback/daily.done.feedback.reducer";
 import dailyDurationFeedbackReducer from "./daily-feedback/daily.duration.feedback.reducer";
 import dailyFeelingsFeedbackReducer from "./daily-feedback/daily.feelings.reducer";
@@ -14,8 +13,15 @@ import teamMembersReducer from "./user/team.members.reducer";
 import timelineReducer from "./user/timeline.reducer";
 import userReducer from "./user/user.reducer";
 import userTeamsReducer from "./user/user.teams.reducer";
+import accountCreationStateReducer from "./workflows/account.creation.state.reducer";
+import answerTeamInviteModalStateReducer from "./workflows/answer.team.invite.modal.state.reducer";
+import loginStateReducer from "./workflows/login.state.reducer";
 
 const rootReducer = combineReducers({
+  snackbar: snackbarReducer,
+  status: applicationStatusReducer,
+  recentActions: recentActionsReducer,
+
   user: userReducer,
   userTeams: userTeamsReducer,
   teamMembers: teamMembersReducer,
@@ -29,10 +35,8 @@ const rootReducer = combineReducers({
   dailyFeelingsFeedback: dailyFeelingsFeedbackReducer,
 
   accountCreationState: accountCreationStateReducer,
-
-  snackbar: snackbarReducer,
-  status: applicationStatusReducer,
-  recentActions: recentActionsReducer,
+  loginState: loginStateReducer,
+  answerTeamInviteModalState: answerTeamInviteModalStateReducer,
 });
 
 export default rootReducer;

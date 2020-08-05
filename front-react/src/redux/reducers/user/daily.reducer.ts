@@ -1,7 +1,7 @@
-import { Daily } from "../../../../../shared/types";
 import { ActionWithPayload, ReduxActionType as Type } from "../../../types/redux";
-import { isSuccess } from "../../actions/generic/action.checks";
-import { isSucceededDailyAction } from "../../identifiers/daily.action.identifier";
+import { Daily } from "../../../types/shared";
+import { isSucceededDailyAction } from "../../identifiers/daily.actions.identifiers";
+import { isSuccess } from "../../identifiers/generic.actions.identifiers";
 import { initialState } from "../../store/root.state";
 
 interface DailyAlterationPayload {

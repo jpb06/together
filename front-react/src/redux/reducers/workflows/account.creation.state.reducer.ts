@@ -1,14 +1,14 @@
 import * as localStore from "local-storage";
 import { Action } from "redux";
 
-import { BareTeam, TerseUser, User } from "../../../../../shared/types";
 import LocalStorageKeys from "../../../logic/local.storage.keys";
 import {
     AccountCreationState, AccountCreationStep, ActionWithPayload, ReduxActionModifiers as Modifier,
     ReduxActionType as Type
 } from "../../../types/redux";
-import { isSuccess } from "../../actions/generic/action.checks";
-import { isAccountCreationAction } from "../../identifiers/account.creation.identifier";
+import { BareTeam, TerseUser, User } from "../../../types/shared";
+import { isSuccess } from "../../identifiers/generic.actions.identifiers";
+import { isAccountCreationAction } from "../../identifiers/onboarding.actions.identifier";
 import { initialState } from "../../store/root.state";
 
 const accountCreationStateReducer = (

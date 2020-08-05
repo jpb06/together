@@ -1,12 +1,12 @@
-import { Daily } from "../../../../../shared/types";
 import {
     ActionWithPayload, DailyAlterationBeginPayload, DailyFeedbackType, DailyStepFeedback,
     ReduxActionType as Type
 } from "../../../types/redux";
-import { isSuccess } from "../../actions/generic/action.checks";
+import { Daily } from "../../../types/shared";
 import {
     isFailedDailyAction, isPendingDailyAction, isSucceededDailyAction
-} from "../../identifiers/daily.action.identifier";
+} from "../../identifiers/daily.actions.identifiers";
+import { isSuccess } from "../../identifiers/generic.actions.identifiers";
 import { initialState } from "../../store/root.state";
 import { initDailyDurationStep } from "./daily.feedback.logic";
 

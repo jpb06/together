@@ -1,8 +1,6 @@
-import { TeamWithLastActivity } from "../../../../../shared/types";
-import {
-    ActionWithPayload, ReduxActionModifiers as Modifier, ReduxActionType as Type
-} from "../../../types/redux";
-import { isSuccess } from "../../actions/generic/action.checks";
+import { ActionWithPayload, ReduxActionType as Type } from "../../../types/redux";
+import { TeamWithLastActivity } from "../../../types/shared";
+import { isSuccess } from "../../identifiers/generic.actions.identifiers";
 import { initialState } from "../../store/root.state";
 
 const userTeamsReducer = (
@@ -13,6 +11,7 @@ const userTeamsReducer = (
     return [];
   }
   if (isSuccess(action.type, Type.GetUserTeams)) {
+    console.log(action);
     return action.payload;
   }
 

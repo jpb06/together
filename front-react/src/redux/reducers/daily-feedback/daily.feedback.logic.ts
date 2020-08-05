@@ -1,11 +1,11 @@
-import { Daily } from "../../../../../shared/types";
 import {
     ActionWithPayload, DailyAlterationBeginPayload, DailyFeedbackType, DailyIsolatedPayload,
     DailyStepFeedback
 } from "../../../types/redux";
+import { Daily } from "../../../types/shared";
 import {
     isFailedDailyAction, isPendingDailyAction, isSucceededDailyAction
-} from "../../identifiers/daily.action.identifier";
+} from "../../identifiers/daily.actions.identifiers";
 
 export const initDailyDurationStep = (
   isValidated: boolean = false,

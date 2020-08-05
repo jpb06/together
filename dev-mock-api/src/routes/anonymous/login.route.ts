@@ -1,8 +1,9 @@
-import { Request, Response } from "express-serve-static-core";
 import { Application } from "express";
-import { nowPlusMinutes } from "../../util/dates";
-import { validationResult, body } from "express-validator";
+import { Request, Response } from "express-serve-static-core";
+import { body, validationResult } from "express-validator";
+
 import { getUsers } from "../../dbase/fetch.mock.db";
+import { nowPlusMinutes } from "../../util/dates";
 
 const mapLoginRoute = (server: Application) => {
   server.post(

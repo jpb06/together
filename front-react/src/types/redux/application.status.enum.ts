@@ -1,4 +1,5 @@
 export enum ApplicationStatus {
+  Errored,
   Available,
   BusyGlobal,
   BusyModal,

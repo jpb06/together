@@ -30,6 +30,13 @@ export enum ReduxActionType {
   RemoveUnforeseenTicket = "REMOVE-UNFORESEEN-TICKET",
   RemoveFeeling = "REMOVE-FEELING",
   RemoveSubject = "REMOVE-SUBJECT",
+  // Login
+  LoginStateReset = "LOGIN-STATE-RESET",
+  LoginStatePending = "LOGIN-STATE-PENDING",
+  LoginStateInvalidEmail = "LOGIN-STATE-INVALID-EMAIL",
+  LoginStateFailed = "LOGIN-STATE-FAILED",
+  // Answer team invite modal
+  ShowAnswerTeamInviteModal = "SHOW-ANSWER-TEAM-INVITE-MODAL",
 }
 
 export enum ReduxActionModifiers {

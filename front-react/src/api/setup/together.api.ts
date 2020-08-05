@@ -1,7 +1,8 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
-import setInterceptors from "./axios.interceptors";
 import { History, LocationState } from "history";
+
 import { ApiResponse } from "../../types/api/api.response.interface";
+import setInterceptors from "./axios.interceptors";
 
 export default class TogetherApi {
   static SetupRequired = true;
@@ -25,14 +26,19 @@ export default class TogetherApi {
 }
 
 export const send = async <TData>(
-  apiCall: Promise<AxiosResponse<TData>>
+  apiCall: Promise<AxiosResponse<TData>>,
+  expectedStatus: number = 200
 ): Promise<ApiResponse<TData>> => {
   try {
     const result = await apiCall;
-    return {
-      success: true,
-      payload: result.data,
-    };
+    if (result.status === expectedStatus && result.data) {
+      return {
+        success: true,
+        payload: result.data,
+      };
+    } else {
+      throw new Error("Invalid response");
+    }
   } catch (error) {
     return error as ApiResponse<never>;
   }

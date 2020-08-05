@@ -1,14 +1,7 @@
-import { AxiosResponse } from "axios";
+import { LoginResult } from "../../redux/tasks";
 import { ApiResponse } from "../../types/api/api.response.interface";
-import { isResponseValid } from "./response.validation";
-import { ApiLoginResult } from "../calls/anonymous/login.api";
 
-export const isResultValid = (
-  result: AxiosResponse<ApiResponse<ApiLoginResult>>
-) => {
-  const isValid = isResponseValid(result);
-  if (!isValid) return false;
-
-  const { token, user, expirationDate } = result.data.payload as ApiLoginResult;
+export const isResultValid = (result: ApiResponse<LoginResult>) => {
+  const { token, user, expirationDate } = result.payload as LoginResult;
   return token && user && expirationDate;
 };

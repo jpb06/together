@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { History, LocationState } from "history";
-import * as localStorage from "local-storage";
+import * as localStore from "local-storage";
 import LocalStorageKeys from "../../logic/local.storage.keys";
 
 const setInterceptors = (
@@ -9,10 +9,10 @@ const setInterceptors = (
 ) => {
   instance.interceptors.request.use(
     (config) => {
-      const token = localStorage.get(LocalStorageKeys.token);
-      const expiration = localStorage.get(LocalStorageKeys.expiration);
+      const token = localStore.get(LocalStorageKeys.token);
+      const expiration = localStore.get(LocalStorageKeys.expiration);
       if (!token || !expiration) {
-        localStorage.clear();
+        localStore.clear();
         history.push({
           pathname: "/",
         });
@@ -43,7 +43,7 @@ const setInterceptors = (
         // that falls out of the range of 2xx
 
         if (error.response.status === 401) {
-          localStorage.clear();
+          localStore.clear();
           history.push({
             pathname: "/",
           });

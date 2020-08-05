@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const useLifecycleStatus = () => {
+export const useLifecycleStatus = () => {
   const isMounted = React.useRef(false);
 
   // This will trigger at component first render (only once)
@@ -14,5 +14,3 @@ const useLifecycleStatus = () => {
 
   return isMounted;
 };
-
-export default useLifecycleStatus;

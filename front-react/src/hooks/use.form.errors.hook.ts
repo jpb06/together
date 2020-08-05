@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useFormErrors = <ErrorsType>(
+export const useFormErrors = <ErrorsType>(
   input: any,
   requiredFields: any
 ): [
@@ -15,10 +15,10 @@ const useFormErrors = <ErrorsType>(
 
   const isFormValid = () => {
     const invalidProperties = Object.keys(requiredFields)
-      .filter(key =>
-        isEntryInvalid(Object.entries(input).find(entry => entry[0] === key))
+      .filter((key) =>
+        isEntryInvalid(Object.entries(input).find((entry) => entry[0] === key))
       )
-      .map(el => [el, `The ${el} field is required`]);
+      .map((el) => [el, `The ${el} field is required`]);
 
     const validationErrors = Object.fromEntries(invalidProperties);
     setErrors(validationErrors);
@@ -27,5 +27,3 @@ const useFormErrors = <ErrorsType>(
 
   return [errors, isFormValid, setErrors];
 };
-
-export default useFormErrors;

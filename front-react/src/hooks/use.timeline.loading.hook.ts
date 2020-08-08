@@ -1,34 +1,27 @@
 import * as localStore from "local-storage";
-import React from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import LocalStorageKeys from "../logic/local.storage.keys";
 import { getTimelineAction } from "../redux/actions";
 import { timelineSelector } from "../redux/selectors/timeline.selector";
+import { ReduxActionContext as Context } from "../types/redux";
 import { BareTeam, TimeLine } from "../types/shared";
 import { useRootSelector } from "./use.root.selector";
 
-export const useTimelineLoading = (): TimeLine | null => {
-  const dispatch = useDispatch();
+export const useTimelineLoading = (context: Context): TimeLine | null => {
   const timeline = useRootSelector(timelineSelector);
+  const dispatch = useDispatch();
 
-  const [initPerformed, setInitPerformed] = React.useState(false);
-  const [callMade, setCallMade] = React.useState(false);
+  useEffect(() => {
+    const currentTeam = localStore.get<BareTeam | undefined>(
+      LocalStorageKeys.currentTeam
+    );
 
-  React.useEffect(() => {
-    if (!callMade && (!timeline || !initPerformed)) {
-      const currentTeam = localStore.get<BareTeam | undefined>(
-        LocalStorageKeys.currentTeam
-      );
-
-      if (currentTeam) {
-        dispatch(getTimelineAction(currentTeam.id));
-        setCallMade(true);
-      }
+    if (currentTeam) {
+      dispatch(getTimelineAction(currentTeam.id, context));
     }
-
-    setInitPerformed(true);
-  }, [dispatch, timeline, initPerformed, callMade]);
+  }, [dispatch, context]);
 
   return timeline;
 };

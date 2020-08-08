@@ -12,17 +12,9 @@ export const useUserTeamsLoading = (
   const dispatch = useDispatch();
   const userTeams = useRootSelector(userTeamsSelector);
 
-  const [initPerformed, setInitPerformed] = React.useState(false);
-  const [callMade, setCallMade] = React.useState(false);
-
   React.useEffect(() => {
-    if (!callMade && (userTeams.length === 0 || !initPerformed) && user) {
-      dispatch(getUserTeamsAction(user.id, false));
-      setCallMade(true);
-    }
-
-    setInitPerformed(true);
-  }, [dispatch, user, userTeams, initPerformed, callMade]);
+    if (user) dispatch(getUserTeamsAction(user.id, false));
+  }, [dispatch, user]);
 
   return userTeams;
 };

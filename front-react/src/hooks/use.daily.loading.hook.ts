@@ -8,27 +8,26 @@ import { dailySelector } from "../redux/selectors";
 import { BareTeam, Daily } from "../types/shared";
 import { useRootSelector } from "./use.root.selector";
 
-export const useDailyLoading = (date: string): Daily | null => {
+export const useDailyLoading = (): Daily | null => {
+  const date = new Date();
+  const dateAsUTCString = new Date(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate()
+  ).toUTCString();
+
   const dispatch = useDispatch();
   const daily = useRootSelector(dailySelector);
 
-  const [initPerformed, setInitPerformed] = React.useState(false);
-  const [callMade, setCallMade] = React.useState(false);
-
   React.useEffect(() => {
-    if (!callMade && (!daily || !initPerformed)) {
-      const currentTeam = localStore.get<BareTeam | undefined>(
-        LocalStorageKeys.currentTeam
-      );
+    const currentTeam = localStore.get<BareTeam | undefined>(
+      LocalStorageKeys.currentTeam
+    );
 
-      if (currentTeam) {
-        dispatch(getDailyAction(currentTeam.id, date));
-        setCallMade(true);
-      }
+    if (currentTeam) {
+      dispatch(getDailyAction(currentTeam.id, dateAsUTCString));
     }
-
-    setInitPerformed(true);
-  }, [dispatch, daily, date, initPerformed, callMade]);
+  }, [dispatch, dateAsUTCString]);
 
   return daily;
 };

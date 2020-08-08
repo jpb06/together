@@ -12,23 +12,15 @@ export const useCurrentTeamMembersLoading = (): Array<TeamMember> => {
   const dispatch = useDispatch();
   const teamMembers = useRootSelector(teamMembersSelector);
 
-  const [initPerformed, setInitPerformed] = React.useState(false);
-  const [callMade, setCallMade] = React.useState(false);
-
   React.useEffect(() => {
-    if (!callMade && (teamMembers.length === 0 || !initPerformed)) {
-      const currentTeam = localStore.get<BareTeam | undefined>(
-        LocalStorageKeys.currentTeam
-      );
+    const currentTeam = localStore.get<BareTeam | undefined>(
+      LocalStorageKeys.currentTeam
+    );
 
-      if (currentTeam) {
-        dispatch(getTeamMembersAction(currentTeam.id));
-        setCallMade(true);
-      }
+    if (currentTeam) {
+      dispatch(getTeamMembersAction(currentTeam.id));
     }
-
-    setInitPerformed(true);
-  }, [dispatch, teamMembers, initPerformed, callMade]);
+  }, [dispatch]);
 
   return teamMembers;
 };

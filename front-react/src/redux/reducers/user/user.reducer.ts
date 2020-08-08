@@ -1,6 +1,6 @@
 import { ActionWithPayload, ReduxActionType as Type } from "../../../types/redux";
 import { BareTeam, TeamJoinRequest, User } from "../../../types/shared";
-import { isSuccess } from "../../identifiers/generic.actions.identifiers";
+import { isSuccessFor } from "../../identifiers/generic.actions.identifiers";
 import { initialState } from "../../store/root.state";
 
 const userReducer = (
@@ -10,11 +10,11 @@ const userReducer = (
     | ActionWithPayload<BareTeam>
     | ActionWithPayload<TeamJoinRequest>
 ): User | null => {
-  if (isSuccess(action.type, Type.Login)) {
+  if (isSuccessFor(Type.Login, action.type)) {
     return action.payload as User;
   }
 
-  if (isSuccess(action.type, Type.CreateTeam)) {
+  if (isSuccessFor(Type.CreateTeam, action.type)) {
     if (!state) return null;
 
     return {
@@ -23,7 +23,7 @@ const userReducer = (
     };
   }
 
-  if (isSuccess(action.type, Type.RequestToJoinTeam)) {
+  if (isSuccessFor(Type.RequestToJoinTeam, action.type)) {
     if (!state) return null;
 
     return {

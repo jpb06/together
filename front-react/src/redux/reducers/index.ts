@@ -5,7 +5,6 @@ import dailyDurationFeedbackReducer from "./daily-feedback/daily.duration.feedba
 import dailyFeelingsFeedbackReducer from "./daily-feedback/daily.feelings.reducer";
 import dailySubjectsFeedbackReducer from "./daily-feedback/daily.subjects.reducer";
 import dailyUnforeseenFeedbackReducer from "./daily-feedback/daily.unforeseen.feedback.reducer";
-import applicationStatusReducer from "./global/application.status.reducer";
 import recentActionsReducer from "./global/recent.actions.reducer";
 import snackbarReducer from "./global/snackbar.reducer";
 import dailyReducer from "./user/daily.reducer";
@@ -19,7 +18,6 @@ import loginStateReducer from "./workflows/login.state.reducer";
 
 const rootReducer = combineReducers({
   snackbar: snackbarReducer,
-  status: applicationStatusReducer,
   recentActions: recentActionsReducer,
 
   user: userReducer,

@@ -3,7 +3,7 @@ import {
     ReduxActionType as Type
 } from "../../../types/redux";
 import { Daily } from "../../../types/shared";
-import { isSuccess } from "../../identifiers/generic.actions.identifiers";
+import { isSuccessFor } from "../../identifiers/generic.actions.identifiers";
 import { initialState } from "../../store/root.state";
 import {
     asFeedbackAction, getFeedbackTypeFor, initDailyStep, setDailyStep
@@ -15,7 +15,7 @@ const dailyUnforeseenFeedbackReducer = (
     Daily | DailyFeedbackType | DailyAlterationBeginPayload
   >
 ) => {
-  if (isSuccess(action.type, Type.GetDaily)) {
+  if (isSuccessFor(Type.GetDaily, action.type)) {
     const daily = action.payload as Daily;
     return initDailyStep(daily.unforeseenTickets.length > 0, false);
   }

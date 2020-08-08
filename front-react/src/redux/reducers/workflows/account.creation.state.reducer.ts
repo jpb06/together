@@ -7,7 +7,7 @@ import {
     ReduxActionType as Type
 } from "../../../types/redux";
 import { BareTeam, TerseUser, User } from "../../../types/shared";
-import { isSuccess } from "../../identifiers/generic.actions.identifiers";
+import { isSuccessFor } from "../../identifiers/generic.actions.identifiers";
 import { isAccountCreationAction } from "../../identifiers/onboarding.actions.identifier";
 import { initialState } from "../../store/root.state";
 
@@ -15,7 +15,7 @@ const accountCreationStateReducer = (
   state: AccountCreationState = initialState.accountCreationState,
   action: Action | ActionWithPayload<BareTeam>
 ) => {
-  if (isSuccess(action.type, Type.Login)) {
+  if (isSuccessFor(Type.Login, action.type)) {
     return {
       ...state,
       step: AccountCreationStep.Avatar,
@@ -25,7 +25,7 @@ const accountCreationStateReducer = (
     };
   }
 
-  if (isSuccess(action.type, Type.CreateTeam)) {
+  if (isSuccessFor(Type.CreateTeam, action.type)) {
     const team = (action as ActionWithPayload<BareTeam>).payload;
     localStore.set(LocalStorageKeys.currentTeam, team);
     const user = localStore.get<User | null>(LocalStorageKeys.user);
@@ -51,7 +51,7 @@ const accountCreationStateReducer = (
     };
   }
 
-  if (isSuccess(action.type, Type.RequestToJoinTeam)) {
+  if (isSuccessFor(Type.RequestToJoinTeam, action.type)) {
     return {
       ...state,
       step: AccountCreationStep.Completed,
@@ -60,7 +60,7 @@ const accountCreationStateReducer = (
     };
   }
 
-  if (isSuccess(action.type, Type.InviteUserToTeam)) {
+  if (isSuccessFor(Type.InviteUserToTeam, action.type)) {
     const user = (action as ActionWithPayload<TerseUser>).payload;
 
     return {

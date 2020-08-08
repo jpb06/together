@@ -6,7 +6,7 @@ import { Daily } from "../../../types/shared";
 import {
     isFailedDailyAction, isPendingDailyAction, isSucceededDailyAction
 } from "../../identifiers/daily.actions.identifiers";
-import { isSuccess } from "../../identifiers/generic.actions.identifiers";
+import { isSuccessFor } from "../../identifiers/generic.actions.identifiers";
 import { initialState } from "../../store/root.state";
 import { initDailyDurationStep } from "./daily.feedback.logic";
 
@@ -32,7 +32,7 @@ const dailyDurationFeedbackReducer = (
     Daily | DailyFeedbackType | DailyAlterationBeginPayload
   >
 ) => {
-  if (isSuccess(action.type, Type.GetDaily)) {
+  if (isSuccessFor(Type.GetDaily, action.type)) {
     const daily = action.payload as Daily;
     return initDailyDurationStep(daily.durationIndicator.length > 0, false);
   }

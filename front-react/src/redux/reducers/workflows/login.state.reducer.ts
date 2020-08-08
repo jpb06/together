@@ -7,6 +7,10 @@ const loginStateReducer = (
   action: ActionWithPayload<any>
 ) => {
   if (action.type === Type.LoginStateReset) {
+    return initialState.loginState;
+  }
+
+  if (action.type === Type.LoginStateRetry) {
     return {
       ...state,
       actionText: "Login",

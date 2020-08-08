@@ -3,7 +3,7 @@ import {
     ReduxActionContext as Context, ReduxActionType as Type
 } from "../../../types/redux";
 import { TeamWithLastActivity } from "../../../types/shared";
-import { isFailed, isSuccess } from "../../identifiers/generic.actions.identifiers";
+import { isFailedIn, isSuccessFor } from "../../identifiers/generic.actions.identifiers";
 import { initialState } from "../../store/root.state";
 
 const answerTeamInviteModalStateReducer = (
@@ -17,7 +17,7 @@ const answerTeamInviteModalStateReducer = (
     };
   }
 
-  if (isSuccess(action.type, Type.GetUserTeams, Context.Modal)) {
+  if (isSuccessFor(Type.GetUserTeams, action.type, Context.Modal)) {
     if ((action.payload as Array<TeamWithLastActivity>).length > 1) {
       return {
         ...state,
@@ -31,17 +31,14 @@ const answerTeamInviteModalStateReducer = (
     }
   }
 
-  if (isSuccess(action.type, Type.GetTimeline, Context.Modal)) {
+  if (isSuccessFor(Type.GetTimeline, action.type, Context.Modal)) {
     return {
       ...state,
       isModalOpen: false,
     };
   }
 
-  if (
-    isFailed(Type.AnswerTeamInvite, Context.Modal) ||
-    isFailed(Type.GetUserTeams, Context.Modal)
-  ) {
+  if (isFailedIn(Context.Modal, action.type)) {
     return {
       ...state,
       isModalOpen: false,

@@ -2,7 +2,7 @@ import {
     ActionWithPayload, DailyFeedbackType, DailyStepFeedback, ReduxActionType as Type
 } from "../../../types/redux";
 import { Daily } from "../../../types/shared";
-import { isSuccess } from "../../identifiers/generic.actions.identifiers";
+import { isSuccessFor } from "../../identifiers/generic.actions.identifiers";
 import { initialState } from "../../store/root.state";
 import {
     asFeedbackAction, getFeedbackTypeFor, initDailyStep, setDailyStep
@@ -12,7 +12,7 @@ const dailyDoneFeedbackReducer = (
   state: DailyStepFeedback = initialState.dailyDoneTicketsFeedback,
   action: ActionWithPayload<Daily | DailyFeedbackType>
 ) => {
-  if (isSuccess(action.type, Type.GetDaily)) {
+  if (isSuccessFor(Type.GetDaily, action.type)) {
     const daily = action.payload as Daily;
     return initDailyStep(daily.doneTickets.length > 0, false);
   }

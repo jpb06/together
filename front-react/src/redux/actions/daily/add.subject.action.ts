@@ -1,14 +1,15 @@
-import { ReduxActionType as Type } from "../../../types/redux";
+import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import { NewSubject } from "../../../types/shared";
 import { AddSubjectParams } from "../../tasks";
-import { payloadAction } from "../generic/payload.action";
+import { sagaPayloadAction } from "../generic/payload.action";
 
 export const addSubjectAction = (
   teamId: string,
   date: string,
-  subject: NewSubject
+  subject: NewSubject,
+  context: Context = Context.Global
 ) =>
-  payloadAction<AddSubjectParams>(Type.AddSubject, {
+  sagaPayloadAction<AddSubjectParams>(Type.AddSubject, context, {
     teamId,
     date,
     subject,

@@ -1,14 +1,15 @@
-import { ReduxActionType as Type } from "../../../types/redux";
+import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import { AddDoneTicketParams } from "../../tasks";
-import { payloadAction } from "../generic/payload.action";
+import { sagaPayloadAction } from "../generic/payload.action";
 
 export const addDoneTicketAction = (
   teamId: string,
   assigneeEmail: string,
   date: string,
-  ticket: string
+  ticket: string,
+  context: Context = Context.Global
 ) =>
-  payloadAction<AddDoneTicketParams>(Type.AddDoneTicket, {
+  sagaPayloadAction<AddDoneTicketParams>(Type.AddDoneTicket, context, {
     teamId,
     assigneeEmail,
     date,

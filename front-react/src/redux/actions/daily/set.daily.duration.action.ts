@@ -1,13 +1,14 @@
-import { ReduxActionType as Type } from "../../../types/redux";
+import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import { SetDailyDurationParams } from "../../tasks";
-import { payloadAction } from "../generic/payload.action";
+import { sagaPayloadAction } from "../generic/payload.action";
 
 export const setDailyDurationAction = (
   teamId: string,
   date: string,
-  duration: string
+  duration: string,
+  context: Context = Context.Global
 ) =>
-  payloadAction<SetDailyDurationParams>(Type.DailyDuration, {
+  sagaPayloadAction<SetDailyDurationParams>(Type.DailyDuration, context, {
     teamId,
     date,
     duration,

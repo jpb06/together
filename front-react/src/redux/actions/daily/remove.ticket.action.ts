@@ -1,12 +1,13 @@
-import { ReduxActionType as Type } from "../../../types/redux";
+import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import { RemoveTicketParams, TicketRemovalType } from "../../tasks";
-import { payloadAction } from "../generic/payload.action";
+import { sagaPayloadAction } from "../generic/payload.action";
 
 export const removeTicketAction = (
   ticketType: TicketRemovalType,
   teamId: string,
   date: string,
-  ticket: string
+  ticket: string,
+  context: Context = Context.Global
 ) => {
   let actionType;
   switch (ticketType) {
@@ -18,7 +19,7 @@ export const removeTicketAction = (
       break;
   }
 
-  return payloadAction<RemoveTicketParams>(actionType, {
+  return sagaPayloadAction<RemoveTicketParams>(actionType, context, {
     ticketType,
     teamId,
     date,

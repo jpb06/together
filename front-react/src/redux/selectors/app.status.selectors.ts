@@ -1,15 +1,17 @@
-import { ApplicationStatus } from "../../types/redux";
+import { ReduxActionContext as Context } from "../../types/redux";
 import { RootState } from "../store/root.state";
 
-export const isAppBusy = (state: RootState) =>
-  state.status !== ApplicationStatus.Available &&
-  state.status !== ApplicationStatus.Errored;
+export const isAppReadyIn = (context: Context) => (state: RootState) =>
+  state.recentActions.every(
+    (el) => el.context === context && el.hasSucceeded === true
+  );
 
-export const isAppBusyModal = (state: RootState) =>
-  state.status === ApplicationStatus.BusyModal;
+export const isAppBusyIn = (context: Context) => (state: RootState) =>
+  state.recentActions.some(
+    (el) => el.context === context && el.hasSucceeded === undefined
+  );
 
-export const isAppAvailable = (state: RootState) =>
-  state.status === ApplicationStatus.Available;
-
-export const isAppErrored = (state: RootState) =>
-  state.status === ApplicationStatus.Errored;
+export const isAppErroredIn = (context: Context) => (state: RootState) =>
+  state.recentActions.some(
+    (el) => el.context === context && el.hasSucceeded === false
+  );

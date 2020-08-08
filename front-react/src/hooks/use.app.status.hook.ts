@@ -1,12 +1,21 @@
-import { ApplicationStatus } from "../types/redux";
+import { recentActionsIn } from "../redux/selectors";
+import { ApplicationState, ReduxActionContext as Context } from "../types/redux";
 import { useRootSelector } from "./use.root.selector";
 
-export const useAppStatus = (
-  status: ApplicationStatus = ApplicationStatus.Available
-): [boolean, ApplicationStatus] => {
-  const appStatus = useRootSelector((state) => state.status);
+export const useAppStatus = (context: Context): ApplicationState => {
+  const actions = useRootSelector(recentActionsIn(context));
 
-  const hasRequestedStatus = appStatus === status;
+  if (
+    actions.every((el) => el.context === context && el.hasSucceeded === true)
+  ) {
+    return ApplicationState.Available;
+  }
 
-  return [hasRequestedStatus, appStatus];
+  if (
+    actions.some((el) => el.context === context && el.hasSucceeded === false)
+  ) {
+    return ApplicationState.Errored;
+  }
+
+  return ApplicationState.Busy;
 };

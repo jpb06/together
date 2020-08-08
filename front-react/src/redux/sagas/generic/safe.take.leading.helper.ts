@@ -1,38 +1,17 @@
-import { Action } from "redux";
 import { takeLeading } from "redux-saga/effects";
 
 import {
-    ActionWithPayload, ReduxActionContext as Context, ReduxActionType
+    ActionWithPayload, ReduxActionContext as Context, ReduxActionType as Type
 } from "../../../types/redux";
-import { isSaga } from "../../identifiers/generic.actions.identifiers";
-import { executeSaga, getPatternsToTake } from "./execute.saga.helper";
-
-const match = (triggers: ReduxActionType | Array<ReduxActionType>) => (
-  action: Action
-) => (triggers as Array<ReduxActionType>).some((el) => isSaga(action.type, el));
+import { executeSaga } from "./execute.saga.helper";
+import { getSagasFor } from "./get.sagas.for.helper";
 
 export function* safeTakeLeading<TParam>(
-  triggers: Array<ReduxActionType>,
+  actionTypes: Array<Type>,
   task: (params: TParam, context: Context) => void
 ) {
-  yield takeLeading(match(triggers), (action: ActionWithPayload<TParam>) =>
-    executeSaga(task, action)
+  yield takeLeading(
+    getSagasFor(actionTypes),
+    (action: ActionWithPayload<TParam>) => executeSaga(task, action)
   );
 }
-
-// export function* safeTakeLeading<TParam>(
-//   actionType: Type | Array<Type>,
-//   context: Context,
-//   task: (params: TParam, context: Context) => void
-// ) {
-//   try {
-//     yield takeLeading(
-//       isArray(actionType)
-//         ? actionType.map((type) => `${type}-${Modifier.Saga}_${context}`)
-//         : `${actionType}-${Modifier.Saga}_${context}`,
-//       (action: ActionWithPayload<TParam>) => task(action.payload, context)
-//     );
-//   } catch (error) {
-//     yield put(showErrorSaga(context, error.message));
-//   }
-// }

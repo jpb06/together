@@ -1,32 +1,8 @@
 import { put } from "redux-saga/effects";
-import { isArray } from "util";
 
-import {
-    ActionWithPayload, ReduxActionContext as Context, ReduxActionModifiers as Modifier
-} from "../../../types/redux";
+import { ActionWithPayload, ReduxActionContext as Context } from "../../../types/redux";
 import { showErrorAction, showSnackbarAction } from "../../actions";
-
-const capitalize = (str: string) =>
-  str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-
-const getContextFrom = (action: ActionWithPayload<any>): Context => {
-  try {
-    const actionContext = action.type.split("_").pop();
-    if (!actionContext) throw new Error();
-
-    const context =
-      Context[capitalize(actionContext as string) as keyof typeof Context];
-
-    return context;
-  } catch (error) {
-    throw new Error(`Unable to get action context for ${action.type}`);
-  }
-};
-
-export const getPatternsToTake = (actionTypes: string | Array<string>) =>
-  isArray(actionTypes)
-    ? actionTypes.map((type) => `${type}-${Modifier.Saga}_*`)
-    : `${actionTypes}-${Modifier.Saga}_*`;
+import { getContextFrom } from "../../identifiers/get.context.from.action";
 
 export function* executeSaga<TParam>(
   task: (params: TParam, context: Context) => void,

@@ -1,17 +1,15 @@
 import { SagaMiddleware } from "redux-saga";
 
 import {
-    dailyDoneTicketsStatusSaga, globalStatusSaga, onboardingStatusSaga, watchAddDoneTicket,
-    watchAddFeeling, watchAddSubject, watchAddUnforeseenTicket, watchAnswerTeamInvite,
-    watchCreateTeam, watchCreateUser, watchGetDaily, watchGetTeamMembers, watchGetTimeline,
-    watchGetUserTeams, watchInviteUserToTeam, watchLogin, watchRemoveDetails, watchRemoveTicket,
-    watchRequestToJoinTeam, watchSetDailyDuration, watchSnackbar
+    clearRecentActionsSaga, watchAddDoneTicket, watchAddFeeling, watchAddSubject,
+    watchAddUnforeseenTicket, watchAnswerTeamInvite, watchCreateTeam, watchCreateUser,
+    watchGetDaily, watchGetTeamMembers, watchGetTimeline, watchGetUserTeams, watchInviteUserToTeam,
+    watchLogin, watchRemoveDetails, watchRemoveTicket, watchRequestToJoinTeam,
+    watchSetDailyDuration, watchSnackbar
 } from "../sagas";
 
 export const runSagas = (sagaMiddleware: SagaMiddleware<object>) => {
-  sagaMiddleware.run(dailyDoneTicketsStatusSaga);
-  sagaMiddleware.run(globalStatusSaga);
-  sagaMiddleware.run(onboardingStatusSaga);
+  sagaMiddleware.run(clearRecentActionsSaga);
 
   sagaMiddleware.run(watchAddDoneTicket);
   sagaMiddleware.run(watchAddFeeling);

@@ -41,16 +41,16 @@ export function* loginTask(params: LoginParams, context: Context) {
     }
 
     const user = initializeLoggedUserContext(result.payload as LoginResult);
-
     TogetherApi.setup(params.history);
+
+    yield put(successPayloadAction(Type.Login, context, user));
+    yield put(payloadAction(Type.LoginStateReset));
 
     if (context === Context.Global) {
       params.history.push({
         pathname: "/main",
       });
     }
-
-    yield put(successPayloadAction(Type.Login, context, user));
 
     return user;
   } catch (error) {

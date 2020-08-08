@@ -1,15 +1,16 @@
 import React from "react";
+
 import List from "@material-ui/core/List";
-import styles from "./DailyCommentsList.styles";
-import FeelingType from "../../../../../../types/feeling.type";
-import SubjectType from "../../../../../../types/subject.type";
-import DailyComment from "./DailyCommentItem";
+
+import { DailyDeleteActionFeedback } from "../../../../../../types/redux";
+import { Feeling, Subject } from "../../../../../../types/shared";
 import { NewDailyCommentKind } from "../new-item/NewDailyComment";
-import { DailyDeleteActionFeedback } from "../../../../../../redux/types/daily.feedback.type";
+import DailyComment from "./DailyCommentItem";
+import styles from "./DailyCommentsList.styles";
 
 interface DailyCommentsListProps {
   type: NewDailyCommentKind;
-  list: Array<FeelingType | SubjectType>;
+  list: Array<Feeling | Subject>;
   NoDataIconComponent: React.ElementType;
   feedback: DailyDeleteActionFeedback;
   onItemDeletion: (id: string) => void;

@@ -1,11 +1,13 @@
-import Avatar from "@material-ui/core/Avatar";
 import clsx from "clsx";
 import React, { useState } from "react";
-import { stringToColor } from "../../../logic/colors.util";
+
 import { useTheme } from "@material-ui/core";
-import styles from "./TeamAvatar.styles";
-import BareTeam from "../../../types/team.type";
+import Avatar from "@material-ui/core/Avatar";
+
+import { stringToColor } from "../../../logic/colors.util";
 import { getInitials } from "../../../logic/user.util";
+import { BareTeam } from "../../../types/shared";
+import styles from "./TeamAvatar.styles";
 
 interface TeamAvatarProps {
   team: BareTeam;
@@ -14,7 +16,7 @@ interface TeamAvatarProps {
 
 const TeamAvatar: React.FC<TeamAvatarProps> = ({
   team,
-  isBigAvatar = false
+  isBigAvatar = false,
 }) => {
   const classes = styles();
   const theme = useTheme();
@@ -29,7 +31,7 @@ const TeamAvatar: React.FC<TeamAvatarProps> = ({
       style={{ backgroundColor: avatarColor, color: avatarTextColor }}
       className={clsx(classes.smallFont, {
         [classes.big]: isBigAvatar,
-        [classes.small]: !isBigAvatar
+        [classes.small]: !isBigAvatar,
       })}
     >
       {getInitials(team.name)}

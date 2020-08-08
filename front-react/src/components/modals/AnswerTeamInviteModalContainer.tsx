@@ -1,101 +1,71 @@
+import * as localStore from "local-storage";
 import React, { useState } from "react";
-import useLifecycleStatus from "../../hooks/useLifecycleStatus.hook";
-import * as localStorage from "local-storage";
-import LocalStorageKeys from "../../logic/local.storage.keys";
-import User from "../../types/user.type";
-import { useReduxDispatch, useReduxSelector } from "../../hooks/redux.hooks";
-import getUserTeamsAction from "../../redux/actions/user/get.user.teams.action";
-import acceptTeamInviteAction from "../../redux/actions/user/accept.team.invite.action";
-import AnswerTeamInviteModal from "./AnswerTeamInviteModal";
-import getTimelineAction from "../../redux/actions/user/get.timeline.action";
-import BareTeam from "../../types/team.type";
-import { Context } from "../../redux/types/action.types";
+import { useDispatch } from "react-redux";
 
-export enum ActionSteps {
-  Question = "Question",
-  SwitchTeam = "SwitchTeam",
-}
+import { useRootSelector } from "../../hooks";
+import LocalStorageKeys from "../../logic/local.storage.keys";
+import {
+    answerTeamInviteAction, getTimelineAction, showAnswerTeamInviteModalAction
+} from "../../redux/actions";
+import { answerTeamInviteModalStateSelector, userTeamsSelector } from "../../redux/selectors";
+import { isAppBusyIn } from "../../redux/selectors/app.status.selectors";
+import { TeamInviteAnswer } from "../../redux/tasks/user/answer.team.invite.task";
+import { ReduxActionContext as Context } from "../../types/redux";
+import { BareTeam } from "../../types/shared";
+import AnswerTeamInviteModal from "./AnswerTeamInviteModal";
 
 interface AnswerTeamInviteModalContainerProps {
-  isOpened: boolean;
-  title: string;
-  requestId: string;
+  inviteId: string;
   teamName: string;
-  onClose: () => void;
 }
 
 const AnswerTeamInviteModalContainer: React.FC<AnswerTeamInviteModalContainerProps> = ({
-  isOpened,
-  title,
-  requestId,
+  inviteId,
   teamName,
-  onClose,
 }) => {
-  const dispatch = useReduxDispatch();
-  const user = useReduxSelector((state) => state.user) as User;
-  const teams = useReduxSelector((state) => state.userTeams);
-  const isLoading = useReduxSelector((state) => state.apiCallsInProgress > 0);
-  const isMounted = useLifecycleStatus();
-
-  const [isActionPending, setIsActionPending] = useState(false);
-  const [step, setStep] = useState(ActionSteps.Question);
+  const dispatch = useDispatch();
+  const { userTeams, isLoading, modalState } = useRootSelector((state) => ({
+    userTeams: userTeamsSelector(state),
+    isLoading: isAppBusyIn(Context.Modal)(state),
+    modalState: answerTeamInviteModalStateSelector(state),
+  }));
   const [currentTeam] = useState(
-    localStorage.get<BareTeam>(LocalStorageKeys.currentTeam)
+    localStore.get<BareTeam>(LocalStorageKeys.currentTeam)
   );
 
-  const fetchUserTeams = async () => {
-    const result = await dispatch(
-      getUserTeamsAction(user.id, true, Context.Modal)
+  const handleAcceptInvite = () => {
+    dispatch(
+      answerTeamInviteAction(
+        inviteId,
+        TeamInviteAnswer.Accepted,
+        true,
+        Context.Modal
+      )
     );
-
-    if (!result.success || !result.userHasSeveralTeams) {
-      setIsActionPending(false);
-      onClose();
-      return;
-    }
-
-    if (isMounted.current) {
-      setIsActionPending(false);
-      setStep(ActionSteps.SwitchTeam);
-    }
-  };
-
-  const handleAcceptInvite = async () => {
-    setIsActionPending(true);
-    const result = await dispatch(
-      acceptTeamInviteAction(requestId, Context.Modal)
-    );
-
-    if (result.success) {
-      await fetchUserTeams();
-    } else {
-      setIsActionPending(false);
-      onClose();
-    }
   };
 
   const handleSwitchTeam = (team?: BareTeam) => {
     const currentTeam =
-      team || localStorage.get<BareTeam>(LocalStorageKeys.currentTeam);
+      team || localStore.get<BareTeam>(LocalStorageKeys.currentTeam);
 
     if (team) {
-      localStorage.set(LocalStorageKeys.currentTeam, team);
+      localStore.set(LocalStorageKeys.currentTeam, team);
     }
 
-    dispatch(getTimelineAction(currentTeam.id));
-    onClose();
+    dispatch(getTimelineAction(currentTeam.id, Context.Modal));
   };
+
+  const handleClose = () => dispatch(showAnswerTeamInviteModalAction(false));
 
   return (
     <AnswerTeamInviteModal
-      isOpened={isOpened}
-      isLoading={isLoading || isActionPending}
-      step={step}
-      title={title}
+      isOpened={modalState.isModalOpen}
+      isLoading={isLoading}
+      step={modalState.step}
       teamName={teamName}
       currentTeamId={currentTeam.id}
-      teams={teams}
-      onClose={onClose}
+      teams={userTeams}
+      onClose={handleClose}
       onSwitchTeam={handleSwitchTeam}
       onAcceptInvite={handleAcceptInvite}
     />

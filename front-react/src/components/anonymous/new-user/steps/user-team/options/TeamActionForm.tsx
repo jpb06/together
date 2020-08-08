@@ -1,17 +1,19 @@
 import React, { useState } from "react";
+
+import { SvgIconTypeMap } from "@material-ui/core";
+import { grey } from "@material-ui/core/colors";
 import Grid from "@material-ui/core/Grid";
-import SimpleButton from "../../../../../generic/buttons/SimpleButton";
+import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import Slide from "@material-ui/core/Slide";
 import TextField from "@material-ui/core/TextField";
-import styles from "./TeamActionForm.styles";
-import { AccountCreationState } from "../../../../../../redux/types/account.creation.state.type";
-import NewAccountBusyIndicator from "../../../busy-indicator/NewAccountBusyIndicator";
+
+import { AccountCreationState } from "../../../../../../types/redux";
 import FeedbackButton from "../../../../../generic/buttons/FeedbackButton";
+import SimpleButton from "../../../../../generic/buttons/SimpleButton";
 import ColoredCard from "../../../../../generic/containers/ColoredCard";
-import { grey } from "@material-ui/core/colors";
+import NewAccountBusyIndicator from "../../../busy-indicator/NewAccountBusyIndicator";
 import { TeamActionType } from "../../../NewAccountContainer";
-import { OverridableComponent } from "@material-ui/core/OverridableComponent";
-import { SvgIconTypeMap } from "@material-ui/core";
+import styles from "./TeamActionForm.styles";
 
 interface CreateTeamFormProps {
   state: AccountCreationState;

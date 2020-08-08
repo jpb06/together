@@ -1,40 +1,35 @@
+import clsx from "clsx";
 import React from "react";
+
+import IconButton from "@material-ui/core/IconButton";
+import SnackbarContent from "@material-ui/core/SnackbarContent";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CloseIcon from "@material-ui/icons/Close";
 import ErrorIcon from "@material-ui/icons/Error";
 import InfoIcon from "@material-ui/icons/Info";
-import CloseIcon from "@material-ui/icons/Close";
 import WarningIcon from "@material-ui/icons/Warning";
-import SnackbarContent from "@material-ui/core/SnackbarContent";
-import IconButton from "@material-ui/core/IconButton";
-import clsx from "clsx";
+
+import { SnackbarData, SnackbarType } from "../../../types/redux";
 import styles from "./FeedbackSnackbarContent.styles";
-import SnackbarFeedback from "../../../redux/types/snackbar.feedback.type";
 
-export enum MessageType {
-  Success,
-  Warning,
-  Error,
-  Info,
-}
-
-const typeToIcon = (type: MessageType) => {
+const typeToIcon = (type: SnackbarType) => {
   switch (type) {
-    case MessageType.Success:
+    case SnackbarType.Success:
       return CheckCircleIcon;
-    case MessageType.Warning:
+    case SnackbarType.Warning:
       return WarningIcon;
-    case MessageType.Error:
+    case SnackbarType.Error:
       return ErrorIcon;
     default:
       return InfoIcon;
   }
 };
 
-const typeToClassName = (type: MessageType, classes: any) =>
-  classes[MessageType[type].toLowerCase()];
+const typeToClassName = (type: SnackbarType, classes: any) =>
+  classes[SnackbarType[type].toLowerCase()];
 
 interface FeedbackSnackbarContentProps {
-  data: SnackbarFeedback;
+  data: SnackbarData;
   onClose: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
@@ -53,7 +48,7 @@ const FeedbackSnackbarContent: React.FC<FeedbackSnackbarContentProps> = ({
       message={
         <span id="client-snackbar" className={classes.message}>
           <Icon className={clsx(classes.icon, classes.iconVariant)} />
-          {data.message}
+          {data.text}
         </span>
       }
       action={[

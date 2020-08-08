@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { useTheme } from "@material-ui/core/styles";
-import Avatar from "@material-ui/core/Avatar";
 import clsx from "clsx";
+import React, { useState } from "react";
+
+import Avatar from "@material-ui/core/Avatar";
+import { useTheme } from "@material-ui/core/styles";
+
 import { stringToColor } from "../../../logic/colors.util";
-import styles from "./UserAvatar.styles";
 import { getInitials } from "../../../logic/user.util";
-import { TerseUser } from "../../../types/user.type";
+import { TerseUser } from "../../../types/shared";
+import styles from "./UserAvatar.styles";
 
 interface UserAvatarProps {
   user: TerseUser;

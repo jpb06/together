@@ -1,23 +1,19 @@
+import * as localStore from "local-storage";
 import React, { useState } from "react";
-import EmojiEmotionsOutlinedIcon from "@material-ui/icons/EmojiEmotionsOutlined";
+import { useDispatch } from "react-redux";
+
 import Grid from "@material-ui/core/Grid";
-import Daily from "../../../../types/daily.type";
-import { useReduxDispatch } from "../../../../hooks/redux.hooks";
-import BareTeam from "../../../../types/team.type";
+import EmojiEmotionsOutlinedIcon from "@material-ui/icons/EmojiEmotionsOutlined";
+
 import LocalStorageKeys from "../../../../logic/local.storage.keys";
-import * as localStorage from "local-storage";
-import addFeelingAction from "../../../../redux/actions/daily/add.feeling.action";
-import removeFeelingAction from "../../../../redux/actions/daily/remove.feeling.action";
-import NewDailyComment, {
-  NewDailyCommentKind,
-  NewDailyCommentType,
-} from "./feelings-subjects/new-item/NewDailyComment";
-import { FeelingType } from "../../../../logic/static/static.feelings";
+import { addFeelingAction, removeDetailsAction } from "../../../../redux/actions";
+import { DetailsRemovalType } from "../../../../redux/tasks";
+import { DailyAddActionFeedback, DailyDeleteActionFeedback } from "../../../../types/redux";
+import { BareTeam, Daily, FeelingKind } from "../../../../types/shared";
 import DailyCommentsList from "./feelings-subjects/list/DailyCommentsList";
-import {
-  DailyAddActionFeedback,
-  DailyDeleteActionFeedback,
-} from "../../../../redux/types/daily.feedback.type";
+import NewDailyComment, {
+    NewDailyCommentKind, NewDailyCommentType
+} from "./feelings-subjects/new-item/NewDailyComment";
 
 interface DailyFeelingsProps {
   daily: Daily;
@@ -30,10 +26,10 @@ const DailyFeelings: React.FC<DailyFeelingsProps> = ({
   addActionFeedback,
   deleteActionFeedback,
 }) => {
-  const dispatch = useReduxDispatch();
+  const dispatch = useDispatch();
 
   const [currentTeam] = useState<BareTeam>(
-    localStorage.get<BareTeam>(LocalStorageKeys.currentTeam)
+    localStore.get<BareTeam>(LocalStorageKeys.currentTeam)
   );
 
   const handleFeelingCreation = (data: NewDailyCommentType) => {
@@ -42,7 +38,7 @@ const DailyFeelings: React.FC<DailyFeelingsProps> = ({
 
     dispatch(
       addFeelingAction(currentTeam.id, new Date().toUTCString(), {
-        type: data.type as FeelingType,
+        type: data.type as FeelingKind,
         comment: data.text,
       })
     );
@@ -52,7 +48,14 @@ const DailyFeelings: React.FC<DailyFeelingsProps> = ({
     // Only one feeling deletion action at a time
     if (deleteActionFeedback.isPending) return;
 
-    dispatch(removeFeelingAction(currentTeam.id, new Date().toUTCString(), id));
+    dispatch(
+      removeDetailsAction(
+        DetailsRemovalType.Feelings,
+        currentTeam.id,
+        new Date().toUTCString(),
+        id
+      )
+    );
   };
 
   return (

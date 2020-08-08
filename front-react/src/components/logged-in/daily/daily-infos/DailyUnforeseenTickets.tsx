@@ -1,22 +1,19 @@
+import * as localStore from "local-storage";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import Grid from "@material-ui/core/Grid";
 import AssignmentLateRoundedIcon from "@material-ui/icons/AssignmentLateRounded";
-import Daily from "../../../../types/daily.type";
-import TicketList, { TicketUserType } from "./tickets/TicketList";
-import { CandidateTicket } from "../../../../types/ticket.type";
-import { useReduxDispatch } from "../../../../hooks/redux.hooks";
-import { MessageType } from "../../../generic/feedback/FeedbackSnackbarContent";
-import addUnforeseenTicketAction from "../../../../redux/actions/daily/add.unforeseen.ticket.action";
-import * as localStorage from "local-storage";
+
 import LocalStorageKeys from "../../../../logic/local.storage.keys";
-import BareTeam from "../../../../types/team.type";
-import removeUnforeseenTicketAction from "../../../../redux/actions/daily/remove.unforeseen.ticket.action";
-import NewTicket from "./tickets/NewTicket";
 import {
-  DailyAddActionFeedback,
-  DailyDeleteActionFeedback,
-} from "../../../../redux/types/daily.feedback.type";
-import { sendSnackbarFeedbackAction } from "../../../../redux/actions/global/snackbar.feedback.actions";
+    addUnforeseenTicketAction, removeTicketAction, showErrorAction
+} from "../../../../redux/actions";
+import { TicketRemovalType } from "../../../../redux/tasks";
+import { DailyAddActionFeedback, DailyDeleteActionFeedback } from "../../../../types/redux";
+import { BareTeam, CandidateTicket, Daily } from "../../../../types/shared";
+import NewTicket from "./tickets/NewTicket";
+import TicketList, { TicketUserType } from "./tickets/TicketList";
 
 interface DailyUnforeseenTicketsProps {
   daily: Daily;
@@ -29,10 +26,10 @@ const DailyUnforeseenTickets: React.FC<DailyUnforeseenTicketsProps> = ({
   addActionFeedback,
   deleteActionFeedback,
 }) => {
-  const dispatch = useReduxDispatch();
+  const dispatch = useDispatch();
 
   const [currentTeam] = useState<BareTeam>(
-    localStorage.get<BareTeam>(LocalStorageKeys.currentTeam)
+    localStore.get<BareTeam>(LocalStorageKeys.currentTeam)
   );
 
   const handleTicketCreation = (ticket: CandidateTicket) => {
@@ -42,12 +39,7 @@ const DailyUnforeseenTickets: React.FC<DailyUnforeseenTicketsProps> = ({
     const name = `${ticket.key}-${ticket.number}`;
 
     if (daily.unforeseenTickets.find((el) => el.name === name)) {
-      dispatch(
-        sendSnackbarFeedbackAction(
-          MessageType.Error,
-          `The ticket ${name} has already been added`
-        )
-      );
+      dispatch(showErrorAction(`The ticket ${name} has already been added`));
       return;
     }
 
@@ -61,7 +53,8 @@ const DailyUnforeseenTickets: React.FC<DailyUnforeseenTicketsProps> = ({
     if (deleteActionFeedback.isPending) return;
 
     dispatch(
-      removeUnforeseenTicketAction(
+      removeTicketAction(
+        TicketRemovalType.Unforeseen,
         currentTeam.id,
         new Date().toUTCString(),
         key

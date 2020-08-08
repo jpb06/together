@@ -1,22 +1,22 @@
 import React from "react";
+
+import { useCurrentTeamMembersLoading, useDailyLoading } from "../../../hooks";
+import { ReduxActionContext as Context } from "../../../types/redux";
+import { Daily as DailyType } from "../../../types/shared";
 import WithLoadingAndErrors from "../composition/WithLoadingAndErrors";
-import useDailyLoading from "../../../hooks/useDailyLoading.hook";
-import useCurrentTeamMembersLoading from "../../../hooks/useCurrentTeamMembersLoading.hook";
-import Daily from "./Daily";
-import DailyType from "../../../types/daily.type";
 import WithTeamGuard from "../composition/WithTeamGuard";
+import Daily from "./Daily";
 
 const DailyContainer: React.FC = () => {
-  const [daily, isDailyReady] = useDailyLoading(new Date().toUTCString());
-  const [teamMembers, isTeamMembersReady] = useCurrentTeamMembersLoading();
+  const daily = useDailyLoading();
+  const teamMembers = useCurrentTeamMembersLoading();
 
-  const isReady = isDailyReady && isTeamMembersReady;
-  const userHasTeam = daily !== null && teamMembers.length > 0;
+  const userHasTeam = teamMembers.length > 0;
 
   return (
     <WithLoadingAndErrors
-      isReady={isReady}
       feedbackText="Turns out we couldn't fetch the daily"
+      context={Context.Global}
       jsx={
         <WithTeamGuard
           hasTeam={userHasTeam}

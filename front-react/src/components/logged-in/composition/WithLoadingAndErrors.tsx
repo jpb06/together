@@ -1,22 +1,27 @@
 import React from "react";
-import WaitingIndicator from "../../generic/feedback/WaitingIndicator";
-import TopLevelFeedback from "../../generic/feedback/TopLevelFeedback";
+
 import LoopIcon from "@material-ui/icons/Loop";
 import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
-import { useReduxSelector } from "../../../hooks/redux.hooks";
+
+import { useRootSelector } from "../../../hooks";
+import { isAppErroredIn, isAppReadyIn } from "../../../redux/selectors";
+import { ReduxActionContext as Context } from "../../../types/redux";
+import TopLevelFeedback from "../../generic/feedback/TopLevelFeedback";
+import WaitingIndicator from "../../generic/feedback/WaitingIndicator";
 
 interface WithLoadingAndErrorsProps {
-  isReady: boolean;
   feedbackText: string;
   jsx: JSX.Element;
+  context: Context;
 }
 
 const WithLoadingAndErrors: React.FC<WithLoadingAndErrorsProps> = ({
-  isReady,
   feedbackText,
   jsx,
+  context,
 }) => {
-  const isErrored = useReduxSelector((state) => state.error !== null);
+  const isErrored = useRootSelector(isAppErroredIn(context));
+  const isReady = useRootSelector(isAppReadyIn(context));
 
   if (isErrored)
     return (

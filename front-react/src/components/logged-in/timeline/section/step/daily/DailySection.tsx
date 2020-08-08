@@ -1,12 +1,14 @@
+import React from "react";
+
+import { SvgIconTypeMap } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
+import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
-import React from "react";
-import Divider from "@material-ui/core/Divider";
-import styles from "./DailySection.styles";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
-import { SvgIconTypeMap } from "@material-ui/core";
-import DailyType from "./../../../../../../types/daily.type";
+
+import { Daily as DailyType } from "../../../../../../types/shared";
+import styles from "./DailySection.styles";
 
 interface DailySectionProps {
   title: string;
@@ -19,7 +21,7 @@ const DailySection: React.FC<DailySectionProps> = ({
   title,
   IconComponent,
   ContentComponent,
-  daily
+  daily,
 }) => {
   const classes = styles();
 

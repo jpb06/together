@@ -1,12 +1,14 @@
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import Card from "@material-ui/core/Card";
-import React from "react";
 import clsx from "clsx";
+import React from "react";
+
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
 import LinearProgress from "@material-ui/core/LinearProgress";
+
+import { DailyGlobalFeedback } from "../../../../types/redux";
 import styles from "./DailyReportContentBox.styles";
-import { DailyGlobalFeedback } from "../../../../redux/types/daily.feedback.type";
 
 interface DailyReportContentBoxProps {
   title: string;

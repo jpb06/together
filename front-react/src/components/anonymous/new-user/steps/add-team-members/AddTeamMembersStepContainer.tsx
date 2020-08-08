@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import User, { TeamMember, TerseUser } from "../../../../../types/user.type";
-import AddTeamMembersStepForm from "./AddTeamMembersStepForm";
-import { validateEmail } from "../../../../../logic/user.util";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import inviteUserToTeamAction from "../../../../../redux/actions/account-creation/invite.user.to.team.action";
-import { useReduxDispatch } from "../../../../../hooks/redux.hooks";
-import { AccountCreationState } from "../../../../../redux/types/account.creation.state.type";
-import { Context } from "../../../../../redux/types/action.types";
+
+import { validateEmail } from "../../../../../logic/user.util";
+import { inviteUserToTeamAction } from "../../../../../redux/actions";
+import { AccountCreationState, ReduxActionContext as Context } from "../../../../../types/redux";
+import { User } from "../../../../../types/shared";
+import AddTeamMembersStepForm from "./AddTeamMembersStepForm";
 
 interface AddTeamMembersStepContainerProps {
   state: AccountCreationState;
@@ -18,22 +18,8 @@ const AddTeamMembersStepContainer: React.FC<AddTeamMembersStepContainerProps> = 
   user,
 }) => {
   const history = useHistory();
-  const dispatch = useReduxDispatch();
+  const dispatch = useDispatch();
 
-  const [teamMembers, setTeamMembers] = useState<Array<TeamMember>>([
-    {
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      avatarName: user.avatarName,
-      status: "Team creator",
-      joinDate: new Date(),
-    },
-  ]);
-  const [exitActionText, setExitActionText] = useState(
-    "No thanks, bring me to my timeline!"
-  );
   const [email, setEmail] = useState("");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
@@ -48,29 +34,18 @@ const AddTeamMembersStepContainer: React.FC<AddTeamMembersStepContainerProps> = 
   const handleTeamInvitation = async () => {
     if (!validateEmail(email)) return;
 
-    const result = await dispatch(
-      inviteUserToTeamAction(user.teams[0].id, email, Context.AccountCreation)
+    dispatch(
+      inviteUserToTeamAction(user.teams[0].id, email, Context.Onboarding)
     );
-
-    if (result.success) {
-      setTeamMembers((requests) =>
-        requests.concat({
-          ...(result.user as TerseUser),
-          status: "Invite sent",
-          joinDate: new Date(),
-        })
-      );
-      setExitActionText("I'm done! Bring me to my timeline!");
-      setEmail("");
-    }
+    setEmail("");
   };
 
   return (
     <AddTeamMembersStepForm
       state={state}
       email={email}
-      teamMembers={teamMembers}
-      exitActionText={exitActionText}
+      teamMembers={state.newTeamMembers}
+      exitActionText={state.exitActionText}
       onChange={handleChange}
       onTeamInviteSent={handleTeamInvitation}
       onGoToTimeline={handleGoToTimeline}

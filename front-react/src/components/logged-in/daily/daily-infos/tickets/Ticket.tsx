@@ -1,18 +1,20 @@
 import React from "react";
-import styles from "./Ticket.styles";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import ListItem from "@material-ui/core/ListItem";
+
 import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
-import UserAvatar from "../../../../generic/user-avatar/UserAvatar";
+import DeleteIcon from "@material-ui/icons/Delete";
+
+import { DailyDeleteActionFeedback } from "../../../../../types/redux";
+import { TerseUser } from "../../../../../types/shared";
 import PendingDeleteButton from "../../../../generic/buttons/PendingDeleteButton";
-import { TerseUser } from "../../../../../types/user.type";
+import UserAvatar from "../../../../generic/user-avatar/UserAvatar";
+import styles from "./Ticket.styles";
 import { TicketUserType } from "./TicketList";
-import { DailyDeleteActionFeedback } from "../../../../../redux/types/daily.feedback.type";
 
 interface TicketProps {
   name: string;

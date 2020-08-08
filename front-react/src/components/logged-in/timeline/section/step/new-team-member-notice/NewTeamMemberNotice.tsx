@@ -1,14 +1,16 @@
 import React from "react";
-import { TeamMember } from "../../../../../../types/user.type";
-import styles from "./NewTeamMemberNotice.styles";
+
 import { Typography } from "@material-ui/core";
+
+import { TeamMember } from "../../../../../../types/shared";
+import styles from "./NewTeamMemberNotice.styles";
 
 interface NewTeamMemberNoticeProps {
   member: TeamMember;
 }
 
 const NewTeamMemberNotice: React.FC<NewTeamMemberNoticeProps> = ({
-  member
+  member,
 }) => {
   const classes = styles();
 

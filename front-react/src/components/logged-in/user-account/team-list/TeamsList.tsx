@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid";
+import { useDispatch } from "react-redux";
+
 import { Paper } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+
+import { getUserTeamsAction } from "../../../../redux/actions";
+import { Team as TeamType, User } from "../../../../types/shared";
+import InviteUserToTeamModal from "../../../modals/InviteUserToTeamModal";
 import styles from "../List.styles";
-import { Team as TeamType } from "../../../../types/team.type";
-import TeamMember from "./team-member/TeamMember";
 import InviteUser from "./invite-user/InviteUser";
 import Team from "./Team";
-import InviteUserToTeamModal from "../../../modals/InviteUserToTeamModal";
-import User from "../../../../types/user.type";
+import TeamMember from "./team-member/TeamMember";
 
 interface TeamsListProps {
   user: User;
@@ -18,6 +21,7 @@ interface TeamsListProps {
 
 const TeamsList: React.FC<TeamsListProps> = ({ user, teams, currentTeam }) => {
   const classes = styles();
+  const dispatch = useDispatch();
 
   const [isInviteModalOpened, setIsInviteModalOpened] = useState(false);
   const [activeTeamPanel, setActiveTeamPanel] = React.useState<string | false>(
@@ -29,7 +33,10 @@ const TeamsList: React.FC<TeamsListProps> = ({ user, teams, currentTeam }) => {
   };
 
   const handleOpenModal = () => setIsInviteModalOpened(true);
-  const handleCloseModal = () => setIsInviteModalOpened(false);
+  const handleCloseModal = () => {
+    setIsInviteModalOpened(false);
+    dispatch(getUserTeamsAction(user.id, false));
+  };
 
   return (
     <>
@@ -87,7 +94,6 @@ const TeamsList: React.FC<TeamsListProps> = ({ user, teams, currentTeam }) => {
       </Grid>
       <InviteUserToTeamModal
         isOpened={isInviteModalOpened}
-        userId={user.id}
         teamId={currentTeam.id}
         onClose={handleCloseModal}
       />

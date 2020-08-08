@@ -1,17 +1,16 @@
 import React from "react";
+
+import { MenuItem } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+
+import staticFeelings from "../../../../../../logic/static/static.feelings";
+import staticSubjects from "../../../../../../logic/static/static.subjects";
+import { DailyAddActionFeedback } from "../../../../../../types/redux";
+import { FeelingKind, SubjectKind } from "../../../../../../types/shared";
 import FeedbackButton from "../../../../../generic/buttons/FeedbackButton";
 import DailyComment from "../DailyComment";
-import staticFeelings, {
-  FeelingType,
-} from "../../../../../../logic/static/static.feelings";
-import staticSubjects, {
-  SubjectType,
-} from "../../../../../../logic/static/static.subjects";
-import { MenuItem } from "@material-ui/core";
-import { DailyAddActionFeedback } from "../../../../../../redux/types/daily.feedback.type";
 
 export enum NewDailyCommentKind {
   Subject,
@@ -19,7 +18,7 @@ export enum NewDailyCommentKind {
 }
 
 export interface NewDailyCommentType {
-  type: FeelingType | SubjectType;
+  type: FeelingKind | SubjectKind;
   text: string;
 }
 

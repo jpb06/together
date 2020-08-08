@@ -1,16 +1,18 @@
 import React from "react";
+
 import List from "@material-ui/core/List";
 import AssignmentLateIcon from "@material-ui/icons/AssignmentLate";
-import ForumIcon from "@material-ui/icons/Forum";
 import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
-import styles from "./Daily.styles";
-import DailyType from "../../../../../../types/daily.type";
-import DailyDuration from "./infos/DailyDuration";
-import DailySection from "./DailySection";
-import DailyTickets from "./infos/DailyTickets";
-import DailySubjects from "./infos/DailySubjects";
-import DailyFeelings from "./infos/DailyFeelings";
+import ForumIcon from "@material-ui/icons/Forum";
+
 import { dailyHasData } from "../../../../../../logic/daily.util";
+import { Daily as DailyType } from "../../../../../../types/shared";
+import styles from "./Daily.styles";
+import DailySection from "./DailySection";
+import DailyDuration from "./infos/DailyDuration";
+import DailyFeelings from "./infos/DailyFeelings";
+import DailySubjects from "./infos/DailySubjects";
+import DailyTickets from "./infos/DailyTickets";
 
 interface DailyProps {
   daily: DailyType;

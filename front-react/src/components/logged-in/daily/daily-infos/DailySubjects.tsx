@@ -1,23 +1,19 @@
+import * as localStore from "local-storage";
 import React, { useState } from "react";
-import ForumIcon from "@material-ui/icons/Forum";
+import { useDispatch } from "react-redux";
+
 import Grid from "@material-ui/core/Grid";
-import Daily from "../../../../types/daily.type";
-import BareTeam from "../../../../types/team.type";
+import ForumIcon from "@material-ui/icons/Forum";
+
 import LocalStorageKeys from "../../../../logic/local.storage.keys";
-import * as localStorage from "local-storage";
-import { useReduxDispatch } from "../../../../hooks/redux.hooks";
-import addSubjectAction from "../../../../redux/actions/daily/add.subject.action";
-import removeSubjectAction from "../../../../redux/actions/daily/remove.subject.action";
-import NewDailyComment, {
-  NewDailyCommentKind,
-  NewDailyCommentType,
-} from "./feelings-subjects/new-item/NewDailyComment";
-import { SubjectType } from "../../../../logic/static/static.subjects";
+import { addSubjectAction, removeDetailsAction } from "../../../../redux/actions";
+import { DetailsRemovalType } from "../../../../redux/tasks";
+import { DailyAddActionFeedback, DailyDeleteActionFeedback } from "../../../../types/redux";
+import { BareTeam, Daily, SubjectKind } from "../../../../types/shared";
 import DailyCommentsList from "./feelings-subjects/list/DailyCommentsList";
-import {
-  DailyAddActionFeedback,
-  DailyDeleteActionFeedback,
-} from "../../../../redux/types/daily.feedback.type";
+import NewDailyComment, {
+    NewDailyCommentKind, NewDailyCommentType
+} from "./feelings-subjects/new-item/NewDailyComment";
 
 interface DailySubjectsProps {
   daily: Daily;
@@ -30,10 +26,10 @@ const DailySubjects: React.FC<DailySubjectsProps> = ({
   addActionFeedback,
   deleteActionFeedback,
 }) => {
-  const dispatch = useReduxDispatch();
+  const dispatch = useDispatch();
 
   const [currentTeam] = useState<BareTeam>(
-    localStorage.get<BareTeam>(LocalStorageKeys.currentTeam)
+    localStore.get<BareTeam>(LocalStorageKeys.currentTeam)
   );
 
   const handleSubjectCreation = async (data: NewDailyCommentType) => {
@@ -42,7 +38,7 @@ const DailySubjects: React.FC<DailySubjectsProps> = ({
 
     dispatch(
       addSubjectAction(currentTeam.id, new Date().toUTCString(), {
-        type: data.type as SubjectType,
+        type: data.type as SubjectKind,
         description: data.text,
       })
     );
@@ -52,7 +48,14 @@ const DailySubjects: React.FC<DailySubjectsProps> = ({
     // Only one subject deletion action at a time
     if (deleteActionFeedback.isPending) return;
 
-    dispatch(removeSubjectAction(currentTeam.id, new Date().toUTCString(), id));
+    dispatch(
+      removeDetailsAction(
+        DetailsRemovalType.Subjects,
+        currentTeam.id,
+        new Date().toUTCString(),
+        id
+      )
+    );
   };
 
   return (

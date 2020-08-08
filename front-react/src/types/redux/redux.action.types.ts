@@ -31,6 +31,7 @@ export enum ReduxActionType {
   RemoveFeeling = "REMOVE-FEELING",
   RemoveSubject = "REMOVE-SUBJECT",
   // Login
+  LoginStateRetry = "LOGIN-STATE-RETRY",
   LoginStateReset = "LOGIN-STATE-RESET",
   LoginStatePending = "LOGIN-STATE-PENDING",
   LoginStateInvalidEmail = "LOGIN-STATE-INVALID-EMAIL",

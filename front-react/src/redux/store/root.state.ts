@@ -1,7 +1,6 @@
 import { initializeUserFromLocalStorage } from "../../logic/user.util";
 import {
-    AccountCreationState, AccountCreationStep, ApplicationStatus, DailyStepFeedback, SnackbarData,
-    SnackbarType
+    AccountCreationState, AccountCreationStep, DailyStepFeedback, SnackbarData, SnackbarType
 } from "../../types/redux";
 import { RecentAction } from "../../types/redux/recent.action.interface";
 import {
@@ -14,7 +13,6 @@ import { initDailyStep } from "../reducers/daily-feedback/daily.feedback.logic";
 
 export interface RootState {
   // Global
-  readonly status: ApplicationStatus;
   readonly snackbar: SnackbarData;
   readonly recentActions: Array<RecentAction>;
 
@@ -40,7 +38,6 @@ export interface RootState {
 
 const initialState: RootState = {
   // global
-  status: ApplicationStatus.Available,
   snackbar: {
     isOpen: false,
     type: SnackbarType.Error,

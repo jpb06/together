@@ -1,17 +1,13 @@
-export enum ApplicationStatus {
+import { ReduxActionContext } from "./redux.action.context.enum";
+
+export enum ApplicationState {
   Errored,
   Available,
-  BusyGlobal,
-  BusyModal,
-  BusyCreatingAccount,
-  // Daily
-  BusyAddingDoneTicket,
-  BusyRemovingDoneTicket,
-  BusyAddingUnforeseenTicket,
-  BusyRemovingUnforeseenTicket,
-  BusyAddingSubject,
-  BusyRemovingSubject,
-  BusyAddingFeeling,
-  BusyRemovingFeeling,
-  BusySettingDuration,
+  Busy,
+}
+
+export interface ApplicationStatus {
+  state: ApplicationState;
+  context: ReduxActionContext;
+  pendingTasks: number;
 }

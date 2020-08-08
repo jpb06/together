@@ -1,12 +1,12 @@
 import { Action } from "redux";
 
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../types/redux";
-import { isSaga } from "./generic.actions.identifiers";
+import { isSagaFor } from "./generic.actions.identifiers";
 
 export const isAccountCreationAction = (action: Action) =>
-  isSaga(action.type, Type.CreateUser) ||
-  isSaga(action.type, Type.CreateTeam) ||
-  (isSaga(action.type, Type.InviteUserToTeam) &&
+  isSagaFor(Type.CreateUser, action.type) ||
+  isSagaFor(Type.CreateTeam, action.type) ||
+  (isSagaFor(Type.InviteUserToTeam, action.type) &&
     action.type.endsWith(`_${Context.Onboarding}`)) ||
-  (isSaga(action.type, Type.RequestToJoinTeam) &&
+  (isSagaFor(Type.RequestToJoinTeam, action.type) &&
     action.type.endsWith(`_${Context.Onboarding}`));

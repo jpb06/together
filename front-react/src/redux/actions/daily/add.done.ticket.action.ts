@@ -6,10 +6,9 @@ export const addDoneTicketAction = (
   teamId: string,
   assigneeEmail: string,
   date: string,
-  ticket: string,
-  context: Context = Context.Global
+  ticket: string
 ) =>
-  sagaPayloadAction<AddDoneTicketParams>(Type.AddDoneTicket, context, {
+  sagaPayloadAction<AddDoneTicketParams>(Type.AddDoneTicket, Context.Daily, {
     teamId,
     assigneeEmail,
     date,

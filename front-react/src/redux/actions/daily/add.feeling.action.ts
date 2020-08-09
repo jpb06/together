@@ -6,10 +6,9 @@ import { sagaPayloadAction } from "../generic/payload.action";
 export const addFeelingAction = (
   teamId: string,
   date: string,
-  feeling: NewFeeling,
-  context: Context = Context.Global
+  feeling: NewFeeling
 ) =>
-  sagaPayloadAction<AddFeelingParams>(Type.AddFeeling, context, {
+  sagaPayloadAction<AddFeelingParams>(Type.AddFeeling, Context.Daily, {
     teamId,
     date,
     feeling,

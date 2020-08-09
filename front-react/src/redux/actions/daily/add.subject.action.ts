@@ -6,10 +6,9 @@ import { sagaPayloadAction } from "../generic/payload.action";
 export const addSubjectAction = (
   teamId: string,
   date: string,
-  subject: NewSubject,
-  context: Context = Context.Global
+  subject: NewSubject
 ) =>
-  sagaPayloadAction<AddSubjectParams>(Type.AddSubject, context, {
+  sagaPayloadAction<AddSubjectParams>(Type.AddSubject, Context.Daily, {
     teamId,
     date,
     subject,

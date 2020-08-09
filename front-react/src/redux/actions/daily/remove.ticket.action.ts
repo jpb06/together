@@ -6,8 +6,7 @@ export const removeTicketAction = (
   ticketType: TicketRemovalType,
   teamId: string,
   date: string,
-  ticket: string,
-  context: Context = Context.Global
+  ticket: string
 ) => {
   let actionType;
   switch (ticketType) {
@@ -19,7 +18,7 @@ export const removeTicketAction = (
       break;
   }
 
-  return sagaPayloadAction<RemoveTicketParams>(actionType, context, {
+  return sagaPayloadAction<RemoveTicketParams>(actionType, Context.Daily, {
     ticketType,
     teamId,
     date,

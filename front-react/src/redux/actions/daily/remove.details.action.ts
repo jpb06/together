@@ -6,8 +6,7 @@ export const removeDetailsAction = (
   detailsType: DetailsRemovalType,
   teamId: string,
   date: string,
-  id: string,
-  context: Context = Context.Global
+  id: string
 ) => {
   let actionType;
   switch (detailsType) {
@@ -19,7 +18,7 @@ export const removeDetailsAction = (
       break;
   }
 
-  return sagaPayloadAction<RemoveDetailsParams>(actionType, context, {
+  return sagaPayloadAction<RemoveDetailsParams>(actionType, Context.Daily, {
     detailsType,
     teamId,
     date,

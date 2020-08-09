@@ -5,12 +5,11 @@ import { sagaPayloadAction } from "../generic/payload.action";
 export const addUnforeseenTicketAction = (
   teamId: string,
   date: string,
-  ticket: string,
-  context: Context = Context.Global
+  ticket: string
 ) =>
   sagaPayloadAction<AddUnforeseenTicketParams>(
     Type.AddUnforeseenTicket,
-    context,
+    Context.Daily,
     {
       teamId,
       date,

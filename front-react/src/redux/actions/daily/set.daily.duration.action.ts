@@ -5,10 +5,9 @@ import { sagaPayloadAction } from "../generic/payload.action";
 export const setDailyDurationAction = (
   teamId: string,
   date: string,
-  duration: string,
-  context: Context = Context.Global
+  duration: string
 ) =>
-  sagaPayloadAction<SetDailyDurationParams>(Type.DailyDuration, context, {
+  sagaPayloadAction<SetDailyDurationParams>(Type.DailyDuration, Context.Daily, {
     teamId,
     date,
     duration,

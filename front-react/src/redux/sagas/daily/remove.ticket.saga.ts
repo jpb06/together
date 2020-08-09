@@ -1,9 +1,9 @@
 import { ReduxActionType as Type } from "../../../types/redux";
 import { removeTicketTask } from "../../tasks/daily/remove.ticket.task";
-import { safeTakeLeading } from "../generic/safe.take.leading.helper";
+import { safeTakeLeadingFor } from "../generic/safe.take.leading.helper";
 
 export function* watchRemoveTicket() {
-  yield safeTakeLeading(
+  yield safeTakeLeadingFor(
     [Type.RemoveUnforeseenTicket, Type.RemoveDoneTicket],
     removeTicketTask
   );

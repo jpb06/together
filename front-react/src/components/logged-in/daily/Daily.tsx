@@ -14,7 +14,7 @@ import DailyUnforeseenTickets from "./daily-infos/DailyUnforeseenTickets";
 import styles from "./Daily.styles";
 
 interface DailyProps {
-  daily: DailyType;
+  daily: DailyType | null;
   teamMembers: Array<TeamMember>;
 }
 

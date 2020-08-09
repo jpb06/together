@@ -3,9 +3,8 @@ import React from "react";
 import LoopIcon from "@material-ui/icons/Loop";
 import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
 
-import { useRootSelector } from "../../../hooks";
-import { isAppErroredIn, isAppReadyIn } from "../../../redux/selectors";
-import { ReduxActionContext as Context } from "../../../types/redux";
+import { useAppStatus } from "../../../hooks";
+import { ApplicationState, ReduxActionContext as Context } from "../../../types/redux";
 import TopLevelFeedback from "../../generic/feedback/TopLevelFeedback";
 import WaitingIndicator from "../../generic/feedback/WaitingIndicator";
 
@@ -20,27 +19,28 @@ const WithLoadingAndErrors: React.FC<WithLoadingAndErrorsProps> = ({
   jsx,
   context,
 }) => {
-  const isErrored = useRootSelector(isAppErroredIn(context));
-  const isReady = useRootSelector(isAppReadyIn(context));
+  const status = useAppStatus(context);
 
-  if (isErrored)
-    return (
-      <TopLevelFeedback
-        Icon={SentimentDissatisfiedIcon}
-        title="Oh no!"
-        content={feedbackText}
-      />
-    );
-
-  return isReady ? (
-    jsx
-  ) : (
-    <WaitingIndicator
-      hasTopPadding
-      IconComponent={LoopIcon}
-      text="Sinister Dexter Has a Broken Spirometer"
-    />
-  );
+  switch (status) {
+    case ApplicationState.Errored:
+      return (
+        <TopLevelFeedback
+          Icon={SentimentDissatisfiedIcon}
+          title="Oh no!"
+          content={feedbackText}
+        />
+      );
+    case ApplicationState.Busy:
+      return (
+        <WaitingIndicator
+          hasTopPadding
+          IconComponent={LoopIcon}
+          text="Sinister Dexter Has a Broken Spirometer"
+        />
+      );
+    case ApplicationState.Available:
+      return jsx;
+  }
 };
 
 export default WithLoadingAndErrors;

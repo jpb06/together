@@ -1,5 +1,6 @@
 import {
-    ReduxActionContext as Context, ReduxActionModifiers as Modifier, ReduxActionType as Type
+    ActionWithPayload, ReduxActionContext as Context, ReduxActionModifiers as Modifier,
+    ReduxActionType as Type, SnackbarData
 } from "../../types/redux";
 
 export const isIn = (context: Context, actionType: string) =>
@@ -32,3 +33,10 @@ export const isSagaFor = (type: Type, actionType: string) =>
 
 export const isFailedIn = (context: Context, actionType: string) =>
   isSagaFor(Type.Snackbar, actionType) && isIn(context, actionType);
+
+export const isFailedFor = (
+  type: Type,
+  action: ActionWithPayload<SnackbarData>
+) =>
+  isSagaFor(Type.Snackbar, action.type) &&
+  action.payload.relatedAction === type;

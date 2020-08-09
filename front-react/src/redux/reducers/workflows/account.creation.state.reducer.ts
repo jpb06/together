@@ -75,7 +75,7 @@ const accountCreationStateReducer = (
     };
   }
 
-  if ((action.type as string).startsWith(`${Type.Snackbar}-${Modifier.Saga}`)) {
+  if ((action.type as string).startsWith(`${Type.Snackbar}_${Modifier.Saga}`)) {
     return {
       ...state,
       isLoading: false,

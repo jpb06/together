@@ -7,7 +7,7 @@ import { displaySnackbarTask } from "../../tasks/app/display.snackbar.task";
 export function* watchSnackbar() {
   yield takeEvery(
     (action: Action) =>
-      action.type.startsWith(`${Type.Snackbar}-${Modifier.Saga}_`),
+      action.type.startsWith(`${Type.Snackbar}_${Modifier.Saga}_`),
     displaySnackbarTask
   );
 }

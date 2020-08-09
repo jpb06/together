@@ -2,7 +2,7 @@ import { put } from "redux-saga/effects";
 
 import { ActionWithPayload, ReduxActionContext as Context } from "../../../types/redux";
 import { showErrorAction, showSnackbarAction } from "../../actions";
-import { getContextFrom } from "../../identifiers/get.context.from.action";
+import { getContextFrom } from "../../identifiers/actions.reverse.mapping.identifiers";
 
 export function* executeSaga<TParam>(
   task: (params: TParam, context: Context) => void,

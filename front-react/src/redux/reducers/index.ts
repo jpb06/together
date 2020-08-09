@@ -18,7 +18,7 @@ import loginStateReducer from "./workflows/login.state.reducer";
 
 const rootReducer = combineReducers({
   snackbar: snackbarReducer,
-  recentActions: recentActionsReducer,
+  lastAction: recentActionsReducer,
 
   user: userReducer,
   userTeams: userTeamsReducer,

@@ -1,7 +1,11 @@
 import { ReduxActionContext, ReduxActionType } from "./";
 
-export interface RecentAction {
+export interface RecentTask {
   type: ReduxActionType;
-  context: ReduxActionContext;
   hasSucceeded?: boolean;
+}
+
+export interface RecentAction {
+  tasks: Array<RecentTask>;
+  context: ReduxActionContext;
 }

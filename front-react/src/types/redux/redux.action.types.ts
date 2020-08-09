@@ -5,7 +5,7 @@ export enum ReduxActionType {
   Snackbar = "SNACKBAR",
   ClearSnackbar = "CLEAR-SNACKBAR",
   // Recent actions
-  ClearRecentActions = "CLEAR-RECENT-ACTIONS",
+  ClearLastAction = "CLEAR-LAST-ACTION",
   // Users
   Login = "LOGIN",
   CreateUser = "CREATE-USER",

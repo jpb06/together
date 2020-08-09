@@ -14,7 +14,7 @@ import { initDailyStep } from "../reducers/daily-feedback/daily.feedback.logic";
 export interface RootState {
   // Global
   readonly snackbar: SnackbarData;
-  readonly recentActions: Array<RecentAction>;
+  readonly lastAction: RecentAction | null;
 
   // User
   readonly user: User | null;
@@ -43,7 +43,7 @@ const initialState: RootState = {
     type: SnackbarType.Error,
     text: "",
   },
-  recentActions: [],
+  lastAction: null,
   // user
   user: initializeUserFromLocalStorage(),
   userTeams: [],

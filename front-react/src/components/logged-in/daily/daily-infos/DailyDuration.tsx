@@ -25,23 +25,21 @@ const DailyDuration: React.FC<DailyDurationProps> = ({ daily }) => {
   };
 
   return (
-    <div>
-      <TextField
-        select
-        className={classes.textField}
-        variant="outlined"
-        label="How long did it last ?"
-        value={daily.durationIndicator}
-        onChange={handleChange}
-        fullWidth
-      >
-        {staticDurations.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-    </div>
+    <TextField
+      select
+      className={classes.textField}
+      variant="outlined"
+      label="How long did it last ?"
+      value={daily.durationIndicator}
+      onChange={handleChange}
+      fullWidth
+    >
+      {staticDurations.map((option) => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label}
+        </MenuItem>
+      ))}
+    </TextField>
   );
 };
 

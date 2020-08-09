@@ -30,7 +30,7 @@ const Daily: React.FC<DailyProps> = ({ daily, teamMembers }) => {
           title="Daily duration"
           ContentComponent={DailyDuration}
           data={{ daily }}
-          feedback={feedback.dailyDuration.globalFeedback}
+          feedback={feedback.duration.globalFeedback}
         />
       </Grid>
       <Grid item md={12} xs={12}>

@@ -6,7 +6,7 @@ import { isIn, isSuccessFor } from "../../identifiers/generic.actions.identifier
 import { initialState } from "../../store/root.state";
 import {
     initDailyDurationStep, setDailyBlockState, setDailyStep, setDurationState
-} from "./daily.status.logic";
+} from "./daily.state.logic";
 
 const dailyStatusReducer = (
   state: DailyState = initialState.dailyState,

@@ -9,7 +9,7 @@ import userReducer from "./user/user.reducer";
 import userTeamsReducer from "./user/user.teams.reducer";
 import accountCreationStateReducer from "./workflows/account.creation.state.reducer";
 import answerTeamInviteModalStateReducer from "./workflows/answer.team.invite.modal.state.reducer";
-import dailyStatusReducer from "./workflows/daily.status.reducer";
+import dailyStatusReducer from "./workflows/daily.state.reducer";
 import loginStateReducer from "./workflows/login.state.reducer";
 
 const rootReducer = combineReducers({

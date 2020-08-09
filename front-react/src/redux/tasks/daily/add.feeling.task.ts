@@ -15,7 +15,12 @@ export interface AddFeelingParams {
 
 export function* addFeelingTask(params: AddFeelingParams, context: Context) {
   const feeling: Feeling = yield apiCall(
-    TogetherApi.Instance.post(ApiRoutes.DailyFeelingsAdd, params)
+    TogetherApi.Instance.post(ApiRoutes.DailyFeelingsAdd, {
+      teamId: params.teamId,
+      date: params.date,
+      type: params.feeling.type,
+      comment: params.feeling.comment,
+    })
   );
 
   yield put(successPayloadAction(Type.AddFeeling, context, feeling));

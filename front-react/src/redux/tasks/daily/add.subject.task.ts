@@ -15,7 +15,12 @@ export interface AddSubjectParams {
 
 export function* addSubjectTask(params: AddSubjectParams, context: Context) {
   const subject: Subject = yield apiCall(
-    TogetherApi.Instance.post(ApiRoutes.DailySubjectsAdd, params)
+    TogetherApi.Instance.post(ApiRoutes.DailySubjectsAdd, {
+      teamId: params.teamId,
+      date: params.date,
+      type: params.subject.type,
+      description: params.subject.description,
+    })
   );
 
   yield put(successPayloadAction(Type.AddSubject, context, subject));

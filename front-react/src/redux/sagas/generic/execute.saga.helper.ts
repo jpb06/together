@@ -12,13 +12,13 @@ export function* executeSaga<TParam>(
   try {
     context = getContextFrom(action);
   } catch (error) {
-    yield put(showErrorAction(error.message));
+    yield put(showSnackbarAction(error.message));
     return;
   }
 
   try {
     yield task(action.payload, context);
   } catch (error) {
-    yield put(showSnackbarAction(action.type, context, error.message));
+    yield put(showErrorAction(action.type, context, error.message));
   }
 }

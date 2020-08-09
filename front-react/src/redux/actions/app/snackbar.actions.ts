@@ -1,26 +1,29 @@
 import {
     ReduxActionContext as Context, ReduxActionModifiers as Modifier, ReduxActionType as Type,
-    SnackbarData, SnackbarType
+    SnackbarData, SnackbarKind
 } from "../../../types/redux";
 import { sagaPayloadAction } from "../generic/payload.action";
 
-export const showErrorAction = (text: string) => ({
+export const showSnackbarAction = (
+  text: string,
+  type: SnackbarKind = SnackbarKind.Error
+) => ({
   type: `${Type.Snackbar}_${Modifier.Saga}_*`,
   payload: {
     isOpen: true,
-    type: SnackbarType.Error,
+    type,
     text,
   },
 });
 
-export const showSnackbarAction = (
+export const showErrorAction = (
   actionType: Type,
   context: Context,
   text: string
 ) =>
   sagaPayloadAction<SnackbarData>(Type.Snackbar, context, {
     isOpen: true,
-    type: SnackbarType.Error,
+    type: SnackbarKind.Error,
     text,
     relatedAction: actionType,
   });

@@ -7,7 +7,7 @@ import AssignmentLateRoundedIcon from "@material-ui/icons/AssignmentLateRounded"
 
 import LocalStorageKeys from "../../../../logic/local.storage.keys";
 import {
-    addUnforeseenTicketAction, removeTicketAction, showErrorAction
+    addUnforeseenTicketAction, removeTicketAction, showSnackbarAction
 } from "../../../../redux/actions";
 import { TicketRemovalType } from "../../../../redux/tasks";
 import { DailyAddActionFeedback, DailyDeleteActionFeedback } from "../../../../types/redux";
@@ -39,7 +39,7 @@ const DailyUnforeseenTickets: React.FC<DailyUnforeseenTicketsProps> = ({
     const name = `${ticket.key}-${ticket.number}`;
 
     if (daily.unforeseenTickets.find((el) => el.name === name)) {
-      dispatch(showErrorAction(`The ticket ${name} has already been added`));
+      dispatch(showSnackbarAction(`The ticket ${name} has already been added`));
       return;
     }
 

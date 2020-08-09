@@ -1,4 +1,4 @@
-export * from "./app/snackbar.action";
+export * from "./app/snackbar.actions";
 export * from "./app/clear.action.history.action";
 
 export * from "./daily/add.done.ticket.action";

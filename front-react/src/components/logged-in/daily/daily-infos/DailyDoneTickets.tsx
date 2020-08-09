@@ -7,7 +7,7 @@ import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 
 import LocalStorageKeys from "../../../../logic/local.storage.keys";
 import {
-    addDoneTicketAction, removeTicketAction, showErrorAction
+    addDoneTicketAction, removeTicketAction, showSnackbarAction
 } from "../../../../redux/actions";
 import { TicketRemovalType } from "../../../../redux/tasks";
 import { DailyAddActionFeedback, DailyDeleteActionFeedback } from "../../../../types/redux";
@@ -42,12 +42,12 @@ const DailyDoneTickets: React.FC<DailyDoneTicketsProps> = ({
 
     const assignee = teamMembers.find((user) => user.id === ticket.userId);
     if (!assignee) {
-      dispatch(showErrorAction(`Unable to find ticket ${name}'s assignee`));
+      dispatch(showSnackbarAction(`Unable to find ticket ${name}'s assignee`));
       return;
     }
 
     if (daily.unforeseenTickets.find((el) => el.name === name)) {
-      dispatch(showErrorAction(`The ticket ${name} has already been added`));
+      dispatch(showSnackbarAction(`The ticket ${name} has already been added`));
       return;
     }
 

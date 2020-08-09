@@ -1,6 +1,6 @@
 import { initializeUserFromLocalStorage } from "../../logic/user.util";
 import {
-    AccountCreationState, AccountCreationStep, DailyState, SnackbarData, SnackbarType
+    AccountCreationState, AccountCreationStep, DailyState, SnackbarData, SnackbarKind
 } from "../../types/redux";
 import { RecentAction } from "../../types/redux/recent.action.interface";
 import {
@@ -34,7 +34,7 @@ const initialState: RootState = {
   // global
   snackbar: {
     isOpen: false,
-    type: SnackbarType.Error,
+    type: SnackbarKind.Error,
     text: "",
   },
   lastAction: null,

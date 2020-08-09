@@ -1,6 +1,6 @@
 import { initializeUserFromLocalStorage } from "../../logic/user.util";
 import {
-    AccountCreationState, AccountCreationStep, DailyStepFeedback, SnackbarData, SnackbarType
+    AccountCreationState, AccountCreationStep, DailyState, SnackbarData, SnackbarType
 } from "../../types/redux";
 import { RecentAction } from "../../types/redux/recent.action.interface";
 import {
@@ -9,7 +9,7 @@ import {
 import { LoginState } from "../../types/redux/workflows/login.state.interface";
 import { Daily, TimeLine, User } from "../../types/shared";
 import { TeamMember, TeamWithLastActivity } from "../../types/shared";
-import { initDailyStep } from "../reducers/daily-feedback/daily.feedback.logic";
+import { DailyStepActionType, setDailyStep } from "../reducers/workflows/daily.status.logic";
 
 export interface RootState {
   // Global
@@ -21,19 +21,13 @@ export interface RootState {
   readonly userTeams: Array<TeamWithLastActivity>;
   readonly timeline: TimeLine | null;
   readonly teamMembers: Array<TeamMember>;
-
-  // Daily related
   readonly daily: Daily | null;
-  readonly dailyDurationFeedback: DailyStepFeedback;
-  readonly dailyUnforeseenTicketsFeedback: DailyStepFeedback;
-  readonly dailyDoneTicketsFeedback: DailyStepFeedback;
-  readonly dailySubjectsFeedback: DailyStepFeedback;
-  readonly dailyFeelingsFeedback: DailyStepFeedback;
 
   // workflows
   readonly loginState: LoginState;
   readonly accountCreationState: AccountCreationState;
   readonly answerTeamInviteModalState: AnswerTeamInviteModalState;
+  readonly dailyState: DailyState;
 }
 
 const initialState: RootState = {
@@ -49,15 +43,7 @@ const initialState: RootState = {
   userTeams: [],
   timeline: null,
   teamMembers: [],
-  // daily
   daily: null,
-  dailyDurationFeedback: {
-    globalFeedback: { isValidated: false, isPending: false },
-  },
-  dailyUnforeseenTicketsFeedback: initDailyStep(),
-  dailyDoneTicketsFeedback: initDailyStep(),
-  dailySubjectsFeedback: initDailyStep(),
-  dailyFeelingsFeedback: initDailyStep(),
   // login
   loginState: {
     isPending: false,
@@ -80,6 +66,34 @@ const initialState: RootState = {
     step: AnswerTeamInviteModalSteps.Question,
     isModalOpen: false,
   },
+  // Daily
+  dailyState: {
+    duration: setDailyStep(),
+    unforeseenTickets: setDailyStep(
+      {},
+      false,
+      false,
+      DailyStepActionType.Add | DailyStepActionType.Delete
+    ),
+    doneTickets: setDailyStep(
+      {},
+      false,
+      false,
+      DailyStepActionType.Add | DailyStepActionType.Delete
+    ),
+    subjects: setDailyStep(
+      {},
+      false,
+      false,
+      DailyStepActionType.Add | DailyStepActionType.Delete
+    ),
+    feelings: setDailyStep(
+      {},
+      false,
+      false,
+      DailyStepActionType.Add | DailyStepActionType.Delete
+    ),
+  },
 };
 
-export { initialState, initDailyStep };
+export { initialState };

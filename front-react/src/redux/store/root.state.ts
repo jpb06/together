@@ -9,7 +9,7 @@ import {
 import { LoginState } from "../../types/redux/workflows/login.state.interface";
 import { Daily, TimeLine, User } from "../../types/shared";
 import { TeamMember, TeamWithLastActivity } from "../../types/shared";
-import { DailyStepActionType, setDailyStep } from "../reducers/workflows/daily.status.logic";
+import { DailyStepActionType, setDailyStep } from "../reducers/workflows/daily.state.logic";
 
 export interface RootState {
   // Global

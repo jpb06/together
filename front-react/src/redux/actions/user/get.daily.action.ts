@@ -8,3 +8,17 @@ export const getDailyAction = (
   context: Context = Context.Global
 ) =>
   sagaPayloadAction<GetDailyParams>(Type.GetDaily, context, { teamId, date });
+
+export const getDailyAndTeamMembersAction = (
+  teamId: string,
+  date: string,
+  context: Context = Context.Global
+) =>
+  sagaPayloadAction<GetDailyParams>(
+    [Type.GetDaily, Type.TeamMembers],
+    context,
+    {
+      teamId,
+      date,
+    }
+  );

@@ -4,7 +4,7 @@ import {
 } from "../../../types/redux";
 
 export const showErrorAction = (text: string) => ({
-  type: `${Type.Snackbar}-${Modifier.Saga}_*`,
+  type: `${Type.Snackbar}_${Modifier.Saga}_*`,
   payload: {
     isOpen: true,
     type: SnackbarType.Error,
@@ -17,7 +17,7 @@ export const showSnackbarAction = (
   context: Context,
   text: string
 ) => ({
-  type: `${Type.Snackbar}-${Modifier.Saga}_${context}`,
+  type: `${Type.Snackbar}_${Modifier.Saga}_${context}`,
   payload: {
     isOpen: true,
     type: SnackbarType.Error,

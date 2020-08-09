@@ -1,6 +1,10 @@
+import { isArray } from "util";
+
 import {
     ReduxActionContext as Context, ReduxActionModifiers as Modifier, ReduxActionType as Type
 } from "../../../types/redux";
+
+export const combineActions = (...types: Array<Type>) => `${types.join("|")}`;
 
 export const payloadAction = <TPayload>(type: Type, payload?: TPayload) => ({
   type,
@@ -12,24 +16,17 @@ export const successPayloadAction = <TPayload>(
   context: Context,
   payload?: TPayload
 ) => ({
-  type: `${type}-${Modifier.Success}_${context}`,
+  type: `${type}_${Modifier.Success}_${context}`,
   payload,
 });
 
 export const sagaPayloadAction = <TPayload>(
-  type: Type,
+  type: Type | Array<Type>,
   context: Context,
   payload?: TPayload
 ) => ({
-  type: `${type}-${Modifier.Saga}_${context}`,
-  payload,
-});
-
-export const combinedPayloadAction = <TPayload>(
-  types: Array<Type>,
-  context: Context,
-  payload?: TPayload
-) => ({
-  type: `${types.join(".")}-${Modifier.Saga}_${context}`,
+  type: isArray(type)
+    ? `${combineActions(...type)}_${Modifier.Saga}_${context}`
+    : `${type}_${Modifier.Saga}_${context}`,
   payload,
 });

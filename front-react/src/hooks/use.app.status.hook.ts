@@ -5,7 +5,7 @@ import { useRootSelector } from "./use.root.selector";
 export const useAppStatus = (context: Context): ApplicationState => {
   const action = useRootSelector(lastAction);
 
-  if (!action) {
+  if (!action || action.context !== context) {
     return ApplicationState.Available;
   }
 

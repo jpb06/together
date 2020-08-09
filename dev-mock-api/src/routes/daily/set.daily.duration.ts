@@ -1,9 +1,10 @@
 import { Application } from "express";
 import { Request, Response } from "express-serve-static-core";
-import isAuthenticated from "../../middleware/is.authenticated";
 import { body } from "express-validator";
-import { getOrCreateDaily } from "../../util/daily";
+
 import { persistDaily } from "../../dbase/update.mock.db";
+import isAuthenticated from "../../middleware/is.authenticated";
+import { getOrCreateDaily } from "../../util/daily";
 
 const mapSetDailyDuration = (server: Application) => {
   server.post(
@@ -20,7 +21,7 @@ const mapSetDailyDuration = (server: Application) => {
 
       persistDaily(daily);
 
-      return res.answer(200, `Duration set for ${req.body.date}`);
+      return res.answer(200, daily.durationIndicator);
     }
   );
 };

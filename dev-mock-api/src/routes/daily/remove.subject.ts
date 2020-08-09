@@ -1,9 +1,10 @@
 import { Application } from "express";
 import { Request, Response } from "express-serve-static-core";
-import isAuthenticated from "../../middleware/is.authenticated";
 import { body } from "express-validator";
-import { getOrCreateDaily } from "../../util/daily";
+
 import { persistDaily } from "../../dbase/update.mock.db";
+import isAuthenticated from "../../middleware/is.authenticated";
+import { getOrCreateDaily } from "../../util/daily";
 
 const mapRemoveSubject = (server: Application) => {
   server.post(
@@ -19,7 +20,7 @@ const mapRemoveSubject = (server: Application) => {
       daily.subjects = daily.subjects.filter((el) => el.id !== req.body.id);
       persistDaily(daily);
 
-      return res.answer(200, "Subject deleted");
+      return res.answer(200, req.body.id);
     }
   );
 };

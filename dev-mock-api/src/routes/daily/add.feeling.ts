@@ -1,12 +1,13 @@
 import { Application } from "express";
 import { Request, Response } from "express-serve-static-core";
-import isAuthenticated from "../../middleware/is.authenticated";
 import { body } from "express-validator";
+
 import { getUsers } from "../../dbase/fetch.mock.db";
-import { getOrCreateDaily } from "../../util/daily";
-import { userToTerseUser } from "../../util/types.conversion.helpers";
 import { persistDaily } from "../../dbase/update.mock.db";
+import isAuthenticated from "../../middleware/is.authenticated";
+import { getOrCreateDaily } from "../../util/daily";
 import { mongoObjectId } from "../../util/objectid";
+import { userToTerseUser } from "../../util/types.conversion.helpers";
 
 const mapAddFeeling = (server: Application) => {
   server.post(

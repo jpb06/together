@@ -1,7 +1,8 @@
 import {
     ReduxActionContext as Context, ReduxActionModifiers as Modifier, ReduxActionType as Type,
-    SnackbarType
+    SnackbarData, SnackbarType
 } from "../../../types/redux";
+import { sagaPayloadAction } from "../generic/payload.action";
 
 export const showErrorAction = (text: string) => ({
   type: `${Type.Snackbar}_${Modifier.Saga}_*`,
@@ -13,18 +14,16 @@ export const showErrorAction = (text: string) => ({
 });
 
 export const showSnackbarAction = (
-  actionType: string,
+  actionType: Type,
   context: Context,
   text: string
-) => ({
-  type: `${Type.Snackbar}_${Modifier.Saga}_${context}`,
-  payload: {
+) =>
+  sagaPayloadAction<SnackbarData>(Type.Snackbar, context, {
     isOpen: true,
     type: SnackbarType.Error,
     text,
     relatedAction: actionType,
-  },
-});
+  });
 
 export const clearSnackbarAction = () => ({
   type: Type.ClearSnackbar,

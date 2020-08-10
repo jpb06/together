@@ -18,9 +18,7 @@ export const useTimelineLoading = (context: Context): TimeLine | null => {
       LocalStorageKeys.currentTeam
     );
 
-    if (currentTeam) {
-      dispatch(getTimelineAction(currentTeam.id, context));
-    }
+    dispatch(getTimelineAction(currentTeam?.id, context));
   }, [dispatch, context]);
 
   return timeline;

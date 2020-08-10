@@ -4,10 +4,10 @@ import { Action } from "redux";
 import LocalStorageKeys from "../../../logic/local.storage.keys";
 import {
     AccountCreationState, AccountCreationStep, ActionWithPayload, ReduxActionContext as Context,
-    ReduxActionModifiers as Modifier, ReduxActionType as Type
+    ReduxActionType as Type
 } from "../../../types/redux";
 import { BareTeam, TerseUser, User } from "../../../types/shared";
-import { isSuccessFor } from "../../identifiers/generic.actions.identifiers";
+import { isSagaFor, isSuccessFor } from "../../identifiers/generic.actions.identifiers";
 import { isAccountCreationAction } from "../../identifiers/onboarding.actions.identifier";
 import { initialState } from "../../store/root.state";
 
@@ -62,6 +62,7 @@ const accountCreationStateReducer = (
 
   if (isSuccessFor(Type.InviteUserToTeam, action.type)) {
     const user = (action as ActionWithPayload<TerseUser>).payload;
+    console.log(action);
 
     return {
       ...state,
@@ -75,7 +76,7 @@ const accountCreationStateReducer = (
     };
   }
 
-  if ((action.type as string).startsWith(`${Type.Snackbar}_${Modifier.Saga}`)) {
+  if (isSagaFor(Type.Snackbar, action.type)) {
     return {
       ...state,
       isLoading: false,
@@ -83,11 +84,13 @@ const accountCreationStateReducer = (
     };
   }
 
+  if (isAccountCreationAction(action)) {
+    return { ...state, isLoading: true, isErrored: false };
+  }
+
   switch (action.type) {
     case Type.CreateUserDataSubmitted:
       return { ...state, isSubmitted: true };
-    case isAccountCreationAction(action):
-      return { ...state, isLoading: true, isErrored: false };
     case Type.AvatarChosen:
       return {
         ...state,

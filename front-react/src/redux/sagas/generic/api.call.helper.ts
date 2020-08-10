@@ -2,9 +2,13 @@ import { AxiosResponse } from "axios";
 import { call } from "redux-saga/effects";
 
 import { send } from "../../../api/setup/together.api";
-import { ApiCallResult } from "../../../types/api/api.logged.call.result.interface";
+import { ApiResponse } from "../../../types/api/api.response.interface";
 
 export function* apiCall<TData>(apiCall: Promise<AxiosResponse<TData>>) {
-  const result: ApiCallResult<TData> = yield call(send, apiCall);
-  return result.payload as TData;
+  const result: ApiResponse<TData> = yield call(send, apiCall);
+  if (result.success) {
+    return result.payload as TData;
+  } else {
+    throw new Error(result.error);
+  }
 }

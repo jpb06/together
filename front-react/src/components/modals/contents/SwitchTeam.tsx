@@ -1,9 +1,11 @@
-import List from "@material-ui/core/List";
 import React from "react";
-import styles from "./SwitchTeam.styles";
-import BareTeam, { TeamWithLastActivity } from "../../../types/team.type";
-import SwitchTeamChoice from "./SwitchTeamChoice";
+
 import { Typography } from "@material-ui/core";
+import List from "@material-ui/core/List";
+
+import { BareTeam, TeamWithLastActivity } from "../../../types/shared";
+import styles from "./SwitchTeam.styles";
+import SwitchTeamChoice from "./SwitchTeamChoice";
 
 interface SwitchTeamProps {
   teams: Array<TeamWithLastActivity>;

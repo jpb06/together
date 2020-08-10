@@ -1,10 +1,8 @@
 import React from "react";
-import UserTeamStepForm from "./UserTeamStepForm";
-import {
-  AccountCreationState,
-  AccountCreationStep,
-} from "../../../../../redux/types/account.creation.state.type";
+
+import { AccountCreationState, AccountCreationStep } from "../../../../../types/redux";
 import { TeamActionType } from "../../NewAccountContainer";
+import UserTeamStepForm from "./UserTeamStepForm";
 
 export enum UserTeamStepScenario {
   InitialState,

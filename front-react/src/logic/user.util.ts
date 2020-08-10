@@ -1,43 +1,45 @@
-import User, { NewUser } from "../types/user.type";
-import { ApiLoginResult } from "../api/anonymous/login.api";
-import LocalStorageKeys from "./local.storage.keys";
-import * as localStorage from "local-storage";
+import * as localStore from "local-storage";
 
-const getInitials = (name: string) => {
+import { LoginResult } from "../redux/tasks/user/login.api.task";
+import { NewUser, User } from "../types/shared";
+import LocalStorageKeys from "./local.storage.keys";
+
+export const getInitials = (name: string) => {
   const initials = name.replace(/[^a-zA-Z- 0-9]/g, "").match(/\b\w/g);
   if (!initials) return "";
 
   return initials.join("").toUpperCase();
 };
 
-export function addComputedPropertiesToUser(user: User) {
-  const fullName = `${user.firstName} ${user.lastName}`;
-  const initials = getInitials(fullName);
+export const addComputedPropertiesToUser = (user: User) => ({
+  ...user,
+  fullName: `${user.firstName} ${user.lastName}`,
+  initials: getInitials(`${user.firstName} ${user.lastName}`),
+});
 
-  return {
-    ...user,
-    fullName,
-    initials,
-  };
-}
+export const initializeUserFromLocalStorage = () => {
+  const user = localStore.get<User | null>(LocalStorageKeys.user);
 
-const initializeLoggedUserContext = (authResult: ApiLoginResult): User => {
+  return user ? addComputedPropertiesToUser(user) : null;
+};
+
+export const initializeLoggedUserContext = (authResult: LoginResult): User => {
   const user = addComputedPropertiesToUser(authResult.user);
 
-  localStorage.set(LocalStorageKeys.token, authResult.token);
-  localStorage.set(LocalStorageKeys.expiration, authResult.expirationDate);
-  localStorage.set(LocalStorageKeys.user, user);
+  localStore.set(LocalStorageKeys.token, authResult.token);
+  localStore.set(LocalStorageKeys.expiration, authResult.expirationDate);
+  localStore.set(LocalStorageKeys.user, user);
   if (authResult.user.teams.length > 0) {
-    localStorage.set(LocalStorageKeys.currentTeam, authResult.user.teams[0]);
+    localStore.set(LocalStorageKeys.currentTeam, authResult.user.teams[0]);
   }
 
   return user;
 };
 
-const validateEmail = (input: string) =>
+export const validateEmail = (input: string) =>
   input.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
 
-const isPasswordValid = (
+export const isPasswordValid = (
   isFormSubmitted: boolean,
   password: string,
   confirmPassword: string
@@ -49,16 +51,8 @@ const isPasswordValid = (
   );
 };
 
-const isNewUserDataValid = (user: NewUser) =>
+export const isNewUserDataValid = (user: NewUser) =>
   user.firstName.length > 0 &&
   user.lastName.length > 0 &&
   validateEmail(user.email) &&
   isPasswordValid(true, user.password, user.confirmPassword);
-
-export {
-  getInitials,
-  initializeLoggedUserContext,
-  validateEmail,
-  isPasswordValid,
-  isNewUserDataValid,
-};

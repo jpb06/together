@@ -1,6 +1,6 @@
-import { PersistedTeam } from "../../types/persisted.team.type";
+import { Team } from "../../../../front-react/src/types/shared";
 
-export const teams: Array<PersistedTeam> = [
+export const teams: Array<Team> = [
   {
     id: "5d8b9a604ddbc1362cc540c8",
     name: "Whoog",

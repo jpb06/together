@@ -1,7 +1,7 @@
 import { Typography } from "@material-ui/core";
 import React from "react";
 import styles from "./DailyComment.styles";
-import { getStaticFeedback } from "../../../../../logic/static/static.feedback.util";
+import { getStaticFeedback } from "../../../../../logic/daily.details.util";
 import { NewDailyCommentKind } from "./new-item/NewDailyComment";
 import staticSubjects from "../../../../../logic/static/static.subjects";
 import staticFeelings from "../../../../../logic/static/static.feelings";

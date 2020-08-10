@@ -1,10 +1,8 @@
 import React, { useState } from "react";
+
+import { AccountCreationState, AccountCreationStep } from "../../../../../types/redux";
+import { NewUser } from "../../../../../types/shared";
 import UserCreationStepForm from "./UserCreationStepForm";
-import {
-  AccountCreationStep,
-  AccountCreationState,
-} from "../../../../../redux/types/account.creation.state.type";
-import { NewUser } from "../../../../../types/user.type";
 
 interface UserCreationStepContainerProps {
   state: AccountCreationState;

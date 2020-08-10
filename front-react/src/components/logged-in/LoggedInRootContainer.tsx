@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import * as localStore from "local-storage";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+
+import { Grid, LinearProgress } from "@material-ui/core";
+
 import TogetherApi from "../../api/setup/together.api";
-import styles from "./LoggedInRootContainer.styles";
-import { LinearProgress, Grid } from "@material-ui/core";
-import * as localStorage from "local-storage";
+import { useRootSelector } from "../../hooks";
 import LocalStorageKeys from "../../logic/local.storage.keys";
+import { isAppBusyIn } from "../../redux/selectors";
+import { ReduxActionContext as Context } from "../../types/redux";
+import styles from "./LoggedInRootContainer.styles";
 import TopMenu from "./menu/TopMenu";
-import { useReduxSelector } from "../../hooks/redux.hooks";
 
 interface LoggedInRootContainerProps {
   Component: React.ElementType;
@@ -16,22 +20,20 @@ const LoggedInRootContainer: React.FC<LoggedInRootContainerProps> = ({
   Component,
   ...rest
 }) => {
-  const isLoading = useReduxSelector((state) => state.apiCallsInProgress > 0);
-  const history = useHistory();
   const classes = styles();
+  const history = useHistory();
 
+  const isLoading = useRootSelector(isAppBusyIn(Context.Global));
   const [isReady, setIsReady] = useState(false);
 
   // This will trigger everytime a navigation occurs
   useEffect(() => {
     TogetherApi.setup(history);
 
-    const token = localStorage.get(LocalStorageKeys.token);
-    const expirationDate = localStorage.get<string>(
-      LocalStorageKeys.expiration
-    );
+    const token = localStore.get(LocalStorageKeys.token);
+    const expirationDate = localStore.get<string>(LocalStorageKeys.expiration);
     if (!token || !expirationDate || Date.parse(expirationDate) < Date.now()) {
-      localStorage.clear();
+      localStore.clear();
       history.push({
         pathname: "/",
       });

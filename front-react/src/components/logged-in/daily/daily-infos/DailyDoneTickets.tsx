@@ -1,23 +1,19 @@
+import * as localStore from "local-storage";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import Grid from "@material-ui/core/Grid";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
-import Daily from "../../../../types/daily.type";
-import { TeamMember } from "../../../../types/user.type";
+
+import LocalStorageKeys from "../../../../logic/local.storage.keys";
+import {
+    addDoneTicketAction, removeTicketAction, showSnackbarAction
+} from "../../../../redux/actions";
+import { TicketRemovalType } from "../../../../redux/tasks";
+import { DailyAddActionFeedback, DailyDeleteActionFeedback } from "../../../../types/redux";
+import { BareTeam, CandidateTicket, Daily, TeamMember } from "../../../../types/shared";
 import NewTicket from "./tickets/NewTicket";
 import TicketList, { TicketUserType } from "./tickets/TicketList";
-import { CandidateTicket } from "../../../../types/ticket.type";
-import { useReduxDispatch } from "../../../../hooks/redux.hooks";
-import { MessageType } from "../../../generic/feedback/FeedbackSnackbarContent";
-import addDoneTicketAction from "../../../../redux/actions/daily/add.done.ticket.action";
-import BareTeam from "../../../../types/team.type";
-import LocalStorageKeys from "../../../../logic/local.storage.keys";
-import * as localStorage from "local-storage";
-import removeDoneTicketAction from "../../../../redux/actions/daily/remove.done.ticket.action";
-import {
-  DailyAddActionFeedback,
-  DailyDeleteActionFeedback,
-} from "../../../../redux/types/daily.feedback.type";
-import { sendSnackbarFeedbackAction } from "../../../../redux/actions/global/snackbar.feedback.actions";
 
 interface DailyDoneTicketsProps {
   daily: Daily;
@@ -32,10 +28,10 @@ const DailyDoneTickets: React.FC<DailyDoneTicketsProps> = ({
   addActionFeedback,
   deleteActionFeedback,
 }) => {
-  const dispatch = useReduxDispatch();
+  const dispatch = useDispatch();
 
   const [currentTeam] = useState<BareTeam>(
-    localStorage.get<BareTeam>(LocalStorageKeys.currentTeam)
+    localStore.get<BareTeam>(LocalStorageKeys.currentTeam)
   );
 
   const handleTicketCreation = (ticket: CandidateTicket) => {
@@ -46,22 +42,12 @@ const DailyDoneTickets: React.FC<DailyDoneTicketsProps> = ({
 
     const assignee = teamMembers.find((user) => user.id === ticket.userId);
     if (!assignee) {
-      dispatch(
-        sendSnackbarFeedbackAction(
-          MessageType.Error,
-          `Unable to find ticket ${name}'s assignee`
-        )
-      );
+      dispatch(showSnackbarAction(`Unable to find ticket ${name}'s assignee`));
       return;
     }
 
     if (daily.unforeseenTickets.find((el) => el.name === name)) {
-      dispatch(
-        sendSnackbarFeedbackAction(
-          MessageType.Error,
-          `The ticket ${name} has already been added`
-        )
-      );
+      dispatch(showSnackbarAction(`The ticket ${name} has already been added`));
       return;
     }
 
@@ -80,7 +66,12 @@ const DailyDoneTickets: React.FC<DailyDoneTicketsProps> = ({
     if (deleteActionFeedback.isPending) return;
 
     dispatch(
-      removeDoneTicketAction(currentTeam.id, new Date().toUTCString(), key)
+      removeTicketAction(
+        TicketRemovalType.Done,
+        currentTeam.id,
+        new Date().toUTCString(),
+        key
+      )
     );
   };
 

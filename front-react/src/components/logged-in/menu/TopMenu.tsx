@@ -1,20 +1,23 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import Logo, { LogoColor } from "../../generic/logo/Logo";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import styles from "./TopMenu.styles";
+
+import AppBar from "@material-ui/core/AppBar";
+import IconButton from "@material-ui/core/IconButton";
+import Toolbar from "@material-ui/core/Toolbar";
+import MenuIcon from "@material-ui/icons/Menu";
+
+import { userSelector } from "../../../redux/selectors";
+import { TerseUser } from "../../../types/shared";
+import Logo, { LogoColor } from "../../generic/logo/Logo";
 import UserAvatar from "../../generic/user-avatar/UserAvatar";
 import SideMenu from "./SideMenu";
-import { useReduxSelector } from "../../../hooks/redux.hooks";
-import { TerseUser } from "../../../types/user.type";
+import styles from "./TopMenu.styles";
 
 const TopMenu = () => {
   const classes = styles();
 
-  const user = useReduxSelector((state) => state.user) as TerseUser;
+  const user = useSelector(userSelector) as TerseUser;
   const [isSiderOpen, setIsSiderOpen] = React.useState(false);
 
   const toggleDrawer = (isOpen: boolean) => (

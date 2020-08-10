@@ -1,6 +1,7 @@
-import { Request, Response, NextFunction } from "express";
-import { PersistedUser } from "../types/persisted.user.type";
-import { getUsers, getTeams } from "../dbase/fetch.mock.db";
+import { NextFunction, Request, Response } from "express";
+
+import { PersistedUser as User } from "../../../front-react/src/types/shared";
+import { getTeams, getUsers } from "../dbase/fetch.mock.db";
 
 export default function getTeamFromInvite(
   req: Request,
@@ -10,21 +11,19 @@ export default function getTeamFromInvite(
   const users = getUsers();
   const teams = getTeams();
 
-  const user = users.find(el => el.email === res.locals.email) as
-    | PersistedUser
-    | undefined;
+  const user = users.find((el) => el.email === res.locals.email);
   if (!user) {
     return res.answer(520, "Unable to get the current user");
   }
 
   const matchingInvite = user.teamInvites.find(
-    el => el.id === req.body.inviteId
+    (el) => el.id === req.body.inviteId
   );
   if (!matchingInvite) {
     return res.answer(520, "Unable to find the team join invite");
   }
 
-  const team = teams.find(el => el.id === matchingInvite.team.id);
+  const team = teams.find((el) => el.id === matchingInvite.team.id);
   if (!team) {
     return res.answer(520, "Unable to find the targeted team");
   }

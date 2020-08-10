@@ -1,14 +1,16 @@
-import TeamOption, { TeamOptionDirection } from "./options/TeamOption";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
-import CallMergeIcon from "@material-ui/icons/CallMerge";
-import Grid from "@material-ui/core/Grid";
 import React from "react";
-import StepTitle from "../StepTitle";
-import { UserTeamStepScenario } from "./UserTeamStepContainer";
-import { AccountCreationState } from "../../../../../redux/types/account.creation.state.type";
-import TeamActionForm from "./options/TeamActionForm";
+
+import Grid from "@material-ui/core/Grid";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import CallMergeIcon from "@material-ui/icons/CallMerge";
+import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
+
+import { AccountCreationState } from "../../../../../types/redux";
 import { TeamActionType } from "../../NewAccountContainer";
+import StepTitle from "../StepTitle";
+import TeamActionForm from "./options/TeamActionForm";
+import TeamOption, { TeamOptionDirection } from "./options/TeamOption";
+import { UserTeamStepScenario } from "./UserTeamStepContainer";
 
 const getTitle = (path: UserTeamStepScenario) => {
   switch (path) {

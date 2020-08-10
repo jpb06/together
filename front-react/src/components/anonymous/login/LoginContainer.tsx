@@ -1,72 +1,35 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Login from "./Login";
-import { loginAction } from "../../../redux/actions/user/login.action";
-import { useReduxDispatch } from "../../../hooks/redux.hooks";
-import { validateEmail } from "../../../logic/user.util";
 
-export interface LoginState {
-  isPending: boolean;
-  isSubmitted: boolean;
-  isErrored: boolean;
+import { useRootSelector } from "../../../hooks";
+import { validateEmail } from "../../../logic/user.util";
+import { payloadAction } from "../../../redux/actions";
+import { loginAction } from "../../../redux/actions/user/login.action";
+import { loginStateSelector } from "../../../redux/selectors";
+import { ReduxActionType as Type } from "../../../types/redux";
+import Login from "./Login";
+
+export interface LoginForm {
   email: string;
   password: string;
-  actionText: string;
 }
 
 const LoginContainer: React.FC = () => {
   const history = useHistory();
-  const dispatch = useReduxDispatch();
+  const dispatch = useDispatch();
+  const loginState = useRootSelector(loginStateSelector);
 
-  const [loginState, setLoginState] = React.useState({
-    isPending: false,
-    isErrored: false,
-    isSubmitted: false,
-    actionText: "Login",
+  const [credentials, setCredentials] = React.useState({
     email: "",
     password: "",
   });
 
-  const resetState = () => {
-    setLoginState((prevState) => ({
-      ...prevState,
-      actionText: "Login",
-      isSubmitted: true,
-      isErrored: false,
-    }));
-  };
-
-  const setStateToPending = () => {
-    setLoginState((prevState) => ({
-      ...prevState,
-      actionText: "Logging in ...",
-      isPending: true,
-    }));
-  };
-
-  const setStateToInvalidEmail = () => {
-    setLoginState((prevState) => ({
-      ...prevState,
-      actionText: "Not a valid email",
-      isPending: false,
-      isErrored: true,
-    }));
-  };
-
-  const setStateToLoginFailure = () => {
-    setLoginState((prevState) => ({
-      ...prevState,
-      actionText: "Failure && Try again ?",
-      isPending: false,
-      isErrored: true,
-    }));
-  };
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.currentTarget;
 
-    setLoginState({
-      ...loginState,
+    setCredentials({
+      ...credentials,
       [name]: value,
     });
   };
@@ -76,31 +39,26 @@ const LoginContainer: React.FC = () => {
   ): Promise<void> => {
     event.preventDefault();
 
-    resetState();
-    if (loginState.email === "" || loginState.password === "") return;
-    setStateToPending();
+    dispatch(payloadAction(Type.LoginStateRetry));
+    if (credentials.email === "" || credentials.password === "") return;
+    dispatch(payloadAction(Type.LoginStatePending));
 
-    const isEmailValid = validateEmail(loginState.email);
+    const isEmailValid = validateEmail(credentials.email);
     if (!isEmailValid) {
-      setStateToInvalidEmail();
+      dispatch(payloadAction(Type.LoginStateInvalidEmail));
       return;
     }
 
-    const authResult = await dispatch(
-      loginAction(loginState.email, loginState.password)
-    );
-    if (!authResult.success) {
-      setStateToLoginFailure();
-      return;
-    }
-
-    history.push({
-      pathname: "/main",
-    });
+    dispatch(loginAction(credentials.email, credentials.password, history));
   };
 
   return (
-    <Login state={loginState} onChange={handleChange} onSubmit={handleSubmit} />
+    <Login
+      form={credentials}
+      state={loginState}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
+    />
   );
 };
 

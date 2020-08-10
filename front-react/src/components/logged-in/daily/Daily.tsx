@@ -1,39 +1,27 @@
 import React from "react";
+
 import Grid from "@material-ui/core/Grid";
-import styles from "./Daily.styles";
-import DailyType from "../../../types/daily.type";
-import { TeamMember } from "../../../types/user.type";
+
+import { useRootSelector } from "../../../hooks";
+import { dailyFeedbackSelector } from "../../../redux/selectors";
+import { Daily as DailyType, TeamMember } from "../../../types/shared";
 import DailyReportContentBox from "./composition/DailyReportContentBox";
-import DailyUnforeseenTickets from "./daily-infos/DailyUnforeseenTickets";
 import DailyDoneTickets from "./daily-infos/DailyDoneTickets";
-import { useReduxSelector } from "../../../hooks/redux.hooks";
 import DailyDuration from "./daily-infos/DailyDuration";
-import DailySubjects from "./daily-infos/DailySubjects";
 import DailyFeelings from "./daily-infos/DailyFeelings";
+import DailySubjects from "./daily-infos/DailySubjects";
+import DailyUnforeseenTickets from "./daily-infos/DailyUnforeseenTickets";
+import styles from "./Daily.styles";
 
 interface DailyProps {
-  daily: DailyType;
+  daily: DailyType | null;
   teamMembers: Array<TeamMember>;
 }
 
 const Daily: React.FC<DailyProps> = ({ daily, teamMembers }) => {
   const classes = styles();
 
-  const durationFeedback = useReduxSelector(
-    (state) => state.dailyDurationFeedback
-  );
-  const unforeseenTicketsFeedback = useReduxSelector(
-    (state) => state.dailyUnforeseenTicketsFeedback
-  );
-  const doneTicketsFeedback = useReduxSelector(
-    (state) => state.dailyDoneTicketsFeedback
-  );
-  const subjectsFeedback = useReduxSelector(
-    (state) => state.dailySubjectsFeedback
-  );
-  const feelingsFeedback = useReduxSelector(
-    (state) => state.dailyFeelingsFeedback
-  );
+  const feedback = useRootSelector(dailyFeedbackSelector);
 
   return (
     <Grid container spacing={1} direction="row" className={classes.withMargin}>
@@ -42,7 +30,7 @@ const Daily: React.FC<DailyProps> = ({ daily, teamMembers }) => {
           title="Daily duration"
           ContentComponent={DailyDuration}
           data={{ daily }}
-          feedback={durationFeedback.globalFeedback}
+          feedback={feedback.duration.globalFeedback}
         />
       </Grid>
       <Grid item md={12} xs={12}>
@@ -54,17 +42,17 @@ const Daily: React.FC<DailyProps> = ({ daily, teamMembers }) => {
           ContentComponent={DailyUnforeseenTickets}
           data={{
             daily,
-            ...unforeseenTicketsFeedback,
+            ...feedback.unforeseenTickets,
           }}
-          feedback={unforeseenTicketsFeedback.globalFeedback}
+          feedback={feedback.unforeseenTickets.globalFeedback}
         />
       </Grid>
       <Grid item md={6} xs={12}>
         <DailyReportContentBox
           title="Done tickets"
           ContentComponent={DailyDoneTickets}
-          data={{ daily, teamMembers, ...doneTicketsFeedback }}
-          feedback={doneTicketsFeedback.globalFeedback}
+          data={{ daily, teamMembers, ...feedback.doneTickets }}
+          feedback={feedback.doneTickets.globalFeedback}
         />
       </Grid>
       <Grid item md={12} xs={12}>
@@ -74,16 +62,16 @@ const Daily: React.FC<DailyProps> = ({ daily, teamMembers }) => {
         <DailyReportContentBox
           title="Retrospective subjects"
           ContentComponent={DailySubjects}
-          data={{ daily, ...subjectsFeedback }}
-          feedback={subjectsFeedback.globalFeedback}
+          data={{ daily, ...feedback.subjects }}
+          feedback={feedback.subjects.globalFeedback}
         />
       </Grid>
       <Grid item md={6} xs={12}>
         <DailyReportContentBox
           title="Feelings"
           ContentComponent={DailyFeelings}
-          data={{ daily, ...feelingsFeedback }}
-          feedback={feelingsFeedback.globalFeedback}
+          data={{ daily, ...feedback.feelings }}
+          feedback={feedback.feelings.globalFeedback}
         />
       </Grid>
     </Grid>

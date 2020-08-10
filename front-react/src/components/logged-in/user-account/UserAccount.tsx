@@ -1,15 +1,16 @@
 import React from "react";
-import Paper from "@material-ui/core/Paper";
+
 import Fab from "@material-ui/core/Fab";
-import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
-import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import Grid from "@material-ui/core/Grid";
-import styles from "./UserAccount.styles";
+import Paper from "@material-ui/core/Paper";
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
+import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
+
+import { TeamWithLastActivity, User } from "../../../types/shared";
 import UserAvatar from "../../generic/user-avatar/UserAvatar";
-import User from "../../../types/user.type";
-import { TeamWithLastActivity } from "../../../types/team.type";
-import TeamsList from "./team-list/TeamsList";
 import JoinRequestList from "./join-requests/JoinRequestList";
+import TeamsList from "./team-list/TeamsList";
+import styles from "./UserAccount.styles";
 
 interface UserAccountProps {
   user: User;

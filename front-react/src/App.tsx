@@ -1,15 +1,17 @@
 import React from "react";
-import { MuiThemeProvider } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import { BrowserRouter, Route } from "react-router-dom";
-import theme from "./create.theme";
+
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { MuiThemeProvider } from "@material-ui/core/styles";
+
 import LoginContainer from "./components/anonymous/login/LoginContainer";
+import NewAccountContainer from "./components/anonymous/new-user/NewAccountContainer";
+import AppSnackbar from "./components/generic/feedback/AppSnackbar";
+import DailyContainer from "./components/logged-in/daily/DailyContainer";
 import LoggedInRootContainer from "./components/logged-in/LoggedInRootContainer";
-import FeedbackSnackbar from "./components/generic/feedback/FeedbackSnackbar";
 import TimeLineContainer from "./components/logged-in/timeline/TimeLineContainer";
 import UserAccountContainer from "./components/logged-in/user-account/UserAccountContainer";
-import DailyContainer from "./components/logged-in/daily/DailyContainer";
-import NewAccountContainer from "./components/anonymous/new-user/NewAccountContainer";
+import theme from "./create.theme";
 
 const App = () => {
   return (
@@ -40,7 +42,7 @@ const App = () => {
           )}
         />
       </BrowserRouter>
-      <FeedbackSnackbar />
+      <AppSnackbar />
     </MuiThemeProvider>
   );
 };

@@ -1,13 +1,15 @@
 import React from "react";
+
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Grid from "@material-ui/core/Grid";
-import styles from "./Team.styles";
-import { TeamMember as TeamMemberType } from "../../../../types/user.type";
+
+import { TeamMember as TeamMemberType } from "../../../../types/shared";
 import TeamMember from "./team-member/TeamMember";
+import styles from "./Team.styles";
 
 interface TeamProps {
   activePanel: string | boolean;
@@ -22,7 +24,7 @@ const Team: React.FC<TeamProps> = ({
   activePanel,
   name,
   members,
-  onPanelChange
+  onPanelChange,
 }) => {
   const classes = styles();
 
@@ -42,7 +44,7 @@ const Team: React.FC<TeamProps> = ({
           justify="center"
           alignItems="flex-start"
         >
-          {members.map(user => (
+          {members.map((user) => (
             <TeamMember key={user.id} user={user} />
           ))}
         </Grid>

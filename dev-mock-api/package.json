@@ -4,8 +4,8 @@
   "description": "",
   "main": "dist/dev.api.server.js",
   "scripts": {
-    "prestart": "del-cli ./dist && tsc && node dist/dbase/create.mock.db.js",
-    "start": "node dist/dev.api.server.js"
+    "prestart": "del-cli ./dist && tsc && node dist/dev-mock-api/src/dbase/create.mock.db.js",
+    "start": "node dist/dev-mock-api/src/dev.api.server.js"
   },
   "author": "jpb06",
   "license": "ISC",

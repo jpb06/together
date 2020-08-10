@@ -1,7 +1,9 @@
 import React from "react";
-import { TeamJoinRequest } from "../../../../types/invites.type";
-import styles from "../List.styles";
+
 import { Grid, Paper } from "@material-ui/core";
+
+import { TeamJoinRequest } from "../../../../types/shared";
+import styles from "../List.styles";
 import JoinRequest from "./JoinRequest";
 
 interface JoinRequestListProps {

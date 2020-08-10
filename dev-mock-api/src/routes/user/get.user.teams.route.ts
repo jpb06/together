@@ -1,10 +1,11 @@
 import { Application } from "express";
 import { Request, Response } from "express-serve-static-core";
-import isAuthenticated from "../../middleware/is.authenticated";
 import { body } from "express-validator";
-import { getTeams, getDailies } from "../../dbase/fetch.mock.db";
+
+import { TeamWithLastActivity } from "../../../../front-react/src/types/shared";
+import { getDailies, getTeams } from "../../dbase/fetch.mock.db";
+import isAuthenticated from "../../middleware/is.authenticated";
 import { splittedDateToMoment, splittedDateToString } from "../../util/dates";
-import { TeamWithLastActivity } from "../../types/persisted.team.type";
 
 const mapGetUserTeams = (server: Application) => {
   server.post(

@@ -1,8 +1,10 @@
-import Grid from "@material-ui/core/Grid";
 import React from "react";
-import styles from "./TeamMember.styles";
-import { TeamMember as TeamMemberType } from "../../../../../types/user.type";
+
+import Grid from "@material-ui/core/Grid";
+
+import { TeamMember as TeamMemberType } from "../../../../../types/shared";
 import UserAvatar from "../../../../generic/user-avatar/UserAvatar";
+import styles from "./TeamMember.styles";
 
 interface TeamMemberProps {
   user: TeamMemberType;

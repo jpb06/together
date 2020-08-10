@@ -1,23 +1,21 @@
+import { ActionWithPayload, ReduxActionType as Type } from "../../../types/redux";
+import { TimeLine } from "../../../types/shared";
+import { isSuccessFor } from "../../identifiers/generic.actions.identifiers";
 import { initialState } from "../../store/root.state";
-import TimeLine from "../../../types/timeline.type";
-import { ActionWithPayload } from "../../types/action.payloads";
-import { Type, Context, Result } from "../../types/action.types";
-import { typeFor } from "../../logic/action-types/redux.action.type.generation";
 
 const timelineReducer = (
   state: TimeLine | null = initialState.timeline,
-  action: ActionWithPayload<string, TimeLine>
+  action: ActionWithPayload<TimeLine>
 ) => {
-  switch (action.type) {
-    case typeFor(Type.login, Context.Global, Result.Success):
-      return null;
-    /* --------------------------------------------------- */
-    case typeFor(Type.getTimeline, Context.Global, Result.Success):
-      return action.payload;
-    /* --------------------------------------------------- */
-    default:
-      return state;
+  if (isSuccessFor(Type.Login, action.type)) {
+    return null;
   }
+
+  if (isSuccessFor(Type.GetTimeline, action.type)) {
+    return action.payload;
+  }
+
+  return state;
 };
 
 export default timelineReducer;

@@ -1,12 +1,14 @@
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
 import React from "react";
-import styles from "./DailyDuration.styles";
-import staticDurations from "../../../../logic/static/static.durations";
-import DailyType from "../../../../types/daily.type";
-import setDailyDurationAction from "../../../../redux/actions/daily/set.daily.duration.action";
-import { useReduxDispatch } from "../../../../hooks/redux.hooks";
+import { useDispatch } from "react-redux";
+
+import MenuItem from "@material-ui/core/MenuItem";
+import TextField from "@material-ui/core/TextField";
+
 import { splittedDateToString } from "../../../../logic/date.util";
+import staticDurations from "../../../../logic/static/static.durations";
+import { setDailyDurationAction } from "../../../../redux/actions";
+import { Daily as DailyType } from "../../../../types/shared";
+import styles from "./DailyDuration.styles";
 
 interface DailyDurationProps {
   daily: DailyType;
@@ -15,7 +17,7 @@ interface DailyDurationProps {
 const DailyDuration: React.FC<DailyDurationProps> = ({ daily }) => {
   const classes = styles();
 
-  const dispatch = useReduxDispatch();
+  const dispatch = useDispatch();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const date = splittedDateToString(daily.day, daily.month, daily.year);
@@ -23,23 +25,21 @@ const DailyDuration: React.FC<DailyDurationProps> = ({ daily }) => {
   };
 
   return (
-    <div>
-      <TextField
-        select
-        className={classes.textField}
-        variant="outlined"
-        label="How long did it last ?"
-        value={daily.durationIndicator}
-        onChange={handleChange}
-        fullWidth
-      >
-        {staticDurations.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-    </div>
+    <TextField
+      select
+      className={classes.textField}
+      variant="outlined"
+      label="How long did it last ?"
+      value={daily.durationIndicator}
+      onChange={handleChange}
+      fullWidth
+    >
+      {staticDurations.map((option) => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label}
+        </MenuItem>
+      ))}
+    </TextField>
   );
 };
 

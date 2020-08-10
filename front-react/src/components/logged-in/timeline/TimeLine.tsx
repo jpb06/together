@@ -1,18 +1,22 @@
-import { Grid } from "@material-ui/core";
 import React from "react";
-import styles from "./TimeLine.styles";
+
+import { Grid } from "@material-ui/core";
 import TimerIcon from "@material-ui/icons/Timer";
+
+import { isTimelineEmpty } from "../../../logic/timeline.util";
+import { TimeLine as TimeLineType } from "../../../types/shared";
 import TopLevelFeedback from "../../generic/feedback/TopLevelFeedback";
 import TimelineSection from "./section/TimeLineSection";
-import TimeLineType from "./../../../types/timeline.type";
-import { isTimelineEmpty } from "../../../logic/timeline.util";
+import styles from "./TimeLine.styles";
 
 interface TimeLineProps {
-  timeline: TimeLineType;
+  timeline: TimeLineType | null;
 }
 
 const TimeLine: React.FC<TimeLineProps> = ({ timeline }) => {
   const classes = styles();
+
+  if (!timeline) return null;
 
   const isEmpty = isTimelineEmpty(timeline);
 

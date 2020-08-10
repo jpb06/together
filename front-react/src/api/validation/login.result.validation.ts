@@ -1,17 +1,7 @@
-import { validateResponse, ApiResponse } from "./response.validation";
-import User from "../../types/user.type";
-import { AxiosResponse } from "axios";
+import { LoginResult } from "../../redux/tasks";
+import { ApiResponse } from "../../types/api/api.response.interface";
 
-export interface ApiLoginResponse extends ApiResponse {
-  token: string;
-  user: User;
-  expirationDate: string;
-}
-
-const validateLoginResult = (result: AxiosResponse<ApiLoginResponse>) =>
-  validateResponse(result) &&
-  result.data.token &&
-  result.data.user &&
-  result.data.expirationDate;
-
-export { validateLoginResult };
+export const isResultValid = (result: ApiResponse<LoginResult>) => {
+  const { token, user, expirationDate } = result.payload as LoginResult;
+  return token && user && expirationDate;
+};

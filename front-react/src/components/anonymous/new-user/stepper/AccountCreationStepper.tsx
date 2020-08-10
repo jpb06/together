@@ -1,12 +1,14 @@
+import clsx from "clsx";
 import React from "react";
+
+import { Step, StepLabel } from "@material-ui/core";
 import Stepper from "@material-ui/core/Stepper";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import FaceIcon from "@material-ui/icons/Face";
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
+
+import { AccountCreationStep as StepEnum } from "../../../../types/redux";
 import styles from "./AccountCreationStepper.styles";
-import { AccountCreationStep as StepEnum } from "../../../../redux/types/account.creation.state.type";
-import { Step, StepLabel } from "@material-ui/core";
-import clsx from "clsx";
 
 interface AccountCreationStepperProps {
   step: StepEnum;

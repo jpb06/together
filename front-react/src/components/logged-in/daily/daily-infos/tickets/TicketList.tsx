@@ -1,10 +1,11 @@
 import React from "react";
+
 import List from "@material-ui/core/List";
-import styles from "./TicketList.styles";
-import TicketType from "../../../../../types/ticket.type";
+
+import { DailyDeleteActionFeedback } from "../../../../../types/redux";
+import { TerseUser, Ticket as TicketType } from "../../../../../types/shared";
 import Ticket from "./Ticket";
-import { TerseUser } from "../../../../../types/user.type";
-import { DailyDeleteActionFeedback } from "../../../../../redux/types/daily.feedback.type";
+import styles from "./TicketList.styles";
 
 export enum TicketUserType {
   Assignee,

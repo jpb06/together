@@ -1,17 +1,19 @@
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
 import React from "react";
-import FeedbackButton from "../../../../generic/buttons/FeedbackButton";
-import FaceIcon from "@material-ui/icons/Face";
+
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import styles from "./UserCreationStepForm.styles";
-import { AccountCreationState } from "../../../../../redux/types/account.creation.state.type";
-import { validateEmail, isPasswordValid } from "../../../../../logic/user.util";
-import { NewUser } from "../../../../../types/user.type";
+import FaceIcon from "@material-ui/icons/Face";
+
+import { isPasswordValid, validateEmail } from "../../../../../logic/user.util";
+import { AccountCreationState } from "../../../../../types/redux";
+import { NewUser } from "../../../../../types/shared";
+import FeedbackButton from "../../../../generic/buttons/FeedbackButton";
 import PasswordStrength from "../../../../generic/password/PasswordStrength";
 import NewAccountBusyIndicator from "../../busy-indicator/NewAccountBusyIndicator";
 import StepTitle from "../StepTitle";
+import styles from "./UserCreationStepForm.styles";
 
 interface UserCreationStepFormProps {
   state: AccountCreationState;

@@ -1,56 +1,56 @@
-import User, { TeamMember } from "../../types/user.type";
-import SnackbarFeedback from "../types/snackbar.feedback.type";
-import { TeamWithLastActivity } from "../../types/team.type";
-import TimeLine from "../../types/timeline.type";
-import { MessageType } from "../../components/generic/feedback/FeedbackSnackbarContent";
-import Daily from "../../types/daily.type";
-import { initDailyStep } from "../logic/daily.feedback.logic";
-import { DailyStepFeedback } from "../types/daily.feedback.type";
-import initUser from "../logic/user.logic";
+import { initializeUserFromLocalStorage } from "../../logic/user.util";
 import {
-  AccountCreationState,
-  AccountCreationStep,
-} from "../types/account.creation.state.type";
+    AccountCreationState, AccountCreationStep, DailyState, SnackbarData, SnackbarKind
+} from "../../types/redux";
+import { RecentAction } from "../../types/redux/recent.action.interface";
+import {
+    AnswerTeamInviteModalState, AnswerTeamInviteModalSteps
+} from "../../types/redux/workflows/answer.team.invite.modal.state.interface";
+import { LoginState } from "../../types/redux/workflows/login.state.interface";
+import { Daily, TimeLine, User } from "../../types/shared";
+import { TeamMember, TeamWithLastActivity } from "../../types/shared";
+import { DailyStepActionType, setDailyStep } from "../reducers/workflows/daily.state.logic";
 
 export interface RootState {
+  // Global
+  readonly snackbar: SnackbarData;
+  readonly lastAction: RecentAction | null;
+
   // User
   readonly user: User | null;
   readonly userTeams: Array<TeamWithLastActivity>;
   readonly timeline: TimeLine | null;
   readonly teamMembers: Array<TeamMember>;
-
-  // Daily related
   readonly daily: Daily | null;
-  readonly dailyDurationFeedback: DailyStepFeedback;
-  readonly dailyUnforeseenTicketsFeedback: DailyStepFeedback;
-  readonly dailyDoneTicketsFeedback: DailyStepFeedback;
-  readonly dailySubjectsFeedback: DailyStepFeedback;
-  readonly dailyFeelingsFeedback: DailyStepFeedback;
 
-  // Account creation
+  // workflows
+  readonly loginState: LoginState;
   readonly accountCreationState: AccountCreationState;
-
-  // Global
-  readonly error: any;
-  readonly snackbarFeedback: SnackbarFeedback;
-  readonly apiCallsInProgress: number;
+  readonly answerTeamInviteModalState: AnswerTeamInviteModalState;
+  readonly dailyState: DailyState;
 }
 
 const initialState: RootState = {
+  // global
+  snackbar: {
+    isOpen: false,
+    type: SnackbarKind.Error,
+    text: "",
+  },
+  lastAction: null,
   // user
-  user: initUser(),
+  user: initializeUserFromLocalStorage(),
   userTeams: [],
   timeline: null,
   teamMembers: [],
-  // daily
   daily: null,
-  dailyDurationFeedback: {
-    globalFeedback: { isValidated: false, isPending: false },
+  // login
+  loginState: {
+    isPending: false,
+    isErrored: false,
+    isSubmitted: false,
+    actionText: "Login",
   },
-  dailyUnforeseenTicketsFeedback: initDailyStep(),
-  dailyDoneTicketsFeedback: initDailyStep(),
-  dailySubjectsFeedback: initDailyStep(),
-  dailyFeelingsFeedback: initDailyStep(),
   // account creation
   accountCreationState: {
     step: AccountCreationStep.User,
@@ -58,11 +58,42 @@ const initialState: RootState = {
     isErrored: false,
     isSubmitted: false,
     actionButtonText: "Choose my avatar",
+    exitActionText: "No thanks, bring me to my timeline!",
+    newTeamMembers: [],
   },
-  // global
-  error: null,
-  snackbarFeedback: { type: MessageType.Success, message: "" },
-  apiCallsInProgress: 0,
+  // Answer team invite modal
+  answerTeamInviteModalState: {
+    step: AnswerTeamInviteModalSteps.Question,
+    isModalOpen: false,
+  },
+  // Daily
+  dailyState: {
+    duration: setDailyStep(),
+    unforeseenTickets: setDailyStep(
+      {},
+      false,
+      false,
+      DailyStepActionType.Add | DailyStepActionType.Delete
+    ),
+    doneTickets: setDailyStep(
+      {},
+      false,
+      false,
+      DailyStepActionType.Add | DailyStepActionType.Delete
+    ),
+    subjects: setDailyStep(
+      {},
+      false,
+      false,
+      DailyStepActionType.Add | DailyStepActionType.Delete
+    ),
+    feelings: setDailyStep(
+      {},
+      false,
+      false,
+      DailyStepActionType.Add | DailyStepActionType.Delete
+    ),
+  },
 };
 
-export { initialState, initDailyStep };
+export { initialState };

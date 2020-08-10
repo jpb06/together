@@ -1,13 +1,12 @@
-import LensIcon from "@material-ui/icons/Lens";
-import Paper from "@material-ui/core/Paper";
 import React from "react";
-import styles from "./TimeLineSection.styles";
+
+import Paper from "@material-ui/core/Paper";
+import LensIcon from "@material-ui/icons/Lens";
+
+import { TeamTimeLineEntry, UserTimeLineEntry } from "../../../../types/shared";
 import TimeLineStep from "./step/TimeLineStep";
-import {
-  UserTimeLineEntry,
-  TeamTimeLineEntry
-} from "../../../../types/timeline.type";
 import TimelineStepTitle from "./step/TimelineStepTitle";
+import styles from "./TimeLineSection.styles";
 
 interface TimelineSectionProps {
   title: string;

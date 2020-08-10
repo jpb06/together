@@ -1,12 +1,13 @@
+import * as localStore from "local-storage";
 import React, { useState } from "react";
+
+import { useRootSelector, useUserTeamsLoading } from "../../../hooks";
 import LocalStorageKeys from "../../../logic/local.storage.keys";
-import * as localStorage from "local-storage";
-import UserAccount from "./UserAccount";
+import { userSelector } from "../../../redux/selectors";
+import { ReduxActionContext as Context } from "../../../types/redux";
+import { BareTeam, TeamWithLastActivity, User } from "../../../types/shared";
 import WithLoadingAndErrors from "../composition/WithLoadingAndErrors";
-import { useReduxSelector } from "../../../hooks/redux.hooks";
-import BareTeam, { TeamWithLastActivity } from "../../../types/team.type";
-import useUserTeamsLoading from "../../../hooks/useUserTeamsLoading.hook";
-import User from "../../../types/user.type";
+import UserAccount from "./UserAccount";
 
 interface UserAccountContainerProps {
   history: any;
@@ -15,8 +16,8 @@ interface UserAccountContainerProps {
 const UserAccountContainer: React.FC<UserAccountContainerProps> = ({
   history,
 }) => {
-  const user = useReduxSelector((state) => state.user);
-  const [userTeams, isReady] = useUserTeamsLoading(user);
+  const user = useRootSelector(userSelector);
+  const userTeams = useUserTeamsLoading(user);
 
   const [userCurrentTeam, setUserCurrentTeam] = useState<
     TeamWithLastActivity
@@ -24,7 +25,7 @@ const UserAccountContainer: React.FC<UserAccountContainerProps> = ({
 
   React.useEffect(() => {
     if (userTeams.length > 0) {
-      const storedCurrentTeam = localStorage.get<BareTeam>(
+      const storedCurrentTeam = localStore.get<BareTeam>(
         LocalStorageKeys.currentTeam
       );
       const currentTeam = userTeams.find(
@@ -35,7 +36,7 @@ const UserAccountContainer: React.FC<UserAccountContainerProps> = ({
   }, [userTeams]);
 
   const handleLogoff = () => {
-    localStorage.clear();
+    localStore.clear();
     history.push({
       pathname: "/",
     });
@@ -43,8 +44,8 @@ const UserAccountContainer: React.FC<UserAccountContainerProps> = ({
 
   return (
     <WithLoadingAndErrors
-      isReady={isReady && user !== null}
       feedbackText="Turns out we couldn't fetch your profile"
+      context={Context.Global}
       jsx={
         <UserAccount
           user={user as User}

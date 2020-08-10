@@ -1,24 +1,24 @@
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Typography from "@material-ui/core/Typography";
-import ListItem from "@material-ui/core/ListItem";
 import React from "react";
+
 import Avatar from "@material-ui/core/Avatar";
 import Badge from "@material-ui/core/Badge";
-import styles from "./DailyFeedbackItem.styles";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Typography from "@material-ui/core/Typography";
 import NotListedLocationIcon from "@material-ui/icons/NotListedLocation";
-import Subject from "../../../../../../../../types/subject.type";
-import UserAvatar from "../../../../../../../generic/user-avatar/UserAvatar";
-import Feeling from "../../../../../../../../types/feeling.type";
-import staticSubjects from "../../../../../../../../logic/static/static.subjects";
-import staticFeelings from "../../../../../../../../logic/static/static.feelings";
+
 import {
-  getStaticFeedback,
-  StaticFeedback,
-} from "../../../../../../../../logic/static/static.feedback.util";
-import { DailyFeedbackType } from "./DailyFeedback";
+    getStaticFeedback, StaticFeedback
+} from "../../../../../../../../logic/daily.details.util";
+import staticFeelings from "../../../../../../../../logic/static/static.feelings";
+import staticSubjects from "../../../../../../../../logic/static/static.subjects";
+import { Feeling, Subject } from "../../../../../../../../types/shared";
+import UserAvatar from "../../../../../../../generic/user-avatar/UserAvatar";
+import { DailyDetailsType } from "./DailyFeedback";
+import styles from "./DailyFeedbackItem.styles";
 
 interface DailyFeedbackItemProps {
-  type: DailyFeedbackType;
+  type: DailyDetailsType;
   data: Subject | Feeling;
 }
 
@@ -31,10 +31,10 @@ const DailyFeedbackItem: React.FC<DailyFeedbackItemProps> = ({
   let staticElement: StaticFeedback | null = null;
   let text = "";
 
-  if (type === DailyFeedbackType.Subject) {
+  if (type === DailyDetailsType.Subject) {
     staticElement = getStaticFeedback(staticSubjects, data.type);
     text = (data as Subject).description;
-  } else if (type === DailyFeedbackType.Feeling) {
+  } else if (type === DailyDetailsType.Feeling) {
     staticElement = getStaticFeedback(staticFeelings, data.type);
     text = (data as Feeling).comment;
   }

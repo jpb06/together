@@ -1,12 +1,14 @@
 import React from "react";
-import styles from "./UserAvatarStepForm.styles";
-import StepTitle from "../StepTitle";
-import { Grid, Typography, Avatar, useTheme } from "@material-ui/core";
-import FeedbackButton from "../../../../generic/buttons/FeedbackButton";
-import User from "../../../../../types/user.type";
+
+import { Avatar, Grid, Typography, useTheme } from "@material-ui/core";
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
+
 import { stringToColor } from "../../../../../logic/colors.util";
-import { AccountCreationState } from "../../../../../redux/types/account.creation.state.type";
+import { AccountCreationState } from "../../../../../types/redux";
+import { User } from "../../../../../types/shared";
+import FeedbackButton from "../../../../generic/buttons/FeedbackButton";
+import StepTitle from "../StepTitle";
+import styles from "./UserAvatarStepForm.styles";
 
 interface UserAvatarStepFormProps {
   state: AccountCreationState;

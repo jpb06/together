@@ -1,19 +1,21 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
-import StepTitle from "../StepTitle";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import Slide from "@material-ui/core/Slide";
+
+import { TextField, Typography } from "@material-ui/core";
+import { grey } from "@material-ui/core/colors";
 import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
+import Slide from "@material-ui/core/Slide";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+
+import { AccountCreationState } from "../../../../../types/redux";
+import { TeamMember as TeamMemberType } from "../../../../../types/shared";
+import FeedbackButton from "../../../../generic/buttons/FeedbackButton";
 import SimpleButton from "../../../../generic/buttons/SimpleButton";
 import ColoredCard from "../../../../generic/containers/ColoredCard";
-import { grey } from "@material-ui/core/colors";
 import TeamMember from "../../../../logged-in/user-account/team-list/team-member/TeamMember";
+import StepTitle from "../StepTitle";
 import styles from "./AddTeamMembersStepForm.styles";
-import { TeamMember as TeamMemberType } from "../../../../../types/user.type";
-import { Typography, TextField } from "@material-ui/core";
-import FeedbackButton from "../../../../generic/buttons/FeedbackButton";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import { AccountCreationState } from "../../../../../redux/types/account.creation.state.type";
 
 interface AddTeamMembersStepFormProps {
   state: AccountCreationState;

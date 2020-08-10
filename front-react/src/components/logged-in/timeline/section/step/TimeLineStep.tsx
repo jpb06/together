@@ -1,14 +1,12 @@
 import React from "react";
-import {
-  TimeLineEntryType,
-  TimeLineEntryData
-} from "../../../../../types/timeline.type";
-import TimelineStepTitle from "./TimelineStepTitle";
-import TimelineStepContent from "./TimelineStepContent";
+
 import { getIconFromTimelineEntryType } from "../../../../../logic/timeline.util";
+import { TimeLineEntryData, TimeLineEntryKind } from "../../../../../types/shared";
+import TimelineStepContent from "./TimelineStepContent";
+import TimelineStepTitle from "./TimelineStepTitle";
 
 interface TimeLineStepProps {
-  type: TimeLineEntryType;
+  type: TimeLineEntryKind;
   title: string;
   data: TimeLineEntryData;
 }

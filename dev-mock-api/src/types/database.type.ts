@@ -1,9 +1,7 @@
-import { PersistedUser } from "./persisted.user.type";
-import { PersistedTeam } from "./persisted.team.type";
-import Daily from "./daily.type";
+import { Daily, PersistedUser as User, Team } from "../../../front-react/src/types/shared";
 
 export default interface Database {
-  users: Array<PersistedUser>;
-  teams: Array<PersistedTeam>;
+  users: Array<User>;
+  teams: Array<Team>;
   dailies: Array<Daily>;
 }

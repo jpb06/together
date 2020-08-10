@@ -1,17 +1,18 @@
 import React from "react";
-import TimeLine from "./TimeLine";
-import TimeLineType from "../../../types/timeline.type";
-import useTimelineLoading from "../../../hooks/useTimelineLoading.hook";
+
+import { useTimelineLoading } from "../../../hooks";
+import { ReduxActionContext as Context } from "../../../types/redux";
 import WithLoadingAndErrors from "../composition/WithLoadingAndErrors";
+import TimeLine from "./TimeLine";
 
 const TimeLineContainer: React.FC = () => {
-  const [timeline, isReady] = useTimelineLoading();
+  const timeline = useTimelineLoading(Context.Global);
 
   return (
     <WithLoadingAndErrors
-      isReady={isReady}
       feedbackText="Turns out we couldn't fetch the user timeline"
-      jsx={<TimeLine timeline={timeline as TimeLineType} />}
+      context={Context.Global}
+      jsx={<TimeLine timeline={timeline} />}
     />
   );
 };

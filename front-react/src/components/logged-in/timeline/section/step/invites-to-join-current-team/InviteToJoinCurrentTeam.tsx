@@ -1,19 +1,22 @@
 import React from "react";
-import styles from "./InviteToJoinCurrentTeam.styles";
-import { UserInvite } from "../../../../../../types/user.type";
+import { useSelector } from "react-redux";
+
 import { Typography } from "@material-ui/core";
-import { useReduxSelector } from "../../../../../../hooks/redux.hooks";
+
+import { userSelector } from "../../../../../../redux/selectors";
+import { InvitedUser } from "../../../../../../types/shared";
+import styles from "./InviteToJoinCurrentTeam.styles";
 
 interface InviteToJoinCurrentTeamProps {
-  invite: UserInvite;
+  invite: InvitedUser;
 }
 
 const InviteToJoinCurrentTeam: React.FC<InviteToJoinCurrentTeamProps> = ({
-  invite
+  invite,
 }) => {
   const classes = styles();
 
-  const user = useReduxSelector(state => state.user);
+  const user = useSelector(userSelector);
 
   if (invite.referrer.id === user?.id) {
     return (

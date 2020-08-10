@@ -1,4 +1,4 @@
-const stringToColor = (text: string) => {
+export const stringToColor = (text: string) => {
   let hash = 0;
   let i;
 
@@ -15,5 +15,3 @@ const stringToColor = (text: string) => {
 
   return colour;
 };
-
-export { stringToColor };

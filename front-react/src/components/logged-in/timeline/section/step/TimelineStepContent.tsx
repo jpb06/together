@@ -1,32 +1,26 @@
 import React from "react";
-import styles from "./TimelineStepContent.styles";
+
 import {
-  TimeLineEntryType,
-  TimeLineEntryData
-} from "../../../../../types/timeline.type";
+    Daily as DailyType, InvitedUser, TeamInvite, TeamJoinRequest, TeamMember, TimeLineEntryData,
+    TimeLineEntryKind, UserJoinRequest
+} from "../../../../../types/shared";
 import Daily from "./daily/Daily";
-import DailyType from "./../../../../../types/daily.type";
-import {
-  UserJoinRequest,
-  TeamMember,
-  UserInvite
-} from "../../../../../types/user.type";
-import InviteToJoinCurrentTeam from "./invites-to-join-current-team/InviteToJoinCurrentTeam";
-import JoinRequestToCurrentTeam from "./join-requests-to-current-team/JoinRequestToCurrentTeam";
 import InvitationSentToCurrentUser from "./invitations-sent-to-current-user/InvitationSentToCurrentUser";
-import { TeamInvite, TeamJoinRequest } from "../../../../../types/invites.type";
+import InviteToJoinCurrentTeam from "./invites-to-join-current-team/InviteToJoinCurrentTeam";
 import JoinRequestSentByCurrentUser from "./join-requests-sent-by-current-user/JoinRequestSentByCurrentUser";
+import JoinRequestToCurrentTeam from "./join-requests-to-current-team/JoinRequestToCurrentTeam";
 import NewTeamMemberNotice from "./new-team-member-notice/NewTeamMemberNotice";
 import StepDivider from "./StepDivider";
+import styles from "./TimelineStepContent.styles";
 
 interface TimelineStepContentProps {
-  type: TimeLineEntryType;
+  type: TimeLineEntryKind;
   data: TimeLineEntryData;
 }
 
 const TimelineStepContent: React.FC<TimelineStepContentProps> = ({
   type,
-  data
+  data,
 }) => {
   const classes = styles();
 
@@ -37,7 +31,7 @@ const TimelineStepContent: React.FC<TimelineStepContentProps> = ({
           {
             Daily: <Daily daily={data as DailyType} />,
             InviteToJoinCurrentTeam: (
-              <InviteToJoinCurrentTeam invite={data as UserInvite} />
+              <InviteToJoinCurrentTeam invite={data as InvitedUser} />
             ),
             JoinRequestToCurrentTeam: (
               <JoinRequestToCurrentTeam request={data as UserJoinRequest} />
@@ -50,7 +44,7 @@ const TimelineStepContent: React.FC<TimelineStepContentProps> = ({
             ),
             NewTeamMemberNotice: (
               <NewTeamMemberNotice member={data as TeamMember} />
-            )
+            ),
           }[type]
         }
       </div>

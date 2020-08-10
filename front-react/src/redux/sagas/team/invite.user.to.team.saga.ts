@@ -1,0 +1,7 @@
+import { ReduxActionType as Type } from "../../../types/redux";
+import { inviteUserToJoinTeamTask } from "../../tasks/user/invite.user.to.join.team.task";
+import { safeTakeLeadingFor } from "../generic/safe.take.leading.helper";
+
+export function* watchInviteUserToTeam() {
+  yield safeTakeLeadingFor([Type.InviteUserToTeam], inviteUserToJoinTeamTask);
+}

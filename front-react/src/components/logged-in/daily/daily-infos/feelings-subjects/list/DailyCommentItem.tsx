@@ -1,24 +1,25 @@
 import React from "react";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
-import UserAvatar from "../../../../../generic/user-avatar/UserAvatar";
+import DeleteIcon from "@material-ui/icons/Delete";
+
+import { DailyDeleteActionFeedback } from "../../../../../../types/redux";
+import { Feeling, Subject } from "../../../../../../types/shared";
 import PendingDeleteButton from "../../../../../generic/buttons/PendingDeleteButton";
-import FeelingType from "../../../../../../types/feeling.type";
-import SubjectType from "../../../../../../types/subject.type";
-import styles from "./DailyCommentItem.styles";
+import UserAvatar from "../../../../../generic/user-avatar/UserAvatar";
 import DailyComment from "../DailyComment";
 import { NewDailyCommentKind } from "../new-item/NewDailyComment";
-import { DailyDeleteActionFeedback } from "../../../../../../redux/types/daily.feedback.type";
+import styles from "./DailyCommentItem.styles";
 
 interface DailyCommentItemProps {
   type: NewDailyCommentKind;
-  item: FeelingType | SubjectType;
+  item: Feeling | Subject;
   feedback: DailyDeleteActionFeedback;
   showDivider: boolean;
   onItemDeletion: (id: string) => void;
@@ -36,8 +37,8 @@ const DailyCommentItem: React.FC<DailyCommentItemProps> = ({
 
   const itemText =
     type === NewDailyCommentKind.Feeling
-      ? (item as FeelingType).comment
-      : (item as SubjectType).description;
+      ? (item as Feeling).comment
+      : (item as Subject).description;
 
   return (
     <ListItem divider={showDivider}>

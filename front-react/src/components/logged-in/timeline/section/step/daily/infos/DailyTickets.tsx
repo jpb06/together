@@ -1,6 +1,8 @@
-import Grid from "@material-ui/core/Grid";
 import React from "react";
-import DailyType from "./../../../../../../../types/daily.type";
+
+import Grid from "@material-ui/core/Grid";
+
+import { Daily as DailyType } from "../../../../../../../types/shared";
 import DailyTicketsItem from "./tickets/DailyTicketsItem";
 
 interface DailyTicketsProps {

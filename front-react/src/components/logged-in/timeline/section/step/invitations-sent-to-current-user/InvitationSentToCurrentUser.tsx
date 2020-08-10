@@ -1,19 +1,23 @@
+import * as localStore from "local-storage";
 import React from "react";
+import { useDispatch } from "react-redux";
+
 import { Typography } from "@material-ui/core";
-import styles from "./InvitationSentToCurrentUser.styles";
-import { TeamInvite } from "../../../../../../types/invites.type";
-import SimpleButton from "../../../../../generic/buttons/SimpleButton";
-import BasicChoiceModal, {
-  BasicChoiceModalState,
-} from "../../../../../modals/BasicChoiceModal";
-import RefuseToJoinTeam from "../../../../../modals/contents/RefuseToJoinTeam";
-import AnswerTeamInviteModalContainer from "../../../../../modals/AnswerTeamInviteModalContainer";
-import { useReduxDispatch } from "../../../../../../hooks/redux.hooks";
-import declineTeamInviteAction from "../../../../../../redux/actions/user/decline.team.invite.action";
-import getTimelineAction from "../../../../../../redux/actions/user/get.timeline.action";
-import * as localStorage from "local-storage";
+
 import LocalStorageKeys from "../../../../../../logic/local.storage.keys";
-import BareTeam from "../../../../../../types/team.type";
+import {
+    getTimelineAction, showAnswerTeamInviteModalAction
+} from "../../../../../../redux/actions";
+import {
+    answerTeamInviteAction
+} from "../../../../../../redux/actions/user/answer.team.invite.action";
+import { TeamInviteAnswer } from "../../../../../../redux/tasks";
+import { BareTeam, TeamInvite } from "../../../../../../types/shared";
+import SimpleButton from "../../../../../generic/buttons/SimpleButton";
+import AnswerTeamInviteModalContainer from "../../../../../modals/AnswerTeamInviteModalContainer";
+import BasicChoiceModal, { BasicChoiceModalState } from "../../../../../modals/BasicChoiceModal";
+import RefuseToJoinTeam from "../../../../../modals/contents/RefuseToJoinTeam";
+import styles from "./InvitationSentToCurrentUser.styles";
 
 interface InvitationSentToCurrentUserProps {
   invite: TeamInvite;
@@ -23,9 +27,8 @@ const InvitationSentToCurrentUser: React.FC<InvitationSentToCurrentUserProps> = 
   invite,
 }) => {
   const classes = styles();
-  const dispatch = useReduxDispatch();
+  const dispatch = useDispatch();
 
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [declineInviteState, setDeclineInviteState] = React.useState<
     BasicChoiceModalState
   >({
@@ -37,16 +40,13 @@ const InvitationSentToCurrentUser: React.FC<InvitationSentToCurrentUserProps> = 
     refuse: "Nevermind",
   });
 
-  const openJoinModal = () => setIsModalOpen(true);
-  const closeJoinModal = () => setIsModalOpen(false);
+  const openJoinModal = () => dispatch(showAnswerTeamInviteModalAction(true));
 
   const toggleDeclineModal = () =>
     setDeclineInviteState((state) => ({ ...state, isOpened: !state.isOpened }));
   const declineInvite = () => {
-    dispatch(declineTeamInviteAction(invite.id));
-    const currentTeam = localStorage.get<BareTeam>(
-      LocalStorageKeys.currentTeam
-    );
+    dispatch(answerTeamInviteAction(invite.id, TeamInviteAnswer.Declined));
+    const currentTeam = localStore.get<BareTeam>(LocalStorageKeys.currentTeam);
     dispatch(getTimelineAction(currentTeam.id));
     toggleDeclineModal();
   };
@@ -70,11 +70,8 @@ const InvitationSentToCurrentUser: React.FC<InvitationSentToCurrentUserProps> = 
         <SimpleButton text="Decline" onClick={toggleDeclineModal} />
       </div>
       <AnswerTeamInviteModalContainer
-        isOpened={isModalOpen}
-        title="Team invite"
-        requestId={invite.id}
+        inviteId={invite.id}
         teamName={invite.team.name}
-        onClose={closeJoinModal}
       />
       <BasicChoiceModal
         state={declineInviteState}

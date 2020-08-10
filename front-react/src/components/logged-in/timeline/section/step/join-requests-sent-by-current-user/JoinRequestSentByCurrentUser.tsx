@@ -1,14 +1,16 @@
 import React from "react";
-import styles from "./JoinRequestSentByCurrentUser.styles";
+
 import { Typography } from "@material-ui/core";
-import { TeamJoinRequest } from "../../../../../../types/invites.type";
+
+import { TeamJoinRequest } from "../../../../../../types/shared";
+import styles from "./JoinRequestSentByCurrentUser.styles";
 
 interface JoinRequestSentByCurrentUserProps {
   request: TeamJoinRequest;
 }
 
 const JoinRequestSentByCurrentUser: React.FC<JoinRequestSentByCurrentUserProps> = ({
-  request
+  request,
 }) => {
   const classes = styles();
 

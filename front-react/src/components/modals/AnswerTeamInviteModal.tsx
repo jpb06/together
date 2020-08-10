@@ -1,24 +1,25 @@
-import React from "react";
-import Dialog from "@material-ui/core/Dialog";
-import DownTransition from "../generic/transitions/DownTransition";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
-import DialogActions from "@material-ui/core/DialogActions";
-import SimpleButton from "../generic/buttons/SimpleButton";
 import clsx from "clsx";
+import React from "react";
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+
+import { AnswerTeamInviteModalSteps } from "../../types/redux";
+import { BareTeam, TeamWithLastActivity } from "../../types/shared";
+import SimpleButton from "../generic/buttons/SimpleButton";
 import WaitingIndicator from "../generic/feedback/WaitingIndicator";
+import DownTransition from "../generic/transitions/DownTransition";
+import styles from "./AnswerTeamInviteModal.styles";
 import AcceptToJoinTeam from "./contents/AcceptToJoinTeam";
 import SwitchTeam from "./contents/SwitchTeam";
-import styles from "./AnswerTeamInviteModal.styles";
-import { ActionSteps } from "./AnswerTeamInviteModalContainer";
-import BareTeam, { TeamWithLastActivity } from "../../types/team.type";
 
 interface AnswerTeamInviteModalProps {
   isOpened: boolean;
   isLoading: boolean;
-  step: ActionSteps;
-  title: string;
+  step: AnswerTeamInviteModalSteps;
   teamName: string;
   currentTeamId: string;
   teams: Array<TeamWithLastActivity>;
@@ -31,7 +32,6 @@ const AnswerTeamInviteModal: React.FC<AnswerTeamInviteModalProps> = ({
   isOpened,
   isLoading,
   step,
-  title,
   teamName,
   currentTeamId,
   teams,
@@ -54,11 +54,12 @@ const AnswerTeamInviteModal: React.FC<AnswerTeamInviteModalProps> = ({
       aria-describedby="alert-dialog-slide-description"
     >
       <DialogTitle id="alert-dialog-slide-title" className={classes.title}>
-        {title}
+        Team invite
       </DialogTitle>
       <DialogContent
         className={clsx({
-          [classes.dialogContent]: step === ActionSteps.SwitchTeam || isLoading,
+          [classes.dialogContent]:
+            step === AnswerTeamInviteModalSteps.SwitchTeam || isLoading,
         })}
       >
         {isLoading && (

@@ -1,11 +1,13 @@
 import React from "react";
+
+import { Typography } from "@material-ui/core";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
-import { TeamWithLastActivity } from "../../../types/team.type";
-import { Typography } from "@material-ui/core";
-import styles from "./SwitchTeamChoice.styles";
+
+import { TeamWithLastActivity } from "../../../types/shared";
 import TeamAvatar from "../../generic/team-avatar/TeamAvatar";
+import styles from "./SwitchTeamChoice.styles";
 
 interface SwitchTeamChoiceProps {
   currentTeamId: string;

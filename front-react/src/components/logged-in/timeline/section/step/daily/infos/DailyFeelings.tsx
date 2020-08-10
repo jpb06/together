@@ -1,13 +1,11 @@
 import React from "react";
 import DailyFeedback, {
   DailyFeelingsSubjectProps,
-  DailyFeedbackType
+  DailyDetailsType,
 } from "./subjects-feelings/DailyFeedback";
 
-const DailyFeelings: React.FC<DailyFeelingsSubjectProps> = ({ daily }) => {
-  return (
-    <DailyFeedback type={DailyFeedbackType.Feeling} data={daily.feelings} />
-  );
-};
+const DailyFeelings: React.FC<DailyFeelingsSubjectProps> = ({ daily }) => (
+  <DailyFeedback type={DailyDetailsType.Feeling} data={daily.feelings} />
+);
 
 export default DailyFeelings;

@@ -1,13 +1,14 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
+
 import Grid from "@material-ui/core/Grid";
+import MenuItem from "@material-ui/core/MenuItem";
+import TextField from "@material-ui/core/TextField";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import { TerseUser } from "../../../../../types/user.type";
-import { CandidateTicket } from "../../../../../types/ticket.type";
+
 import staticTickets from "../../../../../logic/static/static.tickets.keys";
+import { DailyAddActionFeedback } from "../../../../../types/redux";
+import { CandidateTicket, TerseUser } from "../../../../../types/shared";
 import FeedbackButton from "../../../../generic/buttons/FeedbackButton";
-import { DailyAddActionFeedback } from "../../../../../redux/types/daily.feedback.type";
 
 interface NewTicketProps {
   users?: Array<TerseUser>;

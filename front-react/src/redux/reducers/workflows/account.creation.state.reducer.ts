@@ -3,8 +3,8 @@ import { Action } from "redux";
 
 import LocalStorageKeys from "../../../logic/local.storage.keys";
 import {
-    AccountCreationState, AccountCreationStep, ActionWithPayload, ReduxActionModifiers as Modifier,
-    ReduxActionType as Type
+    AccountCreationState, AccountCreationStep, ActionWithPayload, ReduxActionContext as Context,
+    ReduxActionModifiers as Modifier, ReduxActionType as Type
 } from "../../../types/redux";
 import { BareTeam, TerseUser, User } from "../../../types/shared";
 import { isSuccessFor } from "../../identifiers/generic.actions.identifiers";
@@ -15,7 +15,7 @@ const accountCreationStateReducer = (
   state: AccountCreationState = initialState.accountCreationState,
   action: Action | ActionWithPayload<BareTeam>
 ) => {
-  if (isSuccessFor(Type.Login, action.type)) {
+  if (isSuccessFor(Type.Login, action.type, Context.Onboarding)) {
     return {
       ...state,
       step: AccountCreationStep.Avatar,

@@ -1,9 +1,10 @@
-import { Request, Response } from "express-serve-static-core";
 import { Application } from "express";
-import { validationResult, body } from "express-validator";
+import { Request, Response } from "express-serve-static-core";
+import { body, validationResult } from "express-validator";
+
 import { getUsers } from "../../dbase/fetch.mock.db";
-import { mongoObjectId } from "../../util/objectid";
 import { persist } from "../../dbase/update.mock.db";
+import { mongoObjectId } from "../../util/objectid";
 
 const mapCreateUserRoute = (server: Application) => {
   server.post(
@@ -17,15 +18,12 @@ const mapCreateUserRoute = (server: Application) => {
     (req: Request, res: Response) => {
       const errors = validationResult(req);
       if (!errors.isEmpty())
-        return res.status(400).json({ status: 400, error: errors.array() });
+        return res.status(400).json(errors.array().join(", "));
 
       const users = getUsers();
 
       const user = users.find((el) => el.email === req.body.email);
-      if (user)
-        return res
-          .status(401)
-          .json({ status: 401, error: "Mail already used" });
+      if (user) return res.status(401).json("Mail already used");
 
       const newUser = {
         id: mongoObjectId(),

@@ -1,9 +1,10 @@
 import { AxiosInstance } from "axios";
 import { History, LocationState } from "history";
 import * as localStore from "local-storage";
+
 import LocalStorageKeys from "../../logic/local.storage.keys";
 
-const setInterceptors = (
+export const setRequestInterceptors = (
   instance: AxiosInstance,
   history: History<LocationState>
 ) => {
@@ -29,7 +30,12 @@ const setInterceptors = (
       return Promise.reject(error);
     }
   );
+};
 
+export const setResponseInterceptors = (
+  instance: AxiosInstance,
+  history: History<LocationState> | undefined
+) => {
   instance.interceptors.response.use(
     (response) => {
       // Any status code that lie within the range of 2xx cause this function to trigger
@@ -42,7 +48,7 @@ const setInterceptors = (
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
 
-        if (error.response.status === 401) {
+        if (history && error.response.status === 401) {
           localStore.clear();
           history.push({
             pathname: "/",
@@ -70,4 +76,11 @@ const setInterceptors = (
     }
   );
 };
-export default setInterceptors;
+
+export const setInterceptors = (
+  instance: AxiosInstance,
+  history: History<LocationState>
+) => {
+  setRequestInterceptors(instance, history);
+  setResponseInterceptors(instance, history);
+};

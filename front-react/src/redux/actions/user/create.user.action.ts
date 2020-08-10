@@ -10,7 +10,7 @@ export const createUserAction = (
   history: History<LocationState>,
   context: Context = Context.Global
 ) =>
-  sagaPayloadAction<CreateUserParams>(Type.GetUserTeams, context, {
+  sagaPayloadAction<CreateUserParams>(Type.CreateUser, context, {
     ...user,
     history,
   });

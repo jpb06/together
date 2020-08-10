@@ -1,9 +1,8 @@
-import axios from "axios";
 import { History, LocationState } from "history";
 import { call, put } from "redux-saga/effects";
 
 import { ApiRoutes } from "../../../api/api.routes.enum";
-import TogetherApi, { send } from "../../../api/setup/together.api";
+import TogetherApi, { sendAnonymous } from "../../../api/setup/together.api";
 import { isResultValid } from "../../../api/validation/login.result.validation";
 import { initializeLoggedUserContext } from "../../../logic/user.util";
 import { ApiResponse } from "../../../types/api/api.response.interface";
@@ -28,11 +27,12 @@ export function* loginTask(params: LoginParams, context: Context) {
 
   try {
     const result: ApiResponse<LoginResult> = yield call(
-      send,
-      axios.post(`${process.env.REACT_APP_API_URI}/${ApiRoutes.Login}`, {
+      sendAnonymous,
+      `${process.env.REACT_APP_API_URI}/${ApiRoutes.Login}`,
+      {
         login: params.login,
         password: params.password,
-      })
+      }
     );
 
     if (!isResultValid(result)) {

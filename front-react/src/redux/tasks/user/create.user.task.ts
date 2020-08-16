@@ -40,11 +40,12 @@ export function* createUserTask(params: CreateUserParams, context: Context) {
       }
     );
 
-    if (result.error) {
+    if (!result.success) {
       throw new Error(result.error);
     }
 
-    yield loginTask(
+    yield call(
+      loginTask,
       {
         login: params.email,
         password: params.password,

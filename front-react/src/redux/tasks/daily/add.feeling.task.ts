@@ -1,11 +1,11 @@
-import { put } from "redux-saga/effects";
+import { call, put } from "redux-saga/effects";
 
+import { apiCallTask } from "../";
 import { ApiRoutes } from "../../../api/api.routes.enum";
 import TogetherApi from "../../../api/setup/together.api";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import { Feeling, NewFeeling } from "../../../types/shared";
 import { successPayloadAction } from "../../actions";
-import { apiCall } from "../../sagas";
 
 export interface AddFeelingParams {
   teamId: string;
@@ -14,7 +14,8 @@ export interface AddFeelingParams {
 }
 
 export function* addFeelingTask(params: AddFeelingParams, context: Context) {
-  const feeling: Feeling = yield apiCall(
+  const feeling: Feeling = yield call(
+    apiCallTask,
     TogetherApi.Instance.post(ApiRoutes.DailyFeelingsAdd, {
       teamId: params.teamId,
       date: params.date,

@@ -1,10 +1,10 @@
 import { call, put } from "redux-saga/effects";
 
+import { apiCallTask } from "../";
 import { ApiRoutes } from "../../../api/api.routes.enum";
 import TogetherApi from "../../../api/setup/together.api";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import { successPayloadAction } from "../../actions";
-import { apiCall } from "../../sagas";
 
 export enum DetailsRemovalType {
   Feelings,
@@ -28,7 +28,7 @@ const validateType = (detailsType: DetailsRemovalType) => {
     );
 };
 
-function* remove(
+export function* removeDetailsSubtask(
   params: RemoveDetailsParams,
   route: ApiRoutes,
   successActionType: Type,
@@ -36,7 +36,7 @@ function* remove(
 ) {
   validateType(params.detailsType);
 
-  const message: string = yield apiCall(
+  const message: string = yield apiCallTask(
     TogetherApi.Instance.post(route, {
       teamId: params.teamId,
       date: params.date,
@@ -56,7 +56,7 @@ export function* removeDetailsTask(
   switch (params.detailsType) {
     case DetailsRemovalType.Feelings:
       message = yield call(
-        remove,
+        removeDetailsSubtask,
         params,
         ApiRoutes.DailyFeelingsRemove,
         Type.RemoveFeeling,
@@ -65,7 +65,7 @@ export function* removeDetailsTask(
       break;
     case DetailsRemovalType.Subjects:
       message = yield call(
-        remove,
+        removeDetailsSubtask,
         params,
         ApiRoutes.DailySubjectsRemove,
         Type.RemoveSubject,

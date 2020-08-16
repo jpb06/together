@@ -17,7 +17,7 @@ export const showSnackbarAction = (
 });
 
 export const showErrorAction = (
-  actionType: Type,
+  actionType: string,
   context: Context,
   text: string
 ) =>

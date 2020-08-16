@@ -46,7 +46,7 @@
     "test": "react-scripts test --watchAll",
     "test:watch": "react-scripts test --watch --coverage",
     "test:coverage": "react-scripts test --coverage --runInBand --watchAll=false",
-    "test:redux": "react-scripts test --testPathPattern='.*/src/redux/.*.test.ts' --coverage --collectCoverageFrom=src/redux/**/*.ts --collectCoverageFrom=!src/redux/**/index.ts --collectCoverageFrom=!src/redux/store/*.ts --collectCoverageFrom=!src/redux/sagas/**/*.ts",
+    "test:redux": "react-scripts test --testPathPattern='.*/src/redux/.*.test.ts' --coverage --collectCoverageFrom=src/redux/**/*.ts --collectCoverageFrom=!src/redux/**/index.ts --collectCoverageFrom=!src/redux/store/*.ts --collectCoverageFrom=!src/redux/sagas/**/*.ts --collectCoverageFrom=!src/redux/actions/**/*.ts --collectCoverageFrom=!src/redux/selectors/**/*.ts",
     "eject": "react-scripts eject"
   },
   "jest": {

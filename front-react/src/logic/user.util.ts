@@ -1,7 +1,7 @@
 import * as localStore from "local-storage";
 
-import { LoginResult } from "../redux/tasks/user/login.api.task";
-import { NewUser, User } from "../types/shared";
+import { LoginResult } from "../redux/tasks/user/login.task";
+import { LoggedUser, NewUser, User } from "../types/shared";
 import LocalStorageKeys from "./local.storage.keys";
 
 export const getInitials = (name: string) => {
@@ -11,7 +11,7 @@ export const getInitials = (name: string) => {
   return initials.join("").toUpperCase();
 };
 
-export const addComputedPropertiesToUser = (user: User) => ({
+export const addComputedPropertiesToUser = (user: LoggedUser) => ({
   ...user,
   fullName: `${user.firstName} ${user.lastName}`,
   initials: getInitials(`${user.firstName} ${user.lastName}`),

@@ -1,5 +1,3 @@
-import { ReduxActionType } from "./redux.action.types";
-
 export enum SnackbarKind {
   Success,
   Error,
@@ -11,5 +9,5 @@ export interface SnackbarData {
   isOpen: boolean;
   type: SnackbarKind;
   text: string;
-  relatedAction?: ReduxActionType;
+  relatedAction?: string;
 }

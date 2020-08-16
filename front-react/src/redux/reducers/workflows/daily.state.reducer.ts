@@ -42,7 +42,7 @@ const dailyStatusReducer = (
       state,
       state.doneTickets,
       "doneTickets",
-      action.payload.ticket
+      action.payload?.ticket
     ) ||
     setDailyBlockState(
       action,
@@ -51,7 +51,7 @@ const dailyStatusReducer = (
       state,
       state.unforeseenTickets,
       "unforeseenTickets",
-      action.payload.ticket
+      action.payload?.ticket
     ) ||
     setDailyBlockState(
       action,
@@ -60,7 +60,7 @@ const dailyStatusReducer = (
       state,
       state.feelings,
       "feelings",
-      action.payload.id
+      action.payload?.id
     ) ||
     setDailyBlockState(
       action,
@@ -69,7 +69,7 @@ const dailyStatusReducer = (
       state,
       state.subjects,
       "subjects",
-      action.payload.id
+      action.payload?.id
     ) ||
     state
   );

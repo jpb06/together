@@ -1,7 +1,7 @@
 import { ReduxActionType as Type } from "../../../types/redux";
 import { combineActions } from "../../actions";
+import { safeTakeLeading } from "../../effects/safe.take.leading.helper";
 import { getDailyAndTeamMembersTask } from "../../tasks/daily/get.daily.and.team.members.task";
-import { safeTakeLeading } from "../generic/safe.take.leading.helper";
 
 export function* watchGetDaily() {
   yield safeTakeLeading(

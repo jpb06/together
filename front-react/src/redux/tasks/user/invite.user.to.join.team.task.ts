@@ -1,11 +1,11 @@
-import { put } from "redux-saga/effects";
+import { call, put } from "redux-saga/effects";
 
+import { apiCallTask } from "../";
 import { ApiRoutes } from "../../../api/api.routes.enum";
 import TogetherApi from "../../../api/setup/together.api";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import { TerseUser } from "../../../types/shared";
 import { successPayloadAction } from "../../actions";
-import { apiCall } from "../../sagas";
 
 export interface InviteUserToJoinTeamParams {
   teamId: string;
@@ -16,7 +16,8 @@ export function* inviteUserToJoinTeamTask(
   params: InviteUserToJoinTeamParams,
   context: Context
 ) {
-  const user: TerseUser = yield apiCall(
+  const user: TerseUser = yield call(
+    apiCallTask,
     TogetherApi.Instance.post(ApiRoutes.UserInvite, params)
   );
 

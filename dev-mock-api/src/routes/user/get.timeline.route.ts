@@ -39,7 +39,11 @@ const mapGetUserTimeline = (server: Application) => {
       const timeline: TimeLine = {
         userEvents: userTeamInvites
           .concat(userJoinRequests)
-          .sort((a, b) => moment(b.date).unix() - moment(a.date).unix()),
+          .sort(
+            (a, b) =>
+              moment(b.date, moment.ISO_8601).unix() -
+              moment(a.date, moment.ISO_8601).unix()
+          ),
       };
 
       const team = teams.find((el) => el.id === req.body.teamId);

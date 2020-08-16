@@ -1,10 +1,10 @@
 import { call, put } from "redux-saga/effects";
 
+import { apiCallTask } from "../";
 import { ApiRoutes } from "../../../api/api.routes.enum";
 import TogetherApi from "../../../api/setup/together.api";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import { successPayloadAction } from "../../actions";
-import { apiCall } from "../../sagas";
 
 export enum TicketRemovalType {
   Unforeseen,
@@ -28,7 +28,7 @@ const validateType = (ticketType: TicketRemovalType) => {
     );
 };
 
-function* remove(
+export function* removeTicketSubtask(
   params: RemoveTicketParams,
   route: ApiRoutes,
   successActionType: Type,
@@ -36,7 +36,7 @@ function* remove(
 ) {
   validateType(params.ticketType);
 
-  const message: string = yield apiCall(
+  const message: string = yield apiCallTask(
     TogetherApi.Instance.post(route, {
       teamId: params.teamId,
       date: params.date,
@@ -56,7 +56,7 @@ export function* removeTicketTask(
   switch (params.ticketType) {
     case TicketRemovalType.Done:
       message = yield call(
-        remove,
+        removeTicketSubtask,
         params,
         ApiRoutes.DailyDoneRemove,
         Type.RemoveDoneTicket,
@@ -65,7 +65,7 @@ export function* removeTicketTask(
       break;
     case TicketRemovalType.Unforeseen:
       message = yield call(
-        remove,
+        removeTicketSubtask,
         params,
         ApiRoutes.DailyUnforeseenRemove,
         Type.RemoveUnforeseenTicket,

@@ -3,11 +3,11 @@ import { initialState } from "../../store/root.state";
 
 const snackbarReducer = (
   data: SnackbarData = initialState.snackbar,
-  action: ActionWithPayload<SnackbarData>
+  action: ActionWithPayload<any>
 ) => {
   switch (action.type) {
     case Type.Snackbar:
-      return action.payload;
+      return action.payload as SnackbarData;
     case Type.ClearSnackbar:
       return { ...data, isOpen: false };
   }

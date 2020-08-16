@@ -1,10 +1,10 @@
-import { put } from "redux-saga/effects";
+import { call, put } from "redux-saga/effects";
 
+import { apiCallTask } from "../";
 import { ApiRoutes } from "../../../api/api.routes.enum";
 import TogetherApi from "../../../api/setup/together.api";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import { successPayloadAction } from "../../actions";
-import { apiCall } from "../../sagas";
 
 export interface SetDailyDurationParams {
   teamId: string;
@@ -16,7 +16,8 @@ export function* setDailyDurationTask(
   params: SetDailyDurationParams,
   context: Context
 ) {
-  const message: string = yield apiCall(
+  const message: string = yield call(
+    apiCallTask,
     TogetherApi.Instance.post(ApiRoutes.DailySetDuration, params)
   );
 

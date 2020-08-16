@@ -23,8 +23,7 @@ const mapLoginRoute = (server: Application) => {
       const sessionExpirationDate = nowPlusMinutes(20);
       const token = user.email;
 
-      return res.status(200).json({
-        status: 200,
+      return res.populate({
         token: token,
         user: {
           id: user.id,

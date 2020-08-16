@@ -79,6 +79,8 @@ export const setDurationState = (
       duration: initDailyDurationStep(false, false),
     };
   }
+
+  return undefined;
 };
 
 export const setDailyBlockState = (
@@ -154,4 +156,6 @@ export const setDailyBlockState = (
     );
     return state;
   }
+
+  return undefined;
 };

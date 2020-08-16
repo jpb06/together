@@ -1,11 +1,11 @@
-import { put, select } from "redux-saga/effects";
+import { call, put, select } from "redux-saga/effects";
 
+import { apiCallTask } from "../";
 import { ApiRoutes } from "../../../api/api.routes.enum";
 import TogetherApi from "../../../api/setup/together.api";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import { User } from "../../../types/shared";
 import { successPayloadAction } from "../../actions";
-import { apiCall } from "../../sagas";
 import { userSelector } from "../../selectors";
 import { getUserTeamsTask } from "./get.user.teams.task";
 
@@ -29,7 +29,8 @@ export function* answerTeamInviteTask(
       ? ApiRoutes.UserAcceptTeamInvite
       : ApiRoutes.UserDeclineTeamInvite;
 
-  const result: string = yield apiCall(
+  const result: string = yield call(
+    apiCallTask,
     TogetherApi.Instance.post(route, { inviteId: params.inviteId })
   );
 
@@ -38,7 +39,8 @@ export function* answerTeamInviteTask(
   if (params.refreshCallerTeams) {
     const user: User | null = yield select(userSelector);
     if (user) {
-      yield getUserTeamsTask(
+      yield call(
+        getUserTeamsTask,
         { userId: user.id, fetchLastActivity: true },
         context
       );

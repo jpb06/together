@@ -7,7 +7,7 @@ import { isResultValid } from "../../../api/validation/login.result.validation";
 import { initializeLoggedUserContext } from "../../../logic/user.util";
 import { ApiResponse } from "../../../types/api/api.response.interface";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
-import { User } from "../../../types/shared";
+import { LoggedUser } from "../../../types/shared";
 import { payloadAction, successPayloadAction } from "../../actions";
 
 export interface LoginParams {
@@ -18,7 +18,7 @@ export interface LoginParams {
 
 export interface LoginResult {
   token: string;
-  user: User;
+  user: LoggedUser;
   expirationDate: string;
 }
 
@@ -35,13 +35,17 @@ export function* loginTask(params: LoginParams, context: Context) {
       }
     );
 
-    if (!isResultValid(result)) {
-      console.log("Invalid response for Login");
+    const isValid = yield call(isResultValid, result);
+    if (!isValid) {
       throw new Error(errorMessage);
     }
 
-    const user = initializeLoggedUserContext(result.payload as LoginResult);
-    TogetherApi.setup(params.history);
+    const user: LoggedUser = yield call(
+      initializeLoggedUserContext,
+      result.payload as LoginResult
+    );
+
+    yield call(TogetherApi.setup, params.history);
 
     yield put(successPayloadAction(Type.Login, context, user));
     yield put(payloadAction(Type.LoginStateReset));

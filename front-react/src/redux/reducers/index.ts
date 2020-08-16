@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 
-import recentActionsReducer from "./global/recent.actions.reducer";
+import lastActionReducer from "./global/last.action.reducer";
 import snackbarReducer from "./global/snackbar.reducer";
 import dailyReducer from "./user/daily.reducer";
 import teamMembersReducer from "./user/team.members.reducer";
@@ -14,7 +14,7 @@ import loginStateReducer from "./workflows/login.state.reducer";
 
 const rootReducer = combineReducers({
   snackbar: snackbarReducer,
-  lastAction: recentActionsReducer,
+  lastAction: lastActionReducer,
 
   user: userReducer,
   userTeams: userTeamsReducer,

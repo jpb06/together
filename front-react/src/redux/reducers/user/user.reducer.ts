@@ -5,10 +5,7 @@ import { initialState } from "../../store/root.state";
 
 const userReducer = (
   state: User | null = initialState.user,
-  action:
-    | ActionWithPayload<User>
-    | ActionWithPayload<BareTeam>
-    | ActionWithPayload<TeamJoinRequest>
+  action: ActionWithPayload<any>
 ): User | null => {
   if (isSuccessFor(Type.Login, action.type)) {
     return action.payload as User;

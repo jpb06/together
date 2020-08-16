@@ -5,14 +5,14 @@ import { initialState } from "../../store/root.state";
 
 const timelineReducer = (
   state: TimeLine | null = initialState.timeline,
-  action: ActionWithPayload<TimeLine>
+  action: ActionWithPayload<any>
 ) => {
   if (isSuccessFor(Type.Login, action.type)) {
     return null;
   }
 
   if (isSuccessFor(Type.GetTimeline, action.type)) {
-    return action.payload;
+    return action.payload as TimeLine;
   }
 
   return state;

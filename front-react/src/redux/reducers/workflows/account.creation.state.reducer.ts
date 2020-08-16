@@ -25,7 +25,7 @@ const accountCreationStateReducer = (
     };
   }
 
-  if (isSuccessFor(Type.CreateTeam, action.type)) {
+  if (isSuccessFor(Type.CreateTeam, action.type, Context.Onboarding)) {
     const team = (action as ActionWithPayload<BareTeam>).payload;
     localStore.set(LocalStorageKeys.currentTeam, team);
     const user = localStore.get<User | null>(LocalStorageKeys.user);
@@ -51,7 +51,7 @@ const accountCreationStateReducer = (
     };
   }
 
-  if (isSuccessFor(Type.RequestToJoinTeam, action.type)) {
+  if (isSuccessFor(Type.RequestToJoinTeam, action.type, Context.Onboarding)) {
     return {
       ...state,
       step: AccountCreationStep.Completed,
@@ -60,9 +60,8 @@ const accountCreationStateReducer = (
     };
   }
 
-  if (isSuccessFor(Type.InviteUserToTeam, action.type)) {
+  if (isSuccessFor(Type.InviteUserToTeam, action.type, Context.Onboarding)) {
     const user = (action as ActionWithPayload<TerseUser>).payload;
-    console.log(action);
 
     return {
       ...state,

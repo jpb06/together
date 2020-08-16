@@ -5,13 +5,13 @@ import { initialState } from "../../store/root.state";
 
 const userTeamsReducer = (
   state: Array<TeamWithLastActivity> = initialState.userTeams,
-  action: ActionWithPayload<Array<TeamWithLastActivity>>
+  action: ActionWithPayload<any>
 ) => {
   if (isSuccessFor(Type.Login, action.type)) {
     return [];
   }
   if (isSuccessFor(Type.GetUserTeams, action.type)) {
-    return action.payload;
+    return action.payload as Array<TeamWithLastActivity>;
   }
 
   return state;

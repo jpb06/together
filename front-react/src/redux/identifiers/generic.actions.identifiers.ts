@@ -1,3 +1,5 @@
+import { Action } from "redux";
+
 import {
     ActionWithPayload, ReduxActionContext as Context, ReduxActionModifiers as Modifier,
     ReduxActionType as Type, SnackbarData
@@ -30,6 +32,8 @@ export const isSaga = (actionType: string) =>
 
 export const isSagaFor = (type: Type, actionType: string) =>
   actionType.startsWith(`${type}_${Modifier.Saga}`);
+export const isSagaForString = (type: string, actionType: string) =>
+  actionType.startsWith(`${type}_${Modifier.Saga}`);
 
 export const isFailedIn = (context: Context, actionType: string) =>
   isSagaFor(Type.Snackbar, actionType) && isIn(context, actionType);
@@ -40,3 +44,10 @@ export const isFailedFor = (
 ) =>
   isSagaFor(Type.Snackbar, action.type) &&
   action.payload.relatedAction === type;
+
+export const isActionSagaBelongingTo = (actionsTypes: Array<Type>) => (
+  action: Action
+) => actionsTypes.some((type) => isSagaFor(type, action.type));
+
+export const isActionSagaFor = (type: string) => (action: Action) =>
+  isSagaForString(type, action.type);

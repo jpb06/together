@@ -27,12 +27,13 @@ export interface PersistedUser extends TerseUser {
   teamJoinRequests: Array<TeamJoinRequest>;
 }
 
-export interface User extends TerseUser {
-  token: string;
-  expirationDate: string;
+export interface LoggedUser extends TerseUser {
   teams: Array<BareTeam>;
   teamInvites: Array<TeamInvite>;
   teamJoinRequests: Array<TeamJoinRequest>;
+}
+
+export interface User extends LoggedUser {
   // computed client side
   fullName: string;
   initials: string;

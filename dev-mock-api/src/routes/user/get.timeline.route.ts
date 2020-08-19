@@ -73,7 +73,11 @@ const mapGetUserTimeline = (server: Application) => {
           .concat(
             team.members.map((user) => teamMemberToTeamTimeLineEntry(user))
           )
-          .sort((a, b) => moment(b.date).unix() - moment(a.date).unix());
+          .sort(
+            (a, b) =>
+              moment(b.date, moment.ISO_8601).unix() -
+              moment(a.date, moment.ISO_8601).unix()
+          );
 
         timeline.currentTeam = teamTimeLine;
       }

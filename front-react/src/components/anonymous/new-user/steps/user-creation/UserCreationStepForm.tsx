@@ -166,6 +166,7 @@ const UserCreationStepForm: React.FC<UserCreationStepFormProps> = ({
           isPending={state.isLoading}
           isErrored={state.isErrored}
           actionText={state.actionButtonText}
+          name="create-user"
         />
       </Grid>
     </form>

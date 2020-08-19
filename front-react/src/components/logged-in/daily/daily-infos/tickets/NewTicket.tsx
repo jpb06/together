@@ -117,6 +117,7 @@ const NewTicket: React.FC<NewTicketProps> = ({
             isErrored={feedback.isErrored}
             IconComponent={AddCircleIcon}
             onSubmit={handleSubmit}
+            name="new-ticket"
           />
         </Grid>
       </Grid>

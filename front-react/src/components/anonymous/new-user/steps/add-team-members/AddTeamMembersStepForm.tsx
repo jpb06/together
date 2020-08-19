@@ -95,6 +95,7 @@ const AddTeamMembersStepForm: React.FC<AddTeamMembersStepFormProps> = ({
                     <FeedbackButton
                       IconComponent={AddCircleIcon}
                       actionText="Send invite"
+                      name="add-user"
                       isErrored={state.isErrored}
                       isPending={state.isLoading}
                       onSubmit={onTeamInviteSent}

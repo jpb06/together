@@ -58,6 +58,7 @@ const UserAvatarStepForm: React.FC<UserAvatarStepFormProps> = ({
       </Grid>
       <FeedbackButton
         actionText={state.actionButtonText}
+        name="choose-avatar"
         IconComponent={GroupWorkIcon}
         isErrored={state.isErrored}
         isPending={state.isLoading}

@@ -113,6 +113,7 @@ const CreateTeamForm: React.FC<CreateTeamFormProps> = ({
                     isErrored={state.isErrored}
                     isPending={state.isLoading}
                     onSubmit={handleSubmit}
+                    name="team-action"
                   />
                 </div>
               }

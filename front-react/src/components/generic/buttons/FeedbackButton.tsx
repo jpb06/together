@@ -47,9 +47,9 @@ const FeedbackButton: React.FC<FeedbackButtonProps> = ({
             aria-label="circular-pending"
           />
         ) : isErrored ? (
-          <ErrorIcon />
+          <ErrorIcon titleAccess="error-icon" />
         ) : (
-          <IconComponent />
+          <IconComponent titleAccess="left-icon" />
         )}
       </div>
       <div className={classes.buttonText}>

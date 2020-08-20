@@ -1,7 +1,7 @@
 import React from "react";
 import { mocked } from "ts-jest/utils";
 
-import { getRoles, logRoles, render, screen, waitFor } from "@testing-library/react";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { loginAction, payloadAction } from "../../../redux/actions";
@@ -11,7 +11,7 @@ import LoginContainer from "./LoginContainer";
 
 describe("Login container component", () => {
   it("should contain a link to create an account", () => {
-    const { container, debug } = connectedRender(<LoginContainer />);
+    connectedRender(<LoginContainer />);
     // logRoles(container);
     // debug(container);
 
@@ -27,14 +27,13 @@ describe("Login container component", () => {
 
   it("should have an empty form on init", () => {
     const { container, debug } = connectedRender(<LoginContainer />);
-    // logRoles(container);
-    // debug(container);
+
     const emailField = screen.getByLabelText(/email/i);
     const passwordField = screen.getByLabelText(/password/i);
     expect(emailField).toHaveValue("");
     expect(passwordField).toHaveValue("");
     const loginButton = screen.getByRole("button", { name: /login/i });
-    expect(loginButton.textContent).toBe("Login");
+    expect(loginButton.children[0].children[1].textContent).toBe("Login");
   });
 
   it("should only reset the form if user has not filled email and password fields", () => {
@@ -45,7 +44,7 @@ describe("Login container component", () => {
 
     const loginButton = screen.getByRole("button", { name: /Login/i });
     userEvent.click(loginButton);
-    expect(loginButton.textContent).toBe("Login");
+    expect(loginButton.children[0].children[1].textContent).toBe("Login");
 
     const dispatchMock = mocked(store.dispatch);
     expect(dispatchMock).toHaveBeenCalledTimes(1);

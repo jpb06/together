@@ -6,16 +6,17 @@ import { Typography } from "@material-ui/core";
 
 import LocalStorageKeys from "../../../../../../logic/local.storage.keys";
 import {
-    getTimelineAction, showAnswerTeamInviteModalAction
+  getTimelineAction,
+  showAnswerTeamInviteModalAction,
 } from "../../../../../../redux/actions";
-import {
-    answerTeamInviteAction
-} from "../../../../../../redux/actions/user/answer.team.invite.action";
+import { answerTeamInviteAction } from "../../../../../../redux/actions/user/answer.team.invite.action";
 import { TeamInviteAnswer } from "../../../../../../redux/tasks";
 import { BareTeam, TeamInvite } from "../../../../../../types/shared";
 import SimpleButton from "../../../../../generic/buttons/SimpleButton";
 import AnswerTeamInviteModalContainer from "../../../../../modals/AnswerTeamInviteModalContainer";
-import BasicChoiceModal, { BasicChoiceModalState } from "../../../../../modals/BasicChoiceModal";
+import BasicChoiceModal, {
+  BasicChoiceModalState,
+} from "../../../../../modals/BasicChoiceModal";
 import RefuseToJoinTeam from "../../../../../modals/contents/RefuseToJoinTeam";
 import styles from "./InvitationSentToCurrentUser.styles";
 

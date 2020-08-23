@@ -143,6 +143,21 @@ describe("Recent actions reducer", () => {
     });
   });
 
+  it("should not update a task that is not in current context", () => {
+    const reducer = lastActionReducer(
+      {
+        context: Context.Global,
+        tasks: [{ type: Type.CreateTeam, hasSucceeded: undefined }],
+      },
+      successPayloadAction(Type.CreateTeam, Context.Daily)
+    );
+
+    expect(reducer).toStrictEqual({
+      context: Context.Global,
+      tasks: [{ type: Type.CreateTeam, hasSucceeded: undefined }],
+    });
+  });
+
   it("should add a new pending action", () => {
     const reducer = lastActionReducer(
       {

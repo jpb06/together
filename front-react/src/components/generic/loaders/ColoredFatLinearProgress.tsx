@@ -1,8 +1,9 @@
-import { withStyles } from "@material-ui/core";
-import { lighten } from "@material-ui/core/styles";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import { amber } from "@material-ui/core/colors";
 import React from "react";
+
+import { withStyles } from "@material-ui/core";
+import { amber } from "@material-ui/core/colors";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import { lighten } from "@material-ui/core/styles";
 
 const StyledLinearProgress = (color: string) => () =>
   withStyles({
@@ -37,7 +38,7 @@ const ColoredFatLinearProgress: React.FC<ColoredFatLinearProgressProps> = ({
 
   const LinearProgress = StyledLinearProgress(componentColor)();
 
-  return <LinearProgress variant={variant} />;
+  return <LinearProgress aria-label="fat-progress" variant={variant} />;
 };
 
 export default ColoredFatLinearProgress;

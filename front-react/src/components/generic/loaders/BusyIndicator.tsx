@@ -1,9 +1,11 @@
-import React from "react";
 import clsx from "clsx";
-import withStyles from "@material-ui/core/styles/withStyles";
-import styles from "./BusyIndicator.styles";
-import { OverridableComponent } from "@material-ui/core/OverridableComponent";
+import React from "react";
+
 import { SvgIconTypeMap } from "@material-ui/core";
+import { OverridableComponent } from "@material-ui/core/OverridableComponent";
+import withStyles from "@material-ui/core/styles/withStyles";
+
+import styles from "./BusyIndicator.styles";
 
 export enum BusyIndicatorColor {
   Amber,
@@ -33,7 +35,10 @@ const BusyIndicator: React.FC<BusyIndicatorProps> = ({
         [classes.whiteColored]: color === BusyIndicatorColor.White,
       })}
     >
-      <IconComponent className={clsx(classes.progressIcon, classes.spinner)} />
+      <IconComponent
+        titleAccess="busy-icon"
+        className={clsx(classes.progressIcon, classes.spinner)}
+      />
       <br />
       {text}
     </div>

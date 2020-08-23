@@ -84,11 +84,7 @@ const Login: React.FC<LoginProps> = ({ onChange, onSubmit, form, state }) => {
             />
           </CardContent>
           <CardActions className={classes.actions}>
-            <FeedbackButton
-              IconComponent={AddCircleIcon}
-              name="login"
-              {...state}
-            />
+            <FeedbackButton IconComponent={AddCircleIcon} {...state} />
           </CardActions>
           <div className={classes.newAccount}>
             <Link component={RouterLink} to="/newaccount" color="primary">

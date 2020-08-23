@@ -109,7 +109,6 @@ const NewDailyComment: React.FC<NewDailyCommentProps> = ({
             isErrored={feedback.isErrored}
             IconComponent={AddCircleIcon}
             onSubmit={handleSubmit}
-            name="new-comment"
           />
         </Grid>
       </Grid>

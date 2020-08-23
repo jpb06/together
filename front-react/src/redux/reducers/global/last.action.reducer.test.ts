@@ -1,8 +1,13 @@
 import {
-    ReduxActionContext as Context, ReduxActionModifiers as Modifier, ReduxActionType as Type
+  ReduxActionContext as Context,
+  ReduxActionModifiers as Modifier,
+  ReduxActionType as Type,
 } from "../../../types/redux";
 import {
-    payloadAction, sagaPayloadAction, showErrorAction, successPayloadAction
+  payloadAction,
+  sagaPayloadAction,
+  showErrorAction,
+  successPayloadAction,
 } from "../../actions";
 import lastActionReducer from "./last.action.reducer";
 
@@ -10,13 +15,13 @@ describe("Recent actions reducer", () => {
   it("should initialize as null", () => {
     const reducer = lastActionReducer(undefined, payloadAction("Init" as Type));
 
-    expect(reducer).toBeNull;
+    expect(reducer).toBeNull();
   });
 
   it("should return null when passed an action that doesn't match its logic", () => {
     const reducer = lastActionReducer(null, payloadAction("Init" as Type));
 
-    expect(reducer).toBeNull;
+    expect(reducer).toBeNull();
   });
 
   it("should return null if passed a ClearLastAction action", () => {
@@ -31,7 +36,7 @@ describe("Recent actions reducer", () => {
       payloadAction(Type.ClearLastAction)
     );
 
-    expect(reducer).toBeNull;
+    expect(reducer).toBeNull();
   });
 
   it("should update a task when it succeeded", () => {
@@ -65,19 +70,22 @@ describe("Recent actions reducer", () => {
       successPayloadAction(Type.GetUserTeams, Context.Global)
     );
 
-    expect(reducer).toBeNull;
+    expect(reducer).toBeNull();
   });
 
-  it("should return null if context changed", () => {
+  it("should return clear tasks if context changed", () => {
     const reducer = lastActionReducer(
       {
         context: Context.Global,
         tasks: [{ type: Type.CreateTeam }],
       },
-      successPayloadAction(Type.GetUserTeams, Context.Daily)
+      sagaPayloadAction(Type.GetUserTeams, Context.Daily)
     );
 
-    expect(reducer).toBeNull;
+    expect(reducer).toStrictEqual({
+      context: Context.Daily,
+      tasks: [{ type: Type.GetUserTeams, hasSucceeded: undefined }],
+    });
   });
 
   it("should update a task when it failed", () => {

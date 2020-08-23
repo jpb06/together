@@ -1,16 +1,20 @@
-import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
+import {
+  ReduxActionContext as Context,
+  ReduxActionType as Type,
+} from "../../../types/redux";
 import { TeamMember } from "../../../types/shared";
 import { payloadAction, successPayloadAction } from "../../actions";
+import { initialState } from "../../store/root.state";
 import teamMembersReducer from "./team.members.reducer";
 
 describe("Team members reducer", () => {
-  it("should initialize as null", () => {
+  it("should initialize properly", () => {
     const reducer = teamMembersReducer(
       undefined,
       payloadAction("Init" as Type)
     );
 
-    expect(reducer).toBeNull;
+    expect(reducer).toStrictEqual(initialState.teamMembers);
   });
 
   it("should initialize as an empty array at login", () => {

@@ -1,8 +1,10 @@
-import React from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
 import clsx from "clsx";
-import { OverridableComponent } from "@material-ui/core/OverridableComponent";
+import React from "react";
+
 import { SvgIconTypeMap } from "@material-ui/core";
+import { OverridableComponent } from "@material-ui/core/OverridableComponent";
+import withStyles from "@material-ui/core/styles/withStyles";
+
 import styles from "./TopLevelFeedback.styles";
 
 interface TopLevelFeedbackProps {
@@ -16,11 +18,14 @@ const TopLevelFeedback: React.FC<TopLevelFeedbackProps> = ({
   classes,
   title,
   content,
-  Icon
+  Icon,
 }) => {
   return (
     <div className={classes.root}>
-      <Icon className={clsx(classes.errorIcon, classes.spinner)} />
+      <Icon
+        className={clsx(classes.errorIcon, classes.spinner)}
+        titleAccess="feedback-icon"
+      />
       <div className={classes.title}>{title}</div>
       {content}
     </div>

@@ -16,7 +16,7 @@ import { SnackbarKind } from "../../../types/redux";
 import DownTransition from "../transitions/DownTransition";
 import styles from "./AppSnackbar.styles";
 
-const typeToIcon = (type: SnackbarKind) => {
+export const snackbarKindToIcon = (type: SnackbarKind) => {
   switch (type) {
     case SnackbarKind.Success:
       return CheckCircleIcon;
@@ -28,7 +28,8 @@ const typeToIcon = (type: SnackbarKind) => {
       return InfoIcon;
   }
 };
-const typeToClassName = (type: SnackbarKind, classes: any) =>
+
+export const snackbarKindToClassName = (type: SnackbarKind, classes: any) =>
   classes[SnackbarKind[type].toLowerCase()];
 
 const AppSnackbar: React.FC = () => {
@@ -36,7 +37,7 @@ const AppSnackbar: React.FC = () => {
   const dispatch = useDispatch();
   const snackbar = useSelector(snackbarSelector);
 
-  const Icon = typeToIcon(snackbar.type);
+  const Icon = snackbarKindToIcon(snackbar.type);
 
   const closeSnackbar = () => dispatch(clearSnackbarAction());
 
@@ -55,8 +56,10 @@ const AppSnackbar: React.FC = () => {
       open={snackbar.isOpen}
       message={
         <div className={classes.content}>
-          <Icon />
-          <span className={classes.text}>{snackbar.text}</span>
+          <Icon titleAccess="snackbar-icon" />
+          <span role="contentinfo" className={classes.text}>
+            {snackbar.text}
+          </span>
         </div>
       }
       action={[
@@ -71,7 +74,7 @@ const AppSnackbar: React.FC = () => {
       ]}
       ContentProps={{
         classes: {
-          root: clsx(typeToClassName(snackbar.type, classes)),
+          root: clsx(snackbarKindToClassName(snackbar.type, classes)),
         },
       }}
       anchorOrigin={{

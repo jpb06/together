@@ -61,7 +61,7 @@ const AddTeamMembersStepForm: React.FC<AddTeamMembersStepFormProps> = ({
           <Grid item xs={12} md={12} className={classes.container}>
             <Slide direction="up" timeout={500} in mountOnEnter unmountOnExit>
               <ColoredCard
-                color={grey[900]}
+                backgroundColor={grey[900]}
                 children={
                   <>
                     <Grid
@@ -95,7 +95,6 @@ const AddTeamMembersStepForm: React.FC<AddTeamMembersStepFormProps> = ({
                     <FeedbackButton
                       IconComponent={AddCircleIcon}
                       actionText="Send invite"
-                      name="add-user"
                       isErrored={state.isErrored}
                       isPending={state.isLoading}
                       onSubmit={onTeamInviteSent}

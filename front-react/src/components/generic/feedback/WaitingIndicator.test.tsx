@@ -23,8 +23,6 @@ describe("Waiting indicator component", () => {
       <WaitingIndicator text="Yolo" IconComponent={WarningIcon} />
     );
 
-    screen.debug();
-
     expect(container.children[0].className).not.toContain("topPadding");
   });
 

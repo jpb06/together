@@ -43,8 +43,12 @@ describe("Feedback button feedback", () => {
       />
     );
 
-    expect(screen.queryByRole("img", { name: /left-icon/i })).toBeNull();
-    expect(screen.queryByRole("img", { name: /error-icon/i })).toBeNull();
+    expect(
+      screen.queryByRole("img", { name: /left-icon/i })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("img", { name: /error-icon/i })
+    ).not.toBeInTheDocument();
     screen.getByRole("progressbar", { name: "circular-pending" });
   });
 
@@ -59,10 +63,12 @@ describe("Feedback button feedback", () => {
     );
 
     screen.getByRole("img", { name: /error-icon/i });
-    expect(screen.queryByRole("img", { name: /left-icon/i })).toBeNull();
+    expect(
+      screen.queryByRole("img", { name: /left-icon/i })
+    ).not.toBeInTheDocument();
     expect(
       screen.queryByRole("progressbar", { name: "circular-pending" })
-    ).toBeNull();
+    ).not.toBeInTheDocument();
   });
 
   it("should have a button invoking the onSubmit prop", () => {

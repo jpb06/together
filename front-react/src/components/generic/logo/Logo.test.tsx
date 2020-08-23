@@ -41,7 +41,9 @@ describe("Logo component", () => {
   it("should not have a description text by default", () => {
     connectedRender(<Logo color={LogoColor.Primary} />);
 
-    expect(screen.queryByText("A tool for SCRUM teams")).toBeNull();
+    expect(
+      screen.queryByText("A tool for SCRUM teams")
+    ).not.toBeInTheDocument();
   });
 
   it("should have a description text", () => {

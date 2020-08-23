@@ -110,10 +110,10 @@ describe("Login container component", () => {
   it("should report on a pending action", async () => {
     expect(
       screen.queryByRole("progressbar", { name: "linear-pending" })
-    ).toBeNull();
+    ).not.toBeInTheDocument();
     expect(
       screen.queryByRole("progressbar", { name: "circular-pending" })
-    ).toBeNull();
+    ).not.toBeInTheDocument();
 
     const { store } = connectedRender(<LoginContainer />);
 

@@ -103,4 +103,14 @@ describe("User avatar component", () => {
 
     expect(screen.getByRole("img")).not.toHaveClass("makeStyles-big-23");
   });
+
+  it("should display user initials if given", () => {
+    const initials = "YOLO";
+
+    render(
+      <UserAvatar user={{ ...user, avatarName: "", initials: initials }} />
+    );
+
+    expect(screen.getByRole("img").textContent).toBe(initials);
+  });
 });

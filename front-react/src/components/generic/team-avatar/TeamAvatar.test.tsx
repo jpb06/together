@@ -26,7 +26,7 @@ describe("Team avatar component", () => {
     screen.getByText("SC");
   });
 
-  it("should display a big avatar", () => {
+  it("should display a small avatar", () => {
     render(<TeamAvatar team={{ id: "23", name: "Super cool" }} />);
 
     expect(screen.getByRole("img")).not.toHaveClass("makeStyles-big-11");

@@ -20,14 +20,14 @@ const TeamAvatar: React.FC<TeamAvatarProps> = ({
 }) => {
   const classes = styles();
   const theme = useTheme();
+  const color = stringToColor(team.name);
 
-  const [avatarColor] = useState(stringToColor(team.name));
-  const [avatarTextColor] = useState(
-    theme.palette.getContrastText(stringToColor(team.name))
-  );
+  const [avatarColor] = useState(color);
+  const [avatarTextColor] = useState(theme.palette.getContrastText(color));
 
   return (
     <Avatar
+      role="img"
       style={{ backgroundColor: avatarColor, color: avatarTextColor }}
       className={clsx(classes.smallFont, {
         [classes.big]: isBigAvatar,

@@ -34,7 +34,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
   if (user.avatarName && user.avatarName.length !== 0) {
     return (
       <Avatar
-        alt={`${user.firstName} ${user.lastName}`}
+        alt={fullName}
         src={`/static/images/avatars/${user.avatarName}`}
         className={clsx({
           [classes.big]: isBigAvatar,
@@ -45,6 +45,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
   } else {
     return (
       <Avatar
+        role="img"
         style={{ backgroundColor: avatarColor, color: avatarTextColor }}
         className={clsx(classes.smallFont, {
           [classes.big]: isBigAvatar,

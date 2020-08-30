@@ -46,6 +46,7 @@ const UserAvatar: React.FC<UserAvatarProps> = ({
     return (
       <Avatar
         role="img"
+        aria-label={fullName}
         style={{ backgroundColor: avatarColor, color: avatarTextColor }}
         className={clsx(classes.smallFont, {
           [classes.big]: isBigAvatar,

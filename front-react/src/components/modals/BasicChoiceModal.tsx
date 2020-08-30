@@ -8,7 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 
 import SimpleButton from "../generic/buttons/SimpleButton";
-import WaitingIndicator from "../generic/feedback/WaitingIndicator";
+import WaitingIndicator from "../generic/loaders/WaitingIndicator";
 import DownTransition from "../generic/transitions/DownTransition";
 import styles from "./BasicChoiceModal.styles";
 

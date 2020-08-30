@@ -32,7 +32,11 @@ const LoggedInRootContainer: React.FC<LoggedInRootContainerProps> = ({
 
     const token = localStore.get(LocalStorageKeys.token);
     const expirationDate = localStore.get<string>(LocalStorageKeys.expiration);
-    if (!token || !expirationDate || Date.parse(expirationDate) < Date.now()) {
+
+    const hasExpired =
+      !expirationDate || Date.parse(expirationDate) < Date.now();
+
+    if (!token || hasExpired) {
       localStore.clear();
       history.push({
         pathname: "/",
@@ -47,7 +51,7 @@ const LoggedInRootContainer: React.FC<LoggedInRootContainerProps> = ({
   return (
     <>
       <TopMenu />
-      {isLoading && <LinearProgress />}
+      {isLoading && <LinearProgress aria-label="global-progress" />}
       <section className={classes.root}>
         <Grid
           container

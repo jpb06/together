@@ -36,7 +36,7 @@ const TopMenu = () => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" className={classes.appBar}>
+      <AppBar position="static" className={classes.appBar} aria-label="appbar">
         <Toolbar>
           <IconButton
             edge="start"

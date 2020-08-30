@@ -10,7 +10,7 @@ describe("Colored card component", () => {
       <ColoredCard backgroundColor="black" children={<>yolo</>} />
     );
 
-    expect(container.textContent).toBe("yolo");
+    expect(container).toHaveTextContent("yolo");
   });
 
   it("should have the correct background color", () => {

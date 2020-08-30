@@ -60,7 +60,7 @@ describe("User avatar component", () => {
     render(<UserAvatar user={{ ...user, avatarName: "" }} />);
 
     const avatar = screen.getByRole("img");
-    expect(avatar.textContent).toBe(getInitials(fullName));
+    expect(avatar).toHaveTextContent(getInitials(fullName));
   });
 
   it("should be colored depending on user's computed fullName", () => {
@@ -111,6 +111,6 @@ describe("User avatar component", () => {
       <UserAvatar user={{ ...user, avatarName: "", initials: initials }} />
     );
 
-    expect(screen.getByRole("img").textContent).toBe(initials);
+    expect(screen.getByRole("img")).toHaveTextContent(initials);
   });
 });

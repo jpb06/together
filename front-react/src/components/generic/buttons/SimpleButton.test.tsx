@@ -9,7 +9,7 @@ describe("Simple button component", () => {
     const handleClick = () => {};
     render(<SimpleButton text="Button text" onClick={handleClick} />);
 
-    expect(screen.getByRole("button").textContent).toBe("Button text");
+    expect(screen.getByRole("button")).toHaveTextContent("Button text");
   });
 
   it("should be full width", () => {

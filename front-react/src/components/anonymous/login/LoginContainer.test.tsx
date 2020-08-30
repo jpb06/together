@@ -1,7 +1,7 @@
 import React from "react";
 import { mocked } from "ts-jest/utils";
 
-import { screen, waitFor } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { loginAction, payloadAction } from "../../../redux/actions";
@@ -12,8 +12,6 @@ import LoginContainer from "./LoginContainer";
 describe("Login container component", () => {
   it("should contain a link to create an account", () => {
     connectedRender(<LoginContainer />);
-    // logRoles(container);
-    // debug(container);
 
     const mainLink = screen.getByRole("link", {
       name: /together/i,
@@ -26,14 +24,14 @@ describe("Login container component", () => {
   });
 
   it("should have an empty form on init", () => {
-    const { container, debug } = connectedRender(<LoginContainer />);
+    connectedRender(<LoginContainer />);
 
     const emailField = screen.getByLabelText(/email/i);
     const passwordField = screen.getByLabelText(/password/i);
     expect(emailField).toHaveValue("");
     expect(passwordField).toHaveValue("");
     const loginButton = screen.getByRole("button", { name: /login/i });
-    expect(loginButton.children[0].children[1].textContent).toBe("Login");
+    expect(loginButton.children[0].children[1]).toHaveTextContent("Login");
   });
 
   it("should only reset the form if user has not filled email and password fields", () => {
@@ -44,7 +42,7 @@ describe("Login container component", () => {
 
     const loginButton = screen.getByRole("button", { name: /Login/i });
     userEvent.click(loginButton);
-    expect(loginButton.children[0].children[1].textContent).toBe("Login");
+    expect(loginButton.children[0].children[1]).toHaveTextContent("Login");
 
     const dispatchMock = mocked(store.dispatch);
     expect(dispatchMock).toHaveBeenCalledTimes(1);
@@ -62,7 +60,7 @@ describe("Login container component", () => {
     const loginButton = screen.getByRole("button", { name: /Login/i });
     userEvent.click(loginButton);
 
-    await waitFor(() => screen.getByText("Not a valid email"));
+    await screen.findByText("Not a valid email");
 
     const dispatchMock = mocked(store.dispatch);
     expect(dispatchMock).toHaveBeenCalledTimes(3);
@@ -119,7 +117,7 @@ describe("Login container component", () => {
 
     store.dispatch(payloadAction(Type.LoginStatePending));
 
-    await waitFor(() => screen.getByText("Logging in ..."));
+    await screen.findByText("Logging in ...");
 
     screen.getByRole("progressbar", { name: "linear-pending" });
     screen.getByRole("progressbar", { name: "circular-pending" });
@@ -130,6 +128,6 @@ describe("Login container component", () => {
 
     store.dispatch(payloadAction(Type.LoginStateFailed));
 
-    await waitFor(() => screen.getByText("Failure && Try again ?"));
+    await screen.findByText("Failure && Try again ?");
   });
 });

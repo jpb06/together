@@ -11,16 +11,13 @@ import { clearSnackbarAction } from "../../../redux/actions";
 import { initialState } from "../../../redux/store/root.state";
 import { connectedRender } from "../../../redux/test-utils/connected.render.helper";
 import { SnackbarKind } from "../../../types/redux";
-import AppSnackbar, {
-  snackbarKindToClassName,
-  snackbarKindToIcon,
-} from "./AppSnackbar";
+import AppSnackbar, { snackbarKindToClassName, snackbarKindToIcon } from "./AppSnackbar";
 
 describe("App snackbar component", () => {
   it("should not be displayed on init", async () => {
     const { container } = connectedRender(<AppSnackbar />);
 
-    expect(container.textContent).toBe("");
+    expect(container).toHaveTextContent("");
     expect(container.children.length).toBe(0);
   });
 
@@ -36,7 +33,7 @@ describe("App snackbar component", () => {
       },
     });
 
-    expect(screen.getByRole("contentinfo").textContent).toBe("Oh no!");
+    expect(screen.getByRole("contentinfo")).toHaveTextContent("Oh no!");
   });
 
   it("should display an icon", async () => {

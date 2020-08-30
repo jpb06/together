@@ -1,6 +1,6 @@
 import React from "react";
 
-import { logRoles, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
 import { connectedRender } from "../../../redux/test-utils/connected.render.helper";
 import Logo, { LogoColor } from "./Logo";

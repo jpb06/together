@@ -3,11 +3,17 @@ import { Action } from "redux";
 
 import LocalStorageKeys from "../../../logic/local.storage.keys";
 import {
-    AccountCreationState, AccountCreationStep, ActionWithPayload, ReduxActionContext as Context,
-    ReduxActionType as Type
+  AccountCreationState,
+  AccountCreationStep,
+  ActionWithPayload,
+  ReduxActionContext as Context,
+  ReduxActionType as Type,
 } from "../../../types/redux";
 import { BareTeam, TerseUser, User } from "../../../types/shared";
-import { isSagaFor, isSuccessFor } from "../../identifiers/generic.actions.identifiers";
+import {
+  isSagaFor,
+  isSuccessFor,
+} from "../../identifiers/generic.actions.identifiers";
 import { isAccountCreationAction } from "../../identifiers/onboarding.actions.identifier";
 import { initialState } from "../../store/root.state";
 
@@ -20,6 +26,7 @@ const accountCreationStateReducer = (
       ...state,
       step: AccountCreationStep.Avatar,
       actionButtonText: "My teams",
+      isSubmitted: false,
       isLoading: false,
       isErrored: false,
     };
@@ -33,6 +40,7 @@ const accountCreationStateReducer = (
     return {
       ...state,
       step: AccountCreationStep.InviteUsersToTeam,
+      isSubmitted: false,
       isLoading: false,
       isErrored: false,
       newTeamMembers: user
@@ -55,6 +63,7 @@ const accountCreationStateReducer = (
     return {
       ...state,
       step: AccountCreationStep.Completed,
+      isSubmitted: false,
       isLoading: false,
       isErrored: false,
     };
@@ -65,6 +74,7 @@ const accountCreationStateReducer = (
 
     return {
       ...state,
+      isSubmitted: false,
       isLoading: false,
       isErrored: false,
       exitActionText: "I'm done! Bring me to my timeline!",
@@ -88,7 +98,9 @@ const accountCreationStateReducer = (
   }
 
   switch (action.type) {
-    case Type.CreateUserDataSubmitted:
+    case Type.OnboardingReset:
+      return initialState.accountCreationState;
+    case Type.OnboardingFormSubmitted:
       return { ...state, isSubmitted: true };
     case Type.AvatarChosen:
       return {

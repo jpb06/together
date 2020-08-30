@@ -137,6 +137,7 @@ describe("New account container component", () => {
 
   it("should display a loading indicator while creating the account", () => {
     const { store, history } = connectedRender(<NewAccountContainer />);
+    // forced to do it this way because history is used
     store.dispatch(createUserAction(newUser, history, Context.Onboarding));
 
     screen.getByRole("progressbar", { name: "fat-progress" });
@@ -148,14 +149,13 @@ describe("New account container component", () => {
   });
 
   it("should display a default avatar and a next step button", () => {
-    const { store } = connectedRender(<NewAccountContainer />);
-    store.dispatch(
+    const { store } = connectedRender(<NewAccountContainer />, [
       successPayloadAction(
         Type.Login,
         Context.Onboarding,
         addComputedPropertiesToUser(user)
-      )
-    );
+      ),
+    ]);
 
     expect(screen.getByRole("heading")).toHaveTextContent("Avatar selection");
 
@@ -175,18 +175,17 @@ describe("New account container component", () => {
     expect(avatar.parentNode?.nextSibling).toHaveTextContent(user.fullName);
 
     const dispatchMock = mocked(store.dispatch);
-    expect(dispatchMock).toHaveBeenCalledTimes(1);
+    expect(dispatchMock).toHaveBeenCalledTimes(0);
   });
 
   it("should send an action to switch to the team step", async () => {
-    const { store } = connectedRender(<NewAccountContainer />);
-    store.dispatch(
+    const { store } = connectedRender(<NewAccountContainer />, [
       successPayloadAction(
         Type.Login,
         Context.Onboarding,
         addComputedPropertiesToUser(user)
-      )
-    );
+      ),
+    ]);
 
     const myTeamButton = await screen.findByRole("button", {
       name: /My teams/i,
@@ -194,23 +193,21 @@ describe("New account container component", () => {
     userEvent.click(myTeamButton);
 
     const dispatchMock = mocked(store.dispatch);
-    expect(dispatchMock).toHaveBeenCalledTimes(2);
-    expect(dispatchMock).toHaveBeenNthCalledWith(
-      2,
-      payloadAction(Type.AvatarChosen)
-    );
+    expect(dispatchMock).toHaveBeenCalledTimes(1);
+    expect(dispatchMock).toHaveBeenCalledWith(payloadAction(Type.AvatarChosen));
   });
 
-  it("should display a choice to either join or create a team", () => {
-    const { store } = connectedRender(<NewAccountContainer />);
-    store.dispatch(
+  it("should display a choice to either join or create a team", async () => {
+    const { store } = connectedRender(<NewAccountContainer />, [
       successPayloadAction(
         Type.Login,
         Context.Onboarding,
         addComputedPropertiesToUser(user)
-      )
-    );
-    store.dispatch(payloadAction(Type.AvatarChosen));
+      ),
+      payloadAction(Type.AvatarChosen),
+    ]);
+
+    await screen.findByText(/Let's get yourself a team/i);
 
     expect(screen.getByRole("heading")).toHaveTextContent(
       "Let's get yourself a team"
@@ -220,19 +217,18 @@ describe("New account container component", () => {
     screen.getByRole("button", { name: "join-team" });
 
     const dispatchMock = mocked(store.dispatch);
-    expect(dispatchMock).toHaveBeenCalledTimes(2);
+    expect(dispatchMock).toHaveBeenCalledTimes(0);
   });
 
   it("should display a form to create a team", () => {
-    const { store } = connectedRender(<NewAccountContainer />);
-    store.dispatch(
+    const { store } = connectedRender(<NewAccountContainer />, [
       successPayloadAction(
         Type.Login,
         Context.Onboarding,
         addComputedPropertiesToUser(user)
-      )
-    );
-    store.dispatch(payloadAction(Type.AvatarChosen));
+      ),
+      payloadAction(Type.AvatarChosen),
+    ]);
 
     const createTeamButton = screen.getByRole("button", {
       name: "create-team",
@@ -250,19 +246,18 @@ describe("New account container component", () => {
     screen.getByRole("button", { name: /left-icon Create/i });
 
     const dispatchMock = mocked(store.dispatch);
-    expect(dispatchMock).toHaveBeenCalledTimes(2);
+    expect(dispatchMock).toHaveBeenCalledTimes(0);
   });
 
   it("should return to the team choice from create team", () => {
-    const { store } = connectedRender(<NewAccountContainer />);
-    store.dispatch(
+    const { store } = connectedRender(<NewAccountContainer />, [
       successPayloadAction(
         Type.Login,
         Context.Onboarding,
         addComputedPropertiesToUser(user)
-      )
-    );
-    store.dispatch(payloadAction(Type.AvatarChosen));
+      ),
+      payloadAction(Type.AvatarChosen),
+    ]);
 
     const createTeamButton = screen.getByRole("button", {
       name: "create-team",
@@ -282,19 +277,18 @@ describe("New account container component", () => {
     screen.getByRole("button", { name: "join-team" });
 
     const dispatchMock = mocked(store.dispatch);
-    expect(dispatchMock).toHaveBeenCalledTimes(2);
+    expect(dispatchMock).toHaveBeenCalledTimes(0);
   });
 
   it("should display a form to join a team", () => {
-    const { store } = connectedRender(<NewAccountContainer />);
-    store.dispatch(
+    const { store } = connectedRender(<NewAccountContainer />, [
       successPayloadAction(
         Type.Login,
         Context.Onboarding,
         addComputedPropertiesToUser(user)
-      )
-    );
-    store.dispatch(payloadAction(Type.AvatarChosen));
+      ),
+      payloadAction(Type.AvatarChosen),
+    ]);
 
     const joinTeamButton = screen.getByRole("button", {
       name: "join-team",
@@ -312,19 +306,18 @@ describe("New account container component", () => {
     screen.getByRole("button", { name: /left-icon Request to join/i });
 
     const dispatchMock = mocked(store.dispatch);
-    expect(dispatchMock).toHaveBeenCalledTimes(2);
+    expect(dispatchMock).toHaveBeenCalledTimes(0);
   });
 
   it("should return to the team choice from join team", () => {
-    const { store } = connectedRender(<NewAccountContainer />);
-    store.dispatch(
+    const { store } = connectedRender(<NewAccountContainer />, [
       successPayloadAction(
         Type.Login,
         Context.Onboarding,
         addComputedPropertiesToUser(user)
-      )
-    );
-    store.dispatch(payloadAction(Type.AvatarChosen));
+      ),
+      payloadAction(Type.AvatarChosen),
+    ]);
 
     const joinTeamButton = screen.getByRole("button", {
       name: "join-team",
@@ -344,19 +337,18 @@ describe("New account container component", () => {
     screen.getByRole("button", { name: "join-team" });
 
     const dispatchMock = mocked(store.dispatch);
-    expect(dispatchMock).toHaveBeenCalledTimes(2);
+    expect(dispatchMock).toHaveBeenCalledTimes(0);
   });
 
   it("should not create a team if no name was provided", () => {
-    const { store } = connectedRender(<NewAccountContainer />);
-    store.dispatch(
+    const { store } = connectedRender(<NewAccountContainer />, [
       successPayloadAction(
         Type.Login,
         Context.Onboarding,
         addComputedPropertiesToUser(user)
-      )
-    );
-    store.dispatch(payloadAction(Type.AvatarChosen));
+      ),
+      payloadAction(Type.AvatarChosen),
+    ]);
 
     const goToCreateTeamButton = screen.getByRole("button", {
       name: "create-team",
@@ -369,23 +361,21 @@ describe("New account container component", () => {
     userEvent.click(createTeamButton);
 
     const dispatchMock = mocked(store.dispatch);
-    expect(dispatchMock).toHaveBeenCalledTimes(3);
-    expect(dispatchMock).toHaveBeenNthCalledWith(
-      3,
+    expect(dispatchMock).toHaveBeenCalledTimes(1);
+    expect(dispatchMock).toHaveBeenCalledWith(
       payloadAction(Type.OnboardingFormSubmitted)
     );
   });
 
   it("should send an action to create the team", async () => {
-    const { store } = connectedRender(<NewAccountContainer />);
-    store.dispatch(
+    const { store } = connectedRender(<NewAccountContainer />, [
       successPayloadAction(
         Type.Login,
         Context.Onboarding,
         addComputedPropertiesToUser(user)
-      )
-    );
-    store.dispatch(payloadAction(Type.AvatarChosen));
+      ),
+      payloadAction(Type.AvatarChosen),
+    ]);
 
     const goToCreateTeamButton = screen.getByRole("button", {
       name: "create-team",
@@ -402,13 +392,13 @@ describe("New account container component", () => {
     userEvent.click(createTeamButton);
 
     const dispatchMock = mocked(store.dispatch);
-    expect(dispatchMock).toHaveBeenCalledTimes(4);
+    expect(dispatchMock).toHaveBeenCalledTimes(2);
     expect(dispatchMock).toHaveBeenNthCalledWith(
-      3,
+      1,
       payloadAction(Type.OnboardingFormSubmitted)
     );
     expect(dispatchMock).toHaveBeenNthCalledWith(
-      4,
+      2,
       createTeamAction(teamName, Context.Onboarding)
     );
 
@@ -418,15 +408,14 @@ describe("New account container component", () => {
   });
 
   it("should send an action to join a team", () => {
-    const { store, history } = connectedRender(<NewAccountContainer />);
-    store.dispatch(
+    const { store, history } = connectedRender(<NewAccountContainer />, [
       successPayloadAction(
         Type.Login,
         Context.Onboarding,
         addComputedPropertiesToUser(user)
-      )
-    );
-    store.dispatch(payloadAction(Type.AvatarChosen));
+      ),
+      payloadAction(Type.AvatarChosen),
+    ]);
 
     const goToJoinTeamButton = screen.getByRole("button", {
       name: "join-team",
@@ -443,13 +432,13 @@ describe("New account container component", () => {
     userEvent.click(joinTeamButton);
 
     const dispatchMock = mocked(store.dispatch);
-    expect(dispatchMock).toHaveBeenCalledTimes(4);
+    expect(dispatchMock).toHaveBeenCalledTimes(2);
     expect(dispatchMock).toHaveBeenNthCalledWith(
-      3,
+      1,
       payloadAction(Type.OnboardingFormSubmitted)
     );
     expect(dispatchMock).toHaveBeenNthCalledWith(
-      4,
+      2,
       requestToJoinTeamAction(teamName, history, Context.Onboarding)
     );
 
@@ -461,20 +450,18 @@ describe("New account container component", () => {
   it("should display a form to add team members to a new team", async () => {
     mocked(localStore.get).mockImplementationOnce(() => user);
 
-    const { store } = connectedRender(<NewAccountContainer />);
-    store.dispatch(
+    const { store } = connectedRender(<NewAccountContainer />, [
       successPayloadAction(
         Type.Login,
         Context.Onboarding,
         addComputedPropertiesToUser(user)
-      )
-    );
-    store.dispatch(
+      ),
+      payloadAction(Type.AvatarChosen),
       successPayloadAction(Type.CreateTeam, Context.Onboarding, {
         id: "23",
         name: "Yolo",
-      })
-    );
+      }),
+    ]);
 
     await screen.findByText("Add members to your team");
 
@@ -502,7 +489,7 @@ describe("New account container component", () => {
     screen.getByRole("button", { name: /left-icon Send invite/i });
 
     const dispatchMock = mocked(store.dispatch);
-    expect(dispatchMock).toHaveBeenCalledTimes(2);
+    expect(dispatchMock).toHaveBeenCalledTimes(0);
   });
 
   it("should not send an action to invite another user if there is no input", async () => {
@@ -510,20 +497,18 @@ describe("New account container component", () => {
 
     mocked(localStore.get).mockImplementationOnce(() => user);
 
-    const { store } = connectedRender(<NewAccountContainer />);
-    store.dispatch(
+    const { store } = connectedRender(<NewAccountContainer />, [
       successPayloadAction(
         Type.Login,
         Context.Onboarding,
         addComputedPropertiesToUser(user)
-      )
-    );
-    store.dispatch(
+      ),
+      payloadAction(Type.AvatarChosen),
       successPayloadAction(Type.CreateTeam, Context.Onboarding, {
         id: teamId,
         name: "Yolo",
-      })
-    );
+      }),
+    ]);
 
     await screen.findByText("Add members to your team");
 
@@ -535,9 +520,8 @@ describe("New account container component", () => {
     userEvent.click(sendInviteButton);
 
     const dispatchMock = mocked(store.dispatch);
-    expect(dispatchMock).toHaveBeenCalledTimes(3);
-    expect(dispatchMock).toHaveBeenNthCalledWith(
-      3,
+    expect(dispatchMock).toHaveBeenCalledTimes(1);
+    expect(dispatchMock).toHaveBeenCalledWith(
       payloadAction(Type.OnboardingFormSubmitted)
     );
   });
@@ -548,20 +532,18 @@ describe("New account container component", () => {
 
     mocked(localStore.get).mockImplementationOnce(() => user);
 
-    const { store } = connectedRender(<NewAccountContainer />);
-    store.dispatch(
+    const { store } = connectedRender(<NewAccountContainer />, [
       successPayloadAction(
         Type.Login,
         Context.Onboarding,
         addComputedPropertiesToUser(user)
-      )
-    );
-    store.dispatch(
+      ),
+      payloadAction(Type.AvatarChosen),
       successPayloadAction(Type.CreateTeam, Context.Onboarding, {
         id: teamId,
         name: "Yolo",
-      })
-    );
+      }),
+    ]);
 
     await screen.findByText("Add members to your team");
 
@@ -573,13 +555,13 @@ describe("New account container component", () => {
     userEvent.click(sendInviteButton);
 
     const dispatchMock = mocked(store.dispatch);
-    expect(dispatchMock).toHaveBeenCalledTimes(4);
+    expect(dispatchMock).toHaveBeenCalledTimes(2);
     expect(dispatchMock).toHaveBeenNthCalledWith(
-      3,
+      1,
       payloadAction(Type.OnboardingFormSubmitted)
     );
     expect(dispatchMock).toHaveBeenNthCalledWith(
-      4,
+      2,
       inviteUserToTeamAction(teamId, email, Context.Onboarding)
     );
 
@@ -590,20 +572,18 @@ describe("New account container component", () => {
   it("should redirect to the timeline", async () => {
     mocked(localStore.get).mockImplementationOnce(() => user);
 
-    const { store, history } = connectedRender(<NewAccountContainer />);
-    store.dispatch(
+    const { store, history } = connectedRender(<NewAccountContainer />, [
       successPayloadAction(
         Type.Login,
         Context.Onboarding,
         addComputedPropertiesToUser(user)
-      )
-    );
-    store.dispatch(
+      ),
+      payloadAction(Type.AvatarChosen),
       successPayloadAction(Type.CreateTeam, Context.Onboarding, {
         id: "23",
         name: "Yolo",
-      })
-    );
+      }),
+    ]);
 
     await screen.findByText("Add members to your team");
 
@@ -615,9 +595,8 @@ describe("New account container component", () => {
     expect(history.location.pathname).toBe("/main");
 
     const dispatchMock = mocked(store.dispatch);
-    expect(dispatchMock).toHaveBeenCalledTimes(3);
-    expect(dispatchMock).toHaveBeenNthCalledWith(
-      3,
+    expect(dispatchMock).toHaveBeenCalledTimes(1);
+    expect(dispatchMock).toHaveBeenCalledWith(
       payloadAction(Type.OnboardingReset)
     );
   });

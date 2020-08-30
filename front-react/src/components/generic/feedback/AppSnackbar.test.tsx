@@ -7,13 +7,22 @@ import WarningIcon from "@material-ui/icons/Warning";
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { clearSnackbarAction } from "../../../redux/actions";
+import { clearSnackbarAction, payloadAction } from "../../../redux/actions";
 import { initialState } from "../../../redux/store/root.state";
 import { connectedRender } from "../../../redux/test-utils/connected.render.helper";
-import { SnackbarKind } from "../../../types/redux";
-import AppSnackbar, { snackbarKindToClassName, snackbarKindToIcon } from "./AppSnackbar";
+import { ReduxActionType as Type, SnackbarKind } from "../../../types/redux";
+import AppSnackbar, {
+  snackbarKindToClassName,
+  snackbarKindToIcon,
+} from "./AppSnackbar";
 
 describe("App snackbar component", () => {
+  const priorAction = payloadAction(Type.Snackbar, {
+    isOpen: true,
+    type: SnackbarKind.Error,
+    text: "Oh no!",
+  });
+
   it("should not be displayed on init", async () => {
     const { container } = connectedRender(<AppSnackbar />);
 
@@ -22,45 +31,20 @@ describe("App snackbar component", () => {
   });
 
   it("should display a text", async () => {
-    connectedRender(<AppSnackbar />, {
-      state: {
-        ...initialState,
-        snackbar: {
-          isOpen: true,
-          type: SnackbarKind.Error,
-          text: "Oh no!",
-        },
-      },
-    });
+    connectedRender(<AppSnackbar />, [priorAction]);
 
     expect(screen.getByRole("contentinfo")).toHaveTextContent("Oh no!");
   });
 
   it("should display an icon", async () => {
-    connectedRender(<AppSnackbar />, {
-      state: {
-        ...initialState,
-        snackbar: {
-          isOpen: true,
-          type: SnackbarKind.Error,
-          text: "Oh no!",
-        },
-      },
-    });
+    connectedRender(<AppSnackbar />, [priorAction]);
+
     screen.getByRole("img", { name: /snackbar-icon/i });
   });
 
   it("should send an action when closed", async () => {
-    const { store } = connectedRender(<AppSnackbar />, {
-      state: {
-        ...initialState,
-        snackbar: {
-          isOpen: true,
-          type: SnackbarKind.Error,
-          text: "Oh no!",
-        },
-      },
-    });
+    const { store } = connectedRender(<AppSnackbar />, [priorAction]);
+
     userEvent.click(screen.getByRole("button"));
     expect(store.dispatch).toHaveBeenCalledTimes(1);
     expect(store.dispatch).toHaveBeenCalledWith(clearSnackbarAction());
@@ -72,6 +56,7 @@ describe("App snackbar component", () => {
         <button name="yolo">yolo man</button>
         <AppSnackbar />
       </div>,
+      undefined,
       {
         state: {
           ...initialState,

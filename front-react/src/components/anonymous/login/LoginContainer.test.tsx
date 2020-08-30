@@ -113,9 +113,9 @@ describe("Login container component", () => {
       screen.queryByRole("progressbar", { name: "circular-pending" })
     ).not.toBeInTheDocument();
 
-    const { store } = connectedRender(<LoginContainer />);
-
-    store.dispatch(payloadAction(Type.LoginStatePending));
+    connectedRender(<LoginContainer />, [
+      payloadAction(Type.LoginStatePending),
+    ]);
 
     await screen.findByText("Logging in ...");
 
@@ -124,9 +124,7 @@ describe("Login container component", () => {
   });
 
   it("should report on a login failure", async () => {
-    const { store } = connectedRender(<LoginContainer />);
-
-    store.dispatch(payloadAction(Type.LoginStateFailed));
+    connectedRender(<LoginContainer />, [payloadAction(Type.LoginStateFailed)]);
 
     await screen.findByText("Failure && Try again ?");
   });

@@ -2,7 +2,7 @@ import { createMemoryHistory } from "history";
 import React from "react";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
-import { createStore } from "redux";
+import { Action, createStore } from "redux";
 
 import { render as rtlRender, RenderOptions } from "@testing-library/react";
 
@@ -15,10 +15,18 @@ export interface CustomOptions extends RenderOptions {
 
 export function connectedRender(
   ui: React.ReactElement,
+  priorActions?: Array<Action>,
   options?: CustomOptions
 ) {
   // Wrap dispatch in a mock so it can be spied on.
   const store = createStore(rootReducer, options?.state);
+
+  if (priorActions) {
+    for (let i = 0; i < priorActions.length; i++) {
+      store.dispatch(priorActions[i]);
+    }
+  }
+
   store.dispatch = jest.fn(store.dispatch);
   const history = createMemoryHistory();
 

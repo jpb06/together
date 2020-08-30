@@ -47,6 +47,8 @@ const UserAvatarStepForm: React.FC<UserAvatarStepFormProps> = ({
       </Grid>
       <Grid item xs={12} sm={12} className={classes.centered}>
         <Avatar
+          role="img"
+          aria-label="user avatar"
           className={classes.avatar}
           style={{ backgroundColor: avatarColor, color: avatarTextColor }}
         >

@@ -88,7 +88,7 @@ const NewAccount: React.FC<NewAccountProps> = ({
                   state={state}
                   user={loggedUser}
                   onAvatarChosen={onAvatarChosen}
-                />{" "}
+                />
                 <UserTeamStepContainer
                   state={state}
                   onTeamAction={onTeamAction}

@@ -4,7 +4,10 @@ import LoopIcon from "@material-ui/icons/Loop";
 import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
 
 import { useAppStatus } from "../../../hooks";
-import { ApplicationState, ReduxActionContext as Context } from "../../../types/redux";
+import {
+  ApplicationState,
+  ReduxActionContext as Context,
+} from "../../../types/redux";
 import TopLevelFeedback from "../../generic/feedback/TopLevelFeedback";
 import WaitingIndicator from "../../generic/loaders/WaitingIndicator";
 

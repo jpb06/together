@@ -36,7 +36,7 @@ const TicketList: React.FC<TicketListProps> = ({
       className={classes.noDataIcon}
     />
   ) : (
-    <List dense className={classes.fullWidth}>
+    <List dense className={classes.fullWidth} title="Done tickets list">
       {tickets.map((ticket, index) => (
         <Ticket
           key={ticket.name}

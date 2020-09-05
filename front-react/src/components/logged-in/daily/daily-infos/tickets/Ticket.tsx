@@ -38,7 +38,7 @@ const Ticket: React.FC<TicketProps> = ({
   const handleRemoval = () => onTicketDeletion(name);
 
   return (
-    <ListItem divider={showDivider}>
+    <ListItem divider={showDivider} ContainerProps={{ "aria-label": name }}>
       <ListItemAvatar className={classes.avatarContainer}>
         <UserAvatar user={user} />
       </ListItemAvatar>

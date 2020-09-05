@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Select } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
@@ -28,12 +29,14 @@ const NewTicket: React.FC<NewTicketProps> = ({
   });
 
   // Changing input...
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    event: React.ChangeEvent<{ name?: string; value: unknown }>
+  ) => {
     setTicket({
       ...ticket,
-      [event.target.name]:
+      [event.target.name as string]:
         event.target.name === "number"
-          ? event.target.value.replace(/\D/, "")
+          ? (event.target.value as string).replace(/\D/, "")
           : event.target.value,
     });
   };
@@ -60,22 +63,25 @@ const NewTicket: React.FC<NewTicketProps> = ({
     <div>
       <Grid container spacing={0}>
         <Grid item xs={5} sm={!users ? 5 : 4}>
-          <TextField
+          <Select
             fullWidth
-            select
             variant="outlined"
+            placeholder="User"
             label="Key"
             name="key"
             margin="dense"
             value={ticket.key}
             onChange={handleChange}
+            SelectDisplayProps={{
+              "aria-label": "Key",
+            }}
           >
             {staticTickets.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
             ))}
-          </TextField>
+          </Select>
         </Grid>
         <Grid item xs={7} sm={!users ? 7 : 3}>
           <TextField
@@ -87,27 +93,30 @@ const NewTicket: React.FC<NewTicketProps> = ({
             data-numeric-input
             value={ticket.number}
             onChange={handleChange}
-            inputProps={{ pattern: "[0-9]*" }}
+            inputProps={{ pattern: "[0-9]*", "aria-label": "Ticket number" }}
           />
         </Grid>
         {users && (
           <Grid item xs={12} sm={5}>
-            <TextField
+            <Select
               fullWidth
-              select
               variant="outlined"
+              placeholder="User"
               label="User"
               name="userId"
               margin="dense"
               value={ticket.userId}
               onChange={handleChange}
+              SelectDisplayProps={{
+                "aria-label": "User",
+              }}
             >
               {users.map((user) => (
                 <MenuItem key={user.id} value={user.id}>
                   {`${user.firstName} ${user.lastName}`}
                 </MenuItem>
               ))}
-            </TextField>
+            </Select>
           </Grid>
         )}
         <Grid item xs={12} sm={12}>

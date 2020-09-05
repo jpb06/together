@@ -1,8 +1,13 @@
 import {
-    ActionWithPayload, ReduxActionContext, ReduxActionType as Type
+  ActionWithPayload,
+  ReduxActionContext,
+  ReduxActionType as Type,
 } from "../../../types/redux";
 import { Daily } from "../../../types/shared";
-import { isSuccessFor, isSuccessIn } from "../../identifiers/generic.actions.identifiers";
+import {
+  isSuccessFor,
+  isSuccessIn,
+} from "../../identifiers/generic.actions.identifiers";
 import { initialState } from "../../store/root.state";
 
 const dailyReducer = (

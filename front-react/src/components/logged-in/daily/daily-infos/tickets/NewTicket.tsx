@@ -94,6 +94,7 @@ const NewTicket: React.FC<NewTicketProps> = ({
             value={ticket.number}
             onChange={handleChange}
             inputProps={{ pattern: "[0-9]*", "aria-label": "Ticket number" }}
+            style={{ margin: 0 }}
           />
         </Grid>
         {users && (

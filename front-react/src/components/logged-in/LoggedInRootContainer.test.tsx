@@ -5,21 +5,12 @@ import { mocked } from "ts-jest/utils";
 import { logRoles, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
+import { addComputedPropertiesToUser, getInitials } from "../../logic/user.util";
 import {
-  addComputedPropertiesToUser,
-  getInitials,
-} from "../../logic/user.util";
-import {
-  loginAction,
-  payloadAction,
-  sagaPayloadAction,
-  successPayloadAction,
+    loginAction, payloadAction, sagaPayloadAction, successPayloadAction
 } from "../../redux/actions";
-import { connectedRender } from "../../redux/test-utils/connected.render.helper";
-import {
-  ReduxActionContext as Context,
-  ReduxActionType as Type,
-} from "../../types/redux";
+import { connectedRender } from "../../test-utils/redux/connected.render.helper";
+import { ReduxActionContext as Context, ReduxActionType as Type } from "../../types/redux";
 import LoggedInRootContainer from "./LoggedInRootContainer";
 
 jest.mock("local-storage");

@@ -9,47 +9,15 @@ import {
     addDoneTicketAction, removeTicketAction, showSnackbarAction
 } from "../../../../redux/actions";
 import { TicketRemovalType } from "../../../../redux/tasks";
-import { connectedRender } from "../../../../redux/test-utils/connected.render.helper";
-import { selectMaterialUiSelectOption } from "../../../../redux/test-utils/material.ui.helpers";
-import { Daily } from "../../../../types/shared";
+import { dailyMockData } from "../../../../test-utils/mocked-data/daily.mock.data";
+import { teamMembersMockData } from "../../../../test-utils/mocked-data/team.members.mock.data";
+import { connectedRender } from "../../../../test-utils/redux/connected.render.helper";
+import { selectMaterialUiSelectOption } from "../../../../test-utils/redux/material.ui.helpers";
 import DailyDoneTickets from "./DailyDoneTickets";
 
 jest.mock("local-storage");
 
 describe("Daily done tickets component", () => {
-  const daily: Daily = {
-    id: "34",
-    teamId: "23",
-    day: 1,
-    month: 1,
-    year: 2000,
-    doneTickets: [],
-    unforeseenTickets: [],
-    feelings: [],
-    subjects: [],
-    durationIndicator: "0-15",
-  };
-  const teamMembers = [
-    {
-      id: "415",
-      lastName: "Cool",
-      firstName: "Girl",
-      avatarName: "Cool.girl.gif",
-      email: "cool.girl@great.com",
-      status: "Creator",
-      joinDate: new Date().toString(),
-    },
-    {
-      id: "416",
-      lastName: "Cool",
-      firstName: "Man",
-      avatarName: "Cool.man.gif",
-      email: "cool.man@great.com",
-      status: "Member",
-      joinDate: new Date().toString(),
-    },
-  ];
-
   beforeEach(() => {
     mocked(localStore.get).mockImplementationOnce(() => ({
       id: "23",
@@ -70,8 +38,8 @@ describe("Daily done tickets component", () => {
 
     connectedRender(
       <DailyDoneTickets
-        daily={daily}
-        teamMembers={teamMembers}
+        daily={dailyMockData}
+        teamMembers={teamMembersMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
       />
@@ -97,11 +65,8 @@ describe("Daily done tickets component", () => {
 
     connectedRender(
       <DailyDoneTickets
-        daily={{
-          ...daily,
-          doneTickets: [],
-        }}
-        teamMembers={teamMembers}
+        daily={dailyMockData}
+        teamMembers={teamMembersMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
       />
@@ -117,7 +82,7 @@ describe("Daily done tickets component", () => {
     ).not.toBeInTheDocument();
     expect(
       screen.queryByRole("img", {
-        name: `${teamMembers[0].firstName} ${teamMembers[0].lastName}`,
+        name: `${teamMembersMockData[0].firstName} ${teamMembersMockData[0].lastName}`,
       })
     ).not.toBeInTheDocument();
     expect(
@@ -139,17 +104,17 @@ describe("Daily done tickets component", () => {
     connectedRender(
       <DailyDoneTickets
         daily={{
-          ...daily,
+          ...dailyMockData,
           doneTickets: [
             {
               id: "326",
-              assignee: teamMembers[0],
-              creator: teamMembers[0],
+              assignee: teamMembersMockData[0],
+              creator: teamMembersMockData[0],
               name: "WEB-400",
             },
           ],
         }}
-        teamMembers={teamMembers}
+        teamMembers={teamMembersMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
       />
@@ -160,7 +125,7 @@ describe("Daily done tickets component", () => {
     expect(screen.getAllByRole("listitem")).toHaveLength(1);
     screen.getByRole("listitem", { name: "WEB-400" });
     screen.getByRole("img", {
-      name: `${teamMembers[0].firstName} ${teamMembers[0].lastName}`,
+      name: `${teamMembersMockData[0].firstName} ${teamMembersMockData[0].lastName}`,
     });
     screen.getByRole("button", { name: "delete" });
   });
@@ -179,23 +144,23 @@ describe("Daily done tickets component", () => {
     connectedRender(
       <DailyDoneTickets
         daily={{
-          ...daily,
+          ...dailyMockData,
           doneTickets: [
             {
               id: "326",
-              assignee: teamMembers[0],
-              creator: teamMembers[0],
+              assignee: teamMembersMockData[0],
+              creator: teamMembersMockData[0],
               name: "WEB-400",
             },
             {
               id: "327",
-              assignee: teamMembers[1],
-              creator: teamMembers[1],
+              assignee: teamMembersMockData[1],
+              creator: teamMembersMockData[1],
               name: "WEB-800",
             },
           ],
         }}
-        teamMembers={teamMembers}
+        teamMembers={teamMembersMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
       />
@@ -207,10 +172,10 @@ describe("Daily done tickets component", () => {
     screen.getByRole("listitem", { name: "WEB-400" });
     screen.getByRole("listitem", { name: "WEB-800" });
     screen.getByRole("img", {
-      name: `${teamMembers[0].firstName} ${teamMembers[0].lastName}`,
+      name: `${teamMembersMockData[0].firstName} ${teamMembersMockData[0].lastName}`,
     });
     screen.getByRole("img", {
-      name: `${teamMembers[1].firstName} ${teamMembers[1].lastName}`,
+      name: `${teamMembersMockData[1].firstName} ${teamMembersMockData[1].lastName}`,
     });
     expect(screen.getAllByRole("button", { name: "delete" })).toHaveLength(2);
   });
@@ -229,17 +194,17 @@ describe("Daily done tickets component", () => {
     const { store } = connectedRender(
       <DailyDoneTickets
         daily={{
-          ...daily,
+          ...dailyMockData,
           doneTickets: [
             {
               id: "326",
-              assignee: teamMembers[0],
-              creator: teamMembers[0],
+              assignee: teamMembersMockData[0],
+              creator: teamMembersMockData[0],
               name: "WEB-400",
             },
           ],
         }}
-        teamMembers={teamMembers}
+        teamMembers={teamMembersMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
       />
@@ -266,17 +231,17 @@ describe("Daily done tickets component", () => {
     const { store } = connectedRender(
       <DailyDoneTickets
         daily={{
-          ...daily,
+          ...dailyMockData,
           doneTickets: [
             {
               id: "326",
-              assignee: teamMembers[0],
-              creator: teamMembers[0],
+              assignee: teamMembersMockData[0],
+              creator: teamMembersMockData[0],
               name: "WEB-400",
             },
           ],
         }}
-        teamMembers={teamMembers}
+        teamMembers={teamMembersMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
       />
@@ -290,7 +255,7 @@ describe("Daily done tickets component", () => {
     expect(mockedDispatch).toHaveBeenCalledWith(
       removeTicketAction(
         TicketRemovalType.Done,
-        daily.teamId,
+        dailyMockData.teamId,
         new Date().toUTCString(),
         "WEB-400"
       )
@@ -310,11 +275,8 @@ describe("Daily done tickets component", () => {
 
     const { store } = connectedRender(
       <DailyDoneTickets
-        daily={{
-          ...daily,
-          doneTickets: [],
-        }}
-        teamMembers={teamMembers}
+        daily={dailyMockData}
+        teamMembers={teamMembersMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
       />
@@ -328,7 +290,7 @@ describe("Daily done tickets component", () => {
     const userSelect = await screen.findByRole("button", { name: "User" });
     await selectMaterialUiSelectOption(
       userSelect,
-      `${teamMembers[0].firstName} ${teamMembers[0].lastName}`,
+      `${teamMembersMockData[0].firstName} ${teamMembersMockData[0].lastName}`,
       "User select"
     );
     const ticketNumberTextbox = screen.getByRole("textbox", {
@@ -356,8 +318,8 @@ describe("Daily done tickets component", () => {
 
     const { store } = connectedRender(
       <DailyDoneTickets
-        daily={daily}
-        teamMembers={teamMembers}
+        daily={dailyMockData}
+        teamMembers={teamMembersMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
       />
@@ -375,7 +337,7 @@ describe("Daily done tickets component", () => {
     const userSelect = await screen.findByRole("button", { name: "User" });
     await selectMaterialUiSelectOption(
       userSelect,
-      `${teamMembers[0].firstName} ${teamMembers[0].lastName}`,
+      `${teamMembersMockData[0].firstName} ${teamMembersMockData[0].lastName}`,
       "User select"
     );
     userEvent.type(ticketNumberTextbox, number);
@@ -387,8 +349,8 @@ describe("Daily done tickets component", () => {
     expect(mockedDispatch).toHaveBeenCalledTimes(1);
     expect(mockedDispatch).toHaveBeenCalledWith(
       addDoneTicketAction(
-        daily.teamId,
-        teamMembers[0].email,
+        dailyMockData.teamId,
+        teamMembersMockData[0].email,
         new Date().toUTCString(),
         `${key}-${number}`
       )
@@ -409,16 +371,16 @@ describe("Daily done tickets component", () => {
     const { store } = connectedRender(
       <DailyDoneTickets
         daily={{
-          ...daily,
+          ...dailyMockData,
           unforeseenTickets: [
             {
               id: "326",
-              creator: teamMembers[0],
+              creator: teamMembersMockData[0],
               name: "WEB-400",
             },
           ],
         }}
-        teamMembers={teamMembers}
+        teamMembers={teamMembersMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
       />
@@ -436,7 +398,7 @@ describe("Daily done tickets component", () => {
     const userSelect = await screen.findByRole("button", { name: "User" });
     await selectMaterialUiSelectOption(
       userSelect,
-      `${teamMembers[0].firstName} ${teamMembers[0].lastName}`,
+      `${teamMembersMockData[0].firstName} ${teamMembersMockData[0].lastName}`,
       "User select"
     );
 
@@ -453,7 +415,9 @@ describe("Daily done tickets component", () => {
   });
 
   it("should not create a ticket if assignee does not exist", async () => {
-    teamMembers.find = jest.fn().mockImplementationOnce(() => undefined);
+    teamMembersMockData.find = jest
+      .fn()
+      .mockImplementationOnce(() => undefined);
 
     const addActionFeedback = {
       isPending: false,
@@ -467,8 +431,8 @@ describe("Daily done tickets component", () => {
 
     const { store } = connectedRender(
       <DailyDoneTickets
-        daily={daily}
-        teamMembers={teamMembers}
+        daily={dailyMockData}
+        teamMembers={teamMembersMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
       />
@@ -482,7 +446,7 @@ describe("Daily done tickets component", () => {
     const userSelect = await screen.findByRole("button", { name: "User" });
     await selectMaterialUiSelectOption(
       userSelect,
-      `${teamMembers[0].firstName} ${teamMembers[0].lastName}`,
+      `${teamMembersMockData[0].firstName} ${teamMembersMockData[0].lastName}`,
       "User select"
     );
     const ticketNumberTextbox = screen.getByRole("textbox", {

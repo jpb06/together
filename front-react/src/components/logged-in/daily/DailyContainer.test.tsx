@@ -2,19 +2,10 @@ import React from "react";
 
 import { screen } from "@testing-library/react";
 
-import {
-  addComputedPropertiesToUser,
-  getInitials,
-} from "../../../logic/user.util";
-import {
-  sagaPayloadAction,
-  successPayloadAction,
-} from "../../../redux/actions";
-import { connectedRender } from "../../../redux/test-utils/connected.render.helper";
-import {
-  ReduxActionContext as Context,
-  ReduxActionType as Type,
-} from "../../../types/redux";
+import { addComputedPropertiesToUser, getInitials } from "../../../logic/user.util";
+import { sagaPayloadAction, successPayloadAction } from "../../../redux/actions";
+import { connectedRender } from "../../../test-utils/redux/connected.render.helper";
+import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import { Daily } from "../../../types/shared";
 import DailyContainer from "./DailyContainer";
 

@@ -5,7 +5,7 @@ import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { loginAction, payloadAction } from "../../../redux/actions";
-import { connectedRender } from "../../../redux/test-utils/connected.render.helper";
+import { connectedRender } from "../../../test-utils/redux/connected.render.helper";
 import { ReduxActionType as Type } from "../../../types/redux";
 import LoginContainer from "./LoginContainer";
 

@@ -2,7 +2,7 @@ import React from "react";
 
 import { screen } from "@testing-library/react";
 
-import { connectedRender } from "../../../../redux/test-utils/connected.render.helper";
+import { connectedRender } from "../../../../test-utils/redux/connected.render.helper";
 import { Daily } from "../../../../types/shared";
 import DailyDuration from "../daily-infos/DailyDuration";
 import DailyReportContentBox from "./DailyReportContentBox";

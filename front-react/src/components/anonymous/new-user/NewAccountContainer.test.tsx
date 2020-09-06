@@ -7,23 +7,13 @@ import { logRoles, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { stringToColor } from "../../../logic/colors.util";
+import { addComputedPropertiesToUser, getInitials } from "../../../logic/user.util";
 import {
-  addComputedPropertiesToUser,
-  getInitials,
-} from "../../../logic/user.util";
-import {
-  createTeamAction,
-  createUserAction,
-  inviteUserToTeamAction,
-  payloadAction,
-  requestToJoinTeamAction,
-  successPayloadAction,
+    createTeamAction, createUserAction, inviteUserToTeamAction, payloadAction,
+    requestToJoinTeamAction, successPayloadAction
 } from "../../../redux/actions";
-import { connectedRender } from "../../../redux/test-utils/connected.render.helper";
-import {
-  ReduxActionContext as Context,
-  ReduxActionType as Type,
-} from "../../../types/redux";
+import { connectedRender } from "../../../test-utils/redux/connected.render.helper";
+import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import NewAccountContainer from "./NewAccountContainer";
 
 jest.mock("local-storage");

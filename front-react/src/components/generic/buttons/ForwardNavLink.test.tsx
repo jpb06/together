@@ -1,8 +1,8 @@
 import React from "react";
 
-import { logRoles, render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 
-import { connectedRender } from "../../../redux/test-utils/connected.render.helper";
+import { connectedRender } from "../../../test-utils/redux/connected.render.helper";
 import ForwardNavLink from "./ForwardNavLink";
 
 describe("Forward nav link component", () => {

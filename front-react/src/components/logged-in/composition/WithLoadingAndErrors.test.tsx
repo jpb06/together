@@ -3,7 +3,7 @@ import React from "react";
 import { screen } from "@testing-library/react";
 
 import { getTimelineAction, showErrorAction, successPayloadAction } from "../../../redux/actions";
-import { connectedRender } from "../../../redux/test-utils/connected.render.helper";
+import { connectedRender } from "../../../test-utils/redux/connected.render.helper";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import WithLoadingAndErrors from "./WithLoadingAndErrors";
 

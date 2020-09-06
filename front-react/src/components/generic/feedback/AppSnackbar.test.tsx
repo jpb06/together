@@ -9,12 +9,9 @@ import userEvent from "@testing-library/user-event";
 
 import { clearSnackbarAction, payloadAction } from "../../../redux/actions";
 import { initialState } from "../../../redux/store/root.state";
-import { connectedRender } from "../../../redux/test-utils/connected.render.helper";
+import { connectedRender } from "../../../test-utils/redux/connected.render.helper";
 import { ReduxActionType as Type, SnackbarKind } from "../../../types/redux";
-import AppSnackbar, {
-  snackbarKindToClassName,
-  snackbarKindToIcon,
-} from "./AppSnackbar";
+import AppSnackbar, { snackbarKindToClassName, snackbarKindToIcon } from "./AppSnackbar";
 
 describe("App snackbar component", () => {
   const priorAction = payloadAction(Type.Snackbar, {

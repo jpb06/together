@@ -2,7 +2,7 @@ import React from "react";
 
 import { screen } from "@testing-library/react";
 
-import { connectedRender } from "../../../redux/test-utils/connected.render.helper";
+import { connectedRender } from "../../../test-utils/redux/connected.render.helper";
 import Logo, { LogoColor } from "./Logo";
 
 describe("Logo component", () => {

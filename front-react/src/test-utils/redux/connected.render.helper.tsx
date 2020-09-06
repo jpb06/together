@@ -6,8 +6,8 @@ import { Action, createStore } from "redux";
 
 import { render as rtlRender, RenderOptions } from "@testing-library/react";
 
-import rootReducer from "../reducers";
-import { RootState } from "../store/root.state";
+import rootReducer from "../../redux/reducers";
+import { RootState } from "../../redux/store/root.state";
 
 export interface CustomOptions extends RenderOptions {
   state: RootState;

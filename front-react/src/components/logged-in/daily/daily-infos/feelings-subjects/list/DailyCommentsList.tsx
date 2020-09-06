@@ -32,7 +32,7 @@ const DailyCommentsList: React.FC<DailyCommentsListProps> = ({
       className={classes.noDataIcon}
     />
   ) : (
-    <List dense className={classes.fullWidth}>
+    <List dense className={classes.fullWidth} title={`${type} list`}>
       {list.map((item, index) => (
         <DailyComment
           key={item.id}

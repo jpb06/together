@@ -45,9 +45,6 @@ const DailyFeelings: React.FC<DailyFeelingsProps> = ({
   };
 
   const handleFeelingDeletion = (id: string) => {
-    // Only one feeling deletion action at a time
-    if (deleteActionFeedback.isPending) return;
-
     dispatch(
       removeDetailsAction(
         DetailsRemovalType.Feelings,

@@ -13,8 +13,8 @@ import FeedbackButton from "../../../../../generic/buttons/FeedbackButton";
 import DailyComment from "../DailyComment";
 
 export enum NewDailyCommentKind {
-  Subject,
-  Feeling,
+  Subject = "Subjects",
+  Feeling = "Feelings",
 }
 
 export interface NewDailyCommentType {
@@ -99,6 +99,7 @@ const NewDailyComment: React.FC<NewDailyCommentProps> = ({
             name="text"
             margin="dense"
             value={comment.text}
+            inputProps={{ "aria-label": "Comment" }}
             onChange={handleChange}
           />
         </Grid>

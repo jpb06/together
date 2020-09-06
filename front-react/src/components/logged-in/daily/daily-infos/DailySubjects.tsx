@@ -45,9 +45,6 @@ const DailySubjects: React.FC<DailySubjectsProps> = ({
   };
 
   const handleSubjectDeletion = async (id: string) => {
-    // Only one subject deletion action at a time
-    if (deleteActionFeedback.isPending) return;
-
     dispatch(
       removeDetailsAction(
         DetailsRemovalType.Subjects,

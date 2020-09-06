@@ -41,7 +41,7 @@ const DailyCommentItem: React.FC<DailyCommentItemProps> = ({
       : (item as Subject).description;
 
   return (
-    <ListItem divider={showDivider}>
+    <ListItem divider={showDivider} ContainerProps={{ "aria-label": itemText }}>
       <ListItemAvatar className={classes.avatarContainer}>
         <UserAvatar isBigAvatar={false} user={item.creator} />
       </ListItemAvatar>

@@ -48,7 +48,7 @@ const NewTicket: React.FC<NewTicketProps> = ({
     if (isValidNumber && ((users && ticket.userId !== "") || !users)) {
       onTicketCreation({
         key: ticket.key,
-        number: parseInt(ticket.number),
+        number: parseInt(ticket.number, 10),
         userId: ticket.userId,
       });
       setTicket({

@@ -73,7 +73,7 @@ describe("Daily done tickets component", () => {
     );
 
     expect(
-      screen.queryByRole("list", { name: "Done tickets list" })
+      screen.queryByRole("list", { name: "Tickets list" })
     ).not.toBeInTheDocument();
 
     expect(screen.queryAllByRole("listitem")).toHaveLength(0);
@@ -120,7 +120,7 @@ describe("Daily done tickets component", () => {
       />
     );
 
-    screen.getByRole("list", { name: "Done tickets list" });
+    screen.getByRole("list", { name: "Tickets list" });
 
     expect(screen.getAllByRole("listitem")).toHaveLength(1);
     screen.getByRole("listitem", { name: "WEB-400" });
@@ -166,7 +166,7 @@ describe("Daily done tickets component", () => {
       />
     );
 
-    screen.getByRole("list", { name: "Done tickets list" });
+    screen.getByRole("list", { name: "Tickets list" });
 
     expect(screen.getAllByRole("listitem")).toHaveLength(2);
     screen.getByRole("listitem", { name: "WEB-400" });
@@ -376,6 +376,64 @@ describe("Daily done tickets component", () => {
             {
               id: "326",
               creator: teamMembersMockData[0],
+              name: "WEB-400",
+            },
+          ],
+        }}
+        teamMembers={teamMembersMockData}
+        addActionFeedback={addActionFeedback}
+        deleteActionFeedback={deleteActionFeedback}
+      />
+    );
+
+    const ticketNumberTextbox = screen.getByRole("textbox", {
+      name: "Ticket number",
+    });
+
+    const key = "WEB";
+    const number = "400";
+
+    const keySelect = screen.getByRole("button", { name: "Key" });
+    await selectMaterialUiSelectOption(keySelect, key, "Key select");
+    const userSelect = await screen.findByRole("button", { name: "User" });
+    await selectMaterialUiSelectOption(
+      userSelect,
+      `${teamMembersMockData[0].firstName} ${teamMembersMockData[0].lastName}`,
+      "User select"
+    );
+
+    userEvent.type(ticketNumberTextbox, number);
+
+    const addButton = screen.getByRole("button", { name: "left-icon Add" });
+    userEvent.click(addButton);
+
+    const mockedDispatch = mocked(store.dispatch);
+    expect(mockedDispatch).toHaveBeenCalledTimes(1);
+    expect(mockedDispatch).toHaveBeenCalledWith(
+      showSnackbarAction(`The ticket ${key}-${number} has already been added`)
+    );
+  });
+
+  it("should not create a ticket if it already exists as done", async () => {
+    const addActionFeedback = {
+      isPending: false,
+      isErrored: false,
+      text: "Add",
+    };
+    const deleteActionFeedback = {
+      isPending: false,
+      term: "",
+    };
+
+    const { store } = connectedRender(
+      <DailyDoneTickets
+        daily={{
+          ...dailyMockData,
+          doneTickets: [
+            {
+              id: "326",
+              creator: teamMembersMockData[0],
+              assignee: teamMembersMockData[1],
               name: "WEB-400",
             },
           ],

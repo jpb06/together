@@ -46,7 +46,10 @@ const DailyDoneTickets: React.FC<DailyDoneTicketsProps> = ({
       return;
     }
 
-    if (daily.unforeseenTickets.find((el) => el.name === name)) {
+    if (
+      daily.unforeseenTickets.find((el) => el.name === name) ||
+      daily.doneTickets.find((el) => el.name === name)
+    ) {
       dispatch(showSnackbarAction(`The ticket ${name} has already been added`));
       return;
     }

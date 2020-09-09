@@ -2,21 +2,22 @@ import * as localStore from "local-storage";
 import React from "react";
 import { mocked } from "ts-jest/utils";
 
-import { logRoles, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
-import { addSubjectAction, removeDetailsAction } from "../../../../redux/actions";
-import { DetailsRemovalType } from "../../../../redux/tasks";
+import {
+    addUnforeseenTicketAction, removeTicketAction, showSnackbarAction
+} from "../../../../redux/actions";
+import { TicketRemovalType } from "../../../../redux/tasks";
 import { dailyMockData } from "../../../../test-utils/mocked-data/daily.mock.data";
 import { teamMembersMockData } from "../../../../test-utils/mocked-data/team.members.mock.data";
 import { connectedRender } from "../../../../test-utils/redux/connected.render.helper";
 import { selectMaterialUiSelectOption } from "../../../../test-utils/redux/material.ui.helpers";
-import { SubjectKind } from "../../../../types/shared";
-import DailySubjects from "./DailySubjects";
+import DailyUnforeseenTickets from "./DailyUnforeseenTickets";
 
 jest.mock("local-storage");
 
-describe("Daily subjects component", () => {
+describe("Daily done tickets component", () => {
   beforeEach(() => {
     mocked(localStore.get).mockImplementationOnce(() => ({
       id: "23",
@@ -24,7 +25,7 @@ describe("Daily subjects component", () => {
     }));
   });
 
-  it("should display a form to add a subject", () => {
+  it("should display a form to add a ticket", () => {
     const addActionFeedback = {
       isPending: false,
       isErrored: false,
@@ -36,20 +37,20 @@ describe("Daily subjects component", () => {
     };
 
     connectedRender(
-      <DailySubjects
+      <DailyUnforeseenTickets
         daily={dailyMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
       />
     );
 
-    screen.getByRole("button", { name: "Drive" });
-    screen.getByRole("textbox", { name: "Comment" });
+    screen.getByRole("button", { name: "Key" });
+    screen.getByRole("textbox", { name: "Ticket number" });
 
     screen.getByRole("button", { name: "left-icon Add" });
   });
 
-  it("should display an empty list of subjects", () => {
+  it("should display an empty list of tickets", () => {
     const addActionFeedback = {
       isPending: false,
       isErrored: false,
@@ -61,7 +62,7 @@ describe("Daily subjects component", () => {
     };
 
     connectedRender(
-      <DailySubjects
+      <DailyUnforeseenTickets
         daily={dailyMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
@@ -69,14 +70,19 @@ describe("Daily subjects component", () => {
     );
 
     expect(
-      screen.queryByRole("list", { name: "Subjects list" })
+      screen.queryByRole("list", { name: "Tickets list" })
     ).not.toBeInTheDocument();
 
     expect(screen.queryAllByRole("listitem")).toHaveLength(0);
-    expect(screen.queryAllByRole("button", { name: "delete" })).toHaveLength(0);
+    expect(
+      screen.queryByRole("listitem", { name: "WEB-400" })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "delete" })
+    ).not.toBeInTheDocument();
   });
 
-  it("should display one subject", () => {
+  it("should display one ticket", () => {
     const addActionFeedback = {
       isPending: false,
       isErrored: false,
@@ -88,15 +94,14 @@ describe("Daily subjects component", () => {
     };
 
     connectedRender(
-      <DailySubjects
+      <DailyUnforeseenTickets
         daily={{
           ...dailyMockData,
-          subjects: [
+          unforeseenTickets: [
             {
               id: "326",
-              type: SubjectKind.Risk,
               creator: teamMembersMockData[0],
-              description: "We're in the poopoo",
+              name: "WEB-400",
             },
           ],
         }}
@@ -105,20 +110,17 @@ describe("Daily subjects component", () => {
       />
     );
 
-    screen.getByRole("list", { name: "Subjects list" });
+    screen.getByRole("list", { name: "Tickets list" });
 
     expect(screen.getAllByRole("listitem")).toHaveLength(1);
-    screen.getByRole("listitem", { name: "We're in the poopoo" });
+    screen.getByRole("listitem", { name: "WEB-400" });
     screen.getByRole("img", {
       name: `${teamMembersMockData[0].firstName} ${teamMembersMockData[0].lastName}`,
-    });
-    screen.getByRole("img", {
-      name: "Risk icon",
     });
     screen.getByRole("button", { name: "delete" });
   });
 
-  it("should display two subjects", () => {
+  it("should display two tickets", () => {
     const addActionFeedback = {
       isPending: false,
       isErrored: false,
@@ -130,21 +132,19 @@ describe("Daily subjects component", () => {
     };
 
     connectedRender(
-      <DailySubjects
+      <DailyUnforeseenTickets
         daily={{
           ...dailyMockData,
-          subjects: [
+          unforeseenTickets: [
             {
               id: "326",
-              type: SubjectKind.Risk,
               creator: teamMembersMockData[0],
-              description: "We're in the poopoo",
+              name: "WEB-400",
             },
             {
               id: "327",
-              type: SubjectKind.Goal,
               creator: teamMembersMockData[1],
-              description: "Let's do stuffs",
+              name: "WEB-401",
             },
           ],
         }}
@@ -153,27 +153,21 @@ describe("Daily subjects component", () => {
       />
     );
 
-    screen.getByRole("list", { name: "Subjects list" });
+    screen.getByRole("list", { name: "Tickets list" });
 
     expect(screen.getAllByRole("listitem")).toHaveLength(2);
-    screen.getByRole("listitem", { name: "We're in the poopoo" });
-    screen.getByRole("listitem", { name: "Let's do stuffs" });
+    screen.getByRole("listitem", { name: "WEB-400" });
+    screen.getByRole("listitem", { name: "WEB-401" });
     screen.getByRole("img", {
       name: `${teamMembersMockData[0].firstName} ${teamMembersMockData[0].lastName}`,
     });
     screen.getByRole("img", {
       name: `${teamMembersMockData[1].firstName} ${teamMembersMockData[1].lastName}`,
     });
-    screen.getByRole("img", {
-      name: "Risk icon",
-    });
-    screen.getByRole("img", {
-      name: "Goal icon",
-    });
     expect(screen.getAllByRole("button", { name: "delete" })).toHaveLength(2);
   });
 
-  it("should not send an action if a subject is already being deleted", () => {
+  it("should not send an action if a ticket is already being deleted", () => {
     const addActionFeedback = {
       isPending: false,
       isErrored: false,
@@ -185,15 +179,14 @@ describe("Daily subjects component", () => {
     };
 
     const { store } = connectedRender(
-      <DailySubjects
+      <DailyUnforeseenTickets
         daily={{
           ...dailyMockData,
-          subjects: [
+          unforeseenTickets: [
             {
               id: "326",
-              type: SubjectKind.Risk,
               creator: teamMembersMockData[0],
-              description: "We're in the poopoo",
+              name: "WEB-400",
             },
           ],
         }}
@@ -202,14 +195,14 @@ describe("Daily subjects component", () => {
       />
     );
 
-    const deleteButton = screen.getByRole("button", { name: "delete-icon" });
+    const deleteButton = screen.getByRole("button", { name: "delete" });
     userEvent.click(deleteButton);
 
     const mockedDispatch = mocked(store.dispatch);
     expect(mockedDispatch).toHaveBeenCalledTimes(0);
   });
 
-  it("should send an action to delete a subject", () => {
+  it("should send an action to delete a ticket", () => {
     const addActionFeedback = {
       isPending: false,
       isErrored: false,
@@ -221,15 +214,14 @@ describe("Daily subjects component", () => {
     };
 
     const { store } = connectedRender(
-      <DailySubjects
+      <DailyUnforeseenTickets
         daily={{
           ...dailyMockData,
-          subjects: [
+          unforeseenTickets: [
             {
               id: "326",
-              type: SubjectKind.Risk,
               creator: teamMembersMockData[0],
-              description: "We're in the poopoo",
+              name: "WEB-400",
             },
           ],
         }}
@@ -244,20 +236,20 @@ describe("Daily subjects component", () => {
     const mockedDispatch = mocked(store.dispatch);
     expect(mockedDispatch).toHaveBeenCalledTimes(1);
     expect(mockedDispatch).toHaveBeenCalledWith(
-      removeDetailsAction(
-        DetailsRemovalType.Subjects,
-        "23",
+      removeTicketAction(
+        TicketRemovalType.Unforeseen,
+        dailyMockData.teamId,
         new Date().toUTCString(),
-        "326"
+        "WEB-400"
       )
     );
   });
 
-  it("should not send an action if a subject is already being created", async () => {
+  it("should not send an action if a ticket is already being created", async () => {
     const addActionFeedback = {
       isPending: true,
       isErrored: false,
-      text: "Adding subject...",
+      text: "Adding ticket...",
     };
     const deleteActionFeedback = {
       isPending: false,
@@ -265,60 +257,31 @@ describe("Daily subjects component", () => {
     };
 
     const { store } = connectedRender(
-      <DailySubjects
+      <DailyUnforeseenTickets
         daily={dailyMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
       />
     );
 
-    const select = screen.getByRole("button", { name: "Drive" });
-    await selectMaterialUiSelectOption(select, "Goal", "subject type select");
-    const commentTextbox = screen.getByRole("textbox", {
-      name: "Comment",
-    });
-    userEvent.type(commentTextbox, "I want to be great");
+    const key = "WEB";
+    const number = "400";
 
-    const addButton = screen.getByRole("button", { name: "Adding subject..." });
+    const keySelect = screen.getByRole("button", { name: "Key" });
+    await selectMaterialUiSelectOption(keySelect, key, "Key select");
+    const ticketNumberTextbox = screen.getByRole("textbox", {
+      name: "Ticket number",
+    });
+    userEvent.type(ticketNumberTextbox, number);
+
+    const addButton = screen.getByRole("button", { name: "Adding ticket..." });
     userEvent.click(addButton);
 
     const mockedDispatch = mocked(store.dispatch);
     expect(mockedDispatch).toHaveBeenCalledTimes(0);
   });
 
-  it("should not create a subject if no description has been typed", async () => {
-    const addActionFeedback = {
-      isPending: false,
-      isErrored: false,
-      text: "Add",
-    };
-    const deleteActionFeedback = {
-      isPending: true,
-      term: "326",
-    };
-
-    const { store } = connectedRender(
-      <DailySubjects
-        daily={dailyMockData}
-        addActionFeedback={addActionFeedback}
-        deleteActionFeedback={deleteActionFeedback}
-      />
-    );
-
-    const select = screen.getByRole("button", { name: "Drive" });
-    await selectMaterialUiSelectOption(select, "Goal", "subject type select");
-    const descriptionTextbox = screen.getByRole("textbox", {
-      name: "Comment",
-    });
-
-    const addButton = screen.getByRole("button", { name: "left-icon Add" });
-    userEvent.click(addButton);
-
-    const mockedDispatch = mocked(store.dispatch);
-    expect(mockedDispatch).toHaveBeenCalledTimes(0);
-  });
-
-  it("should send an action to create a subject", async () => {
+  it("should send an action to create a ticket", async () => {
     const addActionFeedback = {
       isPending: false,
       isErrored: false,
@@ -330,21 +293,23 @@ describe("Daily subjects component", () => {
     };
 
     const { store } = connectedRender(
-      <DailySubjects
+      <DailyUnforeseenTickets
         daily={dailyMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
       />
     );
 
-    const description = "I want to be great";
-
-    const select = screen.getByRole("button", { name: "Drive" });
-    await selectMaterialUiSelectOption(select, "Goal", "subject type select");
-    const descriptionTextbox = screen.getByRole("textbox", {
-      name: "Comment",
+    const ticketNumberTextbox = screen.getByRole("textbox", {
+      name: "Ticket number",
     });
-    userEvent.type(descriptionTextbox, description);
+
+    const key = "WEB";
+    const number = "528";
+
+    const keySelect = screen.getByRole("button", { name: "Key" });
+    await selectMaterialUiSelectOption(keySelect, key, "Key select");
+    userEvent.type(ticketNumberTextbox, number);
 
     const addButton = screen.getByRole("button", { name: "left-icon Add" });
     userEvent.click(addButton);
@@ -352,10 +317,108 @@ describe("Daily subjects component", () => {
     const mockedDispatch = mocked(store.dispatch);
     expect(mockedDispatch).toHaveBeenCalledTimes(1);
     expect(mockedDispatch).toHaveBeenCalledWith(
-      addSubjectAction("23", new Date().toUTCString(), {
-        type: SubjectKind.Goal,
-        description,
-      })
+      addUnforeseenTicketAction(
+        dailyMockData.teamId,
+        new Date().toUTCString(),
+        `${key}-${number}`
+      )
+    );
+  });
+
+  it("should not create a ticket if it already exists as done", async () => {
+    const addActionFeedback = {
+      isPending: false,
+      isErrored: false,
+      text: "Add",
+    };
+    const deleteActionFeedback = {
+      isPending: false,
+      term: "",
+    };
+
+    const { store } = connectedRender(
+      <DailyUnforeseenTickets
+        daily={{
+          ...dailyMockData,
+          doneTickets: [
+            {
+              id: "326",
+              creator: teamMembersMockData[0],
+              assignee: teamMembersMockData[1],
+              name: "WEB-400",
+            },
+          ],
+        }}
+        addActionFeedback={addActionFeedback}
+        deleteActionFeedback={deleteActionFeedback}
+      />
+    );
+
+    const key = "WEB";
+    const number = "400";
+
+    const keySelect = screen.getByRole("button", { name: "Key" });
+    await selectMaterialUiSelectOption(keySelect, key, "Key select");
+    const ticketNumberTextbox = screen.getByRole("textbox", {
+      name: "Ticket number",
+    });
+    userEvent.type(ticketNumberTextbox, number);
+
+    const addButton = screen.getByRole("button", { name: "left-icon Add" });
+    userEvent.click(addButton);
+
+    const mockedDispatch = mocked(store.dispatch);
+    expect(mockedDispatch).toHaveBeenCalledTimes(1);
+    expect(mockedDispatch).toHaveBeenCalledWith(
+      showSnackbarAction(`The ticket ${key}-${number} has already been added`)
+    );
+  });
+
+  it("should not create a ticket if it already exists as unforeseen", async () => {
+    const addActionFeedback = {
+      isPending: false,
+      isErrored: false,
+      text: "Add",
+    };
+    const deleteActionFeedback = {
+      isPending: false,
+      term: "",
+    };
+
+    const { store } = connectedRender(
+      <DailyUnforeseenTickets
+        daily={{
+          ...dailyMockData,
+          unforeseenTickets: [
+            {
+              id: "326",
+              creator: teamMembersMockData[0],
+              name: "WEB-400",
+            },
+          ],
+        }}
+        addActionFeedback={addActionFeedback}
+        deleteActionFeedback={deleteActionFeedback}
+      />
+    );
+
+    const key = "WEB";
+    const number = "400";
+
+    const keySelect = screen.getByRole("button", { name: "Key" });
+    await selectMaterialUiSelectOption(keySelect, key, "Key select");
+    const ticketNumberTextbox = screen.getByRole("textbox", {
+      name: "Ticket number",
+    });
+    userEvent.type(ticketNumberTextbox, number);
+
+    const addButton = screen.getByRole("button", { name: "left-icon Add" });
+    userEvent.click(addButton);
+
+    const mockedDispatch = mocked(store.dispatch);
+    expect(mockedDispatch).toHaveBeenCalledTimes(1);
+    expect(mockedDispatch).toHaveBeenCalledWith(
+      showSnackbarAction(`The ticket ${key}-${number} has already been added`)
     );
   });
 });

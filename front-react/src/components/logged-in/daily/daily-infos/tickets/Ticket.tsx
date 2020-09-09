@@ -44,7 +44,7 @@ const Ticket: React.FC<TicketProps> = ({
       </ListItemAvatar>
       <ListItemText
         primary={
-          <React.Fragment>
+          <>
             {userType === TicketUserType.Creator ? "Created by" : "Assigned to"}
             <Typography
               component="span"
@@ -54,7 +54,7 @@ const Ticket: React.FC<TicketProps> = ({
             >
               {`${user.firstName} ${user.lastName}`}
             </Typography>
-          </React.Fragment>
+          </>
         }
         secondary={name}
       />

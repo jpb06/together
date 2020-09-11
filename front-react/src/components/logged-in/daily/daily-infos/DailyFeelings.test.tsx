@@ -17,11 +17,19 @@ import DailyFeelings from "./DailyFeelings";
 jest.mock("local-storage");
 
 describe("Daily feelings component", () => {
+  const date = new Date().toUTCString();
+
   beforeEach(() => {
     mocked(localStore.get).mockImplementationOnce(() => ({
       id: "23",
       name: "cool kids",
     }));
+
+    jest.spyOn(Date.prototype, "toUTCString").mockReturnValue(date);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
   it("should display a form to add a feeling", () => {
@@ -244,12 +252,7 @@ describe("Daily feelings component", () => {
     const mockedDispatch = mocked(store.dispatch);
     expect(mockedDispatch).toHaveBeenCalledTimes(1);
     expect(mockedDispatch).toHaveBeenCalledWith(
-      removeDetailsAction(
-        DetailsRemovalType.Feelings,
-        "23",
-        new Date().toUTCString(),
-        "326"
-      )
+      removeDetailsAction(DetailsRemovalType.Feelings, "23", date, "326")
     );
   });
 
@@ -330,7 +333,7 @@ describe("Daily feelings component", () => {
     const mockedDispatch = mocked(store.dispatch);
     expect(mockedDispatch).toHaveBeenCalledTimes(1);
     expect(mockedDispatch).toHaveBeenCalledWith(
-      addFeelingAction("23", new Date().toUTCString(), {
+      addFeelingAction("23", date, {
         type: FeelingKind.DyingInside,
         comment,
       })

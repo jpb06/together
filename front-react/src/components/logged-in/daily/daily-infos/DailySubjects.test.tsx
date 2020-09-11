@@ -17,11 +17,19 @@ import DailySubjects from "./DailySubjects";
 jest.mock("local-storage");
 
 describe("Daily subjects component", () => {
+  const date = new Date().toUTCString();
+
   beforeEach(() => {
     mocked(localStore.get).mockImplementationOnce(() => ({
       id: "23",
       name: "cool kids",
     }));
+
+    jest.spyOn(Date.prototype, "toUTCString").mockReturnValue(date);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
   it("should display a form to add a subject", () => {
@@ -244,12 +252,7 @@ describe("Daily subjects component", () => {
     const mockedDispatch = mocked(store.dispatch);
     expect(mockedDispatch).toHaveBeenCalledTimes(1);
     expect(mockedDispatch).toHaveBeenCalledWith(
-      removeDetailsAction(
-        DetailsRemovalType.Subjects,
-        "23",
-        new Date().toUTCString(),
-        "326"
-      )
+      removeDetailsAction(DetailsRemovalType.Subjects, "23", date, "326")
     );
   });
 
@@ -352,7 +355,7 @@ describe("Daily subjects component", () => {
     const mockedDispatch = mocked(store.dispatch);
     expect(mockedDispatch).toHaveBeenCalledTimes(1);
     expect(mockedDispatch).toHaveBeenCalledWith(
-      addSubjectAction("23", new Date().toUTCString(), {
+      addSubjectAction("23", date, {
         type: SubjectKind.Goal,
         description,
       })

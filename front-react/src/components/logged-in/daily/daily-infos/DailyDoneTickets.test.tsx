@@ -18,11 +18,19 @@ import DailyDoneTickets from "./DailyDoneTickets";
 jest.mock("local-storage");
 
 describe("Daily done tickets component", () => {
+  const date = new Date().toUTCString();
+
   beforeEach(() => {
     mocked(localStore.get).mockImplementationOnce(() => ({
       id: "23",
       name: "cool kids",
     }));
+
+    jest.spyOn(Date.prototype, "toUTCString").mockReturnValue(date);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
   it("should display a form to add a ticket", () => {
@@ -256,7 +264,7 @@ describe("Daily done tickets component", () => {
       removeTicketAction(
         TicketRemovalType.Done,
         dailyMockData.teamId,
-        new Date().toUTCString(),
+        date,
         "WEB-400"
       )
     );
@@ -351,7 +359,7 @@ describe("Daily done tickets component", () => {
       addDoneTicketAction(
         dailyMockData.teamId,
         teamMembersMockData[0].email,
-        new Date().toUTCString(),
+        date,
         `${key}-${number}`
       )
     );

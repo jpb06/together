@@ -18,11 +18,19 @@ import DailyUnforeseenTickets from "./DailyUnforeseenTickets";
 jest.mock("local-storage");
 
 describe("Daily done tickets component", () => {
+  const date = new Date().toUTCString();
+
   beforeEach(() => {
     mocked(localStore.get).mockImplementationOnce(() => ({
       id: "23",
       name: "cool kids",
     }));
+
+    jest.spyOn(Date.prototype, "toUTCString").mockReturnValue(date);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
   it("should display a form to add a ticket", () => {
@@ -239,7 +247,7 @@ describe("Daily done tickets component", () => {
       removeTicketAction(
         TicketRemovalType.Unforeseen,
         dailyMockData.teamId,
-        new Date().toUTCString(),
+        date,
         "WEB-400"
       )
     );
@@ -317,11 +325,7 @@ describe("Daily done tickets component", () => {
     const mockedDispatch = mocked(store.dispatch);
     expect(mockedDispatch).toHaveBeenCalledTimes(1);
     expect(mockedDispatch).toHaveBeenCalledWith(
-      addUnforeseenTicketAction(
-        dailyMockData.teamId,
-        new Date().toUTCString(),
-        `${key}-${number}`
-      )
+      addUnforeseenTicketAction(dailyMockData.teamId, date, `${key}-${number}`)
     );
   });
 

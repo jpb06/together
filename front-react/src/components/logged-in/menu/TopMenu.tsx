@@ -22,17 +22,7 @@ const TopMenu = () => {
 
   const toggleDrawer = (isOpen: boolean) => (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | any
-  ) => {
-    if (
-      event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setIsSiderOpen(isOpen);
-  };
+  ) => setIsSiderOpen(isOpen);
 
   return (
     <div className={classes.root}>

@@ -3,12 +3,11 @@ import React from "react";
 import { mocked } from "ts-jest/utils";
 
 import { logRoles, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 
-import { addComputedPropertiesToUser, getInitials } from "../../logic/user.util";
 import {
     loginAction, payloadAction, sagaPayloadAction, successPayloadAction
 } from "../../redux/actions";
+import { loggedUserMockData } from "../../test-utils/mocked-data/logged.user.mock.data";
 import { connectedRender } from "../../test-utils/redux/connected.render.helper";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../types/redux";
 import LoggedInRootContainer from "./LoggedInRootContainer";
@@ -21,19 +20,6 @@ interface ChildProps {
 const Child: React.FC<ChildProps> = ({ text }) => <h1>{text}</h1>;
 
 describe("Logged in root container component", () => {
-  const user = {
-    lastName: "Yolo",
-    firstName: "Bro",
-    email: "yolo.bro@cool.org",
-    avatarName: "",
-    fullName: "Bro Yolo",
-    initials: getInitials("Bro Yolo"),
-    id: "23",
-    teamInvites: [],
-    teamJoinRequests: [],
-    teams: [],
-  };
-
   it("should display a link to application root", () => {
     const expiration = new Date();
     expiration.setMinutes(expiration.getMinutes() + 20);
@@ -44,13 +30,7 @@ describe("Logged in root container component", () => {
 
     connectedRender(
       <LoggedInRootContainer Component={Child} {...{ text: "Yolo" }} />,
-      [
-        successPayloadAction(
-          Type.Login,
-          Context.Global,
-          addComputedPropertiesToUser(user)
-        ),
-      ]
+      [successPayloadAction(Type.Login, Context.Global, loggedUserMockData)]
     );
 
     const rootLink = screen.getByRole("link", { name: "Together" });
@@ -67,17 +47,13 @@ describe("Logged in root container component", () => {
 
     connectedRender(
       <LoggedInRootContainer Component={Child} {...{ text: "Yolo" }} />,
-      [
-        successPayloadAction(
-          Type.Login,
-          Context.Global,
-          addComputedPropertiesToUser(user)
-        ),
-      ]
+      [successPayloadAction(Type.Login, Context.Global, loggedUserMockData)]
     );
 
-    screen.getByRole("img", { name: user.fullName });
-    const accountLink = screen.getByRole("link", { name: user.fullName });
+    screen.getByRole("img", { name: loggedUserMockData.fullName });
+    const accountLink = screen.getByRole("link", {
+      name: loggedUserMockData.fullName,
+    });
     expect(accountLink).toHaveAttribute("href", "/account");
   });
 
@@ -91,13 +67,7 @@ describe("Logged in root container component", () => {
 
     connectedRender(
       <LoggedInRootContainer Component={Child} {...{ text: "Yolo" }} />,
-      [
-        successPayloadAction(
-          Type.Login,
-          Context.Global,
-          addComputedPropertiesToUser(user)
-        ),
-      ]
+      [successPayloadAction(Type.Login, Context.Global, loggedUserMockData)]
     );
 
     screen.getByRole("button", { name: "menu" });
@@ -113,13 +83,7 @@ describe("Logged in root container component", () => {
 
     connectedRender(
       <LoggedInRootContainer Component={Child} {...{ text: "Yolo" }} />,
-      [
-        successPayloadAction(
-          Type.Login,
-          Context.Global,
-          addComputedPropertiesToUser(user)
-        ),
-      ]
+      [successPayloadAction(Type.Login, Context.Global, loggedUserMockData)]
     );
 
     screen.getByRole("banner", { name: "appbar" });
@@ -135,13 +99,7 @@ describe("Logged in root container component", () => {
 
     connectedRender(
       <LoggedInRootContainer Component={Child} {...{ text: "Yolo" }} />,
-      [
-        successPayloadAction(
-          Type.Login,
-          Context.Global,
-          addComputedPropertiesToUser(user)
-        ),
-      ]
+      [successPayloadAction(Type.Login, Context.Global, loggedUserMockData)]
     );
 
     screen.getByRole("banner", { name: "appbar" });
@@ -157,13 +115,7 @@ describe("Logged in root container component", () => {
 
     connectedRender(
       <LoggedInRootContainer Component={Child} {...{ text: "Yolo" }} />,
-      [
-        successPayloadAction(
-          Type.Login,
-          Context.Global,
-          addComputedPropertiesToUser(user)
-        ),
-      ]
+      [successPayloadAction(Type.Login, Context.Global, loggedUserMockData)]
     );
 
     screen.getByRole("heading", { name: "Yolo" });
@@ -180,11 +132,7 @@ describe("Logged in root container component", () => {
     connectedRender(
       <LoggedInRootContainer Component={Child} {...{ text: "Yolo" }} />,
       [
-        successPayloadAction(
-          Type.Login,
-          Context.Global,
-          addComputedPropertiesToUser(user)
-        ),
+        successPayloadAction(Type.Login, Context.Global, loggedUserMockData),
         sagaPayloadAction(Type.GetDaily, Context.Global),
       ]
     );
@@ -202,13 +150,7 @@ describe("Logged in root container component", () => {
 
     const { container, history } = connectedRender(
       <LoggedInRootContainer Component={Child} {...{ text: "Yolo" }} />,
-      [
-        successPayloadAction(
-          Type.Login,
-          Context.Global,
-          addComputedPropertiesToUser(user)
-        ),
-      ]
+      [successPayloadAction(Type.Login, Context.Global, loggedUserMockData)]
     );
 
     expect(history.location.pathname).toBe("/");
@@ -222,13 +164,7 @@ describe("Logged in root container component", () => {
 
     const { container, history } = connectedRender(
       <LoggedInRootContainer Component={Child} {...{ text: "Yolo" }} />,
-      [
-        successPayloadAction(
-          Type.Login,
-          Context.Global,
-          addComputedPropertiesToUser(user)
-        ),
-      ]
+      [successPayloadAction(Type.Login, Context.Global, loggedUserMockData)]
     );
 
     expect(history.location.pathname).toBe("/");
@@ -245,13 +181,7 @@ describe("Logged in root container component", () => {
 
     const { container, history } = connectedRender(
       <LoggedInRootContainer Component={Child} {...{ text: "Yolo" }} />,
-      [
-        successPayloadAction(
-          Type.Login,
-          Context.Global,
-          addComputedPropertiesToUser(user)
-        ),
-      ]
+      [successPayloadAction(Type.Login, Context.Global, loggedUserMockData)]
     );
 
     expect(history.location.pathname).toBe("/");

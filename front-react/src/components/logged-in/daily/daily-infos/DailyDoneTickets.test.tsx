@@ -11,6 +11,7 @@ import {
 import { TicketRemovalType } from "../../../../redux/tasks";
 import { dailyMockData } from "../../../../test-utils/mocked-data/daily.mock.data";
 import { teamMembersMockData } from "../../../../test-utils/mocked-data/team.members.mock.data";
+import { teamsMockData } from "../../../../test-utils/mocked-data/teams.mock.data";
 import { connectedRender } from "../../../../test-utils/redux/connected.render.helper";
 import { selectMaterialUiSelectOption } from "../../../../test-utils/redux/material.ui.helpers";
 import DailyDoneTickets from "./DailyDoneTickets";
@@ -21,10 +22,7 @@ describe("Daily done tickets component", () => {
   const date = new Date().toUTCString();
 
   beforeEach(() => {
-    mocked(localStore.get).mockImplementationOnce(() => ({
-      id: "23",
-      name: "cool kids",
-    }));
+    mocked(localStore.get).mockImplementationOnce(() => teamsMockData[0]);
 
     jest.spyOn(Date.prototype, "toUTCString").mockReturnValue(date);
   });

@@ -2,39 +2,14 @@ import React from "react";
 
 import { screen } from "@testing-library/react";
 
-import { addComputedPropertiesToUser, getInitials } from "../../../logic/user.util";
 import { sagaPayloadAction, successPayloadAction } from "../../../redux/actions";
+import { dailyMockData } from "../../../test-utils/mocked-data/daily.mock.data";
+import { loggedUserMockData } from "../../../test-utils/mocked-data/logged.user.mock.data";
 import { connectedRender } from "../../../test-utils/redux/connected.render.helper";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
-import { Daily } from "../../../types/shared";
 import DailyContainer from "./DailyContainer";
 
 describe("Daily container component", () => {
-  const user = {
-    lastName: "Yolo",
-    firstName: "Bro",
-    email: "yolo.bro@cool.org",
-    avatarName: "",
-    fullName: "Bro Yolo",
-    initials: getInitials("Bro Yolo"),
-    id: "23",
-    teamInvites: [],
-    teamJoinRequests: [],
-    teams: [{ id: "23", name: "The cool team" }],
-  };
-  const daily: Daily = {
-    id: "34",
-    teamId: "23",
-    day: 1,
-    month: 1,
-    year: 2000,
-    doneTickets: [],
-    unforeseenTickets: [],
-    feelings: [],
-    subjects: [],
-    durationIndicator: "0-15",
-  };
-
   it("should warn the user his team has no team members by default", () => {
     connectedRender(<DailyContainer />);
 
@@ -58,12 +33,8 @@ describe("Daily container component", () => {
 
   it("should warn the user his team has no team members even if daily is loaded", () => {
     connectedRender(<DailyContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Global,
-        addComputedPropertiesToUser(user)
-      ),
-      successPayloadAction(Type.GetDaily, Context.Global, daily),
+      successPayloadAction(Type.Login, Context.Global, loggedUserMockData),
+      successPayloadAction(Type.GetDaily, Context.Global, dailyMockData),
     ]);
 
     const icon = screen.getByRole("img", { name: "feedback-icon" });
@@ -86,11 +57,7 @@ describe("Daily container component", () => {
 
   it("should display a loading indicator if there is team members but daily hasn't being fetched yet", () => {
     connectedRender(<DailyContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Global,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Global, loggedUserMockData),
       successPayloadAction(Type.TeamMembers, Context.Global, [
         {
           id: "415",
@@ -121,12 +88,8 @@ describe("Daily container component", () => {
   });
 
   it("should display a daily", () => {
-    const { container } = connectedRender(<DailyContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Global,
-        addComputedPropertiesToUser(user)
-      ),
+    connectedRender(<DailyContainer />, [
+      successPayloadAction(Type.Login, Context.Global, loggedUserMockData),
       successPayloadAction(Type.TeamMembers, Context.Global, [
         {
           id: "415",
@@ -138,7 +101,7 @@ describe("Daily container component", () => {
           joinDate: new Date(),
         },
       ]),
-      successPayloadAction(Type.GetDaily, Context.Global, daily),
+      successPayloadAction(Type.GetDaily, Context.Global, dailyMockData),
     ]);
 
     screen.getByRole("heading", {

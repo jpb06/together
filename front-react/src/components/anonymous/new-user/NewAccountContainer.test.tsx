@@ -7,11 +7,11 @@ import { logRoles, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import { stringToColor } from "../../../logic/colors.util";
-import { addComputedPropertiesToUser, getInitials } from "../../../logic/user.util";
 import {
     createTeamAction, createUserAction, inviteUserToTeamAction, payloadAction,
     requestToJoinTeamAction, successPayloadAction
 } from "../../../redux/actions";
+import { loggedUserMockData } from "../../../test-utils/mocked-data/logged.user.mock.data";
 import { connectedRender } from "../../../test-utils/redux/connected.render.helper";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import NewAccountContainer from "./NewAccountContainer";
@@ -26,18 +26,6 @@ describe("New account container component", () => {
     email: "yolo.bro@cool.org",
     password: "123",
     confirmPassword: "123",
-  };
-  const user = {
-    lastName: "Yolo",
-    firstName: "Bro",
-    email: "yolo.bro@cool.org",
-    avatarName: "",
-    fullName: "Bro Yolo",
-    initials: getInitials("Bro Yolo"),
-    id: "23",
-    teamInvites: [],
-    teamJoinRequests: [],
-    teams: [],
   };
 
   it("should contain a link to index", () => {
@@ -140,11 +128,7 @@ describe("New account container component", () => {
 
   it("should display a default avatar and a next step button", () => {
     const { store } = connectedRender(<NewAccountContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Onboarding,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Onboarding, loggedUserMockData),
     ]);
 
     expect(screen.getByRole("heading")).toHaveTextContent("Avatar selection");
@@ -156,13 +140,15 @@ describe("New account container component", () => {
     screen.getByRole("button", { name: /My teams/i });
 
     const avatar = screen.getByRole("img", { name: "user avatar" });
-    const color = stringToColor(`${user.firstName} ${user.lastName}`);
+    const color = stringToColor(loggedUserMockData.fullName);
     const contrastColor = theme.palette.getContrastText(color);
     expect(avatar).toHaveStyle(`background-color: ${color};`);
     expect(avatar).toHaveStyle(`color: ${contrastColor};`);
-    expect(avatar).toHaveTextContent(user.initials);
+    expect(avatar).toHaveTextContent(loggedUserMockData.initials);
 
-    expect(avatar.parentNode?.nextSibling).toHaveTextContent(user.fullName);
+    expect(avatar.parentNode?.nextSibling).toHaveTextContent(
+      loggedUserMockData.fullName
+    );
 
     const dispatchMock = mocked(store.dispatch);
     expect(dispatchMock).toHaveBeenCalledTimes(0);
@@ -170,11 +156,7 @@ describe("New account container component", () => {
 
   it("should send an action to switch to the team step", async () => {
     const { store } = connectedRender(<NewAccountContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Onboarding,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Onboarding, loggedUserMockData),
     ]);
 
     const myTeamButton = await screen.findByRole("button", {
@@ -189,11 +171,7 @@ describe("New account container component", () => {
 
   it("should display a choice to either join or create a team", async () => {
     const { store } = connectedRender(<NewAccountContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Onboarding,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Onboarding, loggedUserMockData),
       payloadAction(Type.AvatarChosen),
     ]);
 
@@ -212,11 +190,7 @@ describe("New account container component", () => {
 
   it("should display a form to create a team", () => {
     const { store } = connectedRender(<NewAccountContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Onboarding,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Onboarding, loggedUserMockData),
       payloadAction(Type.AvatarChosen),
     ]);
 
@@ -241,11 +215,7 @@ describe("New account container component", () => {
 
   it("should return to the team choice from create team", () => {
     const { store } = connectedRender(<NewAccountContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Onboarding,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Onboarding, loggedUserMockData),
       payloadAction(Type.AvatarChosen),
     ]);
 
@@ -272,11 +242,7 @@ describe("New account container component", () => {
 
   it("should display a form to join a team", () => {
     const { store } = connectedRender(<NewAccountContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Onboarding,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Onboarding, loggedUserMockData),
       payloadAction(Type.AvatarChosen),
     ]);
 
@@ -301,11 +267,7 @@ describe("New account container component", () => {
 
   it("should return to the team choice from join team", () => {
     const { store } = connectedRender(<NewAccountContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Onboarding,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Onboarding, loggedUserMockData),
       payloadAction(Type.AvatarChosen),
     ]);
 
@@ -332,11 +294,7 @@ describe("New account container component", () => {
 
   it("should not create a team if no name was provided", () => {
     const { store } = connectedRender(<NewAccountContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Onboarding,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Onboarding, loggedUserMockData),
       payloadAction(Type.AvatarChosen),
     ]);
 
@@ -359,11 +317,7 @@ describe("New account container component", () => {
 
   it("should send an action to create the team", async () => {
     const { store } = connectedRender(<NewAccountContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Onboarding,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Onboarding, loggedUserMockData),
       payloadAction(Type.AvatarChosen),
     ]);
 
@@ -399,11 +353,7 @@ describe("New account container component", () => {
 
   it("should send an action to join a team", () => {
     const { store, history } = connectedRender(<NewAccountContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Onboarding,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Onboarding, loggedUserMockData),
       payloadAction(Type.AvatarChosen),
     ]);
 
@@ -438,14 +388,10 @@ describe("New account container component", () => {
   });
 
   it("should display a form to add team members to a new team", async () => {
-    mocked(localStore.get).mockImplementationOnce(() => user);
+    mocked(localStore.get).mockImplementationOnce(() => loggedUserMockData);
 
     const { store } = connectedRender(<NewAccountContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Onboarding,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Onboarding, loggedUserMockData),
       payloadAction(Type.AvatarChosen),
       successPayloadAction(Type.CreateTeam, Context.Onboarding, {
         id: "23",
@@ -457,15 +403,17 @@ describe("New account container component", () => {
 
     expect(screen.getAllByRole("img").length).toBe(2);
 
-    const creatorAvatar = screen.getByRole("img", { name: user.fullName });
-    const color = stringToColor(`${user.firstName} ${user.lastName}`);
+    const creatorAvatar = screen.getByRole("img", {
+      name: loggedUserMockData.fullName,
+    });
+    const color = stringToColor(loggedUserMockData.fullName);
     const contrastColor = theme.palette.getContrastText(color);
     expect(creatorAvatar).toHaveStyle(`background-color: ${color};`);
     expect(creatorAvatar).toHaveStyle(`color: ${contrastColor};`);
-    expect(creatorAvatar).toHaveTextContent(user.initials);
+    expect(creatorAvatar).toHaveTextContent(loggedUserMockData.initials);
 
     expect(creatorAvatar.parentNode?.nextSibling).toHaveTextContent(
-      user.fullName
+      loggedUserMockData.fullName
     );
     expect(
       creatorAvatar.parentNode?.nextSibling?.nextSibling
@@ -485,14 +433,10 @@ describe("New account container component", () => {
   it("should not send an action to invite another user if there is no input", async () => {
     const teamId = "23";
 
-    mocked(localStore.get).mockImplementationOnce(() => user);
+    mocked(localStore.get).mockImplementationOnce(() => loggedUserMockData);
 
     const { store } = connectedRender(<NewAccountContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Onboarding,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Onboarding, loggedUserMockData),
       payloadAction(Type.AvatarChosen),
       successPayloadAction(Type.CreateTeam, Context.Onboarding, {
         id: teamId,
@@ -520,14 +464,10 @@ describe("New account container component", () => {
     const teamId = "23";
     const email = "bat@man.org";
 
-    mocked(localStore.get).mockImplementationOnce(() => user);
+    mocked(localStore.get).mockImplementationOnce(() => loggedUserMockData);
 
     const { store } = connectedRender(<NewAccountContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Onboarding,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Onboarding, loggedUserMockData),
       payloadAction(Type.AvatarChosen),
       successPayloadAction(Type.CreateTeam, Context.Onboarding, {
         id: teamId,
@@ -560,14 +500,10 @@ describe("New account container component", () => {
   });
 
   it("should redirect to the timeline", async () => {
-    mocked(localStore.get).mockImplementationOnce(() => user);
+    mocked(localStore.get).mockImplementationOnce(() => loggedUserMockData);
 
     const { store, history } = connectedRender(<NewAccountContainer />, [
-      successPayloadAction(
-        Type.Login,
-        Context.Onboarding,
-        addComputedPropertiesToUser(user)
-      ),
+      successPayloadAction(Type.Login, Context.Onboarding, loggedUserMockData),
       payloadAction(Type.AvatarChosen),
       successPayloadAction(Type.CreateTeam, Context.Onboarding, {
         id: "23",

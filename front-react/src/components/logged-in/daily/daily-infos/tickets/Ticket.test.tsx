@@ -1,8 +1,6 @@
 import React from "react";
-import { mocked } from "ts-jest/utils";
 
 import { logRoles, render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 
 import { teamMembersMockData } from "../../../../../test-utils/mocked-data/team.members.mock.data";
 import Ticket from "./Ticket";

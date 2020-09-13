@@ -12,15 +12,19 @@ interface DailyTicketsProps {
 const DailyTickets: React.FC<DailyTicketsProps> = ({ daily }) => {
   return (
     <Grid container spacing={1}>
-      {daily.unforeseenTickets.length > 0 && (
-        <DailyTicketsItem
-          label="Unforeseen"
-          count={daily.unforeseenTickets.length}
-        />
-      )}
-      {daily.doneTickets.length > 0 && (
-        <DailyTicketsItem label="Done" count={daily.doneTickets.length} />
-      )}
+      <div role="listitem" aria-label="Unforeseen tickets list">
+        {daily.unforeseenTickets.length > 0 && (
+          <DailyTicketsItem
+            label="Unforeseen"
+            count={daily.unforeseenTickets.length}
+          />
+        )}
+      </div>
+      <div role="listitem" aria-label="Done tickets list">
+        {daily.doneTickets.length > 0 && (
+          <DailyTicketsItem label="Done" count={daily.doneTickets.length} />
+        )}
+      </div>
     </Grid>
   );
 };

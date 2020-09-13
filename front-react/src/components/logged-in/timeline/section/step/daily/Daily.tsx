@@ -23,7 +23,7 @@ const Daily: React.FC<DailyProps> = ({ daily }) => {
 
   if (dailyHasData(daily)) {
     return (
-      <List disablePadding>
+      <List disablePadding title="Daily">
         <DailyDuration durationIndicator={daily.durationIndicator} />
         {(daily.unforeseenTickets.length > 0 ||
           daily.doneTickets.length > 0) && (

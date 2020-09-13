@@ -71,7 +71,7 @@ describe("Daily done tickets component", () => {
 
     connectedRender(
       <DailyDoneTickets
-        daily={dailyMockData}
+        daily={{ ...dailyMockData, doneTickets: [] }}
         teamMembers={teamMembersMockData}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}

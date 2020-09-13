@@ -70,7 +70,7 @@ describe("Daily subjects component", () => {
 
     connectedRender(
       <DailySubjects
-        daily={dailyMockData}
+        daily={{ ...dailyMockData, subjects: [] }}
         addActionFeedback={addActionFeedback}
         deleteActionFeedback={deleteActionFeedback}
       />

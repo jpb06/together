@@ -1,5 +1,5 @@
-import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import { SvgIconTypeMap } from "@material-ui/core";
+import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 
 export interface StaticFeedback {
   value: number;
@@ -8,22 +8,10 @@ export interface StaticFeedback {
   icon: OverridableComponent<SvgIconTypeMap>;
 }
 
-export const getStaticFeedback = (
-  list: Array<StaticFeedback>,
-  value: number
-) => {
-  const item = list.find((el) => el.value === value);
-  if (!item) throw Error(`Invalid static feedback (${value})`);
-
-  return item;
-};
+export const getStaticFeedback = (list: Array<StaticFeedback>, value: number) =>
+  list.find((el) => el.value === value);
 
 export const getStaticFeedbackIcon = (
   list: Array<StaticFeedback>,
   value: number
-) => {
-  const item = list.find((el) => el.value === value);
-  if (!item) throw Error(`Invalid static feedback (${value})`);
-
-  return item.icon;
-};
+) => list.find((el) => el.value === value);

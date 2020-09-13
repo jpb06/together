@@ -25,6 +25,8 @@ const DailyComment: React.FC<DailyCommentProps> = ({
     type === NewDailyCommentKind.Feeling ? staticFeelings : staticSubjects;
 
   const comment = getStaticFeedback(staticList, underlyingType);
+  if (!comment) return null;
+
   const IconComponent = comment.icon;
 
   return (

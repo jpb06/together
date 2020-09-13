@@ -48,7 +48,7 @@ const DailyCommentItem: React.FC<DailyCommentItemProps> = ({
       <ListItemText
         className={classes.breakWord}
         primary={
-          <React.Fragment>
+          <>
             <Typography
               component="span"
               variant="body2"
@@ -58,7 +58,7 @@ const DailyCommentItem: React.FC<DailyCommentItemProps> = ({
               {`${item.creator.firstName} ${item.creator.lastName}`}
             </Typography>
             <DailyComment type={type} underlyingType={item.type} />
-          </React.Fragment>
+          </>
         }
         secondary={itemText}
       />

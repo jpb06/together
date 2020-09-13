@@ -39,11 +39,11 @@ const TimeLine: React.FC<TimeLineProps> = ({ timeline }) => {
             Icon={TimerIcon}
             title="Well well..."
             content={
-              <div>
+              <>
                 Looks like there is nothing to show yet...
                 <br />
                 Time for a daily?
-              </div>
+              </>
             }
           />
         )}

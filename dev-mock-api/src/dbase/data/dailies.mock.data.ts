@@ -1,4 +1,6 @@
-import { Daily, FeelingKind, SubjectKind } from "../../../../front-react/src/types/shared";
+import {
+    Daily, FeelingKind, SubjectKind
+} from "../../../../front-react/src/stack-shared-code/types";
 
 export const dailies: Array<Daily> = [
   {

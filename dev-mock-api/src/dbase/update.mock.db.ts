@@ -1,7 +1,9 @@
-import * as fs from "fs";
-import * as path from "path";
+import fs from "fs";
+import path from "path";
 
-import { Daily, PersistedUser as User, Team } from "../../../front-react/src/types/shared";
+import {
+    Daily, PersistedUser as User, Team
+} from "../../../front-react/src/stack-shared-code/types";
 import { getDailies, getTeams, getUsers } from "./fetch.mock.db";
 
 export const persist = (

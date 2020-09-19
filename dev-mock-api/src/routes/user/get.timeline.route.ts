@@ -1,24 +1,23 @@
-import { Application } from "express";
-import { Request, Response } from "express-serve-static-core";
+import { Application, Request } from "express";
 import { body } from "express-validator";
+import moment from "moment";
 
-import { TeamTimeLine, TimeLine } from "../../../../front-react/src/types/shared";
-import { getDailies, getTeams, getUsers } from "../../dbase/fetch.mock.db";
-import isAuthenticated from "../../middleware/is.authenticated";
 import {
     dailyToTeamTimeLineEntry, invitedUserToTeamTimeLineEntry, teamInviteToUserTimeLineEntry,
     teamJoinRequestToUserTimeLineEntry, teamMemberToTeamTimeLineEntry,
     userJoinRequestToTeamTimeLineEntry
-} from "../../util/types.conversion.helpers";
-
-import moment = require("moment");
+} from "../../../../front-react/src/stack-shared-code/conversion-helpers/types.conversion.helpers";
+import { TeamTimeLine, TimeLine } from "../../../../front-react/src/stack-shared-code/types";
+import { getDailies, getTeams, getUsers } from "../../dbase/fetch.mock.db";
+import isAuthenticated from "../../middleware/is.authenticated";
+import { ApiResponse } from "../../types/api.response.type";
 
 const mapGetUserTimeline = (server: Application) => {
   server.post(
     "/api/user/timeline",
     isAuthenticated,
     [body("teamId").isMongoId()],
-    (req: Request, res: Response) => {
+    (req: Request, res: ApiResponse) => {
       const users = getUsers();
       const teams = getTeams();
 

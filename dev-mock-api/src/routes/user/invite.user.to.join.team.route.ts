@@ -1,14 +1,16 @@
-import { Application } from "express";
-import { Request, Response } from "express-serve-static-core";
+import { Application, Request } from "express";
 import { body } from "express-validator";
-import * as moment from "moment";
+import moment from "moment";
 
-import { Team } from "../../../../front-react/src/types/shared";
+import {
+    teamToBareTeam, userToTerseUser
+} from "../../../../front-react/src/stack-shared-code/conversion-helpers/types.conversion.helpers";
+import { Team } from "../../../../front-react/src/stack-shared-code/types";
 import { getTeams, getUsers } from "../../dbase/fetch.mock.db";
 import { persistTeam, persistUser } from "../../dbase/update.mock.db";
 import isAuthenticated from "../../middleware/is.authenticated";
+import { ApiResponse } from "../../types/api.response.type";
 import { mongoObjectId } from "../../util/objectid";
-import { teamToBareTeam, userToTerseUser } from "../../util/types.conversion.helpers";
 
 const hasUserRequestedToJoinTeam = (team: Team, inviteeId: string) =>
   team.joinRequests.find((el) => el.user.id === inviteeId) !== undefined;
@@ -22,7 +24,7 @@ const mapInviteUserToJoinTeam = (server: Application) => {
     "/api/user/invite",
     isAuthenticated,
     [body("teamId").isMongoId(), body("email").isEmail()],
-    (req: Request, res: Response) => {
+    (req: Request, res: ApiResponse) => {
       const users = getUsers();
       const teams = getTeams();
 

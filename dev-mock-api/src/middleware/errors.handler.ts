@@ -1,9 +1,11 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request } from "express";
+
+import { ApiResponse } from "../types/api.response.type";
 
 export default function ErrorHandler(
   err: any,
   req: Request,
-  res: Response,
+  res: ApiResponse,
   next: NextFunction
 ) {
   console.log("error", err);

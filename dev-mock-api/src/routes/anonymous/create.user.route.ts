@@ -1,9 +1,9 @@
-import { Application } from "express";
-import { Request, Response } from "express-serve-static-core";
+import { Application, Request } from "express";
 import { body, validationResult } from "express-validator";
 
 import { getUsers } from "../../dbase/fetch.mock.db";
 import { persist } from "../../dbase/update.mock.db";
+import { ApiResponse } from "../../types/api.response.type";
 import { mongoObjectId } from "../../util/objectid";
 
 const mapCreateUserRoute = (server: Application) => {
@@ -15,7 +15,7 @@ const mapCreateUserRoute = (server: Application) => {
       body("email").isEmail(),
       body("password").isString().notEmpty(),
     ],
-    (req: Request, res: Response) => {
+    (req: Request, res: ApiResponse) => {
       const errors = validationResult(req);
       if (!errors.isEmpty())
         return res.status(400).json(errors.array().join(", "));

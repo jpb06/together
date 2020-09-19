@@ -1,21 +1,23 @@
-import { Application } from "express";
-import { Request, Response } from "express-serve-static-core";
+import { Application, Request } from "express";
 import { body } from "express-validator";
-import * as moment from "moment";
+import moment from "moment";
 
-import { Team } from "../../../../front-react/src/types/shared";
+import {
+    userToTerseUser
+} from "../../../../front-react/src/stack-shared-code/conversion-helpers/types.conversion.helpers";
+import { Team } from "../../../../front-react/src/stack-shared-code/types";
 import { getTeams, getUsers } from "../../dbase/fetch.mock.db";
 import { persistTeam, persistUser } from "../../dbase/update.mock.db";
 import isAuthenticated from "../../middleware/is.authenticated";
+import { ApiResponse } from "../../types/api.response.type";
 import { mongoObjectId } from "../../util/objectid";
-import { userToTerseUser } from "../../util/types.conversion.helpers";
 
 const mapCreateTeam = (server: Application) => {
   server.post(
     "/api/team/create",
     isAuthenticated,
     [body("teamName").isString().notEmpty()],
-    (req: Request, res: Response) => {
+    (req: Request, res: ApiResponse) => {
       const teams = getTeams();
       const users = getUsers();
 

@@ -1,7 +1,7 @@
 import * as localStore from "local-storage";
 
 import { LoginResult } from "../redux/tasks/user/login.task";
-import { LoggedUser, NewUser, User } from "../types/shared";
+import { LoggedUser, NewUser, User } from "../stack-shared-code/types";
 import LocalStorageKeys from "./local.storage.keys";
 
 export const getInitials = (name: string) => {

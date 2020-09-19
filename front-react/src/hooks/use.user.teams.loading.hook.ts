@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { getUserTeamsAction } from "../redux/actions";
 import { userTeamsSelector } from "../redux/selectors";
-import { TeamWithLastActivity, User } from "../types/shared";
+import { TeamWithLastActivity, User } from "../stack-shared-code/types";
 import { useRootSelector } from "./use.root.selector";
 
 export const useUserTeamsLoading = (

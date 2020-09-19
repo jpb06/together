@@ -1,8 +1,5 @@
-import {
-  ReduxActionContext as Context,
-  ReduxActionType as Type,
-} from "../../../types/redux";
-import { TeamMember } from "../../../types/shared";
+import { TeamMember } from "../../../stack-shared-code/types";
+import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import { payloadAction, successPayloadAction } from "../../actions";
 import { initialState } from "../../store/root.state";
 import teamMembersReducer from "./team.members.reducer";

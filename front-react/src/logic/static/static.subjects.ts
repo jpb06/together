@@ -4,7 +4,7 @@ import ForwardIcon from "@material-ui/icons/Forward";
 import GroupIcon from "@material-ui/icons/Group";
 import RowingIcon from "@material-ui/icons/Rowing";
 
-import { SubjectKind } from "../../types/shared";
+import { SubjectKind } from "../../stack-shared-code/types";
 import { StaticFeedback } from "../daily.details.util";
 
 const staticSubjects: Array<StaticFeedback> = [

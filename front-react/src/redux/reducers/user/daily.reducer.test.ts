@@ -1,8 +1,5 @@
-import {
-  ReduxActionContext as Context,
-  ReduxActionType as Type,
-} from "../../../types/redux";
-import { Daily, FeelingKind, SubjectKind } from "../../../types/shared";
+import { Daily, FeelingKind, SubjectKind } from "../../../stack-shared-code/types";
+import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import { payloadAction, successPayloadAction } from "../../actions";
 import dailyReducer from "./daily.reducer";
 

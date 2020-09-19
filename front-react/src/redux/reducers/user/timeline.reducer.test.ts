@@ -1,8 +1,5 @@
-import {
-  ReduxActionContext as Context,
-  ReduxActionType as Type,
-} from "../../../types/redux";
-import { TimeLine, TimeLineEntryKind } from "../../../types/shared";
+import { TimeLine, TimeLineEntryKind } from "../../../stack-shared-code/types";
+import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
 import { payloadAction, successPayloadAction } from "../../actions";
 import timelineReducer from "./timeline.reducer";
 

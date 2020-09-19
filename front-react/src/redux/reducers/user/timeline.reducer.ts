@@ -1,5 +1,5 @@
+import { TimeLine } from "../../../stack-shared-code/types";
 import { ActionWithPayload, ReduxActionType as Type } from "../../../types/redux";
-import { TimeLine } from "../../../types/shared";
 import { isSuccessFor } from "../../identifiers/generic.actions.identifiers";
 import { initialState } from "../../store/root.state";
 

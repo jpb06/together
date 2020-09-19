@@ -3,8 +3,8 @@ import { call, put } from "redux-saga/effects";
 import { addFeelingTask, apiCallTask } from "../";
 import { ApiRoutes } from "../../../api/api.routes.enum";
 import TogetherApi from "../../../api/setup/together.api";
+import { FeelingKind } from "../../../stack-shared-code/types";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
-import { FeelingKind } from "../../../types/shared";
 import { successPayloadAction } from "../../actions";
 
 const performTest = (context: Context) => {

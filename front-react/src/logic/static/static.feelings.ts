@@ -3,7 +3,7 @@ import SentimentVeryDissatisfiedOutlinedIcon from "@material-ui/icons/SentimentV
 import ThumbDownIcon from "@material-ui/icons/ThumbDown";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 
-import { FeelingKind } from "../../types/shared";
+import { FeelingKind } from "../../stack-shared-code/types";
 import { StaticFeedback } from "../daily.details.util";
 
 const staticFeelings: Array<StaticFeedback> = [

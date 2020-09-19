@@ -1,5 +1,5 @@
+import { NewSubject } from "../../../stack-shared-code/types";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
-import { NewSubject } from "../../../types/shared";
 import { AddSubjectParams } from "../../tasks";
 import { sagaPayloadAction } from "../generic/payload.action";
 

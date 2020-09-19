@@ -1,7 +1,7 @@
+import { Daily } from "../../../stack-shared-code/types";
 import {
     ActionWithPayload, DailyState, ReduxActionContext as Context, ReduxActionType as Type
 } from "../../../types/redux";
-import { Daily } from "../../../types/shared";
 import { isIn, isSuccessFor } from "../../identifiers/generic.actions.identifiers";
 import { initialState } from "../../store/root.state";
 import {

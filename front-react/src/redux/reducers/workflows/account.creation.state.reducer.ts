@@ -2,18 +2,12 @@ import * as localStore from "local-storage";
 import { Action } from "redux";
 
 import LocalStorageKeys from "../../../logic/local.storage.keys";
+import { BareTeam, TerseUser, User } from "../../../stack-shared-code/types";
 import {
-  AccountCreationState,
-  AccountCreationStep,
-  ActionWithPayload,
-  ReduxActionContext as Context,
-  ReduxActionType as Type,
+    AccountCreationState, AccountCreationStep, ActionWithPayload, ReduxActionContext as Context,
+    ReduxActionType as Type
 } from "../../../types/redux";
-import { BareTeam, TerseUser, User } from "../../../types/shared";
-import {
-  isSagaFor,
-  isSuccessFor,
-} from "../../identifiers/generic.actions.identifiers";
+import { isSagaFor, isSuccessFor } from "../../identifiers/generic.actions.identifiers";
 import { isAccountCreationAction } from "../../identifiers/onboarding.actions.identifier";
 import { initialState } from "../../store/root.state";
 

@@ -1,4 +1,6 @@
 import { initializeUserFromLocalStorage } from "../../logic/user.util";
+import { Daily, TimeLine, User } from "../../stack-shared-code/types";
+import { TeamMember, TeamWithLastActivity } from "../../stack-shared-code/types";
 import {
     AccountCreationState, AccountCreationStep, DailyState, SnackbarData, SnackbarKind
 } from "../../types/redux";
@@ -7,8 +9,6 @@ import {
     AnswerTeamInviteModalState, AnswerTeamInviteModalSteps
 } from "../../types/redux/workflows/answer.team.invite.modal.state.interface";
 import { LoginState } from "../../types/redux/workflows/login.state.interface";
-import { Daily, TimeLine, User } from "../../types/shared";
-import { TeamMember, TeamWithLastActivity } from "../../types/shared";
 import { DailyStepActionType, setDailyStep } from "../reducers/workflows/daily.state.logic";
 
 export interface RootState {

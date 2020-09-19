@@ -1,4 +1,4 @@
-import { BareTeam, TeamWithLastActivity } from "../types/shared";
+import { BareTeam, TeamWithLastActivity } from "../stack-shared-code/types";
 
 export const teamsDoMatch = (
   initialteams: Array<BareTeam>,

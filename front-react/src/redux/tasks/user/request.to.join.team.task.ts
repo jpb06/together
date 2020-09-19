@@ -4,8 +4,8 @@ import { call, put } from "redux-saga/effects";
 import { apiCallTask } from "../";
 import { ApiRoutes } from "../../../api/api.routes.enum";
 import TogetherApi from "../../../api/setup/together.api";
+import { TeamJoinRequest } from "../../../stack-shared-code/types";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
-import { TeamJoinRequest } from "../../../types/shared";
 import { successPayloadAction } from "../../actions";
 
 export interface RequestToJoinTeamParams {

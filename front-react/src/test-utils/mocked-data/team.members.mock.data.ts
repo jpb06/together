@@ -6,7 +6,7 @@ export const teamMembersMockData = [
     avatarName: "Cool.girl.gif",
     email: "cool.girl@great.com",
     status: "Creator",
-    joinDate: new Date().toString(),
+    joinDate: new Date().toISOString(),
   },
   {
     id: "416",
@@ -15,6 +15,6 @@ export const teamMembersMockData = [
     avatarName: "Cool.man.gif",
     email: "cool.man@great.com",
     status: "Member",
-    joinDate: new Date().toString(),
+    joinDate: new Date().toISOString(),
   },
 ];

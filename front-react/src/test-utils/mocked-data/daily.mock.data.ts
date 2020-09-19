@@ -1,4 +1,4 @@
-import { Daily, FeelingKind, SubjectKind } from "../../types/shared";
+import { Daily, FeelingKind, SubjectKind } from "../../stack-shared-code/types";
 import { teamMembersMockData } from "./team.members.mock.data";
 import { teamsMockData } from "./teams.mock.data";
 

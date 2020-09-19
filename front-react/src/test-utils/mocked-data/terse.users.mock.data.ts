@@ -1,4 +1,4 @@
-import { TerseUser } from "../../types/shared";
+import { TerseUser } from "../../stack-shared-code/types";
 
 export const terseUsersMockData: Array<TerseUser> = [
   {

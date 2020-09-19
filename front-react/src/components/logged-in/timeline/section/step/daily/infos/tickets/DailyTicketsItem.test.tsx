@@ -13,14 +13,9 @@ describe("Daily tickets item component", () => {
         "MuiGrid-grid-md-12"
       )
     ).toBe(true);
-  });
-
-  it("should take half its parent container", () => {
-    const { container } = render(<DailyTicketsItem label="Yolo" count={3} />);
-
     expect(
       (container.firstChild as HTMLElement).classList.contains(
-        "MuiGrid-grid-md-6"
+        "MuiGrid-grid-xs-12"
       )
     ).toBe(true);
   });

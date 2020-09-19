@@ -2,7 +2,9 @@ import React from "react";
 
 import List from "@material-ui/core/List";
 
-import { Daily as DailyType, Feeling, Subject } from "../../../../../../../../types/shared";
+import {
+    Daily as DailyType, Feeling, Subject
+} from "../../../../../../../../stack-shared-code/types";
 import styles from "./DailyFeedback.styles";
 import DailyFeedbackItem from "./DailyFeedbackItem";
 

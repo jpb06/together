@@ -4,7 +4,7 @@ import { Grid } from "@material-ui/core";
 import TimerIcon from "@material-ui/icons/Timer";
 
 import { isTimelineEmpty } from "../../../logic/timeline.util";
-import { TimeLine as TimeLineType } from "../../../types/shared";
+import { TimeLine as TimeLineType } from "../../../stack-shared-code/types";
 import TopLevelFeedback from "../../generic/feedback/TopLevelFeedback";
 import TimelineSection from "./section/TimeLineSection";
 import styles from "./TimeLine.styles";

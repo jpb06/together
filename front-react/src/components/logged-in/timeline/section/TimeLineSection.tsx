@@ -3,7 +3,7 @@ import React from "react";
 import Paper from "@material-ui/core/Paper";
 import LensIcon from "@material-ui/icons/Lens";
 
-import { TeamTimeLineEntry, UserTimeLineEntry } from "../../../../types/shared";
+import { TeamTimeLineEntry, UserTimeLineEntry } from "../../../../stack-shared-code/types";
 import TimeLineStep from "./step/TimeLineStep";
 import TimelineStepTitle from "./step/TimelineStepTitle";
 import styles from "./TimeLineSection.styles";

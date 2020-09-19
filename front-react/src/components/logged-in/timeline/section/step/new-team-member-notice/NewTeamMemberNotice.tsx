@@ -2,7 +2,7 @@ import React from "react";
 
 import { Typography } from "@material-ui/core";
 
-import { TeamMember } from "../../../../../../types/shared";
+import { TeamMember } from "../../../../../../stack-shared-code/types";
 import styles from "./NewTeamMemberNotice.styles";
 
 interface NewTeamMemberNoticeProps {

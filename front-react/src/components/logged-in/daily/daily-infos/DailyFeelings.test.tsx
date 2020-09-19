@@ -7,11 +7,11 @@ import userEvent from "@testing-library/user-event";
 
 import { addFeelingAction, removeDetailsAction } from "../../../../redux/actions";
 import { DetailsRemovalType } from "../../../../redux/tasks";
+import { FeelingKind } from "../../../../stack-shared-code/types";
 import { dailyMockData } from "../../../../test-utils/mocked-data/daily.mock.data";
 import { teamMembersMockData } from "../../../../test-utils/mocked-data/team.members.mock.data";
 import { connectedRender } from "../../../../test-utils/redux/connected.render.helper";
 import { selectMaterialUiSelectOption } from "../../../../test-utils/redux/material.ui.helpers";
-import { FeelingKind } from "../../../../types/shared";
 import DailyFeelings from "./DailyFeelings";
 
 jest.mock("local-storage");

@@ -10,8 +10,8 @@ import {
     addDoneTicketAction, removeTicketAction, showSnackbarAction
 } from "../../../../redux/actions";
 import { TicketRemovalType } from "../../../../redux/tasks";
+import { BareTeam, CandidateTicket, Daily, TeamMember } from "../../../../stack-shared-code/types";
 import { DailyAddActionFeedback, DailyDeleteActionFeedback } from "../../../../types/redux";
-import { BareTeam, CandidateTicket, Daily, TeamMember } from "../../../../types/shared";
 import NewTicket from "./tickets/NewTicket";
 import TicketList, { TicketUserType } from "./tickets/TicketList";
 

@@ -4,8 +4,8 @@ import React, { useState } from "react";
 import { useRootSelector, useUserTeamsLoading } from "../../../hooks";
 import LocalStorageKeys from "../../../logic/local.storage.keys";
 import { userSelector } from "../../../redux/selectors";
+import { BareTeam, TeamWithLastActivity, User } from "../../../stack-shared-code/types";
 import { ReduxActionContext as Context } from "../../../types/redux";
-import { BareTeam, TeamWithLastActivity, User } from "../../../types/shared";
 import WithLoadingAndErrors from "../composition/WithLoadingAndErrors";
 import UserAccount from "./UserAccount";
 

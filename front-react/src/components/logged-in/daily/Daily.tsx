@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 
 import { useRootSelector } from "../../../hooks";
 import { dailyFeedbackSelector } from "../../../redux/selectors";
-import { Daily as DailyType, TeamMember } from "../../../types/shared";
+import { Daily as DailyType, TeamMember } from "../../../stack-shared-code/types";
 import DailyReportContentBox from "./composition/DailyReportContentBox";
 import DailyDoneTickets from "./daily-infos/DailyDoneTickets";
 import DailyDuration from "./daily-infos/DailyDuration";

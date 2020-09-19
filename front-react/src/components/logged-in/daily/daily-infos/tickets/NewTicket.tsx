@@ -7,8 +7,8 @@ import TextField from "@material-ui/core/TextField";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 import staticTickets from "../../../../../logic/static/static.tickets.keys";
+import { CandidateTicket, TerseUser } from "../../../../../stack-shared-code/types";
 import { DailyAddActionFeedback } from "../../../../../types/redux";
-import { CandidateTicket, TerseUser } from "../../../../../types/shared";
 import FeedbackButton from "../../../../generic/buttons/FeedbackButton";
 
 interface NewTicketProps {

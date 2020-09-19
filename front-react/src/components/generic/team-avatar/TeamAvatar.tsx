@@ -6,7 +6,7 @@ import Avatar from "@material-ui/core/Avatar";
 
 import { stringToColor } from "../../../logic/colors.util";
 import { getInitials } from "../../../logic/user.util";
-import { BareTeam } from "../../../types/shared";
+import { BareTeam } from "../../../stack-shared-code/types";
 import styles from "./TeamAvatar.styles";
 
 interface TeamAvatarProps {

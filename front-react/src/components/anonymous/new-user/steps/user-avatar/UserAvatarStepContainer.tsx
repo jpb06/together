@@ -1,7 +1,7 @@
 import React from "react";
 
+import { User } from "../../../../../stack-shared-code/types";
 import { AccountCreationState, AccountCreationStep } from "../../../../../types/redux";
-import { User } from "../../../../../types/shared";
 import UserAvatarStepForm from "./UserAvatarStepForm";
 
 interface UserAvatarStepContainerProps {

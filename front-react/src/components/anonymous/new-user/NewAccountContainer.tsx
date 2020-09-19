@@ -5,18 +5,12 @@ import { useHistory } from "react-router";
 import { useRootSelector } from "../../../hooks";
 import { isNewUserDataValid } from "../../../logic/user.util";
 import {
-  createTeamAction,
-  createUserAction,
-  payloadAction,
-  requestToJoinTeamAction,
+    createTeamAction, createUserAction, payloadAction, requestToJoinTeamAction
 } from "../../../redux/actions";
-import {
-  accountCreationStateSelector,
-  userSelector,
-} from "../../../redux/selectors";
+import { accountCreationStateSelector, userSelector } from "../../../redux/selectors";
+import { NewUser } from "../../../stack-shared-code/types";
 import { ReduxActionContext as Context } from "../../../types/redux";
 import { ReduxActionType as Type } from "../../../types/redux/redux.action.types";
-import { NewUser } from "../../../types/shared";
 import NewAccount from "./NewAccount";
 
 export enum TeamActionType {

@@ -8,7 +8,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { userSelector } from "../../../redux/selectors";
-import { TerseUser } from "../../../types/shared";
+import { TerseUser } from "../../../stack-shared-code/types";
 import Logo, { LogoColor } from "../../generic/logo/Logo";
 import UserAvatar from "../../generic/user-avatar/UserAvatar";
 import SideMenu from "./SideMenu";

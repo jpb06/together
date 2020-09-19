@@ -2,8 +2,8 @@ import React from "react";
 
 import { screen } from "@testing-library/react";
 
+import { Daily } from "../../../../stack-shared-code/types";
 import { connectedRender } from "../../../../test-utils/redux/connected.render.helper";
-import { Daily } from "../../../../types/shared";
 import DailyDuration from "../daily-infos/DailyDuration";
 import DailyReportContentBox from "./DailyReportContentBox";
 

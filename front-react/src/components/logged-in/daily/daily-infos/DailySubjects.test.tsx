@@ -7,11 +7,11 @@ import userEvent from "@testing-library/user-event";
 
 import { addSubjectAction, removeDetailsAction } from "../../../../redux/actions";
 import { DetailsRemovalType } from "../../../../redux/tasks";
+import { SubjectKind } from "../../../../stack-shared-code/types";
 import { dailyMockData } from "../../../../test-utils/mocked-data/daily.mock.data";
 import { teamMembersMockData } from "../../../../test-utils/mocked-data/team.members.mock.data";
 import { connectedRender } from "../../../../test-utils/redux/connected.render.helper";
 import { selectMaterialUiSelectOption } from "../../../../test-utils/redux/material.ui.helpers";
-import { SubjectKind } from "../../../../types/shared";
 import DailySubjects from "./DailySubjects";
 
 jest.mock("local-storage");

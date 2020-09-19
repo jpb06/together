@@ -8,8 +8,8 @@ import ForumIcon from "@material-ui/icons/Forum";
 import LocalStorageKeys from "../../../../logic/local.storage.keys";
 import { addSubjectAction, removeDetailsAction } from "../../../../redux/actions";
 import { DetailsRemovalType } from "../../../../redux/tasks";
+import { BareTeam, Daily, SubjectKind } from "../../../../stack-shared-code/types";
 import { DailyAddActionFeedback, DailyDeleteActionFeedback } from "../../../../types/redux";
-import { BareTeam, Daily, SubjectKind } from "../../../../types/shared";
 import DailyCommentsList from "./feelings-subjects/list/DailyCommentsList";
 import NewDailyComment, {
     NewDailyCommentKind, NewDailyCommentType

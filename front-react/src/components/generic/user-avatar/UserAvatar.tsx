@@ -6,7 +6,7 @@ import { useTheme } from "@material-ui/core/styles";
 
 import { stringToColor } from "../../../logic/colors.util";
 import { getInitials } from "../../../logic/user.util";
-import { TerseUser } from "../../../types/shared";
+import { TerseUser } from "../../../stack-shared-code/types";
 import styles from "./UserAvatar.styles";
 
 interface UserAvatarProps {

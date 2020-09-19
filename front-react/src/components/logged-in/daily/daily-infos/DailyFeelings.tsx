@@ -8,8 +8,8 @@ import EmojiEmotionsOutlinedIcon from "@material-ui/icons/EmojiEmotionsOutlined"
 import LocalStorageKeys from "../../../../logic/local.storage.keys";
 import { addFeelingAction, removeDetailsAction } from "../../../../redux/actions";
 import { DetailsRemovalType } from "../../../../redux/tasks";
+import { BareTeam, Daily, FeelingKind } from "../../../../stack-shared-code/types";
 import { DailyAddActionFeedback, DailyDeleteActionFeedback } from "../../../../types/redux";
-import { BareTeam, Daily, FeelingKind } from "../../../../types/shared";
 import DailyCommentsList from "./feelings-subjects/list/DailyCommentsList";
 import NewDailyComment, {
     NewDailyCommentKind, NewDailyCommentType

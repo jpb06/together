@@ -3,16 +3,11 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
 import { validateEmail } from "../../../../../logic/user.util";
+import { inviteUserToTeamAction, payloadAction } from "../../../../../redux/actions";
+import { User } from "../../../../../stack-shared-code/types";
 import {
-  inviteUserToTeamAction,
-  payloadAction,
-} from "../../../../../redux/actions";
-import {
-  AccountCreationState,
-  ReduxActionContext as Context,
-  ReduxActionType as Type,
+    AccountCreationState, ReduxActionContext as Context, ReduxActionType as Type
 } from "../../../../../types/redux";
-import { User } from "../../../../../types/shared";
 import AddTeamMembersStepForm from "./AddTeamMembersStepForm";
 
 interface AddTeamMembersStepContainerProps {

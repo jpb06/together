@@ -10,8 +10,8 @@ import {
 import { answerTeamInviteModalStateSelector, userTeamsSelector } from "../../redux/selectors";
 import { isAppBusyIn } from "../../redux/selectors/app.status.selectors";
 import { TeamInviteAnswer } from "../../redux/tasks/user/answer.team.invite.task";
+import { BareTeam } from "../../stack-shared-code/types";
 import { ReduxActionContext as Context } from "../../types/redux";
-import { BareTeam } from "../../types/shared";
 import AnswerTeamInviteModal from "./AnswerTeamInviteModal";
 
 interface AnswerTeamInviteModalContainerProps {

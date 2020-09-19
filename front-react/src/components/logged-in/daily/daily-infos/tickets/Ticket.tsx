@@ -9,8 +9,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
 
+import { TerseUser } from "../../../../../stack-shared-code/types";
 import { DailyDeleteActionFeedback } from "../../../../../types/redux";
-import { TerseUser } from "../../../../../types/shared";
 import PendingDeleteButton from "../../../../generic/buttons/PendingDeleteButton";
 import UserAvatar from "../../../../generic/user-avatar/UserAvatar";
 import styles from "./Ticket.styles";

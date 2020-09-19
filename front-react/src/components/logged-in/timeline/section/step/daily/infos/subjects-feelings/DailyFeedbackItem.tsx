@@ -11,7 +11,7 @@ import {
 } from "../../../../../../../../logic/daily.details.util";
 import staticFeelings from "../../../../../../../../logic/static/static.feelings";
 import staticSubjects from "../../../../../../../../logic/static/static.subjects";
-import { Feeling, Subject } from "../../../../../../../../types/shared";
+import { Feeling, Subject } from "../../../../../../../../stack-shared-code/types";
 import UserAvatar from "../../../../../../../generic/user-avatar/UserAvatar";
 import { DailyDetailsType } from "./DailyFeedback";
 import styles from "./DailyFeedbackItem.styles";

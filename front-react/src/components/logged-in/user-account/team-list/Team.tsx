@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import { TeamMember as TeamMemberType } from "../../../../types/shared";
+import { TeamMember as TeamMemberType } from "../../../../stack-shared-code/types";
 import TeamMember from "./team-member/TeamMember";
 import styles from "./Team.styles";
 

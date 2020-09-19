@@ -7,8 +7,8 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 import staticFeelings from "../../../../../../logic/static/static.feelings";
 import staticSubjects from "../../../../../../logic/static/static.subjects";
+import { FeelingKind, SubjectKind } from "../../../../../../stack-shared-code/types";
 import { DailyAddActionFeedback } from "../../../../../../types/redux";
-import { FeelingKind, SubjectKind } from "../../../../../../types/shared";
 import FeedbackButton from "../../../../../generic/buttons/FeedbackButton";
 import DailyComment from "../DailyComment";
 

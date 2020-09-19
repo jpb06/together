@@ -4,10 +4,10 @@ import { useDispatch } from "react-redux";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 
-import { splittedDateToString } from "../../../../logic/date.util";
 import staticDurations from "../../../../logic/static/static.durations";
 import { setDailyDurationAction } from "../../../../redux/actions";
-import { Daily as DailyType } from "../../../../types/shared";
+import { Daily as DailyType } from "../../../../stack-shared-code/types";
+import { splittedDateToString } from "../../../../stack-shared-code/util/date.util";
 import styles from "./DailyDuration.styles";
 
 interface DailyDurationProps {

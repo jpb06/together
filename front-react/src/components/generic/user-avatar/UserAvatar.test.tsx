@@ -5,7 +5,7 @@ import { logRoles, render, screen } from "@testing-library/react";
 
 import { stringToColor } from "../../../logic/colors.util";
 import { getInitials } from "../../../logic/user.util";
-import { TerseUser } from "../../../types/shared";
+import { TerseUser } from "../../../stack-shared-code/types";
 import UserAvatar from "./UserAvatar";
 
 describe("User avatar component", () => {

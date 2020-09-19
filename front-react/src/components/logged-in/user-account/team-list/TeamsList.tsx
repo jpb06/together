@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
 import { getUserTeamsAction } from "../../../../redux/actions";
-import { Team as TeamType, User } from "../../../../types/shared";
+import { Team as TeamType, User } from "../../../../stack-shared-code/types";
 import InviteUserToTeamModal from "../../../modals/InviteUserToTeamModal";
 import styles from "../List.styles";
 import InviteUser from "./invite-user/InviteUser";

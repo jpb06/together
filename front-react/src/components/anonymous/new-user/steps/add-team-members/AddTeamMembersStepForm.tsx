@@ -8,8 +8,8 @@ import Slide from "@material-ui/core/Slide";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
+import { TeamMember as TeamMemberType } from "../../../../../stack-shared-code/types";
 import { AccountCreationState } from "../../../../../types/redux";
-import { TeamMember as TeamMemberType } from "../../../../../types/shared";
 import FeedbackButton from "../../../../generic/buttons/FeedbackButton";
 import SimpleButton from "../../../../generic/buttons/SimpleButton";
 import ColoredCard from "../../../../generic/containers/ColoredCard";

@@ -3,8 +3,8 @@ import { mocked } from "ts-jest/utils";
 
 import { screen } from "@testing-library/react";
 
-import { splittedDateToString } from "../../../../logic/date.util";
 import { setDailyDurationAction } from "../../../../redux/actions";
+import { splittedDateToString } from "../../../../stack-shared-code/util/date.util";
 import { dailyMockData } from "../../../../test-utils/mocked-data/daily.mock.data";
 import { connectedRender } from "../../../../test-utils/redux/connected.render.helper";
 import { selectMaterialUiSelectOption } from "../../../../test-utils/redux/material.ui.helpers";

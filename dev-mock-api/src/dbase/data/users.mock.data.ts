@@ -13,6 +13,10 @@ export const users: Array<PersistedUser> = [
         id: "5d8b9a604ddbc1362cc540c8",
         name: "Whoog",
       },
+      {
+        id: "5d8b9a604ddbc1362cc58064",
+        name: "The great one",
+      },
     ],
     teamInvites: [
       {

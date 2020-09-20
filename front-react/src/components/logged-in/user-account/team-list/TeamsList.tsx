@@ -24,12 +24,11 @@ const TeamsList: React.FC<TeamsListProps> = ({ user, teams, currentTeam }) => {
   const dispatch = useDispatch();
 
   const [isInviteModalOpened, setIsInviteModalOpened] = useState(false);
-  const [activeTeamPanel, setActiveTeamPanel] = React.useState<string | false>(
-    false
-  );
+  const [activeTeamPanel, setActiveTeamPanel] = React.useState(currentTeam.id);
 
-  const handlePanelChange = (panelName: string) => () => {
-    setActiveTeamPanel(activeTeamPanel ? panelName : false);
+  const handlePanelChange = (teamId: string) => {
+    console.log(teamId);
+    setActiveTeamPanel(teamId);
   };
 
   const handleOpenModal = () => setIsInviteModalOpened(true);
@@ -86,6 +85,7 @@ const TeamsList: React.FC<TeamsListProps> = ({ user, teams, currentTeam }) => {
             <Team
               key={team.id}
               activePanel={activeTeamPanel}
+              id={team.id}
               name={team.name}
               members={team.members}
               onPanelChange={handlePanelChange}

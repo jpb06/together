@@ -34,6 +34,8 @@ const SwitchTeamChoice: React.FC<SwitchTeamChoiceProps> = ({
       selected={team.id === currentTeamId}
       className={classes.teamItem}
       onClick={handleClick}
+      role="button"
+      aria-label={team.name}
     >
       <ListItemAvatar>
         <TeamAvatar team={team} />

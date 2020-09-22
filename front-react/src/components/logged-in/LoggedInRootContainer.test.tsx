@@ -4,9 +4,7 @@ import { mocked } from "ts-jest/utils";
 
 import { logRoles, screen } from "@testing-library/react";
 
-import {
-    loginAction, payloadAction, sagaPayloadAction, successPayloadAction
-} from "../../redux/actions";
+import { sagaPayloadAction, successPayloadAction } from "../../redux/actions";
 import { loggedUserMockData } from "../../test-utils/mocked-data/logged.user.mock.data";
 import { connectedRender } from "../../test-utils/redux/connected.render.helper";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../types/redux";

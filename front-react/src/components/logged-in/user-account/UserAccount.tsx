@@ -56,7 +56,6 @@ const UserAccount: React.FC<UserAccountProps> = ({
             variant="extended"
             size="medium"
             color="secondary"
-            aria-label="logoff"
             className={classes.action}
           >
             <AssignmentIndIcon className={classes.actionIcon} />
@@ -67,7 +66,6 @@ const UserAccount: React.FC<UserAccountProps> = ({
             variant="extended"
             size="medium"
             color="secondary"
-            aria-label="logoff"
             className={classes.action}
             onClick={onLogoff}
           >

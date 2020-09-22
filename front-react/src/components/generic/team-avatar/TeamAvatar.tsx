@@ -28,6 +28,7 @@ const TeamAvatar: React.FC<TeamAvatarProps> = ({
   return (
     <Avatar
       role="img"
+      aria-label={team.name}
       style={{ backgroundColor: avatarColor, color: avatarTextColor }}
       className={clsx(classes.smallFont, {
         [classes.big]: isBigAvatar,

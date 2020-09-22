@@ -48,8 +48,6 @@ const InviteUserToTeamModal: React.FC<InviteUserToTeamModalProps> = ({
     if (!isEmailValid) return;
 
     dispatch(inviteUserToTeamAction(teamId, email, Context.Modal));
-    onClose();
-
     setEmail("");
   };
 

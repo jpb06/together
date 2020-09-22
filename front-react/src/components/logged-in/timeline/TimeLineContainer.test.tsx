@@ -38,7 +38,7 @@ describe("Timeline container component", () => {
     ).toBeNull();
   });
 
-  it("should dispatch as action to fetch the timeline", async () => {
+  it("should dispatch an action to fetch the timeline", async () => {
     const { store } = connectedRender(<TimeLineContainer />, [
       successPayloadAction(Type.Login, Context.Global, loggedUserMockData),
     ]);

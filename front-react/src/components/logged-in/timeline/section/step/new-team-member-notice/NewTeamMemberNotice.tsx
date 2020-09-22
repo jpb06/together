@@ -21,7 +21,7 @@ const NewTeamMemberNotice: React.FC<NewTeamMemberNoticeProps> = ({
         variant="body2"
         color="textSecondary"
       >{`${member.firstName} ${member.lastName}`}</Typography>{" "}
-      {member.status === "creator" ? "created the team." : "joined the team!"}
+      {member.status === "Creator" ? "created the team." : "joined the team!"}
     </div>
   );
 };

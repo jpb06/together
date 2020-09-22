@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { Typography } from "@material-ui/core";
 
 import { userSelector } from "../../../../../../redux/selectors";
-import { InvitedUser } from "../../../../../../types/shared";
+import { InvitedUser } from "../../../../../../stack-shared-code/types";
 import styles from "./InviteToJoinCurrentTeam.styles";
 
 interface InviteToJoinCurrentTeamProps {

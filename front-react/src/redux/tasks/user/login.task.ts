@@ -5,9 +5,9 @@ import { ApiRoutes } from "../../../api/api.routes.enum";
 import TogetherApi, { sendAnonymous } from "../../../api/setup/together.api";
 import { isResultValid } from "../../../api/validation/login.result.validation";
 import { initializeLoggedUserContext } from "../../../logic/user.util";
+import { LoggedUser } from "../../../stack-shared-code/types";
 import { ApiResponse } from "../../../types/api/api.response.interface";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
-import { LoggedUser } from "../../../types/shared";
 import { payloadAction, successPayloadAction } from "../../actions";
 
 export interface LoginParams {

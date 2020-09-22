@@ -1,6 +1,8 @@
-import Button from "@material-ui/core/Button";
-import React from "react";
 import clsx from "clsx";
+import React from "react";
+
+import Button from "@material-ui/core/Button";
+
 import styles from "./SimpleButton.styles";
 
 interface SimpleButtonProps {

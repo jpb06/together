@@ -20,7 +20,7 @@ import { LoginForm } from "./LoginContainer";
 
 interface LoginProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  onSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   form: LoginForm;
   state: LoginState;
 }
@@ -45,7 +45,7 @@ const Login: React.FC<LoginProps> = ({ onChange, onSubmit, form, state }) => {
             title="Agile"
           />
           <CardContent>
-            {state.isPending && <LinearProgress />}
+            {state.isPending && <LinearProgress aria-label="linear-pending" />}
             <Logo
               color={LogoColor.Primary}
               isCentered
@@ -75,8 +75,8 @@ const Login: React.FC<LoginProps> = ({ onChange, onSubmit, form, state }) => {
               required
               id="password"
               label="Password"
-              name="password"
               type="password"
+              name="password"
               autoComplete="current-password"
               margin="normal"
               variant="outlined"

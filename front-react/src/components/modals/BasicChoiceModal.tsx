@@ -1,14 +1,16 @@
-import DialogTitle from "@material-ui/core/DialogTitle";
+import React from "react";
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogActions from "@material-ui/core/DialogActions";
-import SimpleButton from "../generic/buttons/SimpleButton";
-import Dialog from "@material-ui/core/Dialog";
-import React from "react";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+
+import SimpleButton from "../generic/buttons/SimpleButton";
+import WaitingIndicator from "../generic/loaders/WaitingIndicator";
 import DownTransition from "../generic/transitions/DownTransition";
 import styles from "./BasicChoiceModal.styles";
-import WaitingIndicator from "../generic/feedback/WaitingIndicator";
 
 export interface BasicChoiceModalState {
   isOpened: boolean;

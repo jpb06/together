@@ -5,7 +5,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 
-import { TeamWithLastActivity } from "../../../types/shared";
+import { TeamWithLastActivity } from "../../../stack-shared-code/types";
 import TeamAvatar from "../../generic/team-avatar/TeamAvatar";
 import styles from "./SwitchTeamChoice.styles";
 
@@ -34,6 +34,8 @@ const SwitchTeamChoice: React.FC<SwitchTeamChoiceProps> = ({
       selected={team.id === currentTeamId}
       className={classes.teamItem}
       onClick={handleClick}
+      role="button"
+      aria-label={team.name}
     >
       <ListItemAvatar>
         <TeamAvatar team={team} />

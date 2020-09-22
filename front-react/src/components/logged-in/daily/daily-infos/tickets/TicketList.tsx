@@ -2,8 +2,8 @@ import React from "react";
 
 import List from "@material-ui/core/List";
 
+import { TerseUser, Ticket as TicketType } from "../../../../../stack-shared-code/types";
 import { DailyDeleteActionFeedback } from "../../../../../types/redux";
-import { TerseUser, Ticket as TicketType } from "../../../../../types/shared";
 import Ticket from "./Ticket";
 import styles from "./TicketList.styles";
 
@@ -36,7 +36,7 @@ const TicketList: React.FC<TicketListProps> = ({
       className={classes.noDataIcon}
     />
   ) : (
-    <List dense className={classes.fullWidth}>
+    <List dense className={classes.fullWidth} title="Tickets list">
       {tickets.map((ticket, index) => (
         <Ticket
           key={ticket.name}

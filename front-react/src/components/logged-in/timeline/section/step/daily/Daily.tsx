@@ -6,7 +6,7 @@ import EmojiEmotionsIcon from "@material-ui/icons/EmojiEmotions";
 import ForumIcon from "@material-ui/icons/Forum";
 
 import { dailyHasData } from "../../../../../../logic/daily.util";
-import { Daily as DailyType } from "../../../../../../types/shared";
+import { Daily as DailyType } from "../../../../../../stack-shared-code/types";
 import styles from "./Daily.styles";
 import DailySection from "./DailySection";
 import DailyDuration from "./infos/DailyDuration";
@@ -23,7 +23,7 @@ const Daily: React.FC<DailyProps> = ({ daily }) => {
 
   if (dailyHasData(daily)) {
     return (
-      <List disablePadding>
+      <List disablePadding title="Daily">
         <DailyDuration durationIndicator={daily.durationIndicator} />
         {(daily.unforeseenTickets.length > 0 ||
           daily.doneTickets.length > 0) && (

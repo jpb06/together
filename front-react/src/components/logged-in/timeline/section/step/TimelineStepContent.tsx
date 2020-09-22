@@ -3,7 +3,7 @@ import React from "react";
 import {
     Daily as DailyType, InvitedUser, TeamInvite, TeamJoinRequest, TeamMember, TimeLineEntryData,
     TimeLineEntryKind, UserJoinRequest
-} from "../../../../../types/shared";
+} from "../../../../../stack-shared-code/types";
 import Daily from "./daily/Daily";
 import InvitationSentToCurrentUser from "./invitations-sent-to-current-user/InvitationSentToCurrentUser";
 import InviteToJoinCurrentTeam from "./invites-to-join-current-team/InviteToJoinCurrentTeam";

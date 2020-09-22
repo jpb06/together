@@ -3,9 +3,11 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 
 import { validateEmail } from "../../../../../logic/user.util";
-import { inviteUserToTeamAction } from "../../../../../redux/actions";
-import { AccountCreationState, ReduxActionContext as Context } from "../../../../../types/redux";
-import { User } from "../../../../../types/shared";
+import { inviteUserToTeamAction, payloadAction } from "../../../../../redux/actions";
+import { User } from "../../../../../stack-shared-code/types";
+import {
+    AccountCreationState, ReduxActionContext as Context, ReduxActionType as Type
+} from "../../../../../types/redux";
 import AddTeamMembersStepForm from "./AddTeamMembersStepForm";
 
 interface AddTeamMembersStepContainerProps {
@@ -26,12 +28,15 @@ const AddTeamMembersStepContainer: React.FC<AddTeamMembersStepContainerProps> = 
     setEmail(event.target.value);
 
   const handleGoToTimeline = () => {
+    dispatch(payloadAction(Type.OnboardingReset));
     history.push({
       pathname: "/main",
     });
   };
 
-  const handleTeamInvitation = async () => {
+  const handleTeamInvitation = () => {
+    dispatch(payloadAction(Type.OnboardingFormSubmitted));
+
     if (!validateEmail(email)) return;
 
     dispatch(

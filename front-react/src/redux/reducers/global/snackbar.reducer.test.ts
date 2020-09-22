@@ -1,9 +1,10 @@
 import {
-    ReduxActionContext as Context, ReduxActionModifiers as Modifier, ReduxActionType as Type,
-    SnackbarData, SnackbarKind
+  ReduxActionType as Type,
+  SnackbarData,
+  SnackbarKind,
 } from "../../../types/redux";
-import { payloadAction, showSnackbarAction } from "../../actions";
-import lastActionReducer from "./last.action.reducer";
+import { payloadAction } from "../../actions";
+import { initialState } from "../../store/root.state";
 import snackbarReducer from "./snackbar.reducer";
 
 describe("Snackbar reducer", () => {
@@ -17,7 +18,7 @@ describe("Snackbar reducer", () => {
   it("should initialize properly", () => {
     const reducer = snackbarReducer(undefined, payloadAction("Init" as Type));
 
-    expect(reducer).toBeNull;
+    expect(reducer).toStrictEqual(initialState.snackbar);
   });
 
   it("should change its state when action type is snackbar", () => {

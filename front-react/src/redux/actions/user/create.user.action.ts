@@ -1,8 +1,8 @@
 import { History, LocationState } from "history";
 
 import { sagaPayloadAction } from "../";
+import { NewUser } from "../../../stack-shared-code/types";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
-import { NewUser } from "../../../types/shared";
 import { CreateUserParams } from "../../tasks";
 
 export const createUserAction = (

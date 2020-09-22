@@ -2,8 +2,8 @@ import React from "react";
 
 import List from "@material-ui/core/List";
 
+import { Feeling, Subject } from "../../../../../../stack-shared-code/types";
 import { DailyDeleteActionFeedback } from "../../../../../../types/redux";
-import { Feeling, Subject } from "../../../../../../types/shared";
 import { NewDailyCommentKind } from "../new-item/NewDailyComment";
 import DailyComment from "./DailyCommentItem";
 import styles from "./DailyCommentsList.styles";
@@ -32,7 +32,7 @@ const DailyCommentsList: React.FC<DailyCommentsListProps> = ({
       className={classes.noDataIcon}
     />
   ) : (
-    <List dense className={classes.fullWidth}>
+    <List dense className={classes.fullWidth} title={`${type} list`}>
       {list.map((item, index) => (
         <DailyComment
           key={item.id}

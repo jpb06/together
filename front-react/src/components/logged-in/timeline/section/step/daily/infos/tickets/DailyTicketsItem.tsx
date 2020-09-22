@@ -1,6 +1,8 @@
-import React from "react";
-import { Grid, Chip, Avatar } from "@material-ui/core";
 import clsx from "clsx";
+import React from "react";
+
+import { Avatar, Chip, Grid } from "@material-ui/core";
+
 import styles from "./DailyTicketsItem.styles";
 
 interface DailyTicketsItemProps {
@@ -10,12 +12,12 @@ interface DailyTicketsItemProps {
 
 const DailyTicketsItem: React.FC<DailyTicketsItemProps> = ({
   label,
-  count
+  count,
 }) => {
   const classes = styles();
 
   return (
-    <Grid item md={count > 0 ? 6 : 12} xs={12}>
+    <Grid item md={12} xs={12}>
       <Chip
         avatar={<Avatar className={classes.warning}>{count}</Avatar>}
         label={label}

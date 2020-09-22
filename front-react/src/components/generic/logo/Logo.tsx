@@ -1,15 +1,17 @@
+import clsx from "clsx";
+import React from "react";
+import { NavLink } from "react-router-dom";
+
+import { Typography } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
-import React from "react";
-import { Typography } from "@material-ui/core";
-import clsx from "clsx";
-import { NavLink } from "react-router-dom";
+
 import styles from "./Logo.styles";
 
 export enum LogoColor {
   Primary,
   Secondary,
-  White
+  White,
 }
 
 interface LogoProps {
@@ -25,7 +27,7 @@ const Logo: React.FC<LogoProps> = ({
   isCentered = true,
   isLargeFont = false,
   hasDescriptionText = false,
-  isIndexLinkDisabled = false
+  isIndexLinkDisabled = false,
 }) => {
   const classes = styles();
   return (
@@ -37,7 +39,7 @@ const Logo: React.FC<LogoProps> = ({
         className={clsx(classes.logo, {
           [classes.logoColorPrimary]: color === LogoColor.Primary,
           [classes.logoColorSecondary]: color === LogoColor.Secondary,
-          [classes.logoColorWhite]: !color || color === LogoColor.White
+          [classes.logoColorWhite]: color === LogoColor.White,
         })}
         component={NavLink}
         to={isIndexLinkDisabled ? "" : "/main"}
@@ -46,7 +48,7 @@ const Logo: React.FC<LogoProps> = ({
           item
           className={clsx({
             [classes.largeFont]: isLargeFont,
-            [classes.normalFont]: !isLargeFont
+            [classes.normalFont]: !isLargeFont,
           })}
           style={{ alignSelf: "center" }}
         >

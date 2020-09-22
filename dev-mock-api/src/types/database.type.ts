@@ -1,4 +1,6 @@
-import { Daily, PersistedUser as User, Team } from "../../../front-react/src/types/shared";
+import {
+    Daily, PersistedUser as User, Team
+} from "../../../front-react/src/stack-shared-code/types";
 
 export default interface Database {
   users: Array<User>;

@@ -1,12 +1,12 @@
 import React from "react";
 
+import { User } from "../../../../../stack-shared-code/types";
 import { AccountCreationState, AccountCreationStep } from "../../../../../types/redux";
-import { User } from "../../../../../types/shared";
 import UserAvatarStepForm from "./UserAvatarStepForm";
 
 interface UserAvatarStepContainerProps {
   state: AccountCreationState;
-  user: User | null;
+  user: User;
   onAvatarChosen: () => void;
 }
 
@@ -15,7 +15,7 @@ const UserAvatarStepContainer: React.FC<UserAvatarStepContainerProps> = ({
   user,
   onAvatarChosen,
 }) => {
-  if (state.step !== AccountCreationStep.Avatar || !user) return null;
+  if (state.step !== AccountCreationStep.Avatar) return null;
 
   return (
     <UserAvatarStepForm

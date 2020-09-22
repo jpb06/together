@@ -6,7 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 
-import { TeamWithLastActivity, User } from "../../../types/shared";
+import { TeamWithLastActivity, User } from "../../../stack-shared-code/types";
 import UserAvatar from "../../generic/user-avatar/UserAvatar";
 import JoinRequestList from "./join-requests/JoinRequestList";
 import TeamsList from "./team-list/TeamsList";
@@ -56,7 +56,6 @@ const UserAccount: React.FC<UserAccountProps> = ({
             variant="extended"
             size="medium"
             color="secondary"
-            aria-label="logoff"
             className={classes.action}
           >
             <AssignmentIndIcon className={classes.actionIcon} />
@@ -67,7 +66,6 @@ const UserAccount: React.FC<UserAccountProps> = ({
             variant="extended"
             size="medium"
             color="secondary"
-            aria-label="logoff"
             className={classes.action}
             onClick={onLogoff}
           >

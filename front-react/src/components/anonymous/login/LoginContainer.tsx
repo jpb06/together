@@ -25,7 +25,7 @@ const LoginContainer: React.FC = () => {
     password: "",
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
 
     setCredentials({
@@ -34,11 +34,8 @@ const LoginContainer: React.FC = () => {
     });
   };
 
-  const handleSubmit = async (
-    event: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     dispatch(payloadAction(Type.LoginStateRetry));
     if (credentials.email === "" || credentials.password === "") return;
     dispatch(payloadAction(Type.LoginStatePending));

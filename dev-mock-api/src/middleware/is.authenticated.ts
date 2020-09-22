@@ -1,6 +1,8 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request } from "express";
 
-const getPayloadFromHeaders = (req: Request, res: Response): string => {
+import { ApiResponse } from "../types/api.response.type";
+
+const getPayloadFromHeaders = (req: Request, res: ApiResponse): string => {
   const authorizationHeaders = req.headers.authorization || "";
   const chunks = authorizationHeaders.split(" ");
 
@@ -13,7 +15,7 @@ const getPayloadFromHeaders = (req: Request, res: Response): string => {
 
 export default function isAuthenticated(
   req: Request,
-  res: Response,
+  res: ApiResponse,
   next: NextFunction
 ) {
   try {

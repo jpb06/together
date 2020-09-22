@@ -5,8 +5,8 @@ import { useDispatch } from "react-redux";
 import LocalStorageKeys from "../logic/local.storage.keys";
 import { getTimelineAction } from "../redux/actions";
 import { timelineSelector } from "../redux/selectors/timeline.selector";
+import { BareTeam, TimeLine } from "../stack-shared-code/types";
 import { ReduxActionContext as Context } from "../types/redux";
-import { BareTeam, TimeLine } from "../types/shared";
 import { useRootSelector } from "./use.root.selector";
 
 export const useTimelineLoading = (context: Context): TimeLine | null => {

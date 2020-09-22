@@ -2,7 +2,7 @@ import React from "react";
 
 import { Grid } from "@material-ui/core";
 
-import { TeamJoinRequest } from "../../../../types/shared";
+import { TeamJoinRequest } from "../../../../stack-shared-code/types";
 import TeamAvatar from "../../../generic/team-avatar/TeamAvatar";
 import styles from "./JoinRequest.styles";
 

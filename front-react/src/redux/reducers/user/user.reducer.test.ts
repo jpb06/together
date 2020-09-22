@@ -1,5 +1,5 @@
+import { LoggedUser, TeamJoinRequest } from "../../../stack-shared-code/types";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
-import { LoggedUser, TeamJoinRequest } from "../../../types/shared";
 import { payloadAction, successPayloadAction } from "../../actions";
 import userReducer from "./user.reducer";
 
@@ -18,7 +18,7 @@ describe("User reducer", () => {
   it("should initialize as null", () => {
     const reducer = userReducer(undefined, payloadAction("Init" as Type));
 
-    expect(reducer).toBeNull;
+    expect(reducer).toBeNull();
   });
 
   it("should initialize properly at login", () => {
@@ -37,7 +37,7 @@ describe("User reducer", () => {
       successPayloadAction(Type.CreateTeam, Context.Global, newTeam)
     );
 
-    expect(reducer).toBeNull;
+    expect(reducer).toBeNull();
   });
 
   it("should update user state when creating a team", () => {
@@ -66,7 +66,7 @@ describe("User reducer", () => {
       successPayloadAction(Type.RequestToJoinTeam, Context.Global, joinRequest)
     );
 
-    expect(reducer).toBeNull;
+    expect(reducer).toBeNull();
   });
 
   it("should update user state when requesting to join a team", () => {

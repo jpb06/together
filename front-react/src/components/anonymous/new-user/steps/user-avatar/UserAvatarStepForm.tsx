@@ -4,8 +4,8 @@ import { Avatar, Grid, Typography, useTheme } from "@material-ui/core";
 import GroupWorkIcon from "@material-ui/icons/GroupWork";
 
 import { stringToColor } from "../../../../../logic/colors.util";
+import { User } from "../../../../../stack-shared-code/types";
 import { AccountCreationState } from "../../../../../types/redux";
-import { User } from "../../../../../types/shared";
 import FeedbackButton from "../../../../generic/buttons/FeedbackButton";
 import StepTitle from "../StepTitle";
 import styles from "./UserAvatarStepForm.styles";
@@ -47,6 +47,8 @@ const UserAvatarStepForm: React.FC<UserAvatarStepFormProps> = ({
       </Grid>
       <Grid item xs={12} sm={12} className={classes.centered}>
         <Avatar
+          role="img"
+          aria-label="user avatar"
           className={classes.avatar}
           style={{ backgroundColor: avatarColor, color: avatarTextColor }}
         >

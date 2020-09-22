@@ -1,43 +1,43 @@
 import React from "react";
 
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import { Accordion, AccordionDetails, AccordionSummary } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import { TeamMember as TeamMemberType } from "../../../../types/shared";
+import { TeamMember as TeamMemberType } from "../../../../stack-shared-code/types";
 import TeamMember from "./team-member/TeamMember";
 import styles from "./Team.styles";
 
 interface TeamProps {
-  activePanel: string | boolean;
+  activePanel: string;
+  id: string;
   name: string;
   members: Array<TeamMemberType>;
-  onPanelChange: (
-    name: string
-  ) => (event: React.ChangeEvent<{}>, expanded: boolean) => void;
+  onPanelChange: (id: string) => void;
 }
 
 const Team: React.FC<TeamProps> = ({
   activePanel,
+  id,
   name,
   members,
   onPanelChange,
 }) => {
   const classes = styles();
 
+  const handlePanelChange = () => onPanelChange(id);
+
   return (
-    <ExpansionPanel
-      expanded={activePanel === name}
-      onChange={onPanelChange(name)}
+    <Accordion
+      expanded={activePanel === id}
+      onChange={handlePanelChange}
       className={classes.container}
     >
-      <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Typography>{name}</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      </AccordionSummary>
+      <AccordionDetails>
         <Grid
           container
           direction="row"
@@ -48,8 +48,8 @@ const Team: React.FC<TeamProps> = ({
             <TeamMember key={user.id} user={user} />
           ))}
         </Grid>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

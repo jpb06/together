@@ -1,5 +1,5 @@
+import { Daily, FeelingKind, SubjectKind } from "../../../stack-shared-code/types";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
-import { Daily, FeelingKind, SubjectKind } from "../../../types/shared";
 import { payloadAction, successPayloadAction } from "../../actions";
 import dailyReducer from "./daily.reducer";
 
@@ -20,7 +20,7 @@ describe("Daily reducer", () => {
   it("should initialize as null", () => {
     const reducer = dailyReducer(undefined, payloadAction("Init" as Type));
 
-    expect(reducer).toBeNull;
+    expect(reducer).toBeNull();
   });
 
   it("should store daily", () => {

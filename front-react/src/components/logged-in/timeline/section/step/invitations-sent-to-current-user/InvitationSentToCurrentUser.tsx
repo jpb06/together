@@ -12,7 +12,7 @@ import {
     answerTeamInviteAction
 } from "../../../../../../redux/actions/user/answer.team.invite.action";
 import { TeamInviteAnswer } from "../../../../../../redux/tasks";
-import { BareTeam, TeamInvite } from "../../../../../../types/shared";
+import { BareTeam, TeamInvite } from "../../../../../../stack-shared-code/types";
 import SimpleButton from "../../../../../generic/buttons/SimpleButton";
 import AnswerTeamInviteModalContainer from "../../../../../modals/AnswerTeamInviteModalContainer";
 import BasicChoiceModal, { BasicChoiceModalState } from "../../../../../modals/BasicChoiceModal";
@@ -36,7 +36,7 @@ const InvitationSentToCurrentUser: React.FC<InvitationSentToCurrentUserProps> = 
     isLoading: false,
     title: "Decline invite",
     question: <RefuseToJoinTeam teamName={invite.team.name} />,
-    accept: "Decline",
+    accept: "Yes",
     refuse: "Nevermind",
   });
 
@@ -44,6 +44,7 @@ const InvitationSentToCurrentUser: React.FC<InvitationSentToCurrentUserProps> = 
 
   const toggleDeclineModal = () =>
     setDeclineInviteState((state) => ({ ...state, isOpened: !state.isOpened }));
+
   const declineInvite = () => {
     dispatch(answerTeamInviteAction(invite.id, TeamInviteAnswer.Declined));
     const currentTeam = localStore.get<BareTeam>(LocalStorageKeys.currentTeam);
@@ -53,17 +54,19 @@ const InvitationSentToCurrentUser: React.FC<InvitationSentToCurrentUserProps> = 
 
   return (
     <div className={classes.root}>
-      You have been invited to join team{" "}
-      <Typography component="span" variant="body2" color="textSecondary">
-        {invite.team.name}
-      </Typography>{" "}
-      by{" "}
-      <Typography
-        component="span"
-        variant="body2"
-        color="textSecondary"
-      >{`${invite.referrer.firstName} ${invite.referrer.lastName}`}</Typography>
-      .
+      <div>
+        You have been invited to join team{" "}
+        <Typography component="span" variant="body2" color="textSecondary">
+          {invite.team.name}
+        </Typography>{" "}
+        by{" "}
+        <Typography
+          component="span"
+          variant="body2"
+          color="textSecondary"
+        >{`${invite.referrer.firstName} ${invite.referrer.lastName}`}</Typography>
+        .
+      </div>
       <div className={classes.actions}>
         <SimpleButton text="Join" onClick={openJoinModal} />
         &nbsp;

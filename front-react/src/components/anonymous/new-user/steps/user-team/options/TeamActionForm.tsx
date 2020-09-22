@@ -90,7 +90,7 @@ const CreateTeamForm: React.FC<CreateTeamFormProps> = ({
         <Grid item xs={12} sm={12}>
           <Slide direction="up" timeout={500} in mountOnEnter unmountOnExit>
             <ColoredCard
-              color={grey[900]}
+              backgroundColor={grey[900]}
               children={
                 <div>
                   {descriptionText}

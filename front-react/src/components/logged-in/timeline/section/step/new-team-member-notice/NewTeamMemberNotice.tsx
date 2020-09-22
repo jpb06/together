@@ -2,7 +2,7 @@ import React from "react";
 
 import { Typography } from "@material-ui/core";
 
-import { TeamMember } from "../../../../../../types/shared";
+import { TeamMember } from "../../../../../../stack-shared-code/types";
 import styles from "./NewTeamMemberNotice.styles";
 
 interface NewTeamMemberNoticeProps {
@@ -21,7 +21,7 @@ const NewTeamMemberNotice: React.FC<NewTeamMemberNoticeProps> = ({
         variant="body2"
         color="textSecondary"
       >{`${member.firstName} ${member.lastName}`}</Typography>{" "}
-      {member.status === "creator" ? "created the team." : "joined the team!"}
+      {member.status === "Creator" ? "created the team." : "joined the team!"}
     </div>
   );
 };

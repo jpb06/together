@@ -7,7 +7,9 @@ import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import NotListedLocationIcon from "@material-ui/icons/NotListedLocation";
 import SupervisedUserCircleIcon from "@material-ui/icons/SupervisedUserCircle";
 
-import { TeamMember, TimeLine, TimeLineEntryData, TimeLineEntryKind } from "../types/shared";
+import {
+    TeamMember, TimeLine, TimeLineEntryData, TimeLineEntryKind
+} from "../stack-shared-code/types";
 
 const isCreator = (data: TimeLineEntryData) => {
   if ((data as TeamMember).status) {

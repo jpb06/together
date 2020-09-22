@@ -1,21 +1,17 @@
 import * as localStore from "local-storage";
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 
 import { useRootSelector, useUserTeamsLoading } from "../../../hooks";
 import LocalStorageKeys from "../../../logic/local.storage.keys";
 import { userSelector } from "../../../redux/selectors";
+import { BareTeam, TeamWithLastActivity, User } from "../../../stack-shared-code/types";
 import { ReduxActionContext as Context } from "../../../types/redux";
-import { BareTeam, TeamWithLastActivity, User } from "../../../types/shared";
 import WithLoadingAndErrors from "../composition/WithLoadingAndErrors";
 import UserAccount from "./UserAccount";
 
-interface UserAccountContainerProps {
-  history: any;
-}
-
-const UserAccountContainer: React.FC<UserAccountContainerProps> = ({
-  history,
-}) => {
+const UserAccountContainer: React.FC = () => {
+  const history = useHistory();
   const user = useRootSelector(userSelector);
   const userTeams = useUserTeamsLoading(user);
 

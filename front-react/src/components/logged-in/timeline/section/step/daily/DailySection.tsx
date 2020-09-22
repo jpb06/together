@@ -7,7 +7,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 
-import { Daily as DailyType } from "../../../../../../types/shared";
+import { Daily as DailyType } from "../../../../../../stack-shared-code/types";
 import styles from "./DailySection.styles";
 
 interface DailySectionProps {

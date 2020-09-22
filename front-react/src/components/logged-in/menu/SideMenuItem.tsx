@@ -1,10 +1,12 @@
-import ForwardNavLink from "./../../generic/buttons/ForwardNavLink";
+import React from "react";
+
+import { SvgIconTypeMap } from "@material-ui/core";
+import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListItem from "@material-ui/core/ListItem";
-import React from "react";
 import { OverridableComponent } from "@material-ui/core/OverridableComponent";
-import { SvgIconTypeMap } from "@material-ui/core";
+
+import ForwardNavLink from "../../generic/buttons/ForwardNavLink";
 
 interface SideMenuItemProps {
   to: string;
@@ -17,7 +19,7 @@ const SideMenuItem: React.FC<SideMenuItemProps> = ({
   to,
   menuText,
   fullText,
-  IconComponent
+  IconComponent,
 }) => {
   return (
     <ListItem
@@ -28,7 +30,7 @@ const SideMenuItem: React.FC<SideMenuItemProps> = ({
       activeClassName={"Mui-selected"}
     >
       <ListItemIcon>
-        <IconComponent />
+        <IconComponent titleAccess={menuText} />
       </ListItemIcon>
       <ListItemText primary={fullText} />
     </ListItem>

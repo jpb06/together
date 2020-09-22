@@ -8,9 +8,9 @@ import {
     createTeamAction, createUserAction, payloadAction, requestToJoinTeamAction
 } from "../../../redux/actions";
 import { accountCreationStateSelector, userSelector } from "../../../redux/selectors";
+import { NewUser } from "../../../stack-shared-code/types";
 import { ReduxActionContext as Context } from "../../../types/redux";
 import { ReduxActionType as Type } from "../../../types/redux/redux.action.types";
-import { NewUser } from "../../../types/shared";
 import NewAccount from "./NewAccount";
 
 export enum TeamActionType {
@@ -25,24 +25,27 @@ const NewAccountContainer: React.FC = () => {
   const newAccountState = useRootSelector(accountCreationStateSelector);
   const loggedUser = useRootSelector(userSelector);
 
-  const handleUserCreation = async (user: NewUser) => {
-    dispatch(payloadAction(Type.CreateUserDataSubmitted));
+  const handleUserCreation = (user: NewUser) => {
+    dispatch(payloadAction(Type.OnboardingFormSubmitted));
 
     if (!isNewUserDataValid(user)) return;
 
     dispatch(createUserAction(user, history, Context.Onboarding));
   };
 
-  const handleAvatarChosen = async () =>
-    dispatch(payloadAction(Type.AvatarChosen));
+  const handleAvatarChosen = () => dispatch(payloadAction(Type.AvatarChosen));
 
-  const handleTeamAction = async (name: string, actionType: TeamActionType) => {
+  const handleTeamAction = (name: string, actionType: TeamActionType) => {
+    dispatch(payloadAction(Type.OnboardingFormSubmitted));
     if (name === "") return;
 
-    if (actionType === TeamActionType.Create) {
-      dispatch(createTeamAction(name, Context.Onboarding));
-    } else if (actionType === TeamActionType.Join) {
-      dispatch(requestToJoinTeamAction(name, history, Context.Onboarding));
+    switch (actionType) {
+      case TeamActionType.Create:
+        dispatch(createTeamAction(name, Context.Onboarding));
+        break;
+      case TeamActionType.Join:
+        dispatch(requestToJoinTeamAction(name, history, Context.Onboarding));
+        break;
     }
   };
 

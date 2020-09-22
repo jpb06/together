@@ -1,4 +1,4 @@
-import { Daily } from "../types/shared";
+import { Daily } from "../stack-shared-code/types";
 
 export const dailyHasData = (daily: Daily) =>
   daily.durationIndicator.length > 0 ||

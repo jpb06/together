@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import LocalStorageKeys from "../logic/local.storage.keys";
 import { getTeamMembersAction } from "../redux/actions/team/get.team.members.action";
 import { teamMembersSelector } from "../redux/selectors";
-import { BareTeam, TeamMember } from "../types/shared";
+import { BareTeam, TeamMember } from "../stack-shared-code/types";
 import { useRootSelector } from "./use.root.selector";
 
 export const useCurrentTeamMembersLoading = (): Array<TeamMember> => {

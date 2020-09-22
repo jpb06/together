@@ -9,7 +9,8 @@ export enum ReduxActionType {
   // Users
   Login = "LOGIN",
   CreateUser = "CREATE-USER",
-  CreateUserDataSubmitted = "CREATE-USER-DATA-SUBMITTED",
+  OnboardingFormSubmitted = "ONBOARDING-FORM-SUBMITTED",
+  OnboardingReset = "ONBOARDING-RESET",
   AvatarChosen = "AVATAR-CHOSEN",
   AnswerTeamInvite = "ANSWER-TEAM-INVITE",
   GetTimeline = "GET-TIMELINE",

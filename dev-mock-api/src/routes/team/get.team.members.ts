@@ -1,15 +1,16 @@
-import { Application } from "express";
-import { Request, Response } from "express-serve-static-core";
-import isAuthenticated from "../../middleware/is.authenticated";
+import { Application, Request } from "express";
 import { body } from "express-validator";
+
 import { getTeams } from "../../dbase/fetch.mock.db";
+import isAuthenticated from "../../middleware/is.authenticated";
+import { ApiResponse } from "../../types/api.response.type";
 
 const mapGetTeamMembers = (server: Application) => {
   server.post(
     "/api/team/members",
     isAuthenticated,
     [body("teamId").isMongoId()],
-    (req: Request, res: Response) => {
+    (req: Request, res: ApiResponse) => {
       const teams = getTeams();
 
       const team = teams.find((el) => el.id === req.body.teamId);

@@ -3,7 +3,7 @@ import React from "react";
 import { Typography } from "@material-ui/core";
 import List from "@material-ui/core/List";
 
-import { BareTeam, TeamWithLastActivity } from "../../../types/shared";
+import { BareTeam, TeamWithLastActivity } from "../../../stack-shared-code/types";
 import styles from "./SwitchTeam.styles";
 import SwitchTeamChoice from "./SwitchTeamChoice";
 

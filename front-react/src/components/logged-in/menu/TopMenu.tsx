@@ -8,7 +8,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import MenuIcon from "@material-ui/icons/Menu";
 
 import { userSelector } from "../../../redux/selectors";
-import { TerseUser } from "../../../types/shared";
+import { TerseUser } from "../../../stack-shared-code/types";
 import Logo, { LogoColor } from "../../generic/logo/Logo";
 import UserAvatar from "../../generic/user-avatar/UserAvatar";
 import SideMenu from "./SideMenu";
@@ -22,21 +22,11 @@ const TopMenu = () => {
 
   const toggleDrawer = (isOpen: boolean) => (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | any
-  ) => {
-    if (
-      event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setIsSiderOpen(isOpen);
-  };
+  ) => setIsSiderOpen(isOpen);
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" className={classes.appBar}>
+      <AppBar position="static" className={classes.appBar} aria-label="appbar">
         <Toolbar>
           <IconButton
             edge="start"

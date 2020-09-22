@@ -1,4 +1,4 @@
-import { TeamMember } from "../../shared";
+import { TeamMember } from "../../../stack-shared-code/types";
 
 export enum AccountCreationStep {
   User,

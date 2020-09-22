@@ -1,5 +1,7 @@
+import {
+    LoggedUser, TeamJoinRequest, TeamWithLastActivity
+} from "../../../stack-shared-code/types";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
-import { LoggedUser, TeamJoinRequest, TeamWithLastActivity } from "../../../types/shared";
 import { payloadAction, successPayloadAction } from "../../actions";
 import userTeamsReducer from "./user.teams.reducer";
 

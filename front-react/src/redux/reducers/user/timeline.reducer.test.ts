@@ -1,5 +1,5 @@
+import { TimeLine, TimeLineEntryKind } from "../../../stack-shared-code/types";
 import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
-import { TimeLine, TimeLineEntryKind } from "../../../types/shared";
 import { payloadAction, successPayloadAction } from "../../actions";
 import timelineReducer from "./timeline.reducer";
 
@@ -7,7 +7,7 @@ describe("Timeline reducer", () => {
   it("should initialize as null", () => {
     const reducer = timelineReducer(undefined, payloadAction("Init" as Type));
 
-    expect(reducer).toBeNull;
+    expect(reducer).toBeNull();
   });
 
   it("should initialize as null at login", () => {
@@ -16,7 +16,7 @@ describe("Timeline reducer", () => {
       successPayloadAction(Type.Login, Context.Global)
     );
 
-    expect(reducer).toBeNull;
+    expect(reducer).toBeNull();
   });
 
   it("should set timeline", () => {

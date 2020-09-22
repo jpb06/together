@@ -1,6 +1,7 @@
+import { IResult, PasswordMeter } from "password-meter";
 import React, { useEffect, useState } from "react";
+
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { PasswordMeter, IResult } from "password-meter";
 
 interface PasswordStrengthProps {
   password: string;
@@ -21,9 +22,9 @@ const PasswordStrength: React.FC<PasswordStrengthProps> = ({ password }) => {
 
   return (
     <>
-      Password strength{" "}
-      {strength.status === "Empty" ? "" : ` - ${strength.status}`}
+      Password strength {` - ${strength.status}`}
       <LinearProgress
+        aria-label="password-strength"
         variant="determinate"
         color="primary"
         value={strength.percent}

@@ -2,9 +2,15 @@ import * as localStore from "local-storage";
 
 import LocalStorageKeys from "../../../logic/local.storage.keys";
 import {
-    AccountCreationStep, ReduxActionContext as Context, ReduxActionType as Type
+  AccountCreationStep,
+  ReduxActionContext as Context,
+  ReduxActionType as Type,
 } from "../../../types/redux";
-import { payloadAction, sagaPayloadAction, successPayloadAction } from "../../actions";
+import {
+  payloadAction,
+  sagaPayloadAction,
+  successPayloadAction,
+} from "../../actions";
 import { initialState } from "../../store/root.state";
 import accountCreationStateReducer from "./account.creation.state.reducer";
 
@@ -148,7 +154,7 @@ describe("Account creation state reducer", () => {
   it("should set its state to submitted", () => {
     const reducer = accountCreationStateReducer(
       initialState.accountCreationState,
-      payloadAction(Type.CreateUserDataSubmitted)
+      payloadAction(Type.OnboardingFormSubmitted)
     );
 
     expect(reducer).toStrictEqual({

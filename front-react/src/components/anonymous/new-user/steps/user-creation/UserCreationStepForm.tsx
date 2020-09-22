@@ -7,8 +7,8 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import FaceIcon from "@material-ui/icons/Face";
 
 import { isPasswordValid, validateEmail } from "../../../../../logic/user.util";
+import { NewUser } from "../../../../../stack-shared-code/types";
 import { AccountCreationState } from "../../../../../types/redux";
-import { NewUser } from "../../../../../types/shared";
 import FeedbackButton from "../../../../generic/buttons/FeedbackButton";
 import PasswordStrength from "../../../../generic/password/PasswordStrength";
 import NewAccountBusyIndicator from "../../busy-indicator/NewAccountBusyIndicator";

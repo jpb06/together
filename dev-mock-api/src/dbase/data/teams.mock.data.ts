@@ -1,4 +1,4 @@
-import { Team } from "../../../../front-react/src/types/shared";
+import { Team } from "../../../../front-react/src/stack-shared-code/types";
 
 export const teams: Array<Team> = [
   {
@@ -103,5 +103,31 @@ export const teams: Array<Team> = [
         },
       },
     ],
+  },
+  {
+    id: "5d8b9a604ddbc1362cc58064",
+    name: "The great one",
+    members: [
+      {
+        id: "5d99bdfc41d6a138089092d1",
+        email: "ben@together.com",
+        avatarName: "ben.jpg",
+        firstName: "Ben",
+        lastName: "McCool",
+        status: "creator",
+        joinDate: "2018-12-31T23:00:00.000+00:00",
+      },
+      {
+        id: "5d8b9a68f9aa620de70f6ff9",
+        email: "jpb.06@outlook.fr",
+        avatarName: "6SLWt.gif",
+        firstName: "Charles-Edouard",
+        lastName: "Superman",
+        status: "member",
+        joinDate: "2018-12-31T23:00:00.000+00:00",
+      },
+    ],
+    invitedUsers: [],
+    joinRequests: [],
   },
 ];

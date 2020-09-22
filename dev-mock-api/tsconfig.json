@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
+    "module": "CommonJS",
+    "target": "es5",
     "moduleResolution": "node",
     "outDir": "./dist",
     "allowJs": true,
@@ -10,13 +10,16 @@
     "noImplicitAny": true,
     "noEmitOnError": true,
     "removeComments": true,
-    "isolatedModules": false,
-    "resolveJsonModule": true
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "compileOnSave": false,
   "buildOnSave": false,
   "typeRoots": ["node_modules/@types"],
   "include": [
-    "src", "../shared/**/*"
+    "src",
+    "../front-react/src/stack-shared-code/**/*"
   ]
 }

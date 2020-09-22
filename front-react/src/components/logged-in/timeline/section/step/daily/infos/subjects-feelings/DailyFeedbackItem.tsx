@@ -5,14 +5,13 @@ import Badge from "@material-ui/core/Badge";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Typography from "@material-ui/core/Typography";
-import NotListedLocationIcon from "@material-ui/icons/NotListedLocation";
 
 import {
     getStaticFeedback, StaticFeedback
 } from "../../../../../../../../logic/daily.details.util";
 import staticFeelings from "../../../../../../../../logic/static/static.feelings";
 import staticSubjects from "../../../../../../../../logic/static/static.subjects";
-import { Feeling, Subject } from "../../../../../../../../types/shared";
+import { Feeling, Subject } from "../../../../../../../../stack-shared-code/types";
 import UserAvatar from "../../../../../../../generic/user-avatar/UserAvatar";
 import { DailyDetailsType } from "./DailyFeedback";
 import styles from "./DailyFeedbackItem.styles";
@@ -28,21 +27,29 @@ const DailyFeedbackItem: React.FC<DailyFeedbackItemProps> = ({
 }) => {
   const classes = styles();
 
-  let staticElement: StaticFeedback | null = null;
+  let staticElement: StaticFeedback | undefined;
   let text = "";
 
-  if (type === DailyDetailsType.Subject) {
-    staticElement = getStaticFeedback(staticSubjects, data.type);
-    text = (data as Subject).description;
-  } else if (type === DailyDetailsType.Feeling) {
-    staticElement = getStaticFeedback(staticFeelings, data.type);
-    text = (data as Feeling).comment;
+  switch (type) {
+    case DailyDetailsType.Subject:
+      staticElement = getStaticFeedback(staticSubjects, data.type);
+      text = (data as Subject).description;
+      break;
+    case DailyDetailsType.Feeling:
+      staticElement = getStaticFeedback(staticFeelings, data.type);
+      text = (data as Feeling).comment;
+      break;
   }
 
-  const Icon = staticElement?.icon || NotListedLocationIcon;
+  if (!staticElement) return null;
 
+  const Icon = staticElement.icon;
   return (
-    <ListItem disableGutters alignItems="flex-start">
+    <ListItem
+      disableGutters
+      alignItems="flex-start"
+      title="Daily feedback item"
+    >
       <ListItemAvatar className={classes.avatarContainer}>
         <Badge
           overlap="circle"
@@ -67,7 +74,7 @@ const DailyFeedbackItem: React.FC<DailyFeedbackItemProps> = ({
             color="primary"
             className={classes.feedbackType}
           >
-            {staticElement?.label} by
+            {staticElement.label} by
           </Typography>
           <Typography
             component="span"

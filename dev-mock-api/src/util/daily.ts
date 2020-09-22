@@ -1,4 +1,4 @@
-import { Daily } from "../../../front-react/src/types/shared";
+import { Daily } from "../../../front-react/src/stack-shared-code/types";
 import { getDailies } from "../dbase/fetch.mock.db";
 import { mongoObjectId } from "./objectid";
 

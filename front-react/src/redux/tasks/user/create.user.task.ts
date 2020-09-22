@@ -4,9 +4,9 @@ import { call } from "redux-saga/effects";
 import { loginTask } from "../";
 import { ApiRoutes } from "../../../api/api.routes.enum";
 import { sendAnonymous } from "../../../api/setup/together.api";
+import { TerseUser } from "../../../stack-shared-code/types";
 import { ApiResponse } from "../../../types/api/api.response.interface";
 import { ReduxActionContext as Context } from "../../../types/redux";
-import { TerseUser } from "../../../types/shared";
 
 export enum CreateUserStatus {
   Created,

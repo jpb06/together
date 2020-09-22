@@ -1,7 +1,7 @@
 import React from "react";
 
 import { getIconFromTimelineEntryType } from "../../../../../logic/timeline.util";
-import { TimeLineEntryData, TimeLineEntryKind } from "../../../../../types/shared";
+import { TimeLineEntryData, TimeLineEntryKind } from "../../../../../stack-shared-code/types";
 import TimelineStepContent from "./TimelineStepContent";
 import TimelineStepTitle from "./TimelineStepTitle";
 

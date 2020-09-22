@@ -1,11 +1,13 @@
-import { Application } from "express";
-import { Request, Response } from "express-serve-static-core";
+import { Application, Request } from "express";
 import { body } from "express-validator";
 
-import { PersistedUser as User, Team, TeamInvite } from "../../../../front-react/src/types/shared";
+import {
+    PersistedUser as User, Team, TeamInvite
+} from "../../../../front-react/src/stack-shared-code/types";
 import { persistTeam, persistUser } from "../../dbase/update.mock.db";
 import getTeamFromInvite from "../../middleware/get.team.from.invite";
 import isAuthenticated from "../../middleware/is.authenticated";
+import { ApiResponse } from "../../types/api.response.type";
 
 const mapDeclineTeamInvite = (server: Application) => {
   server.post(
@@ -13,7 +15,7 @@ const mapDeclineTeamInvite = (server: Application) => {
     isAuthenticated,
     [body("inviteId").isMongoId()],
     getTeamFromInvite,
-    (req: Request, res: Response) => {
+    (req: Request, res: ApiResponse) => {
       const user: User = res.locals.user;
       const team: Team = res.locals.team;
       const invite: TeamInvite = res.locals.invite;

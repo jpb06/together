@@ -6,8 +6,8 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 
+import { NewUser, User } from "../../../stack-shared-code/types";
 import { AccountCreationState, AccountCreationStep } from "../../../types/redux";
-import { NewUser, User } from "../../../types/shared";
 import ColoredFatLinearProgress, {
     FatProgressColor
 } from "../../generic/loaders/ColoredFatLinearProgress";
@@ -88,7 +88,7 @@ const NewAccount: React.FC<NewAccountProps> = ({
                   state={state}
                   user={loggedUser}
                   onAvatarChosen={onAvatarChosen}
-                />{" "}
+                />
                 <UserTeamStepContainer
                   state={state}
                   onTeamAction={onTeamAction}

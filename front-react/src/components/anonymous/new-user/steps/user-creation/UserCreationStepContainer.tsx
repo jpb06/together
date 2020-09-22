@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
+import { NewUser } from "../../../../../stack-shared-code/types";
 import { AccountCreationState, AccountCreationStep } from "../../../../../types/redux";
-import { NewUser } from "../../../../../types/shared";
 import UserCreationStepForm from "./UserCreationStepForm";
 
 interface UserCreationStepContainerProps {

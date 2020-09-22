@@ -2,7 +2,7 @@ import React from "react";
 
 import Grid from "@material-ui/core/Grid";
 
-import { TeamMember as TeamMemberType } from "../../../../../types/shared";
+import { TeamMember as TeamMemberType } from "../../../../../stack-shared-code/types";
 import UserAvatar from "../../../../generic/user-avatar/UserAvatar";
 import styles from "./TeamMember.styles";
 

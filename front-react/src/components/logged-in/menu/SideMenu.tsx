@@ -1,16 +1,18 @@
+import clsx from "clsx";
 import React from "react";
-import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+
+import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
+import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
+import DirectionsRunIcon from "@material-ui/icons/DirectionsRun";
+import EventIcon from "@material-ui/icons/Event";
 import ShareIcon from "@material-ui/icons/Share";
 import StyleIcon from "@material-ui/icons/Style";
-import EventIcon from "@material-ui/icons/Event";
-import DirectionsRunIcon from "@material-ui/icons/DirectionsRun";
 import TimelineIcon from "@material-ui/icons/Timeline";
-import Divider from "@material-ui/core/Divider";
-import clsx from "clsx";
+
 import Logo, { LogoColor } from "../../generic/logo/Logo";
-import SideMenuItem from "./SideMenuItem";
 import styles from "./SideMenu.styles";
+import SideMenuItem from "./SideMenuItem";
 
 interface SideMenuProps {
   isOpen: boolean;

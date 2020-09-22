@@ -7,10 +7,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 
+import { BareTeam, TeamWithLastActivity } from "../../stack-shared-code/types";
 import { AnswerTeamInviteModalSteps } from "../../types/redux";
-import { BareTeam, TeamWithLastActivity } from "../../types/shared";
 import SimpleButton from "../generic/buttons/SimpleButton";
-import WaitingIndicator from "../generic/feedback/WaitingIndicator";
+import WaitingIndicator from "../generic/loaders/WaitingIndicator";
 import DownTransition from "../generic/transitions/DownTransition";
 import styles from "./AnswerTeamInviteModal.styles";
 import AcceptToJoinTeam from "./contents/AcceptToJoinTeam";

@@ -2,7 +2,7 @@ import React from "react";
 
 import { Typography } from "@material-ui/core";
 
-import { UserJoinRequest } from "../../../../../../types/shared";
+import { UserJoinRequest } from "../../../../../../stack-shared-code/types";
 import styles from "./JoinRequestToCurrentTeam.styles";
 
 interface JoinRequestToCurrentTeamProps {

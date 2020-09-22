@@ -18,8 +18,6 @@ const getTitle = (path: UserTeamStepScenario) => {
       return "Create a team";
     case UserTeamStepScenario.JoinTeam:
       return "Join a team";
-    case UserTeamStepScenario.JoinRequestSent:
-      return "Request sent!";
   }
 
   return "Let's get yourself a team";

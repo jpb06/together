@@ -9,8 +9,8 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import DeleteIcon from "@material-ui/icons/Delete";
 
+import { Feeling, Subject } from "../../../../../../stack-shared-code/types";
 import { DailyDeleteActionFeedback } from "../../../../../../types/redux";
-import { Feeling, Subject } from "../../../../../../types/shared";
 import PendingDeleteButton from "../../../../../generic/buttons/PendingDeleteButton";
 import UserAvatar from "../../../../../generic/user-avatar/UserAvatar";
 import DailyComment from "../DailyComment";
@@ -41,14 +41,14 @@ const DailyCommentItem: React.FC<DailyCommentItemProps> = ({
       : (item as Subject).description;
 
   return (
-    <ListItem divider={showDivider}>
+    <ListItem divider={showDivider} ContainerProps={{ "aria-label": itemText }}>
       <ListItemAvatar className={classes.avatarContainer}>
         <UserAvatar isBigAvatar={false} user={item.creator} />
       </ListItemAvatar>
       <ListItemText
         className={classes.breakWord}
         primary={
-          <React.Fragment>
+          <>
             <Typography
               component="span"
               variant="body2"
@@ -58,7 +58,7 @@ const DailyCommentItem: React.FC<DailyCommentItemProps> = ({
               {`${item.creator.firstName} ${item.creator.lastName}`}
             </Typography>
             <DailyComment type={type} underlyingType={item.type} />
-          </React.Fragment>
+          </>
         }
         secondary={itemText}
       />

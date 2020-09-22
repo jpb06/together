@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import LocalStorageKeys from "../logic/local.storage.keys";
 import { getDailyAction } from "../redux/actions";
 import { dailySelector } from "../redux/selectors";
-import { BareTeam, Daily } from "../types/shared";
+import { BareTeam, Daily } from "../stack-shared-code/types";
 import { useRootSelector } from "./use.root.selector";
 
 export const useDailyLoading = (): Daily | null => {

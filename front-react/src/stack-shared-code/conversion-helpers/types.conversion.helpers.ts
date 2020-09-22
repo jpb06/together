@@ -1,10 +1,10 @@
-import * as moment from "moment";
+import moment from "moment";
 
 import {
     BareTeam, Daily, InvitedUser, PersistedUser, Team, TeamInvite, TeamJoinRequest, TeamMember,
     TeamTimeLineEntry, TerseUser, TimeLineEntryKind, UserJoinRequest, UserTimeLineEntry
-} from "../../../front-react/src/types/shared";
-import { splittedDateToString } from "./dates";
+} from "../types";
+import { splittedDateToString } from "../util/date.util";
 
 export const teamToBareTeam = (team: Team): BareTeam => ({
   id: team.id,

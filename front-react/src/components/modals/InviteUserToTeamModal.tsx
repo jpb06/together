@@ -15,7 +15,7 @@ import { inviteUserToTeamAction } from "../../redux/actions";
 import { isAppBusyIn } from "../../redux/selectors";
 import { ReduxActionContext as Context } from "../../types/redux";
 import SimpleButton from "../generic/buttons/SimpleButton";
-import WaitingIndicator from "../generic/feedback/WaitingIndicator";
+import WaitingIndicator from "../generic/loaders/WaitingIndicator";
 import DownTransition from "../generic/transitions/DownTransition";
 import styles from "./InviteUserToTeamModal.styles";
 
@@ -48,8 +48,6 @@ const InviteUserToTeamModal: React.FC<InviteUserToTeamModalProps> = ({
     if (!isEmailValid) return;
 
     dispatch(inviteUserToTeamAction(teamId, email, Context.Modal));
-    onClose();
-
     setEmail("");
   };
 

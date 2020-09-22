@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import LocalStorageKeys from "../logic/local.storage.keys";
 import { getDailyAndTeamMembersAction } from "../redux/actions";
 import { dailySelector, teamMembersSelector } from "../redux/selectors";
-import { BareTeam, Daily, TeamMember } from "../types/shared";
+import { BareTeam, Daily, TeamMember } from "../stack-shared-code/types";
 import { useRootSelector } from "./use.root.selector";
 
 export const useDailyAndTeamMembersLoading = (): [

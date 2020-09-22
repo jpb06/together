@@ -1,11 +1,12 @@
-import { Application } from "express";
-import { Request, Response } from "express-serve-static-core";
+import { Application, Request } from "express";
 import { body } from "express-validator";
 
-import { TeamWithLastActivity } from "../../../../front-react/src/types/shared";
+import { TeamWithLastActivity } from "../../../../front-react/src/stack-shared-code/types";
+import { splittedDateToString } from "../../../../front-react/src/stack-shared-code/util/date.util";
 import { getDailies, getTeams } from "../../dbase/fetch.mock.db";
 import isAuthenticated from "../../middleware/is.authenticated";
-import { splittedDateToMoment, splittedDateToString } from "../../util/dates";
+import { ApiResponse } from "../../types/api.response.type";
+import { splittedDateToMoment } from "../../util/dates";
 
 const mapGetUserTeams = (server: Application) => {
   server.post(
@@ -15,7 +16,7 @@ const mapGetUserTeams = (server: Application) => {
       body("userId").isMongoId(),
       body("fetchLastActivity").customSanitizer((value) => <boolean>value),
     ],
-    (req: Request, res: Response) => {
+    (req: Request, res: ApiResponse) => {
       const userId: string = req.body.userId;
       const fetchLastActivity = <boolean>req.body.fetchLastActivity;
 

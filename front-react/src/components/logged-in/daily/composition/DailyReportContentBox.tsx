@@ -29,7 +29,11 @@ const DailyReportContentBox: React.FC<DailyReportContentBoxProps> = ({
     if (feedback.isValidated || !feedback.isPending) return "div";
 
     return () => (
-      <LinearProgress color="primary" className={clsx(classes.media)} />
+      <LinearProgress
+        aria-label="daily-loading"
+        color="primary"
+        className={clsx(classes.media)}
+      />
     );
   };
 

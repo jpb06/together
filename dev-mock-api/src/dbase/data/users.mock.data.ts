@@ -1,4 +1,4 @@
-import { PersistedUser } from "../../../../front-react/src/types/shared";
+import { PersistedUser } from "../../../../front-react/src/stack-shared-code/types";
 
 export const users: Array<PersistedUser> = [
   {
@@ -12,6 +12,10 @@ export const users: Array<PersistedUser> = [
       {
         id: "5d8b9a604ddbc1362cc540c8",
         name: "Whoog",
+      },
+      {
+        id: "5d8b9a604ddbc1362cc58064",
+        name: "The great one",
       },
     ],
     teamInvites: [

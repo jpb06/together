@@ -3,8 +3,10 @@ import { call, put } from "redux-saga/effects";
 import { apiCallTask, inviteUserToJoinTeamTask } from "../";
 import { ApiRoutes } from "../../../api/api.routes.enum";
 import TogetherApi from "../../../api/setup/together.api";
-import { ReduxActionContext as Context, ReduxActionType as Type } from "../../../types/redux";
-import { successPayloadAction } from "../../actions";
+import {
+    ReduxActionContext as Context, ReduxActionType as Type, SnackbarKind
+} from "../../../types/redux";
+import { showSnackbarAction, successPayloadAction } from "../../actions";
 
 const performTest = (context: Context) => {
   const params = { teamId: "23", email: "yolo@bro.com" };
@@ -22,7 +24,20 @@ const performTest = (context: Context) => {
     email: "mcbro.yolo@cool.org",
   };
   expect(task.next(user as any).value).toEqual(
-    put(successPayloadAction(Type.InviteUserToTeam, context, user))
+    put(
+      successPayloadAction(Type.InviteUserToTeam, context, {
+        teamId: "23",
+        user,
+      })
+    )
+  );
+  expect(task.next().value).toEqual(
+    put(
+      showSnackbarAction(
+        `${user.firstName} ${user.lastName} has been invited to join your team.`,
+        SnackbarKind.Success
+      )
+    )
   );
 
   expect(task.next().done).toBe(true);
